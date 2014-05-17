@@ -6,9 +6,10 @@
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
 </head>
 <body>
-<script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/build//three.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/controls/TrackballControls.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
+<script src="ObjectLoader.js"></script>
 <script>
 	var info, stats, renderer, scene, camera, controls;
 
@@ -34,15 +35,6 @@
 //	var mnu = 
 //	var select = document.detElementById('selItem');
 
-	var arr = [ ['../json/aeron/hey-ron.js','../json/aeron/hey-ron.js'],['../json/noguchi/no-gucci.js','../json/noguchi/no-gucci.js'],['../json/lounge/scrounge.js','../json/lounge/scrounge.js'],['../json/HMI_Stool_One_3ds_3D/tool-won.js','../json/HMI_Stool_One_3ds_3D/tool-won.js'],['../json/lounge/scrounge.js','../json/lounge/scrounge.js'] ] ;
-	
-	for (var i = 0; i < arr.length; i++) {
-			selJS.appendChild( document.createElement( 'option' ) );
-			selJS.children[ i ].text = arr[i][0];
-			selJS.children[ i ].title = arr[i][1];
-	}
-
-	selJS.selectedIndex = 0;
 
 		stats = new Stats();
 		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; zIndex: 100; ';
@@ -80,23 +72,26 @@
 
 
 
-		loadJS( '../json/lounge/scrounge.js' );
+		loadJS( './sample.json' );
 
 	}
 
 	function loadJS ( fname ) {
 		if ( obj ) scene.remove( obj );
 		obj = new THREE.Object3D();
-		loader = new THREE.JSONLoader();
-		loader.load( fname, function ( geometry, materials) {
-			mesh = new THREE.Mesh( geometry,  new THREE.MeshFaceMaterial( materials ) );
-			for (var i = 0, len = materials.length; i < len; i++) {
-				materials[i].side = 2;
-			} 
-		mesh.position.set( -3, 0, 0 );
-			mesh.scale.set( 20, 20, 20 );
-			obj.add( mesh );
-		} );
+		loader = new THREE.ObjectLoader();
+        loader.load(fname, function(obj){
+            scene.add(obj);
+        });
+		//loader.load( fname, function ( geometry, materials) {
+		//	mesh = new THREE.Mesh( geometry,  new THREE.MeshFaceMaterial( materials ) );
+		//	for (var i = 0, len = materials.length; i < len; i++) {
+		//		materials[i].side = 2;
+		//	}
+		//mesh.position.set( -3, 0, 0 );
+		//	mesh.scale.set( 20, 20, 20 );
+		//	obj.add( mesh );
+		//} );
 		scene.add( obj );
 	}
 
