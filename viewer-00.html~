@@ -34,8 +34,7 @@
 //	var mnu = 
 //	var select = document.detElementById('selItem');
 
-	var arr = [ ['../json/aeron/hey-ron.js','../json/aeron/hey-ron.js'],['../json/noguchi/no-gucci.js','../json/noguchi/no-gucci.js'],['../json/lounge/scrounge.js','../json/lounge/scrounge.js'],['../json/HMI_Stool_One_3ds_3D/tool-won.js','../json/HMI_Stool_One_3ds_3D/tool-won.js'],['../json/lounge/scrounge.js','../json/lounge/scrounge.js'] ] ;
-	
+	var arr = [ ['../json/lounge/scrounge.js' ,'aaa'],['../json/noguchi/no-gucci.js','bbb'],[789,'ccc'],[012,'ddd'],[345,'eee'] ] ;
 	for (var i = 0; i < arr.length; i++) {
 			selJS.appendChild( document.createElement( 'option' ) );
 			selJS.children[ i ].text = arr[i][0];
