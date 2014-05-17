@@ -12,6 +12,8 @@
 <script>
 	var info, stats, renderer, scene, camera, controls;
 
+	var obj;
+
 	init();
 	animate();
 
@@ -24,7 +26,7 @@
 
 		info.style.cssText = 'left: 20px; position: absolute; top: 0px; width: 100% ';
 		info.innerHTML = '<h1>' + document.title + '<h1>' +
-			'<select id=selJS onchange="doSelect( this.selectedIndex, this.value );" ></select>';
+			'<select id=selJS onchange="loadJS( this.value );" ></select>';
 			'<div id=msg></div>';
 
 //	var select = document.body.appendChild( document.createElement( 'select' ) );
@@ -32,14 +34,14 @@
 //	var mnu = 
 //	var select = document.detElementById('selItem');
 
-	var arr = [ [123,'aaa'],[456,'bbb'],[789,'ccc'],[012,'ddd'],[345,'eee'] ] ;
+	var arr = [ ['../json/lounge/scrounge.js' ,'aaa'],['../json/noguchi/no-gucci.js','bbb'],[789,'ccc'],[012,'ddd'],[345,'eee'] ] ;
 	for (var i = 0; i < arr.length; i++) {
 			selJS.appendChild( document.createElement( 'option' ) );
 			selJS.children[ i ].text = arr[i][0];
 			selJS.children[ i ].title = arr[i][1];
 	}
 
-	selJS.selectedIndex = 3;
+	selJS.selectedIndex = 0;
 
 		stats = new Stats();
 		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; zIndex: 100; ';
@@ -77,18 +79,26 @@
 
 
 
+		loadJS( '../json/lounge/scrounge.js' );
+
+	}
+
+	function loadJS ( fname ) {
+		if ( obj ) scene.remove( obj );
+		obj = new THREE.Object3D();
 		loader = new THREE.JSONLoader();
-		loader.load( '../json/lounge/scrounge.js', function ( geometry, materials) {
+		loader.load( fname, function ( geometry, materials) {
 			mesh = new THREE.Mesh( geometry,  new THREE.MeshFaceMaterial( materials ) );
 			for (var i = 0, len = materials.length; i < len; i++) {
 				materials[i].side = 2;
 			} 
 		mesh.position.set( -3, 0, 0 );
 			mesh.scale.set( 20, 20, 20 );
-			scene.add( mesh );
+			obj.add( mesh );
 		} );
-
+		scene.add( obj );
 	}
+
 
 	function animate() {
 		requestAnimationFrame( animate );
