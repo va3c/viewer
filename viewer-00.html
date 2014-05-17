@@ -24,7 +24,22 @@
 
 		info.style.cssText = 'left: 20px; position: absolute; top: 0px; width: 100% ';
 		info.innerHTML = '<h1>' + document.title + '<h1>' +
+			'<select id=selJS onchange="doSelect( this.selectedIndex, this.value );" ></select>';
 			'<div id=msg></div>';
+
+//	var select = document.body.appendChild( document.createElement( 'select' ) );
+
+//	var mnu = 
+//	var select = document.detElementById('selItem');
+
+	var arr = [ [123,'aaa'],[456,'bbb'],[789,'ccc'],[012,'ddd'],[345,'eee'] ] ;
+	for (var i = 0; i < arr.length; i++) {
+			selJS.appendChild( document.createElement( 'option' ) );
+			selJS.children[ i ].text = arr[i][0];
+			selJS.children[ i ].title = arr[i][1];
+	}
+
+	selJS.selectedIndex = 3;
 
 		stats = new Stats();
 		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; zIndex: 100; ';
@@ -38,6 +53,13 @@
 		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
 		camera.position.set( 10, 10, 10 );
 		controls = new THREE.TrackballControls( camera, renderer.domElement );
+
+		scene.add(new THREE.AmbientLight(0x444444));
+
+		// light
+		var light = new THREE.PointLight( 0xffffff, 1 );
+		light.position = camera.position;
+		scene.add( light );
 
 // axes
 		function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
@@ -62,7 +84,7 @@
 				materials[i].side = 2;
 			} 
 		mesh.position.set( -3, 0, 0 );
-			mesh.scale.set( 10, 10, 10 );
+			mesh.scale.set( 20, 20, 20 );
 			scene.add( mesh );
 		} );
 
