@@ -13,7 +13,7 @@
                     "position": {
                         "itemSize": 3,
                         "type": "Float32Array",
-                        "array": [50,50,50]
+                        "array": [0,0,0]
 },
 "normal": {
 "itemSize": 3,
@@ -28,10 +28,21 @@
 },
 "boundingSphere": {
 "center": [0,0,0],
-"radius": 86.60254037844386
+"radius": 10
 }
 }
-}
+},
+        {
+            "uuid": "C3BF1E70-0BE7-4E6D-B184-C9F1E84A3429",
+            "type": "Geometry",
+            "data" : {
+                "vertices": [0,0,0, 10,10,10, 10,10,0],
+                "normals": [],
+                "uvs": [],
+                "faces": [0,0,1,2],
+                "scale": 1
+            }
+        }
 ],
 "materials": [
 {
@@ -59,6 +70,14 @@
 "geometry": "C3BF1E70-0BE7-4E6D-B184-C9F1E84A3423",
 "material": "87D95D6C-6BB4-4B8F-8166-A3A6945BA5E3",
 "matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
+},
+{
+    "uuid": "33FA38D9-0AAC-4657-9BBE-5E5780DDFB23",
+    "name": "Face 1",
+    "type": "Mesh",
+    "geometry": "C3BF1E70-0BE7-4E6D-B184-C9F1E84A3429",
+    "material": "87D95D6C-6BB4-4B8F-8166-A3A6945BA5E3",
+    "matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
 },
 {
 "uuid": "16F2E381-2B73-44C4-A7BB-38D7E1CD2381",
