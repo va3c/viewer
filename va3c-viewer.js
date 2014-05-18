@@ -202,17 +202,45 @@
          //console.log(intersects[0].object.userData);
 
          var j =0;
+         var found = false;
          while(j<intersects.length){
              if(!$.isEmptyObject(intersects[j].object.userData)){
-                 console.log(intersects[j].object.userData);
+                 //console.log(intersects[j].object.userData);
+                 populateProperties(intersects[j].object.userData);
+                 found = true;
                  break;
              }
              if(!$.isEmptyObject(intersects[j].object.parent.userData)){
-                 console.log(intersects[j].object.parent.userData);
+                 //console.log(intersects[j].object.parent.userData);
+                 populateProperties(intersects[j].object.parent.userData);
+                 found = true;
                  break;
              }
              j++;
          }
+         if(!found){
+             clearProperties();
+         }
 
         }
+        else{
+            clearProperties();
+        }
+    }
+
+    function populateProperties(userData){
+
+        //get the props div, and clear any elements in there
+        clearProperties();
+
+        //loop over the userData object, and add all key val pairs as new elements
+        for(var i=0; i<userData.length; i++){
+            var s = JSON.stringify(userData[i]);
+            $('#properties').append(s);
+        }
+
+    }
+
+    function clearProperties(){
+        $('#properties').empty();
     }
