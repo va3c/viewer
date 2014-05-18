@@ -2,7 +2,9 @@
 //	info, stats, renderer, scene, camera, controls;
 
 	var obj;
-	VA3C.fname = '../json/twoMobius.json';
+//	VA3C.fname = '../json/twoMobius.json';
+//	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
+VA3C.fname = '../RvtVa3c/models/Project1.rvt.js';
 
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
@@ -30,8 +32,8 @@
 		document.body.appendChild( VA3C.renderer.domElement );
 		VA3C.scene = new THREE.Scene();
 
-		VA3C.camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
-		VA3C.camera.position.set( 10, 10, 10 );
+		VA3C.camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100000 );
+		VA3C.camera.position.set( 10000, 10000, 10000 );
 		VA3C.controls = new THREE.TrackballControls( VA3C.camera, VA3C.renderer.domElement );
 
 
@@ -60,20 +62,20 @@
 
             light = new THREE.DirectionalLight( 0xffffff, 1 );
 
-            var pos = convertPosition(  43, -75, 500 );
+            var pos = convertPosition(  43, -75, 10000 );
 
             light.position = pos;
             light.castShadow = true;
             light.shadowMapWidth = 2048;
             light.shadowMapHeight = 2048;
-            var d = 100;
+            var d = 10000;
             light.shadowCameraLeft = -d;
             light.shadowCameraRight = d;
             light.shadowCameraTop = d * 2;
             light.shadowCameraBottom = -d * 2;
 
-            light.shadowCameraNear = 100;
-            light.shadowCameraFar = 600;
+            light.shadowCameraNear = 1000;
+            light.shadowCameraFar = 20000;
             light.shadowCameraVisible = true;
             VA3C.scene.add( light );
 
@@ -84,10 +86,11 @@
             VA3C.scene.add( new THREE.ArrowHelper( v(0, 0, 1), v(0, 0, 0), 30, 0x0000cc) );
 
 // ground box
-            geometry = new THREE.BoxGeometry( 200, 1, 100 );
+            geometry = new THREE.BoxGeometry( 20000, 100, 20000 );
             material = new THREE.MeshBasicMaterial( { color: 0xaaaaaa } );
             mesh = new THREE.Mesh( geometry, material );
             mesh.position.set( 0, -10, 0 );
+
             mesh.castShadow = true;
             mesh.receiveShadow = true;
             VA3C.scene.add( mesh );
@@ -114,9 +117,11 @@
     function computeNormalsAndFaces()
     {
         for(var i=0; i<VA3C.scene.children.length; i++){
-            if(VA3C.scene.children[i].hasOwnProperty("geometry")){
+
+            if( VA3C.scene.children[i].hasOwnProperty("geometry")){
                 VA3C.scene.children[i].geometry.mergeVertices();
                 VA3C.scene.children[i].castShadow = true;
+//				VA3C.scene.children[i].scale.set(0.01, 0.01, 0.01 );
  //               VA3C.scene.children[i].geometry.computeCentroids();
                 VA3C.scene.children[i].geometry.computeFaceNormals();
             }
