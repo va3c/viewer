@@ -47,31 +47,7 @@
             VA3C.scene = obj;
 
             VA3C.scene.add(new THREE.AmbientLight(0x444444));
-/*
-// light
 
-            light = new THREE.DirectionalLight( 0xffffff, 1 );
-
-			var latlon = sunPosition( 2014, 5, 18, 22, 30, 00, 42, -75 );
-			console.log ( latlon );
-			var pos = convertPosition(  latlon[0], latlon[1], 10000 );
-		// var pos = convertPosition(  43, -75, 10000 );
-
-            light.position = pos;
-            light.castShadow = true;
-            light.shadowMapWidth = 2048;
-            light.shadowMapHeight = 2048;
-            var d = 10000;
-            light.shadowCameraLeft = -d;
-            light.shadowCameraRight = d;
-            light.shadowCameraTop = d * 2;
-            light.shadowCameraBottom = -d * 2;
-
-            light.shadowCameraNear = 1000;
-            light.shadowCameraFar = 20000;
-            light.shadowCameraVisible = true;
-            VA3C.scene.add( light );
-*/
 
 			updateLight( 2014, 5, 18, 22, 30, 00, 42, -75 )
 // axes
@@ -81,7 +57,6 @@
             VA3C.scene.add( new THREE.ArrowHelper( v(0, 0, 1), v(0, 0, 0), 30, 0x0000cc) );
 
 // ground box
-
 
             geometry = new THREE.BoxGeometry( 20000, 100, 20000 );
             material = new THREE.MeshBasicMaterial( { color: 0xaaaaaa } );
