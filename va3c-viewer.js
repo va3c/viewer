@@ -48,18 +48,18 @@
 		//loadJS( VA3C.fname );
 	}
     
-    function loadDAE (fname) {
-    	var dae, skin;
-    	var loader = new THREE.ColladaLoader();
-			loader.options.convertUpAxis = true;
-			loader.load( fname, function ( collada ) {
-        		dae = collada.scene;
-        		skin = collada.skins[ 0 ];
+//     function loadDAE (fname) {
+//     	var dae, skin;
+//     	var loader = new THREE.ColladaLoader();
+// 			loader.options.convertUpAxis = true;
+// 			loader.load( fname, function ( collada ) {
+//         		dae = collada.scene;
+//         		skin = collada.skins[ 0 ];
         
-        		dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
-        		dae.updateMatrix();
-        	});
-    }
+//         		dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
+//         		dae.updateMatrix();
+//         	});
+//     }
 			
 	function loadJS (fname) {
 		//if ( obj ) VA3C.scene.remove( obj );
