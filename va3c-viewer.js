@@ -185,7 +185,10 @@
         if ( intersects.length > 0 ) {
 
          //   intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
-         console.log(intersects);
+         console.log(intersects[0].object.userData);
+
+
+
 
         }
     }
