@@ -90,12 +90,12 @@
   <body>
     
     <div class="navmenu navmenu-default navmenu-fixed-right offcanvas">
-      <a class="navmenu-brand" href="#">va3c Viewer</a>
+      <a class="navmenu-brand" href="../index.html">va3c Viewer</a>
       <ul class="nav navmenu-nav">
         <li style="padding-top:25px;padding-left:13px;"><b>EXAMPLES</b></li>
-        <li><a onclick="loadJS('../json/Project2.rvt.js')">Revit Simple</a></li>
+        <li><a onclick="loadJS('../json/revit/Project2.rvt.js')">Revit Simple</a></li>
          <li><a onclick="loadJS('../json/revit/rac_basic_sample_project.rvt.js')">Revit Complex</a></li>
-        <li><a onclick="loadJS('../json/MissSpaceyEyes.json')">Grasshopper</a></li>
+        <li><a onclick="loadJS('../json/TypTower.json')">Grasshopper</a></li>
         <li><a onclick="loadJS('../json/3dsmax/TransamericaPyramid2.js')">3DS Max</a></li>
         <li><a onclick="loadJS('../json/US_Capitol_Building.dae')">Sketchup</a></li>
         <li style="padding-top:25px;padding-left:13px;"><b>CITY</b></li>
@@ -115,8 +115,8 @@
        <li style="padding-top:7px;">Hour 0-24<input type="range" name="points" id="hour" min="1" max="24" step="1" value="24" onchange="updateLight()"></li>
        </div>
        <li style="padding-top:25px;padding-left:13px;"><b>CAMERA</b></li>
-        <li><a onclick="loadJS('../json/Project2.rvt.js')">Reset View</a></li>
-        <li><a onclick="loadJS('../json/Hex_01.js')">Zoom Extents</a></li>
+        <li><a onclick="resetCamera()">Reset View</a></li>
+        <li><a onclick="zoomExtents()">Zoom Extents</a></li>
       </ul>
     </div>
 
