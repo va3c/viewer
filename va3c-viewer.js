@@ -284,7 +284,7 @@
 		msg.innerHTML = '';
 		var arr = Object.keys( obj );
 		for (var i = 0, len = arr.length; i < len; i++) {
-		    if !(obj[arr[i]] == undefined) {
+		    if (obj[arr[i]] != undefined) {
 			msg.innerHTML += arr[i] + ': ' + obj[ arr[i] ] + '<br>';
 		    }
 		}
