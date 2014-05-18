@@ -333,3 +333,4 @@ displayAttributes( intersects[j].object.parent.userData );
         } else {
 			msg.innerHTML = '';
 		}
+	}
