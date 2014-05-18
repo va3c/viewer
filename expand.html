@@ -17,6 +17,8 @@
     <style>
       html, body {
           height: 100%;
+          margin:0;
+          overflow:hidden;
         }
         
         .navbar-toggle {
@@ -52,6 +54,8 @@
         @media (min-width: 2000px) {
           body {
             padding: 0;
+             margin:0;
+            overflow:hidden;
           }
           .navbar {
             right: auto;
@@ -106,15 +110,20 @@
         <li style="padding-top:20px;padding-left:13px;"><b>TIME</b></li>
             <script>window.onload = function() {
               var gui = new dat.GUI();
-              gui.add(text, 'month', 1, 12);
-              gui.add(text, 'day', 1, 31);
-              gui.add(text, 'hour', 0, 24);
-              var time = document.getElementById('time');
+                var timeJSON = {
+                	month: 5,
+                	day: 18,
+                	hour: 12
+                };
+                
+                gui.add(timeJSON, "month").min(1).max(12).step(1);
+                gui.add(timeJSON, "day").min(1).max(31).step(1);
+                gui.add(timeJSON, "hour").min(0).max(24).step(1);
+              var time = document.getElementById('#time');
               time.appendChild(gui.domElement);
             };</script>
         </li>
-        <li><a href="">Day</a></li>
-        <li><a href="">Hour</a></li>
+        <div class="#time"></div>
         <li style="padding-top:20px;padding-left:13px;"><b>CAMERA</b></li>
         <li><a href="">Trackball</a></li>
         <li><a href="">1st-Person</a></li>
