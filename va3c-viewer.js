@@ -23,7 +23,7 @@ VA3C.fname = '../RvtVa3c/models/Project1.rvt.js';
 			'<div id=msg></div>';
 
 		VA3C.stats = new Stats();
-		VA3C.stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; zIndex: 100; ';
+		VA3C.stats.domElement.style.cssText = 'bottom: 0; position: absolute; left: 0; zIndex: 100; ';
 		document.body.appendChild( VA3C.stats.domElement );
 
 		VA3C.renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
@@ -33,10 +33,8 @@ VA3C.fname = '../RvtVa3c/models/Project1.rvt.js';
 		VA3C.scene = new THREE.Scene();
 
 		VA3C.camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100000 );
-		VA3C.camera.position.set( 10000, 10000, 10000 );
+		VA3C.camera.position.set( 15000, 15000, 15000 );
 		VA3C.controls = new THREE.TrackballControls( VA3C.camera, VA3C.renderer.domElement );
-
-
 
 		loadJS( VA3C.fname );
 	}
@@ -46,23 +44,18 @@ VA3C.fname = '../RvtVa3c/models/Project1.rvt.js';
 		obj = new THREE.Object3D();
 		var loader = new THREE.ObjectLoader();
         loader.load(fname, function(obj){
-			//obj.scale.set( 5, 5, 5 );
-			//obj.castShadow = true;
-			//obj.receiveShadow = true;
             VA3C.scene = obj;
 
             VA3C.scene.add(new THREE.AmbientLight(0x444444));
 
 // light
-            /*
-             var light = new THREE.PointLight( 0xffffff, 1 );
-             light.position = VA3C.camera.position;
-             VA3C.scene.add( light );
-             */
 
             light = new THREE.DirectionalLight( 0xffffff, 1 );
 
-            var pos = convertPosition(  43, -75, 10000 );
+var latlon = sunPosition( 2014, 5, 18, 22, 30, 00, 42, -75 );
+console.log ( latlon );
+		var pos = convertPosition(  latlon[0], latlon[1], 500 );
+		// var pos = convertPosition(  43, -75, 10000 );
 
             light.position = pos;
             light.castShadow = true;
