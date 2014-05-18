@@ -16,7 +16,7 @@
 	var projector;
 	var targetList = [];
 
-	function init() {
+	function init(fname) {
 		var geometry, material, mesh;
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
@@ -44,10 +44,24 @@
 		projector = new THREE.Projector();
 		document.addEventListener( 'click', clickHandler, false );
 
-		loadJS( VA3C.fname );
+		loadJS( fname );
+		//loadJS( VA3C.fname );
 	}
-
-	function loadJS ( fname ) {
+    
+//     function loadDAE (fname) {
+//     	var dae, skin;
+//     	var loader = new THREE.ColladaLoader();
+// 			loader.options.convertUpAxis = true;
+// 			loader.load( fname, function ( collada ) {
+//         		dae = collada.scene;
+//         		skin = collada.skins[ 0 ];
+        
+//         		dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
+//         		dae.updateMatrix();
+//         	});
+//     }
+			
+	function loadJS (fname) {
 		//if ( obj ) VA3C.scene.remove( obj );
 		// obj = new THREE.Object3D();
 		var loader = new THREE.ObjectLoader();
@@ -302,8 +316,10 @@
          //console.log(intersects[0].object.userData);
 
          var j =0;
+         var found = false;
          while(j<intersects.length){
              if(!$.isEmptyObject(intersects[j].object.userData)){
+<<<<<<< HEAD
                  console.log(intersects[j].object.userData);
 displayAttributes( intersects[j].object.userData );
                  break;
@@ -311,12 +327,50 @@ displayAttributes( intersects[j].object.userData );
              if(!$.isEmptyObject(intersects[j].object.parent.userData)){
                  console.log(intersects[j].object.parent.userData);
 displayAttributes( intersects[j].object.parent.userData );
+=======
+                 //console.log(intersects[j].object.userData);
+                 populateProperties(intersects[j].object.userData);
+                 found = true;
+                 break;
+             }
+             if(!$.isEmptyObject(intersects[j].object.parent.userData)){
+                 //console.log(intersects[j].object.parent.userData);
+                 populateProperties(intersects[j].object.parent.userData);
+                 found = true;
+>>>>>>> 1d640a6542d98a55b2931db74dd878af0a08e6cb
                  break;
              }
              j++;
          }
+         if(!found){
+             clearProperties();
+         }
 
+<<<<<<< HEAD
         } else {
 			msg.innerHTML = '';
 		}
+=======
+        }
+        else{
+            clearProperties();
+        }
+    }
+
+    function populateProperties(userData){
+
+        //get the props div, and clear any elements in there
+        clearProperties();
+
+        //loop over the userData object, and add all key val pairs as new elements
+        //for(var i=0; i<userData.length; i++){
+            var s = JSON.stringify(userData);
+            $('#properties').append(s);
+        //}
+
+    }
+
+    function clearProperties(){
+        $('#properties').empty();
+>>>>>>> 1d640a6542d98a55b2931db74dd878af0a08e6cb
     }
