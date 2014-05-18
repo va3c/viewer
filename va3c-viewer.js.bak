@@ -11,6 +11,7 @@
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
 
+var projector = new THREE.Projector();
     var targetList = [];
     var geometry, material, mesh;
 
@@ -187,3 +188,4 @@
             VA3C.scene.add( particle );
 
         }
+      }

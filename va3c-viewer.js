@@ -13,6 +13,7 @@
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
 
+	var projector;
     var targetList = [];
     var geometry, material, mesh;
 
@@ -41,7 +42,8 @@
 		VA3C.camera.position.set( 15000, 15000, 15000 );
 		VA3C.controls = new THREE.OrbitControls( VA3C.camera, VA3C.renderer.domElement );
 
-        document.addEventListener( 'mousedown', clickHandler, false );
+		projector = new THREE.Projector();
+    document.addEventListener( 'mousedown', clickHandler, false );
 
 		loadJS( VA3C.fname );
 	}
