@@ -58,7 +58,26 @@
 		scene.add( mesh );
 
 
-loadJS ( './scene.Monkey.js' );
+    //loadJS ( './scene.Monkey.js' );
+
+    // Grab whatever is needed from
+    // http://stemkoski.github.io/Three.js/Textures.html
+    // and then:
+
+    // create an array with six textures for a cool cube
+    var materialArray = [];
+    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Dice-Blue-1.png' ) }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Dice-Blue-6.png' ) }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Dice-Blue-2.png' ) }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Dice-Blue-5.png' ) }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Dice-Blue-3.png' ) }));
+    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Dice-Blue-4.png' ) }));
+    var DiceBlueMaterial = new THREE.MeshFaceMaterial(materialArray);
+
+    var DiceBlueGeom = new THREE.CubeGeometry( 85, 85, 85, 1, 1, 1 );
+    var DiceBlue = new THREE.Mesh( DiceBlueGeom, DiceBlueMaterial );
+    DiceBlue.position.set(60, 50, -100);
+    scene.add( DiceBlue );
 
 
 	}

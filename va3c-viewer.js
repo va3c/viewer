@@ -1,7 +1,9 @@
 	var VA3C = {};
-//	info, stats, renderer, scene, camera, controls;
+	var info, stats, renderer, scene, camera, controls;
 
-	var obj;
+	var obj, controls;
+	var clock = new THREE.Clock();
+
 //	VA3C.fname = '../json/twoMobius.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
 	VA3C.fname = '../json/Project2.rvt.js';
@@ -10,6 +12,8 @@
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
 
+
+//     <script src=first-person-controls-theo.js ></script>
 
 	function init() {
 		var geometry, material, mesh;
@@ -33,11 +37,20 @@
 		document.body.appendChild( VA3C.renderer.domElement );
 		VA3C.scene = new THREE.Scene();
 
-		VA3C.camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100000 );
-		VA3C.camera.position.set( 15000, 15000, 15000 );
-		VA3C.controls = new THREE.TrackballControls( VA3C.camera, VA3C.renderer.domElement );
+//		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100000 );
+
+			    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000000);
+
+		// camera.position.set( 15000, 15000, 15000 );
+		//VA3C.controls = new THREE.TrackballControls( VA3C.camera, VA3C.renderer.domElement );
+		// VA3C.controls = new THREE.TrackballControls( VA3C.camera, VA3C.renderer.domElement );
+				controls = new THREE.FirstPersonControls( camera );
+				controls.movementSpeed = 100;
+				controls.lookSpeed = 0.1;
 
 		loadJS( VA3C.fname );
+
+
 	}
 
 	function loadJS ( fname ) {
@@ -150,6 +163,12 @@
 	}
 
 	function getFirstPersonController() {
+
+				controls = new THREE.FirstPersonControls( camera );
+				controls.movementSpeed = 100;
+				controls.lookSpeed = 0.1;
+
+/*
 		VA3C.camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
 		VA3C.camera.position.set( 1000, 1000, 1000 );
 //		camera.position.set( 8, 25, -8 );
@@ -176,12 +195,15 @@
 		VA3C.controls.verticalMax = 2.0;
 		this.autoSpeedFactor = 0.0;
 		VA3C.controls.lon = -40;
+
+*/
+
 	}
 
 	function animate() {
 		requestAnimationFrame( animate );
-		VA3C.renderer.render( VA3C.scene, VA3C.camera );
-		VA3C.controls.update();
+		VA3C.renderer.render( VA3C.scene, camera );
+		controls.update( clock.getDelta()  );
 		VA3C.stats.update();
 	}
 
