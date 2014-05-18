@@ -189,3 +189,4 @@
             VA3C.scene.add( particle );
 
         }
+    }
