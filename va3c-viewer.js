@@ -91,6 +91,9 @@
             mesh.castShadow = true;
             mesh.receiveShadow = true;
             VA3C.scene.add( mesh );
+
+            //call compute function
+            computeNormalsAndFaces();
         });
 	}
 
@@ -107,3 +110,14 @@
 		VA3C.controls.update();
 		VA3C.stats.update();
 	}
+
+    function computeNormalsAndFaces()
+    {
+        for(var i=0; i<VA3C.scene.children.length; i++){
+            if(VA3C.scene.children[i].hasOwnProperty("Geometry")){
+                VA3C.scene.children[i].Geometry.mergeVertices();
+                VA3C.scene.children[i].Geometry.computeCentroids();
+                VA3C.scene.children[i].Geometry.computeFaceNormals();
+            }
+        }
+    }
