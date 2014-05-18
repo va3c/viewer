@@ -23,7 +23,7 @@
     today = new Date(year, month, day, hour, minutes, sec, 0);
 	var jd = today.getJulian(); //get Julian counterpart 
     time = jd - 51545;
-    console.log(jd);
+//    console.log(jd);
 
     // Ecliptic coordinates
 
@@ -111,4 +111,4 @@
 }
 
 //sunPosition(2012, 06, 23);
-console.log(sunPosition(2012, 06, 23));
+// console.log(sunPosition(2012, 06, 23));

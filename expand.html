@@ -12,7 +12,7 @@
     <script src=https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.js></script>
     <script src=sun-position.js ></script>
     <script src=va3c-viewer.js ></script>
-    <script src=https://mrdoob.github.io/three.js/examples/js/controls/FirstPersonControls.js ></script>
+    <script src=https://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
 
     <style>
       html, body {
@@ -94,12 +94,12 @@
       <ul class="nav navmenu-nav">
         <li style="padding-top:25px;padding-left:13px;"><b>EXAMPLES</b></li>
         <li><a onclick="loadJS('../json/Project2.rvt.js')">Revit</a></li>
-        <li><a onclick="loadJS('../json/Hex_01.js')">Grasshopper</a></li>
+        <li><a onclick="loadJS('../json/DrMajentaKlein.json')">Grasshopper</a></li>
         <li><a onclick="loadJS('../json/3dsmax/TransamericaPyramid2.js')">3DS Max</a></li>
         <li><a onclick="loadJS('../json/US_Capitol_Building.dae')">Sketchup</a></li>
         <li style="padding-top:25px;padding-left:13px;"><b>CITY</b></li>
         <li>
-            <select class="styled-select" onchange="getComboA(this)">
+            <select class="styled-select" onchange="getComboA(this);">
 			  <option value="New York">New York</option>
 			  <option value="Sao Paulo">Sao Paulo</option>
 			  <option value="Paris">Paris</option>
