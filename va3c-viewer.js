@@ -42,8 +42,8 @@
 		VA3C.camera.position.set( 15000, 15000, 15000 );
 		VA3C.controls = new THREE.OrbitControls( VA3C.camera, VA3C.renderer.domElement );
 
-//		projector = new THREE.Projector();
-//    document.addEventListener( 'mousedown', clickHandler, false );
+		projector = new THREE.Projector();
+    document.addEventListener( 'mousedown', clickHandler, false );
 
 		loadJS( VA3C.fname );
 	}
@@ -170,6 +170,7 @@
 	}
 
     function clickHandler(event){
+console.log( event );
         event.preventDefault();
 
         var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
@@ -183,7 +184,7 @@
 
         if ( intersects.length > 0 ) {
 
-            intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
+         //   intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
 
 
         }
