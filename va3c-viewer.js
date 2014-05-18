@@ -8,7 +8,7 @@
 //	VA3C.fname = '../json/twoMobius.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
 //	VA3C.fname = '../json/Project2.rvt.js';
-	VA3C.fname = '../json/Hex_01.js';
+	VA3C.fname = '../json/revit/rac_basic_sample_project.rvt.js';
 
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
@@ -191,7 +191,20 @@ console.log(123 );
         if ( intersects.length > 0 ) {
 
          //   intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
+<<<<<<< HEAD
          console.log(intersects[0].object.userData);
+=======
+         //console.log(intersects[0].object.userData);
+
+         var j =0;
+         while(j<intersects.length){
+             if(!$.isEmptyObject(intersects[j].object.userData)){
+                 console.log(intersects[j].object.userData);
+                 break;
+             }
+             j++;
+         }
+>>>>>>> 2722382e01aaafb76ec32921f20e111b6ddc256a
 
         }
     }
