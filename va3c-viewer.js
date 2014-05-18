@@ -42,8 +42,8 @@
 		VA3C.camera.position.set( 15000, 15000, 15000 );
 		VA3C.controls = new THREE.OrbitControls( VA3C.camera, VA3C.renderer.domElement );
 
-		projector = new THREE.Projector();
-    document.addEventListener( 'mousedown', clickHandler, false );
+//		projector = new THREE.Projector();
+//    document.addEventListener( 'mousedown', clickHandler, false );
 
 		loadJS( VA3C.fname );
 	}
