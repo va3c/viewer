@@ -198,9 +198,7 @@ console.log(123 );
         if ( intersects.length > 0 ) {
 
          //   intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
-<<<<<<< HEAD
-         console.log(intersects[0].object.userData);
-=======
+
          //console.log(intersects[0].object.userData);
 
          var j =0;
@@ -211,7 +209,6 @@ console.log(123 );
              }
              j++;
          }
->>>>>>> 2722382e01aaafb76ec32921f20e111b6ddc256a
 
         }
     }
