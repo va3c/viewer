@@ -3,7 +3,7 @@
 
 	var obj, light;
 	
-	var latlon;
+	var latlon, latlong;
 	
 //	VA3C.fname = '../json/twoMobius.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
