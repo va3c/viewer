@@ -2,7 +2,7 @@
 //	info, stats, renderer, scene, camera, controls;
 
 	var obj;
-	VA3C.fname = '../json/test.js';
+	VA3C.fname = '../json/twoMobius.json';
 
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
@@ -45,7 +45,7 @@
 
  		light = new THREE.DirectionalLight( 0xffffff, 1 );
 
-		var pos = convertPosition(  -23, -46, 500 );
+		var pos = convertPosition(  43, -75, 500 );
 
 		light.position = pos;
 		light.castShadow = true;
