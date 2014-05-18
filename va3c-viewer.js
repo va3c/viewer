@@ -4,7 +4,7 @@
 	var obj;
 //	VA3C.fname = '../json/twoMobius.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
-	VA3C.fname = '../RvtVa3c/models/Project1.rvt.js';
+	VA3C.fname = '../json/Project2.rvt.js';
 
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
@@ -52,9 +52,9 @@
 
             light = new THREE.DirectionalLight( 0xffffff, 1 );
 
-var latlon = sunPosition( 2014, 5, 18, 22, 30, 00, 42, -75 );
-console.log ( latlon );
-		var pos = convertPosition(  latlon[0], latlon[1], 500 );
+			var latlon = sunPosition( 2014, 5, 18, 22, 30, 00, 42, -75 );
+			console.log ( latlon );
+			var pos = convertPosition(  latlon[0], latlon[1], 500 );
 		// var pos = convertPosition(  43, -75, 10000 );
 
             light.position = pos;
