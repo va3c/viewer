@@ -48,7 +48,9 @@
 		//loadJS( VA3C.fname );
 	}
     
-//     function loadDAE (fname) {
+//  Loading Sketchup File [Collada .dae] - not fully finished  
+//
+//  function loadDAE (fname) {
 //     	var dae, skin;
 //     	var loader = new THREE.ColladaLoader();
 // 			loader.options.convertUpAxis = true;
