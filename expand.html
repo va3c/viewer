@@ -92,12 +92,12 @@
     <div class="navmenu navmenu-default navmenu-fixed-right offcanvas">
       <a class="navmenu-brand" href="#">va3c Viewer</a>
       <ul class="nav navmenu-nav">
-        <li style="padding-top:20px;padding-left:13px;"><b>EXAMPLES</b></li>
+        <li style="padding-top:25px;padding-left:13px;"><b>EXAMPLES</b></li>
         <li><a onclick="loadJS('../json/Project2.rvt.js')">Revit</a></li>
         <li><a onclick="loadJS('../json/Hex_01.js')">Grasshopper</a></li>
         <li><a onclick="loadJS('../json/3dsmax/TransamericaPyramid2.js')">3DS Max</a></li>
         <li><a onclick="loadJS('../json/US_Capitol_Building.dae')">Sketchup</a></li>
-        <li style="padding-top:20px;padding-left:13px;"><b>CITY</b></li>
+        <li style="padding-top:25px;padding-left:13px;"><b>CITY</b></li>
         <li>
             <select class="styled-select" onchange="getComboA(this)">
 			  <option value="New York">New York</option>
@@ -107,26 +107,15 @@
 			  <option value="Moscow">Moscow</option>
 			</select>
         </li>
-        <li style="padding-top:20px;padding-left:13px;"><b>TIME</b></li>
-            <script>window.onload = function() {
-              var gui = new dat.GUI();
-                var timeJSON = {
-                	month: 5,
-                	day: 18,
-                	hour: 12
-                };
-                
-                gui.add(timeJSON, "month").min(1).max(12).step(1);
-                gui.add(timeJSON, "day").min(1).max(31).step(1);
-                gui.add(timeJSON, "hour").min(0).max(24).step(1);
-              var time = document.getElementById('#time');
-              time.appendChild(gui.domElement);
-            };</script>
-        </li>
-        <div class="#time"></div>
-        <li style="padding-top:20px;padding-left:13px;"><b>CAMERA</b></li>
-        <li><a href="">Trackball</a></li>
-        <li><a href="">1st-Person</a></li>
+        <li style="padding-top:25px;padding-left:13px;"><b>TIME</b></li>
+        <div style="padding-left:13px;padding-right:13px;">
+       <li style="padding-top:7px;">Month 1-12<input type="range" name="points" min="1" max="12" step="1" value="5"></li>
+       <li style="padding-top:7px;">Day 1-31<input type="range" name="points" min="1" max="31" step="1" value="18"></li>
+       <li style="padding-top:7px;">Hour 0-24<input type="range" name="points" min="1" max="24" step="1" value="24"></li>
+       </div>
+       <li style="padding-top:25px;padding-left:13px;"><b>CAMERA</b></li>
+        <li><a onclick="loadJS('../json/Project2.rvt.js')">Reset View</a></li>
+        <li><a onclick="loadJS('../json/Hex_01.js')">Zoom Extents</a></li>
       </ul>
     </div>
 
