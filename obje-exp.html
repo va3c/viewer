@@ -74,11 +74,16 @@
     materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/Dice-Blue-4.png' ) }));
     var DiceBlueMaterial = new THREE.MeshFaceMaterial(materialArray);
 
-    var DiceBlueGeom = new THREE.CubeGeometry( 85, 85, 85, 1, 1, 1 );
-    var DiceBlue = new THREE.Mesh( DiceBlueGeom, DiceBlueMaterial );
-    DiceBlue.position.set(60, 50, -100);
-    scene.add( DiceBlue );
+    geometry = new THREE.BoxGeometry( 85, 85, 85, 1, 1, 1 );
+ //   mesh = new THREE.Mesh( DiceBlueGeom, DiceBlueMaterial );
+	mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial( materialArray ) );
 
+    mesh.position.set(60, 50, -100);
+    scene.add( mesh );
+		exporter = new THREE.ObjectExporter();
+		sce = exporter.parse( mesh );
+
+console.log( JSON.stringify( sce ) );
 
 	}
 
