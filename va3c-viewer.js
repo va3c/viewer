@@ -248,10 +248,10 @@
         clearProperties();
 
         //loop over the userData object, and add all key val pairs as new elements
-        for(var i=0; i<userData.length; i++){
-            var s = JSON.stringify(userData[i]);
+        //for(var i=0; i<userData.length; i++){
+            var s = JSON.stringify(userData);
             $('#properties').append(s);
-        }
+        //}
 
     }
 
