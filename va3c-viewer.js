@@ -299,7 +299,7 @@
 // console.log( event );
         event.preventDefault();
 
-        selMaterial = new THREE.MeshBasicMaterial( { color: 'red', side: 'THREE.DoubleSide' });   //color for selected mesh element
+        selMaterial = new THREE.MeshBasicMaterial( { color: 'red', side: '2' });   //color for selected mesh element
 
         //When clicking without selecting object, replace temp material for meshes and object3D
         if(lastMeshMaterial!=-1)
@@ -329,8 +329,6 @@
                 }
             }
         }
-
-
 
 
         var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
