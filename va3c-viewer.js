@@ -115,9 +115,9 @@
     {
         for(var i=0; i<VA3C.scene.children.length; i++){
             if(VA3C.scene.children[i].hasOwnProperty("geometry")){
-                VA3C.scene.children[i].Geometry.mergeVertices();
-                VA3C.scene.children[i].Geometry.computeCentroids();
-                VA3C.scene.children[i].Geometry.computeFaceNormals();
+                VA3C.scene.children[i].geometry.mergeVertices();
+                VA3C.scene.children[i].geometry.computeCentroids();
+                VA3C.scene.children[i].geometry.computeFaceNormals();
             }
         }
     }
