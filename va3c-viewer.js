@@ -74,12 +74,12 @@
 
 	function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
-	function updateLight( year, month, day, hour, minutes, sec, lat, long) {
+	function updateLight() {
 			if ( light ) { VA3C.scene.remove( light ); }
 
             light = new THREE.DirectionalLight( 0xffffff, 1 );
 // (year, month, day, hour, minutes, sec, lat, long)
-			var latlon = sunPosition( year, month, day, hour, minutes, sec, lat, long  );
+			var latlon = sunPosition( 2014, month.value, day.value, hour.value, 60, 00, latlong[0], latlong[1]  );
 // console.log ( latlon );
 			var pos = convertPosition(  latlon[0], latlon[1], 10000 );
 		// var pos = convertPosition(  43, -75, 10000 );
