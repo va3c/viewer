@@ -11,8 +11,11 @@
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
 
+    var targetList = [];
+    var geometry, material, mesh;
+
 	function init() {
-		var geometry, material, mesh;
+
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
@@ -35,6 +38,8 @@
 		VA3C.camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100000 );
 		VA3C.camera.position.set( 15000, 15000, 15000 );
 		VA3C.controls = new THREE.OrbitControls( VA3C.camera, VA3C.renderer.domElement );
+
+        document.addEventListener( 'mousedown', clickHandler, false );
 
 		loadJS( VA3C.fname );
 	}
@@ -155,6 +160,30 @@
 				VA3C.scene.children[i].geometry.mergeVertices();
 				VA3C.scene.children[i].castShadow = true;
 				VA3C.scene.children[i].geometry.computeFaceNormals();
+                targetList.push(VA3C.scene.children[i])
 			}
 		}
 	}
+
+    function clickHandler(event){
+        event.preventDefault();
+
+        var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+        projector.unprojectVector( vector, VA3C.camera );
+
+        var raycaster = new THREE.Raycaster( VA3C.camera.position, vector.sub( VA3C.camera.position ).normalize() );
+        //var raycaster = new THREE.Raycaster( VA3C.camera.position, vector.sub( ).normalize() );
+
+        var intersects = raycaster.intersectObjects( targetList );
+        //var intersects = raycaster.intersectObjects( VA3C.scene.children.geometry );
+
+        if ( intersects.length > 0 ) {
+
+            intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
+
+            var particle = new THREE.Sprite( particleMaterial );
+            particle.position = intersects[ 0 ].point;
+            particle.scale.x = particle.scale.y = 16;
+            VA3C.scene.add( particle );
+
+        }
