@@ -2,7 +2,9 @@
 // 	var info, stats, renderer, scene, camera, controls;
 
 	var obj, light;
-
+	
+	var latlon;
+	
 //	VA3C.fname = '../json/twoMobius.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
 //	VA3C.fname = '../json/Project2.rvt.js';
@@ -53,7 +55,7 @@
 
             VA3C.scene.add(new THREE.AmbientLight(0x444444));
 
-			updateLight( 2014, 5, 18, 22, 30, 00, 42, -75 );
+		updateLight( 2014, 5, 18, 22, 30, 00, 42, -75 );
 
 // axes
             function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
@@ -84,7 +86,7 @@
 
             light = new THREE.DirectionalLight( 0xffffff, 1 );
 // (year, month, day, hour, minutes, sec, lat, long)
-			var latlon = sunPosition( 2014, month.value, day.value, hour.value, 60, 00, latlong[0], latlong[1]  );
+			latlon = sunPosition( 2014, month.value, day.value, hour.value, 60, 00, latlon[0], latlon[1]  );
 // console.log ( latlon );
 			var pos = convertPosition(  latlon[0], latlon[1], 10000 );
 		// var pos = convertPosition(  43, -75, 10000 );
@@ -187,4 +189,3 @@
             VA3C.scene.add( particle );
 
         }
-      }
