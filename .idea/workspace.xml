@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c13283c-d761-4e02-a6fd-3b25834b3fb9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/va3c-viewer.js" afterPath="$PROJECT_DIR$/va3c-viewer.js" />
     </list>
     <ignored path="viewer.iws" />
@@ -26,15 +25,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="va3c-viewer.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="va3c-viewer.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/va3c-viewer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="25" selection-start="195" selection-end="195" vertical-scroll-proportion="-6.12" vertical-offset="0" max-vertical-offset="5627">
+            <state line="300" column="0" selection-start="10226" selection-end="10226" vertical-scroll-proportion="0.30857143" vertical-offset="4884" max-vertical-offset="6885">
               <folding>
-                <element signature="n#!!block;n#updateLight#0" expanded="false" />
-                <element signature="n#!!block;n#convertPosition#0" expanded="false" />
-                <element signature="n#!!block;n#getComboA#0" expanded="false" />
-                <marker date="1400423646046" expanded="false" signature="968:995" placeholder="..." />
+                <element signature="e#10497#10822#0" expanded="false" />
+                <element signature="e#10867#11347#0" expanded="false" />
+                <marker date="1400425075733" expanded="false" signature="1095:1122" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -49,10 +47,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="131" column="10" selection-start="4845" selection-end="4845" vertical-scroll-proportion="0.49554896" vertical-offset="1893" max-vertical-offset="2567">
+            <state line="124" column="9" selection-start="4721" selection-end="4721" vertical-scroll-proportion="-4.2156863" vertical-offset="1893" max-vertical-offset="2567">
               <folding />
             </state>
           </provider>
@@ -81,8 +79,8 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/viewer-01.html" />
-        <option value="$PROJECT_DIR$/va3c-viewer.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/va3c-viewer.js" />
       </list>
     </option>
   </component>
@@ -118,6 +116,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -138,21 +137,12 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -163,15 +153,23 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -234,12 +232,43 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/va3c-viewer.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="25" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6715">
+          <folding>
+            <element signature="e#10497#10822#0" expanded="false" />
+            <element signature="e#10867#11347#0" expanded="false" />
+            <marker date="1400425075733" expanded="false" signature="1095:1122" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/obje-exp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2618">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="131" column="10" selection-start="4835" selection-end="4835" vertical-scroll-proportion="0.0" vertical-offset="1893" max-vertical-offset="2567">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer-00.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3757">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/va3c-viewer.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="28" selection-start="330" selection-end="330" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="5440">
           <folding>
-            <element signature="n#!!block;n#updateLight#0" expanded="false" />
-            <element signature="n#!!block;n#convertPosition#0" expanded="false" />
-            <element signature="n#!!block;n#getComboA#0" expanded="false" />
-            <marker date="1400423646046" expanded="false" signature="968:995" placeholder="..." />
+            <element signature="e#10497#10822#0" expanded="false" />
+            <element signature="e#10867#11347#0" expanded="false" />
+            <marker date="1400425075733" expanded="false" signature="1095:1122" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -269,10 +298,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="0" selection-start="432" selection-end="432" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2754">
           <folding>
-            <element signature="n#!!block;n#updateLight#0" expanded="false" />
-            <element signature="n#!!block;n#convertPosition#0" expanded="false" />
-            <element signature="n#!!block;n#getComboA#0" expanded="false" />
-            <marker date="1400423646046" expanded="false" signature="968:995" placeholder="..." />
+            <element signature="e#10497#10822#0" expanded="false" />
+            <element signature="e#10867#11347#0" expanded="false" />
+            <marker date="1400425075733" expanded="false" signature="1095:1122" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -319,22 +347,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/va3c-viewer.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="25" selection-start="195" selection-end="195" vertical-scroll-proportion="-6.12" vertical-offset="0" max-vertical-offset="5627">
-          <folding>
-            <element signature="n#!!block;n#updateLight#0" expanded="false" />
-            <element signature="n#!!block;n#convertPosition#0" expanded="false" />
-            <element signature="n#!!block;n#getComboA#0" expanded="false" />
-            <marker date="1400423646046" expanded="false" signature="968:995" placeholder="..." />
-          </folding>
+        <state line="124" column="9" selection-start="4721" selection-end="4721" vertical-scroll-proportion="-4.2156863" vertical-offset="1893" max-vertical-offset="2567">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/va3c-viewer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="10" selection-start="4845" selection-end="4845" vertical-scroll-proportion="0.49554896" vertical-offset="1893" max-vertical-offset="2567">
-          <folding />
+        <state line="300" column="0" selection-start="10226" selection-end="10226" vertical-scroll-proportion="0.30857143" vertical-offset="4884" max-vertical-offset="6885">
+          <folding>
+            <element signature="e#10497#10822#0" expanded="false" />
+            <element signature="e#10867#11347#0" expanded="false" />
+            <marker date="1400425075733" expanded="false" signature="1095:1122" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
