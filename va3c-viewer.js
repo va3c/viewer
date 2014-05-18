@@ -299,7 +299,7 @@
 // console.log( event );
         event.preventDefault();
 
-        selMaterial = new THREE.MeshBasicMaterial( { color: 'red' });   //color for selected mesh element
+        selMaterial = new THREE.MeshBasicMaterial( { color: 'red', side: 'THREE.DoubleSide' });   //color for selected mesh element
 
         //When clicking without selecting object, replace temp material for meshes and object3D
         if(lastMeshMaterial!=-1)
