@@ -106,6 +106,78 @@
 		return v( rc * Math.cos( lon * d2r ), radius * Math.sin( lat * d2r ), rc * Math.sin( lon * d2r) );
 	}
 
+	function getComboA(sel) {
+			var value = sel.value;
+			//alert(value);
+			var latlong;
+			switch(value) {
+			case "New York":
+				latlong = [42.3482, -75.189];
+				break;
+			case "Sao Paulo":
+				latlong = [-23.55, -46.633];
+				break;
+			case "Paris":
+				latlong = [48.8567, 2.3508];
+				break;
+			case "Moscow":
+				latlong = [55.75, 37.6167];
+				break;
+			case "Tokyo":
+				latlong = [35.6895, 139.6917];
+				break;
+			default:
+				latlong = [42.3482, -75.189];
+			} 
+			//tokyoLatitude:35.6895, Longitude:139.6917 
+			//New York coordinates
+			//Latitude:42.3482, Longitude:-75.189
+			//saoaulo
+			//Latitude:-23.55, Longitude:-46.633 
+			//Moscow coordinates
+			//Latitude:55.75, Longitude:37.6167
+			//Paris coordinates
+			//Latitude:48.8567, Longitude:2.3508
+//			alert(latlong);
+			updateLight( 2014, 5, 18, 22, 30, 00, latlong[0], latlong[2]) 
+		}
+
+	function getTrackballController() {
+		var target = controls.target
+		VA3C.controls = new THREE.TrackballControls( VA3C.camera, VA3C.renderer.domElement );
+		VA3C.controls.target = target;
+
+	}
+
+	function getFirstPersonController() {
+		VA3C.camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		VA3C.camera.position.set( 1000, 1000, 1000 );
+//		camera.position.set( 8, 25, -8 );
+
+		VA3C.controls = new THREE.FirstPersonControls( VA3C.camera );
+		VA3C.controls.lookSpeedDefault = VA3C.controls.lookSpeed = 0.025; // 0.0125;
+		
+		VA3C.controls.lookSpeedMin = 0.04;
+		VA3C.controls.lookSpeedMax = 0.09;
+		
+		VA3C.controls.movementSpeedDefault = controls.movementSpeed = 0.5;
+		VA3C.controls.movementSpeedMin = 0.05;
+		VA3C.controls.movementSpeedMax = 10;
+		
+		VA3C.controls.heightSpeed = true;
+		VA3C.controls.heightCoef = 0.5;
+		VA3C.controls.heightMin = 1.0;
+		VA3C.controls.heightMax = 18.0;	
+	
+		VA3C.controls.noFly = false;
+		VA3C.controls.lookVertical = true;
+		VA3C.controls.constrainVertical = true;
+		VA3C.controls.verticalMin = 1.5;
+		VA3C.controls.verticalMax = 2.0;
+		this.autoSpeedFactor = 0.0;
+		VA3C.controls.lon = -40;
+	}
+
 	function animate() {
 		requestAnimationFrame( animate );
 		VA3C.renderer.render( VA3C.scene, VA3C.camera );
