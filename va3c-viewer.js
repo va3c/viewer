@@ -14,12 +14,7 @@
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
 
 	var projector;
-    var targetList = [];
-
-
-	function resCamera() {
-console.log(123 );
-	}
+	var targetList = [];
 
 	function init() {
 		var geometry, material, mesh;
@@ -154,6 +149,12 @@ console.log(123 );
 //			alert(latlong);
 			updateLight();
 		}
+
+	function resetCamera() {
+		VA3C.controls.target.set( 0, 0, 0  );
+		VA3C.camera.position.set( 15,000, 15000, 15000 );
+		VA3C.camera.up = v( 0, 1, 0 );
+	}
 
 	function animate() {
 		requestAnimationFrame( animate );
