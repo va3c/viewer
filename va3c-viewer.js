@@ -172,7 +172,7 @@
 		VA3C.camera.up = v( 0, 1, 0 );
 	}
 
-/*
+
     function zoomExtents(){
 
         //found this method here: https://github.com/mrdoob/three.js/issues/1424
@@ -181,11 +181,11 @@
         var aabbMax = new THREE.Vector3();
         var radius = 0;
         //loop over the meshes in the platypus scene
-        for (var m = 0; m < VA3C.meshes.length; m++)
+        for (var m = 0; m < VA3C.scene.children.length; m++)
         {
             try {
                 //if mesh,
-                if(VA3C.meshes[m].Three_Meshes.hasOwnProperty("geometry"))
+                if(VA3C.scene.children[m].hasOwnProperty("geometry"))
                 {
                     var geo = VA3C.meshes[m].Three_Meshes.geometry;
                     geo.computeBoundingBox();
@@ -200,7 +200,7 @@
 
                 //if object3d or whatever, figure out how to get a bounding box
                 else{
-                    var obj = VA3C.meshes[m].Three_Meshes.children[0].geometry;
+                    var obj = VA3C.scene.children[m].children[0].geometry;
                     obj.computeBoundingBox();
 
                     aabbMin.x = Math.min(aabbMin.x, obj.boundingBox.min.x);
@@ -213,21 +213,6 @@
                 }
             } catch (e) {
                 console.log("VA3C zoom extents error in mesh loop: " + e);
-            }
-        }
-        //loop ove the platlines and do the same
-        for(var l = 0; l< VA3C.lines.length; l++){
-            try {
-                var LN = VA3C.lines[l].Three_Lines.geometry;
-                LN.computeBoundingBox();
-                aabbMin.x = Math.min(aabbMin.x, LN.boundingBox.min.x);
-                aabbMin.y = Math.min(aabbMin.y, LN.boundingBox.min.y);
-                aabbMin.z = Math.min(aabbMin.z, LN.boundingBox.min.z);
-                aabbMax.x = Math.max(aabbMax.x, LN.boundingBox.max.x);
-                aabbMax.y = Math.max(aabbMax.y, LN.boundingBox.max.y);
-                aabbMax.z = Math.max(aabbMax.z, LN.boundingBox.max.z);
-            } catch (e) {
-                console.log("VA3C zoom extents error in line loop: " + e);
             }
         }
 
@@ -243,12 +228,12 @@
         radius = diag.length() * 0.5;
 
         // Compute offset needed to move the camera back that much needed to center AABB (approx: better if from BB front face)
-        var offset = radius / Math.tan(Math.PI / 180.0 * VA3C.cameraControls.object.fov * 0.5);
+        var offset = radius / Math.tan(Math.PI / 180.0 * VA3C.controls.object.fov * 0.5);
         //console.log(offset);
 
         // Compute new camera position
         var vector = new THREE.Vector3(0,0,1);
-        var dir = vector.applyQuaternion(VA3C.cameraControls.object.quaternion);
+        var dir = vector.applyQuaternion(VA3C.controls.object.quaternion);
         //var dir = VA3C.cameraControls.object.matrix.getColumnZ();
         dir.multiplyScalar(offset);
         var newPos = new THREE.Vector3();
@@ -257,11 +242,9 @@
         //set camera position and target
         VA3C.controls.object.position = newPos;
         VA3C.controls.object.target = aabbCenter;
-        //call our update function to send out the new position
-        VA3C.updateCamera();
 
-    };
-*/
+    }
+
 
 	function animate() {
 		requestAnimationFrame( animate );
