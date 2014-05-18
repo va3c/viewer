@@ -16,7 +16,7 @@
 	var projector;
 	var targetList = [];
 
-	function init() {
+	function init(fname) {
 		var geometry, material, mesh;
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
@@ -44,7 +44,8 @@
 		projector = new THREE.Projector();
 		document.addEventListener( 'click', clickHandler, false );
 
-		loadJS( VA3C.fname );
+		loadJS( fname );
+		//loadJS( VA3C.fname );
 	}
     
     function loadDAE (fname) {
