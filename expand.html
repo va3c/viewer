@@ -109,9 +109,9 @@
         </li>
         <li style="padding-top:25px;padding-left:13px;"><b>TIME</b></li>
         <div style="padding-left:13px;padding-right:13px;">
-       <li style="padding-top:7px;">Month 1-12<input type="range" name="points" min="1" max="12" step="1" value="5"></li>
-       <li style="padding-top:7px;">Day 1-31<input type="range" name="points" min="1" max="31" step="1" value="18"></li>
-       <li style="padding-top:7px;">Hour 0-24<input type="range" name="points" min="1" max="24" step="1" value="24"></li>
+       <li style="padding-top:7px;">Month 1-12<input type="range" name="points" id="month" min="1" max="12" step="1" value="5" onchange="updateLight()"></li>
+       <li style="padding-top:7px;">Day 1-31<input type="range" name="points" id="day" min="1" max="31" step="1" value="18" onchange="updateLight()"></li>
+       <li style="padding-top:7px;">Hour 0-24<input type="range" name="points" id="hour" min="1" max="24" step="1" value="24" onchange="updateLight()"></li>
        </div>
        <li style="padding-top:25px;padding-left:13px;"><b>CAMERA</b></li>
         <li><a onclick="loadJS('../json/Project2.rvt.js')">Reset View</a></li>
