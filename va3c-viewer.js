@@ -88,9 +88,9 @@
 
             light = new THREE.DirectionalLight( 0xffffff, 1 );
 // (year, month, day, hour, minutes, sec, lat, long)
-			latlon = sunPosition( 2014, month.value, day.value, hour.value, 60, 00, latlon[0], latlon[1]  );
+			latlon = sunPosition( 2014, month.value, day.value, hour.value, 60, 00, latlong[0], latlong[1]  );
 // console.log ( latlon );
-			var pos = convertPosition(  latlon[0], latlon[1], 10000 );
+			var pos = convertPosition(  latlong[0], latlong[1], 10000 );
 		// var pos = convertPosition(  43, -75, 10000 );
 
             light.position = pos;
