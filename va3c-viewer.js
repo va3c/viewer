@@ -170,6 +170,13 @@ console.log(123 );
 				VA3C.scene.children[i].geometry.computeFaceNormals();
                 targetList.push(VA3C.scene.children[i]);
 			}
+            if(VA3C.scene.children[i].children.length > 0){
+                for (var k=0; k<VA3C.scene.children[i].children.length ; k++){
+                    if(VA3C.scene.children[i].children[k].hasOwnProperty("geometry")){
+                        targetList.push(VA3C.scene.children[i].children[k]);
+                    }
+                }
+            }
 		}
 	}
 
@@ -191,6 +198,7 @@ console.log(123 );
         if ( intersects.length > 0 ) {
 
          //   intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
+<<<<<<< HEAD
          // console.log(intersects[0].object.userData);
 
 			var j =0;
@@ -201,6 +209,23 @@ console.log(123 );
 				 }
 				 j++;
 			 }
+=======
+
+         //console.log(intersects[0].object.userData);
+
+         var j =0;
+         while(j<intersects.length){
+             if(!$.isEmptyObject(intersects[j].object.userData)){
+                 console.log(intersects[j].object.userData);
+                 break;
+             }
+             if(!$.isEmptyObject(intersects[j].object.parent.userData)){
+                 console.log(intersects[j].object.parent.userData);
+                 break;
+             }
+             j++;
+         }
+>>>>>>> fbd33fc3ef1854a2df3a93bc568dacc1a3d4b312
 
         }
     }
