@@ -18,7 +18,7 @@
 	var projector;
 	var targetList = [];
 
-	function init() {
+	function init(fname) {
 		var geometry, material, mesh;
         lastMaterial = -1;
 
@@ -26,9 +26,9 @@
 
 		VA3C.info = document.body.appendChild( document.createElement( 'div' ) );
 
-		VA3C.info.style.cssText = 'left: 20px; position: absolute; top: 0px; width: 100% ';
-		VA3C.info.innerHTML = '<h1>' + document.title + '<h1>' +
-			'<div id=msg></div>';
+		VA3C.info.style.cssText = 'background-color: #ccc; left: 20px; opacity: 0.85; position: absolute; top: 35px; ';
+		VA3C.info.innerHTML = '<h1>' + document.title + '</h1>' +
+			'<div id=msg style=font-size:10pt;padding:8px; ></div>';
 
 		VA3C.stats = new Stats();
 		VA3C.stats.domElement.style.cssText = 'bottom: 0; position: absolute; left: 0; zIndex: 100; ';
@@ -47,10 +47,24 @@
 		projector = new THREE.Projector();
 		document.addEventListener( 'click', clickHandler, false );
 
-		loadJS( VA3C.fname );
+		loadJS( fname );
+		//loadJS( VA3C.fname );
 	}
-
-	function loadJS ( fname ) {
+    
+//     function loadDAE (fname) {
+//     	var dae, skin;
+//     	var loader = new THREE.ColladaLoader();
+// 			loader.options.convertUpAxis = true;
+// 			loader.load( fname, function ( collada ) {
+//         		dae = collada.scene;
+//         		skin = collada.skins[ 0 ];
+        
+//         		dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
+//         		dae.updateMatrix();
+//         	});
+//     }
+			
+	function loadJS (fname) {
 		//if ( obj ) VA3C.scene.remove( obj );
 		// obj = new THREE.Object3D();
 		var loader = new THREE.ObjectLoader();
@@ -159,6 +173,80 @@
 		VA3C.camera.up = v( 0, 1, 0 );
 	}
 
+
+    function zoomExtents(){
+
+        //found this method here: https://github.com/mrdoob/three.js/issues/1424
+        // Compute world AABB and radius (approx: better compute BB be in camera space)
+        var aabbMin = new THREE.Vector3();
+        var aabbMax = new THREE.Vector3();
+        var radius = 0;
+        //loop over the meshes in the platypus scene
+        for (var m = 0; m < VA3C.scene.children.length; m++)
+        {
+            try {
+                //if mesh,
+                if(VA3C.scene.children[m].hasOwnProperty("geometry"))
+                {
+                    var geo = VA3C.meshes[m].Three_Meshes.geometry;
+                    geo.computeBoundingBox();
+
+                    aabbMin.x = Math.min(aabbMin.x, geo.boundingBox.min.x);
+                    aabbMin.y = Math.min(aabbMin.y, geo.boundingBox.min.y);
+                    aabbMin.z = Math.min(aabbMin.z, geo.boundingBox.min.z);
+                    aabbMax.x = Math.max(aabbMax.x, geo.boundingBox.max.x);
+                    aabbMax.y = Math.max(aabbMax.y, geo.boundingBox.max.y);
+                    aabbMax.z = Math.max(aabbMax.z, geo.boundingBox.max.z);
+                }
+
+                //if object3d or whatever, figure out how to get a bounding box
+                else{
+                    var obj = VA3C.scene.children[m].children[0].geometry;
+                    obj.computeBoundingBox();
+
+                    aabbMin.x = Math.min(aabbMin.x, obj.boundingBox.min.x);
+                    aabbMin.y = Math.min(aabbMin.y, obj.boundingBox.min.y);
+                    aabbMin.z = Math.min(aabbMin.z, obj.boundingBox.min.z);
+                    aabbMax.x = Math.max(aabbMax.x, obj.boundingBox.max.x);
+                    aabbMax.y = Math.max(aabbMax.y, obj.boundingBox.max.y);
+                    aabbMax.z = Math.max(aabbMax.z, obj.boundingBox.max.z);
+
+                }
+            } catch (e) {
+                console.log("VA3C zoom extents error in mesh loop: " + e);
+            }
+        }
+
+        // Compute world AABB center
+        var aabbCenter = new THREE.Vector3();
+        aabbCenter.x = (aabbMax.x + aabbMin.x) * 0.5;
+        aabbCenter.y = (aabbMax.y + aabbMin.y) * 0.5;
+        aabbCenter.z = (aabbMax.z + aabbMin.z) * 0.5;
+
+        // Compute world AABB "radius" (approx: better if BB height)
+        var diag = new THREE.Vector3();
+        diag = diag.subVectors(aabbMax, aabbMin);
+        radius = diag.length() * 0.5;
+
+        // Compute offset needed to move the camera back that much needed to center AABB (approx: better if from BB front face)
+        var offset = radius / Math.tan(Math.PI / 180.0 * VA3C.controls.object.fov * 0.5);
+        //console.log(offset);
+
+        // Compute new camera position
+        var vector = new THREE.Vector3(0,0,1);
+        var dir = vector.applyQuaternion(VA3C.controls.object.quaternion);
+        //var dir = VA3C.cameraControls.object.matrix.getColumnZ();
+        dir.multiplyScalar(offset);
+        var newPos = new THREE.Vector3();
+        newPos.addVectors(aabbCenter, dir);
+
+        //set camera position and target
+        VA3C.controls.object.position = newPos;
+        VA3C.controls.object.target = aabbCenter;
+
+    }
+
+
 	function animate() {
 		requestAnimationFrame( animate );
 		VA3C.renderer.render( VA3C.scene, VA3C.camera );
@@ -187,7 +275,18 @@
     function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
 
+
     var selMaterial;
+
+	function displayAttributes( obj ) {
+		msg.innerHTML = '';
+		var arr = Object.keys( obj );
+		for (var i = 0, len = arr.length; i < len; i++) {
+			msg.innerHTML += arr[i] + ': ' + obj[ arr[i] ] + '<br>';
+		}
+
+}
+
 
     function clickHandler(event){
 // console.log( event );
@@ -215,6 +314,7 @@
              if(!$.isEmptyObject(intersects[j].object.userData)){
                  console.log(intersects[j].object.userData);
 
+
                  if(lastMaterial!=-1)
                  {
                      //reset last material for last lastMeshID
@@ -226,6 +326,9 @@
                  //set lastMeshID
 
                  //apply SelMaterial
+
+
+                displayAttributes( intersects[j].object.userData );
 
                  break;
              }
@@ -258,10 +361,13 @@
                  //apply SelMaterial
                  intersects[j].object.material = selMaterial;
 
+                displayAttributes( intersects[j].object.parent.userData );
                  break;
              }
              j++;
          }
 
-        }
-    }
+        } else {
+			msg.innerHTML = '';
+		}
+	}
