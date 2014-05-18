@@ -2,13 +2,15 @@
 //	var info, stats, renderer, scene, camera, controls;
 
 	var obj, light;
+
+    var lastMeshMaterial, lastMeshID, lastObjectMaterial, lastObjectID;
 	
 	var latlon, latlong = [42.3482, -75.189];
 	
-//	VA3C.fname = '../json/twoMobius.json';
+//	VA3C.fname = '../json/MissSpacyEyes.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
 //	VA3C.fname = '../json/Project2.rvt.js';
-	VA3C.fname = '../json/revit/rac_basic_sample_project.rvt.js';
+	VA3C.fname = '../RvtVa3c/rac_basic_sample_project.rvt.js';
 
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
@@ -18,6 +20,10 @@
 
 	function init(fname) {
 		var geometry, material, mesh;
+        lastMeshMaterial = -1;
+        lastMeshID = -1;
+        lastObjectMaterial = -1;
+        lastObjectID = -1;
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
@@ -48,7 +54,9 @@
 		//loadJS( VA3C.fname );
 	}
     
-//     function loadDAE (fname) {
+//  Loading Sketchup File [Collada .dae] - not fully finished  
+//
+//  function loadDAE (fname) {
 //     	var dae, skin;
 //     	var loader = new THREE.ColladaLoader();
 // 			loader.options.convertUpAxis = true;
@@ -170,7 +178,7 @@
 		VA3C.camera.up = v( 0, 1, 0 );
 	}
 
-/*
+
     function zoomExtents(){
 
         //found this method here: https://github.com/mrdoob/three.js/issues/1424
@@ -179,11 +187,11 @@
         var aabbMax = new THREE.Vector3();
         var radius = 0;
         //loop over the meshes in the platypus scene
-        for (var m = 0; m < VA3C.meshes.length; m++)
+        for (var m = 0; m < VA3C.scene.children.length; m++)
         {
             try {
                 //if mesh,
-                if(VA3C.meshes[m].Three_Meshes.hasOwnProperty("geometry"))
+                if(VA3C.scene.children[m].hasOwnProperty("geometry"))
                 {
                     var geo = VA3C.meshes[m].Three_Meshes.geometry;
                     geo.computeBoundingBox();
@@ -198,7 +206,7 @@
 
                 //if object3d or whatever, figure out how to get a bounding box
                 else{
-                    var obj = VA3C.meshes[m].Three_Meshes.children[0].geometry;
+                    var obj = VA3C.scene.children[m].children[0].geometry;
                     obj.computeBoundingBox();
 
                     aabbMin.x = Math.min(aabbMin.x, obj.boundingBox.min.x);
@@ -211,21 +219,6 @@
                 }
             } catch (e) {
                 console.log("VA3C zoom extents error in mesh loop: " + e);
-            }
-        }
-        //loop ove the platlines and do the same
-        for(var l = 0; l< VA3C.lines.length; l++){
-            try {
-                var LN = VA3C.lines[l].Three_Lines.geometry;
-                LN.computeBoundingBox();
-                aabbMin.x = Math.min(aabbMin.x, LN.boundingBox.min.x);
-                aabbMin.y = Math.min(aabbMin.y, LN.boundingBox.min.y);
-                aabbMin.z = Math.min(aabbMin.z, LN.boundingBox.min.z);
-                aabbMax.x = Math.max(aabbMax.x, LN.boundingBox.max.x);
-                aabbMax.y = Math.max(aabbMax.y, LN.boundingBox.max.y);
-                aabbMax.z = Math.max(aabbMax.z, LN.boundingBox.max.z);
-            } catch (e) {
-                console.log("VA3C zoom extents error in line loop: " + e);
             }
         }
 
@@ -241,12 +234,12 @@
         radius = diag.length() * 0.5;
 
         // Compute offset needed to move the camera back that much needed to center AABB (approx: better if from BB front face)
-        var offset = radius / Math.tan(Math.PI / 180.0 * VA3C.cameraControls.object.fov * 0.5);
+        var offset = radius / Math.tan(Math.PI / 180.0 * VA3C.controls.object.fov * 0.5);
         //console.log(offset);
 
         // Compute new camera position
         var vector = new THREE.Vector3(0,0,1);
-        var dir = vector.applyQuaternion(VA3C.cameraControls.object.quaternion);
+        var dir = vector.applyQuaternion(VA3C.controls.object.quaternion);
         //var dir = VA3C.cameraControls.object.matrix.getColumnZ();
         dir.multiplyScalar(offset);
         var newPos = new THREE.Vector3();
@@ -255,11 +248,9 @@
         //set camera position and target
         VA3C.controls.object.position = newPos;
         VA3C.controls.object.target = aabbCenter;
-        //call our update function to send out the new position
-        VA3C.updateCamera();
 
-    };
-*/
+    }
+
 
 	function animate() {
 		requestAnimationFrame( animate );
@@ -289,6 +280,9 @@
     function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
 
+
+    var selMaterial;
+
 	function displayAttributes( obj ) {
 		msg.innerHTML = '';
 		var arr = Object.keys( obj );
@@ -301,9 +295,43 @@
 		}
 
 }
+
+
     function clickHandler(event){
 // console.log( event );
         event.preventDefault();
+
+        selMaterial = new THREE.MeshBasicMaterial( { color: 'red', side: '2' });   //color for selected mesh element
+
+        //When clicking without selecting object, replace temp material for meshes and object3D
+        if(lastMeshMaterial!=-1)
+        {
+            //reset last material for last lastMeshID
+            for(var i = 0; i < VA3C.scene.children.length;i++)
+            {
+                if (VA3C.scene.children[i].id == lastMeshID)
+                {
+                    VA3C.scene.children[i].material = lastMeshMaterial;
+                }
+            }
+        }
+
+        if(lastObjectMaterial!=-1)
+        {
+            //reset last material for last lastObjectID
+            for(var i = 0; i < VA3C.scene.children.length;i++)
+            {
+                if (VA3C.scene.children[i].id == lastObjectID)
+                {
+                    for (var ii = 0; ii < VA3C.scene.children[i].children.length;ii++)
+                    {
+                        VA3C.scene.children[i].children[ii].material = lastObjectMaterial;
+                    }
+
+                }
+            }
+        }
+
 
         var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
         projector.unprojectVector( vector, VA3C.camera );
@@ -321,14 +349,67 @@
 
          var j =0;
          while(j<intersects.length){
+             //FOR MESHES:
              if(!$.isEmptyObject(intersects[j].object.userData)){
                  console.log(intersects[j].object.userData);
-displayAttributes( intersects[j].object.userData );
+
+
+                 if(lastMeshMaterial!=-1)
+                 {
+                     //reset last material for last lastMeshID
+                     for(var i = 0; i < VA3C.scene.children.length;i++)
+                     {
+                         if (VA3C.scene.children[i].id == lastMeshID)
+                         {
+                             VA3C.scene.children[i].material = lastMeshMaterial;
+                         }
+                     }
+                 }
+
+                 //set lastMaterial
+                 lastMeshMaterial = intersects[j].object.material;
+
+                 //set lastMeshID
+                 lastMeshID = intersects[j].object.id;
+
+                 //apply SelMaterial
+                 intersects[j].object.material = selMaterial;
+
+
+                displayAttributes( intersects[j].object.userData );
+
                  break;
              }
+             //FOR OBJECT3D
              if(!$.isEmptyObject(intersects[j].object.parent.userData)){
                  console.log(intersects[j].object.parent.userData);
-displayAttributes( intersects[j].object.parent.userData );
+
+                 if(lastObjectMaterial!=-1)
+                 {
+                     //reset last material for last lastObjectID
+                     for(var i = 0; i < VA3C.scene.children.length;i++)
+                     {
+                         if (VA3C.scene.children[i].id == lastObjectID)
+                         {
+                             for (var ii = 0; ii < VA3C.scene.children[i].children.length;ii++)
+                             {
+                                 VA3C.scene.children[i].children[ii].material = lastObjectMaterial;
+                             }
+
+                         }
+                     }
+                 }
+
+                 //set lastMaterial
+                 lastObjectMaterial = intersects[j].object.material;
+
+                 //set lastObjectID
+                 lastObjectID = intersects[j].object.parent.id;
+
+                 //apply SelMaterial
+                 intersects[j].object.material = selMaterial;
+
+                displayAttributes( intersects[j].object.parent.userData );
                  break;
              }
              j++;
