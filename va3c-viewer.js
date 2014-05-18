@@ -1,7 +1,7 @@
 	var VA3C = {};
 // 	var info, stats, renderer, scene, camera, controls;
 
-	var obj;
+	var obj, light;
 
 //	VA3C.fname = '../json/twoMobius.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
@@ -75,6 +75,8 @@
 	function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
 	function updateLight( year, month, day, hour, minutes, sec, lat, long) {
+			if ( light ) { VA3C.scene.remove( light ); }
+
             light = new THREE.DirectionalLight( 0xffffff, 1 );
 // (year, month, day, hour, minutes, sec, lat, long)
 			var latlon = sunPosition( year, month, day, hour, minutes, sec, lat, long  );
@@ -104,6 +106,7 @@
 	}
 
 	function getComboA(sel) {
+// console.log( sel );
 			var value = sel.value;
 			//alert(value);
 			var latlong;
