@@ -59,6 +59,21 @@
             padding: 0;
           }
         }
+        
+        .styled-select {
+		   background: transparent;
+		   width: 90%;
+		   padding: 5px;
+		   margin-left: 5px;
+		   margin-top: 5px;
+		   color: red;
+		   font-size: 16px;
+		   line-height: 1;
+		   border: 0;
+		   border-radius: 0;
+		   height: 34px;
+		   -webkit-appearance: none;
+	   }
       </style>
   </head>
 
@@ -76,11 +91,12 @@
         <li><a href="">Drag File Here</a></li>
         <li style="padding-top:20px;padding-left:13px;"><b>SUN</b></li>
         <li>
-		    <select>
-			  <option value="volvo">Volvo</option>
-			  <option value="saab">Saab</option>
-			  <option value="mercedes">Mercedes</option>
-			  <option value="audi">Audi</option>
+		    <select class="styled-select" onchange="getComboA(this)">
+			  <option value="New York">New York</option>
+			  <option value="Sao Paulo">Sao Paulo</option>
+			  <option value="Paris">Paris</option>
+			  <option value="Tokyo">Tokyo</option>
+			  <option value="Moscow">Moscow</option>
 			</select>
 		</li>
         <li><a href="">Month</a></li>
@@ -99,6 +115,40 @@
     <script>
     	init();
     	animate();
+    	function getComboA(sel) {
+			var value = sel.value;
+			//alert(value);
+			var latlong;
+			switch(value) {
+			case "New York":
+				latlong = [42.3482, -75.189];
+				break;
+			case "Sao Paulo":
+				latlong = [-23.55, -46.633];
+				break;
+			case "Paris":
+				latlong = [48.8567, 2.3508];
+				break;
+			case "Moscow":
+				latlong = [55.75, 37.6167];
+				break;
+			case "Tokyo":
+				latlong = [35.6895, 139.6917];
+				break;
+			default:
+				latlong = [42.3482, -75.189];
+			} 
+			//tokyoLatitude:35.6895, Longitude:139.6917 
+			//New York coordinates
+			//Latitude:42.3482, Longitude:-75.189
+			//saoaulo
+			//Latitude:-23.55, Longitude:-46.633 
+			//Moscow coordinates
+			//Latitude:55.75, Longitude:37.6167
+			//Paris coordinates
+			//Latitude:48.8567, Longitude:2.3508
+			alert(latlong);
+		}
     </script>
     </div>
     
