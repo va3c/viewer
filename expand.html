@@ -9,6 +9,7 @@
     <script src=https://mrdoob.github.io/three.js/build/three.min.js ></script>
     <script src=https://mrdoob.github.io/three.js/examples/js/controls/TrackballControls.js ></script>
     <script src=https://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.js></script>
     <script src=sun-position.js ></script>
     <script src=va3c-viewer.js ></script>
     <script src=first-person-controls-theo.js ></script>
@@ -102,7 +103,15 @@
 			</select>
         </li>
         <li style="padding-top:20px;padding-left:13px;"><b>TIME</b></li>
-        <li><a href="">Month</a></li>
+            <script>window.onload = function() {
+              var gui = new dat.GUI();
+              gui.add(text, 'month', 1, 12);
+              gui.add(text, 'day', 1, 31);
+              gui.add(text, 'hour', 0, 24);
+              var time = document.getElementById('time');
+              time.appendChild(gui.domElement);
+            };</script>
+        </li>
         <li><a href="">Day</a></li>
         <li><a href="">Hour</a></li>
         <li style="padding-top:20px;padding-left:13px;"><b>CAMERA</b></li>
