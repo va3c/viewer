@@ -166,6 +166,13 @@
 				VA3C.scene.children[i].geometry.computeFaceNormals();
                 targetList.push(VA3C.scene.children[i])
 			}
+            if(VA3C.scene.children[i].children.length > 0){
+                for (var k=0; k<VA3C.scene.children[i].children.length ; k++){
+                    if(VA3C.scene.children[i].children[k].hasOwnProperty("geometry")){
+                        targetList.push(VA3C.scene.children[i].children[k]);
+                    }
+                }
+            }
 		}
 	}
 
