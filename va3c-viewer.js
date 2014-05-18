@@ -49,8 +49,8 @@
 
             VA3C.scene.add(new THREE.AmbientLight(0x444444));
 
+			updateLight( 2014, 5, 18, 22, 30, 00, 42, -75 );
 
-			updateLight( 2014, 5, 18, 22, 30, 00, 42, -75 )
 // axes
             function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
             VA3C.scene.add( new THREE.ArrowHelper( v(1, 0, 0), v(0, 0, 0), 30, 0xcc0000) );
