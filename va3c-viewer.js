@@ -293,7 +293,11 @@
 		msg.innerHTML = '';
 		var arr = Object.keys( obj );
 		for (var i = 0, len = arr.length; i < len; i++) {
-			msg.innerHTML += arr[i] + ': ' + obj[ arr[i] ] + '<br>';
+			if ( obj[arr[i]].indexOf('http') === 0) {
+				msg.innerHTML += '<a href='+obj[arr[i]]+'>Click here</a>';
+			} else {
+				msg.innerHTML += arr[i] + ': ' + obj[ arr[i] ] + '<br>';
+			}
 		}
 
 }
