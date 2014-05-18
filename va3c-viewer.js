@@ -226,12 +226,12 @@
         radius = diag.length() * 0.5;
 
         // Compute offset needed to move the camera back that much needed to center AABB (approx: better if from BB front face)
-        var offset = radius / Math.tan(Math.PI / 180.0 * VA3C.cameraControls.object.fov * 0.5);
+        var offset = radius / Math.tan(Math.PI / 180.0 * VA3C.controls.object.fov * 0.5);
         //console.log(offset);
 
         // Compute new camera position
         var vector = new THREE.Vector3(0,0,1);
-        var dir = vector.applyQuaternion(VA3C.cameraControls.object.quaternion);
+        var dir = vector.applyQuaternion(VA3C.controls.object.quaternion);
         //var dir = VA3C.cameraControls.object.matrix.getColumnZ();
         dir.multiplyScalar(offset);
         var newPos = new THREE.Vector3();
