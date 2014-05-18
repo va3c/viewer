@@ -7,7 +7,7 @@
 	
 	var latlon, latlong = [42.3482, -75.189];
 	
-//	VA3C.fname = '../json/twoMobius.json';
+//	VA3C.fname = '../json/MissSpacyEyes.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
 //	VA3C.fname = '../json/Project2.rvt.js';
 	VA3C.fname = '../RvtVa3c/rac_basic_sample_project.rvt.js';
@@ -298,6 +298,9 @@
 
         selMaterial = new THREE.MeshBasicMaterial( { color: 'red' });   //color for selected mesh element
 
+        //TODO: restore material for last selected element, even if nothing new has been selected.
+
+
         var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
         projector.unprojectVector( vector, VA3C.camera );
 
@@ -322,14 +325,23 @@
                  if(lastMaterial!=-1)
                  {
                      //reset last material for last lastMeshID
+                     for(var i = 0; i < VA3C.scene.children.length;i++)
+                     {
+                         if (VA3C.scene.children[i].id == lastMeshID)
+                         {
+                             VA3C.scene.children[i].material = lastMaterial;
+                         }
+                     }
                  }
 
                  //set lastMaterial
-                 //lastMaterial =
+                 lastMaterial = intersects[j].object.material;
 
                  //set lastMeshID
+                 lastMeshID = intersects[j].object.id;
 
                  //apply SelMaterial
+                 intersects[j].object.material = selMaterial;
 
 
                 displayAttributes( intersects[j].object.userData );
