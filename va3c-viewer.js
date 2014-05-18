@@ -16,7 +16,7 @@
 	var projector;
 	var targetList = [];
 
-	function init() {
+	function init(fname) {
 		var geometry, material, mesh;
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
@@ -44,10 +44,24 @@
 		projector = new THREE.Projector();
 		document.addEventListener( 'click', clickHandler, false );
 
-		loadJS( VA3C.fname );
+		loadJS( fname );
+		//loadJS( VA3C.fname );
 	}
-
-	function loadJS ( fname ) {
+    
+//     function loadDAE (fname) {
+//     	var dae, skin;
+//     	var loader = new THREE.ColladaLoader();
+// 			loader.options.convertUpAxis = true;
+// 			loader.load( fname, function ( collada ) {
+//         		dae = collada.scene;
+//         		skin = collada.skins[ 0 ];
+        
+//         		dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
+//         		dae.updateMatrix();
+//         	});
+//     }
+			
+	function loadJS (fname) {
 		//if ( obj ) VA3C.scene.remove( obj );
 		// obj = new THREE.Object3D();
 		var loader = new THREE.ObjectLoader();
