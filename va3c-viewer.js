@@ -185,10 +185,6 @@
 
             intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
 
-            var particle = new THREE.Sprite( particleMaterial );
-            particle.position = intersects[ 0 ].point;
-            particle.scale.x = particle.scale.y = 16;
-            VA3C.scene.add( particle );
 
         }
     }
