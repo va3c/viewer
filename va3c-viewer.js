@@ -207,6 +207,10 @@ console.log(123 );
                  console.log(intersects[j].object.userData);
                  break;
              }
+             if(!$.isEmptyObject(intersects[j].object.parent.userData)){
+                 console.log(intersects[j].object.parent.userData);
+                 break;
+             }
              j++;
          }
 
