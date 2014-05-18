@@ -2,13 +2,15 @@
 //	var info, stats, renderer, scene, camera, controls;
 
 	var obj, light;
+
+    var lastMaterial, lastMeshID;
 	
 	var latlon, latlong = [42.3482, -75.189];
 	
 //	VA3C.fname = '../json/twoMobius.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
 //	VA3C.fname = '../json/Project2.rvt.js';
-	VA3C.fname = '../json/revit/rac_basic_sample_project.rvt.js';
+	VA3C.fname = '../RvtVa3c/rac_basic_sample_project.rvt.js';
 
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
@@ -18,6 +20,7 @@
 
 	function init(fname) {
 		var geometry, material, mesh;
+        lastMaterial = -1;
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
@@ -274,6 +277,9 @@
     function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
 
+
+    var selMaterial;
+
 	function displayAttributes( obj ) {
 		msg.innerHTML = '';
 		var arr = Object.keys( obj );
@@ -282,9 +288,13 @@
 		}
 
 }
+
+
     function clickHandler(event){
 // console.log( event );
         event.preventDefault();
+
+        selMaterial = new THREE.MeshBasicMaterial( { color: 'red' });   //color for selected mesh element
 
         var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
         projector.unprojectVector( vector, VA3C.camera );
@@ -302,14 +312,58 @@
 
          var j =0;
          while(j<intersects.length){
+             //FOR MESHES:
              if(!$.isEmptyObject(intersects[j].object.userData)){
                  console.log(intersects[j].object.userData);
-displayAttributes( intersects[j].object.userData );
+
+
+                 if(lastMaterial!=-1)
+                 {
+                     //reset last material for last lastMeshID
+                 }
+
+                 //set lastMaterial
+                 //lastMaterial =
+
+                 //set lastMeshID
+
+                 //apply SelMaterial
+
+
+                displayAttributes( intersects[j].object.userData );
+
                  break;
              }
+             //FOR OBJECT3D
              if(!$.isEmptyObject(intersects[j].object.parent.userData)){
                  console.log(intersects[j].object.parent.userData);
-displayAttributes( intersects[j].object.parent.userData );
+
+                 if(lastMaterial!=-1)
+                 {
+                     //reset last material for last lastMeshID
+                     for(var i = 0; i < VA3C.scene.children.length;i++)
+                     {
+                         if (VA3C.scene.children[i].id == lastMeshID)
+                         {
+                             for (var ii = 0; ii < VA3C.scene.children[i].children.length;ii++)
+                             {
+                                 VA3C.scene.children[i].children[ii].material = lastMaterial;
+                             }
+
+                         }
+                     }
+                 }
+
+                 //set lastMaterial
+                 lastMaterial = intersects[j].object.material;
+
+                 //set lastMeshID
+                 lastMeshID = intersects[j].object.parent.id;
+
+                 //apply SelMaterial
+                 intersects[j].object.material = selMaterial;
+
+                displayAttributes( intersects[j].object.parent.userData );
                  break;
              }
              j++;
