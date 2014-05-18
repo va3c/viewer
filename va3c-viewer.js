@@ -15,10 +15,14 @@
 
 	var projector;
     var targetList = [];
-    var geometry, material, mesh;
+
+
+	function resCamera() {
+console.log(123 );
+	}
 
 	function init() {
-
+		var geometry, material, mesh;
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
@@ -43,24 +47,24 @@
 		VA3C.controls = new THREE.OrbitControls( VA3C.camera, VA3C.renderer.domElement );
 
 		projector = new THREE.Projector();
-    document.addEventListener( 'click', clickHandler, false );
+		document.addEventListener( 'click', clickHandler, false );
 
 		loadJS( VA3C.fname );
 	}
 
 	function loadJS ( fname ) {
-		if ( obj ) VA3C.scene.remove( obj );
-		obj = new THREE.Object3D();
+		//if ( obj ) VA3C.scene.remove( obj );
+		// obj = new THREE.Object3D();
 		var loader = new THREE.ObjectLoader();
-        loader.load(fname, function(obj){
-            VA3C.scene = obj;
+        loader.load(fname, function( result ){
+		VA3C.scene = result;
 
-            VA3C.scene.add(new THREE.AmbientLight(0x444444));
+		VA3C.scene.add(new THREE.AmbientLight(0x444444));
 
-		updateLight( 2014, 5, 18, 22, 30, 00, 42, -75 );
+		updateLight();
 
 // axes
-            function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
+
             VA3C.scene.add( new THREE.ArrowHelper( v(1, 0, 0), v(0, 0, 0), 30, 0xcc0000) );
             VA3C.scene.add( new THREE.ArrowHelper( v(0, 1, 0), v(0, 0, 0), 30, 0x00cc00) );
             VA3C.scene.add( new THREE.ArrowHelper( v(0, 0, 1), v(0, 0, 0), 30, 0x0000cc) );
@@ -88,7 +92,7 @@
 
             light = new THREE.DirectionalLight( 0xffffff, 1 );
 // (year, month, day, hour, minutes, sec, lat, long)
-			latlon = sunPosition( 2014, month.value, day.value, hour.value, 60, 00, latlong[0], latlong[1]  );
+			latlon = sunPosition( 2014, month.value, day.value, hour.value, 60, 0, latlong[0], latlong[1]  );
 // console.log ( latlon );
 			var pos = convertPosition(  latlon[0], latlon[1], 10000 );
 		// var pos = convertPosition(  43, -75, 10000 );
@@ -148,7 +152,7 @@
 			//Paris coordinates
 			//Latitude:48.8567, Longitude:2.3508
 //			alert(latlong);
-			updateLight( 2014, 5, 18, 22, 30, 00, latlong[0], latlong[2]) 
+			updateLight();
 		}
 
 	function animate() {
@@ -164,10 +168,12 @@
 				VA3C.scene.children[i].geometry.mergeVertices();
 				VA3C.scene.children[i].castShadow = true;
 				VA3C.scene.children[i].geometry.computeFaceNormals();
-                targetList.push(VA3C.scene.children[i])
+                targetList.push(VA3C.scene.children[i]);
 			}
 		}
 	}
+
+    function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
     function clickHandler(event){
 // console.log( event );
@@ -186,9 +192,6 @@
 
          //   intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
          console.log(intersects[0].object.userData);
-
-
-
 
         }
     }
