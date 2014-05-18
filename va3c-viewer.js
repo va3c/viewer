@@ -1,5 +1,5 @@
 	var VA3C = {};
-// 	var info, stats, renderer, scene, camera, controls;
+//	var info, stats, renderer, scene, camera, controls;
 
 	var obj, light;
 	
@@ -8,17 +8,16 @@
 //	VA3C.fname = '../json/twoMobius.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
 //	VA3C.fname = '../json/Project2.rvt.js';
-	VA3C.fname = '../json/Hex_01.js';
+	VA3C.fname = '../json/revit/rac_basic_sample_project.rvt.js';
 
 	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
 
 	var projector;
-    var targetList = [];
-    var geometry, material, mesh;
+	var targetList = [];
 
 	function init() {
-
+		var geometry, material, mesh;
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
@@ -43,7 +42,7 @@
 		VA3C.controls = new THREE.OrbitControls( VA3C.camera, VA3C.renderer.domElement );
 
 		projector = new THREE.Projector();
-    document.addEventListener( 'click', clickHandler, false );
+		document.addEventListener( 'click', clickHandler, false );
 
 		loadJS( VA3C.fname );
 	}
@@ -62,18 +61,18 @@
 	}
 			
 	function loadJS ( fname ) {
-		if ( obj ) VA3C.scene.remove( obj );
-		obj = new THREE.Object3D();
+		//if ( obj ) VA3C.scene.remove( obj );
+		// obj = new THREE.Object3D();
 		var loader = new THREE.ObjectLoader();
-        loader.load(fname, function(obj){
-            VA3C.scene = obj;
+        loader.load(fname, function( result ){
+		VA3C.scene = result;
 
-            VA3C.scene.add(new THREE.AmbientLight(0x444444));
+		VA3C.scene.add(new THREE.AmbientLight(0x444444));
 
-		updateLight( 2014, 5, 18, 22, 30, 00, 42, -75 );
+		updateLight();
 
 // axes
-            function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
+
             VA3C.scene.add( new THREE.ArrowHelper( v(1, 0, 0), v(0, 0, 0), 30, 0xcc0000) );
             VA3C.scene.add( new THREE.ArrowHelper( v(0, 1, 0), v(0, 0, 0), 30, 0x00cc00) );
             VA3C.scene.add( new THREE.ArrowHelper( v(0, 0, 1), v(0, 0, 0), 30, 0x0000cc) );
@@ -101,7 +100,7 @@
 
             light = new THREE.DirectionalLight( 0xffffff, 1 );
 // (year, month, day, hour, minutes, sec, lat, long)
-			latlon = sunPosition( 2014, month.value, day.value, hour.value, 60, 00, latlong[0], latlong[1]  );
+			latlon = sunPosition( 2014, month.value, day.value, hour.value, 60, 0, latlong[0], latlong[1]  );
 // console.log ( latlon );
 			var pos = convertPosition(  latlon[0], latlon[1], 10000 );
 		// var pos = convertPosition(  43, -75, 10000 );
@@ -161,8 +160,14 @@
 			//Paris coordinates
 			//Latitude:48.8567, Longitude:2.3508
 //			alert(latlong);
-			updateLight( 2014, 5, 18, 22, 30, 00, latlong[0], latlong[2]) 
+			updateLight();
 		}
+
+	function resetCamera() {
+		VA3C.controls.target.set( 0, 0, 0  );
+		VA3C.camera.position.set( 15,000, 15000, 15000 );
+		VA3C.camera.up = v( 0, 1, 0 );
+	}
 
 	function animate() {
 		requestAnimationFrame( animate );
@@ -177,10 +182,19 @@
 				VA3C.scene.children[i].geometry.mergeVertices();
 				VA3C.scene.children[i].castShadow = true;
 				VA3C.scene.children[i].geometry.computeFaceNormals();
-                targetList.push(VA3C.scene.children[i])
+                targetList.push(VA3C.scene.children[i]);
 			}
+            if(VA3C.scene.children[i].children.length > 0){
+                for (var k=0; k<VA3C.scene.children[i].children.length ; k++){
+                    if(VA3C.scene.children[i].children[k].hasOwnProperty("geometry")){
+                        targetList.push(VA3C.scene.children[i].children[k]);
+                    }
+                }
+            }
 		}
 	}
+
+    function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
     function clickHandler(event){
 // console.log( event );
@@ -198,10 +212,20 @@
         if ( intersects.length > 0 ) {
 
          //   intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
-         console.log(intersects[0].object.userData);
+         //console.log(intersects[0].object.userData);
 
-
-
+         var j =0;
+         while(j<intersects.length){
+             if(!$.isEmptyObject(intersects[j].object.userData)){
+                 console.log(intersects[j].object.userData);
+                 break;
+             }
+             if(!$.isEmptyObject(intersects[j].object.parent.userData)){
+                 console.log(intersects[j].object.parent.userData);
+                 break;
+             }
+             j++;
+         }
 
         }
     }
