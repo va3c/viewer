@@ -3,7 +3,7 @@
 
 	var obj, light;
 	
-	var latlon, latlong;
+	var latlon, latlong = [42.3482, -75.189];
 	
 //	VA3C.fname = '../json/twoMobius.json';
 //	VA3C.fname = '../RvtVa3c/models/Wall.rvt.js';
@@ -118,7 +118,7 @@
 // console.log( sel );
 			var value = sel.value;
 			//alert(value);
-			var latlong;
+			// var latlong;
 			switch(value) {
 			case "New York":
 				latlong = [42.3482, -75.189];
