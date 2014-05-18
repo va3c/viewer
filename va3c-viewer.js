@@ -189,7 +189,7 @@
 
          var j =0;
          while(j<intersects.length){
-             if(intersects[j].object.userData.length !== 0){
+             if(!$.isEmptyObject(intersects[j].object.userDat)){
                  console.log(intersects[j].object.userData);
                  break;
              }
