@@ -3,7 +3,7 @@
 
 	var obj, light;
 
-    var lastMaterial, lastMeshID;
+    var lastMeshMaterial, lastMeshID, lastObjectMaterial, lastObjectID;
 	
 	var latlon, latlong = [42.3482, -75.189];
 	
@@ -20,7 +20,10 @@
 
 	function init(fname) {
 		var geometry, material, mesh;
-        lastMaterial = -1;
+        lastMeshMaterial = -1;
+        lastMeshID = -1;
+        lastObjectMaterial = -1;
+        lastObjectID = -1;
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
@@ -298,7 +301,36 @@
 
         selMaterial = new THREE.MeshBasicMaterial( { color: 'red' });   //color for selected mesh element
 
-        //TODO: restore material for last selected element, even if nothing new has been selected.
+        //When clicking without selecting object, replace temp material for meshes and object3D
+        if(lastMeshMaterial!=-1)
+        {
+            //reset last material for last lastMeshID
+            for(var i = 0; i < VA3C.scene.children.length;i++)
+            {
+                if (VA3C.scene.children[i].id == lastMeshID)
+                {
+                    VA3C.scene.children[i].material = lastMeshMaterial;
+                }
+            }
+        }
+
+        if(lastObjectMaterial!=-1)
+        {
+            //reset last material for last lastObjectID
+            for(var i = 0; i < VA3C.scene.children.length;i++)
+            {
+                if (VA3C.scene.children[i].id == lastObjectID)
+                {
+                    for (var ii = 0; ii < VA3C.scene.children[i].children.length;ii++)
+                    {
+                        VA3C.scene.children[i].children[ii].material = lastObjectMaterial;
+                    }
+
+                }
+            }
+        }
+
+
 
 
         var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
@@ -322,20 +354,20 @@
                  console.log(intersects[j].object.userData);
 
 
-                 if(lastMaterial!=-1)
+                 if(lastMeshMaterial!=-1)
                  {
                      //reset last material for last lastMeshID
                      for(var i = 0; i < VA3C.scene.children.length;i++)
                      {
                          if (VA3C.scene.children[i].id == lastMeshID)
                          {
-                             VA3C.scene.children[i].material = lastMaterial;
+                             VA3C.scene.children[i].material = lastMeshMaterial;
                          }
                      }
                  }
 
                  //set lastMaterial
-                 lastMaterial = intersects[j].object.material;
+                 lastMeshMaterial = intersects[j].object.material;
 
                  //set lastMeshID
                  lastMeshID = intersects[j].object.id;
@@ -352,16 +384,16 @@
              if(!$.isEmptyObject(intersects[j].object.parent.userData)){
                  console.log(intersects[j].object.parent.userData);
 
-                 if(lastMaterial!=-1)
+                 if(lastObjectMaterial!=-1)
                  {
-                     //reset last material for last lastMeshID
+                     //reset last material for last lastObjectID
                      for(var i = 0; i < VA3C.scene.children.length;i++)
                      {
-                         if (VA3C.scene.children[i].id == lastMeshID)
+                         if (VA3C.scene.children[i].id == lastObjectID)
                          {
                              for (var ii = 0; ii < VA3C.scene.children[i].children.length;ii++)
                              {
-                                 VA3C.scene.children[i].children[ii].material = lastMaterial;
+                                 VA3C.scene.children[i].children[ii].material = lastObjectMaterial;
                              }
 
                          }
@@ -369,10 +401,10 @@
                  }
 
                  //set lastMaterial
-                 lastMaterial = intersects[j].object.material;
+                 lastObjectMaterial = intersects[j].object.material;
 
-                 //set lastMeshID
-                 lastMeshID = intersects[j].object.parent.id;
+                 //set lastObjectID
+                 lastObjectID = intersects[j].object.parent.id;
 
                  //apply SelMaterial
                  intersects[j].object.material = selMaterial;
