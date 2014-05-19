@@ -70,29 +70,27 @@
 //     }
 			
 	function loadJS (fname) {
-		//if ( obj ) VA3C.scene.remove( obj );
-		// obj = new THREE.Object3D();
+		if ( VA3C.scene ) VA3C.scene.remove( obj );
+		targetList = [];
 		var loader = new THREE.ObjectLoader();
-        loader.load(fname, function( result ){
-		VA3C.scene = result;
+        loader.load( fname, function( result ){
+			VA3C.scene = result;
 
-		VA3C.scene.add(new THREE.AmbientLight(0x444444));
+// lights
+		VA3C.scene.add( new THREE.AmbientLight( 0x444444 ) );
 
 		updateLight();
 
 // axes
-
             VA3C.scene.add( new THREE.ArrowHelper( v(1, 0, 0), v(0, 0, 0), 30, 0xcc0000) );
             VA3C.scene.add( new THREE.ArrowHelper( v(0, 1, 0), v(0, 0, 0), 30, 0x00cc00) );
             VA3C.scene.add( new THREE.ArrowHelper( v(0, 0, 1), v(0, 0, 0), 30, 0x0000cc) );
 
 // ground box
-
             geometry = new THREE.BoxGeometry( 20000, 100, 20000 );
             material = new THREE.MeshBasicMaterial( { color: 0xaaaaaa } );
             mesh = new THREE.Mesh( geometry, material );
             mesh.position.set( 0, -10, 0 );
-
             mesh.castShadow = true;
             mesh.receiveShadow = true;
             VA3C.scene.add( mesh );
@@ -101,8 +99,6 @@
             computeNormalsAndFaces();
         });
 	}
-
-	function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
 	function updateLight() {
 			if ( light ) { VA3C.scene.remove( light ); }
@@ -178,7 +174,6 @@
 		VA3C.camera.up = v( 0, 1, 0 );
 	}
 
-
     function zoomExtents(){
 
         //found this method here: https://github.com/mrdoob/three.js/issues/1424
@@ -248,9 +243,9 @@
         //set camera position and target
         VA3C.controls.object.position = newPos;
         VA3C.controls.object.target = aabbCenter;
-
     }
 
+	function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
 	function animate() {
 		requestAnimationFrame( animate );
@@ -277,26 +272,21 @@
 		}
 	}
 
-    function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
-
-
-
     var selMaterial;
 
 	function displayAttributes( obj ) {
 		msg.innerHTML = '';
 		var arr = Object.keys( obj );
 		for (var i = 0, len = arr.length; i < len; i++) {
-		 if ( obj[arr[i]] != undefined) {
-			if ( obj[arr[i]].indexOf('http') == 0) {
-				msg.innerHTML += '<a href="'+obj[arr[i]]+'">Click here</a><br>';
-			} else {
-				msg.innerHTML += arr[i] + ': ' + obj[ arr[i] ] + '<br>';
+			if ( obj[arr[i]] != undefined) {
+				if ( obj[arr[i]].indexOf('http') == 0) {
+					msg.innerHTML += '<a href="'+obj[arr[i]]+'">Click here</a><br>';
+				} else {
+					msg.innerHTML += arr[i] + ': ' + obj[ arr[i] ] + '<br>';
+				}
 			}
 		}
 	}
-
-}
 
 
     function clickHandler(event){
