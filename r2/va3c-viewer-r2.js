@@ -58,12 +58,14 @@
 				'<a href="" >' + document.title + '</a> ' +
 				'<a href=# id=infoIcon onclick=info.style.display="block"; >&#x24D8;</a>' +
 			'</h1>' +
+/*
 			'<p>' +
 				'Zoom: &nbsp;  &nbsp;<input id=setZoom title="0 to 18: OK" type=number min=0 max=18 step=1 ><br>' +
 				'Pretty colors: <input id=inpPretty type=checkbox ><br>' +
 				'Overlay: <select id=selList title="Select the 2D overlay" >select option<select><br>' +
 				'<input type=button onclick=saveIt(); value="Save as PNG" >' +
 			'</p>' +
+*/
 			'<hr><br>' +
 			'<p class=button >' +
 				'<a href=# id=fileOpen onclick=fileOpen.style.display="block" >File Open...</a>' +
@@ -71,19 +73,6 @@
 			'<div id=messages></div>' +
 		'';
 
-//		var data = requestFile( sourceDir + fileList );
-//		files = data.split(/\r\n|\n/);
-		var list = [ 'aaa','bbb','ccc','ddd','eee' ];
-		for (var option, i = 0; i < list.length; i++) {
-			option = document.createElement( 'option' );
-			option.innerText = list[i];
-			selList.appendChild( option );
-		}
-
-		selList.onchange = function() { requestHGTFile( sourceDir + files[ selHGT.selectedIndex ] ); };
-		selList.selectedIndex = 1;
-
-//		window.addEventListener('mouseup', mouseUp, false);
 	}
 
 	function addInfo() {
@@ -115,41 +104,39 @@
 	function addFileOpen() {
 		fileOpen = document.body.appendChild( document.createElement( 'div' ) );
 		fileOpen.style.cssText = 'display: none; background-color: #ccc; left: 50px; opacity: 0.9; padding: 20px; ' +
-			'bottom: 0; left: 0; height: 370px; margin: auto; position: absolute; right: 0; top: 0; width: 500px; zIndex:10; ';
+			'bottom: 0;height: 450px; left: 0;  margin: auto; position: absolute; right: 0; top: 0; width: 500px; zIndex:10; ';
 		fileOpen.innerHTML =
-			'<div onclick=fileOpen.style.display="none"; >' +
+			'<div>' +
 				'<h3>File Open</h3>' +
 				'<p>Select a sample file</p>' +
 // remember: no spaces in the JS below or add quotes 
-					'<p><select id=selSample onchange=loadJS("../../json/"+samples[this.selectedIndex]) ></select><p>' +
+					'<p><select id=selSample onchange=loadFile("../../json/"+samples[this.selectedIndex]) ></select><p>' +
 
 				'<p>Select a local file</p>' +
 				'<p><input type=file onchange=readFile(this);></input></p>' +
+
+				'<p>Drag and Drop a local file</p>' +
+				'<p>TBD</p>' +
+
 				'<p>Paste a JSON URL</p>' +
-				'<p><input type=text onchange=loadURL(this.value); ></input></p>' +
-//				'<p>Sample <a href=JavaScript:loadURL("http://va3c.github.io/json/revit/Project2.rvt.js"); );>Revit Project 2</a></p>' +
-				'<p>Sample <a href=JavaScript:loadURL("../../json/revit/Project2.rvt.js"); );>Revit Project 2</a></p>' +
+				'<p><input type=text onchange=loadURL(this.value); style=width:400px; ></input></p>' +
+				'<p>Sample <a href=JavaScript:loadURL("http://va3c.github.io/json/revit/Project2.rvt.js"); );>Revit Project 2</a></p>' +
+//				'<p>Sample <a href=JavaScript:loadURL("../../json/revit/Project2.rvt.js"); );>Revit Project 2</a></p>' +
 
 				'<br>' +
-				'<p><i>Click anywhere in this message to cancel...</i></p>' +
+				'<p class=button onclick=fileOpen.style.display="none"; >Cancel</p>' +
 		'</div>';
-//		infoIcon.style.cssText += 'text-decoration: none; ';
 		fileOpen.title = 'Open a different file';
 
-		samples = [ 'revit/Project2.rvt.js','revit/rac_basic_sample_project.rvt.js','Hex_01.js', 'json/TypTower.json',
-			'json/TTX.json','json/3dsmax/TransamericaPyramid2.js','Vase_01.js',
-
-
-//'DrCyanKlein.json', '05_15.bvh', '07_03.bvh', '07_06.bvh', '08_08.bvh', '10_02.bvh', '13_14.bvh', '13_20.bvh', '13_29.bvh',
-//			'13_32.bvh', '14_10.bvh', '14_24.bvh', '16_15.bvh', '16_31.bvh', '16_36.bvh', '17_07.bvh'
+		samples = [ 'revit/Project2.rvt.js','revit/rac_basic_sample_project.rvt.js','Hex_01.js', 'TypTower.json',
+			'TTX.json','3dsmax/TransamericaPyramid2.js','Vase_01.js',
 		];
+
 		for (var len = samples.length, option, i = 0; i < len; i++) {
 			option = document.createElement( 'option' );
 			option.innerText = samples[i];
 			selSample.appendChild( option );
-
 		}
-
 	}
 
 	function loadFile (fname) {
@@ -174,12 +161,10 @@
 		}
 	}
 
-
-
 	function loadURL ( url ) {
 		var loader = new THREE.ObjectLoader();
-		script = document.body.appendChild( document.createElement('script') );
-		script.src = url;
+//		script = document.body.appendChild( document.createElement('script') );
+//		script.src = url;
 
 		var result = requestFile( url );
 		var data = JSON.parse( result );
