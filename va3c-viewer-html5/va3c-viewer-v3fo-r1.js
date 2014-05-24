@@ -27,9 +27,9 @@
 				'<tr><td>Position: </td><td>X <input type=text class=xyz value=' + V3PL.posX + ' onchange=V3PL.posX=parseInt(this.value,10); ></td>' +
 				'<td>Y <input type=text class=xyz value=' + V3PL.posY + ' onchange=V3PL.posY=parseInt(this.value,10); ></td>'  +
 				'<td>Z <input type=text class=xyz value=' + V3PL.posZ + ' onchange=V3PL.posZ=parseInt(this.value,10); ></td></tr>' +
-				'<tr><td>Rotation: </td><td>X <input type=text class=xyz value=' + V3PL.rotX + ' onchange=V3PL.rotX=parseInt(this.value,10); ></td>' +
-				'<td>Y <input type=text class=xyz value=' + V3PL.rotY + ' onchange=V3PL.rotY=parseInt(this.value,10); ></td>' +
-				'<td>Z <input type=text class=xyz value=' + V3PL.rotZ + ' onchange=V3PL.rotZ=parseInt(this.value,10); ></td></tr>' +
+				'<tr><td>Rotation: </td><td>X <input type=text class=xyz value=' + (V3PL.rotX * r2d)+ ' onchange=V3PL.rotX=this.value*d2r; ></td>' +
+				'<td>Y <input type=text class=xyz value=' + (V3PL.rotY * r2d) + ' onchange=V3PL.rotY=this.value*d2r; ></td>' +
+				'<td>Z <input type=text class=xyz value=' + (V3PL.rotZ * r2d) + ' onchange=V3PL.rotZ=this.value*d2r; ></td></tr>' +
 				'<tr><td>Scale: </td><td>X <input type=text class=xyz value=' + V3PL.sclX + ' onchange=V3PL.sclX=parseInt(this.value,10); ></td>' +
 				'<td>Y <input type=text class=xyz value=' + V3PL.sclY + ' onchange=V3PL.sclY=parseInt(this.value,10); ></td>' +
 				'<td>Z <input type=text class=xyz value=' + V3PL.sclZ + ' onchange=V3PL.sclZ=parseInt(this.value,10); ></td></tr>' +
@@ -118,9 +118,6 @@
 
 	V3FO.loadURL = function  ( url ) {
 		var loader = new THREE.ObjectLoader();
-//		script = document.body.appendChild( document.createElement('script') );
-//		script.src = url;
-console.log( url );
 		var data = V3FO.requestFile( url );
 		var result = JSON.parse( data );
 		if ( V3PL.files === 'replace' ) {
