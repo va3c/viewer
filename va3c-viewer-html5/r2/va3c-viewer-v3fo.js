@@ -79,7 +79,7 @@
 			selSample.appendChild( option );
 		}
 
-		selSample.onchange = function() { V3FO.clearSelect( 1); V3FO.operation = "loadFile"; V3FO.data = "../../json/" + V3FO.samples[ this.selectedIndex ]; };
+		selSample.onchange = function() { V3FO.clearSelect( 1); V3FO.operation = "loadFile"; V3FO.data = "../../../json/" + V3FO.samples[ this.selectedIndex ]; };
 
 		inpFile.onchange = function() { V3FO.clearSelect( 2 ); V3FO.operation = "readFile"; V3FO.data = this; };
 
