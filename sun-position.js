@@ -1,7 +1,5 @@
-	function sunPosition (year, month, day, hour, minutes, sec,
-                    lat, long) {
-                    
-    
+	function sunPosition (year, month, day, hour, minutes, sec, lat, long) {
+
 	hour = typeof hour !== 'undefined' ? hour : 12;
 	minutes = typeof minutes !== 'undefined' ? minutes : 0;
 	sec = typeof sec !== 'undefined' ? sec : 0;

@@ -25,16 +25,16 @@
 
 
 	V3PL.addPermalinks = function () {
-		permalinksButton = menu.appendChild( document.createElement( 'div' ) );
+		var permalinksButton = V3AA.menu.appendChild( document.createElement( 'div' ) );
 
 		permalinksButton.innerHTML =
 			'<p class=button >' +
-				'<a href=# id=fileOpen onclick=V3PL.permalinks.style.display="block";V3PL.permalinks.innerHTML=V3PL.refreshParameters(); >Permalinks...</a>' +
+				'<a href=# onclick=V3AA.openDialog(V3PL.permalinks);V3PL.permalinks.innerHTML=V3PL.refreshParameters(); ><i class="fa fa-link"></i> Permalinks...</a>' +
 			'</p>'; 
 
-		V3PL.permalinks = document.body.appendChild( document.createElement( 'div' ) );
-		V3PL.permalinks.style.cssText = 'display: none; background-color: #ccc; left: 50px; opacity: 0.9; padding: 0 20px 20px; ' +
-			'bottom: 0; height: 500px; left: 0; margin: auto; position: absolute; right: 0; top: 0; width: 450px; zIndex:10; ';
+		V3PL.permalinks = container.appendChild( document.createElement( 'div' ) );
+		V3PL.permalinks.style.cssText = 'display: none; background-color: #ccc; opacity: 0.9; padding: 0 20px 20px; ' +
+			'bottom: 0; height: 530px; left: 0; margin: auto; position: absolute; right: 0; top: 0; width: 450px; ';
 
 		V3PL.permalinks.innerHTML = V3PL.refreshParameters();
 	};
@@ -52,7 +52,9 @@
 
 		var txt =
 			'<div>' +
-				'<h3>Permalinks</h3>' +
+				'<h3><i class="fa fa-link"></i> Permalinks</h3>' +
+
+				'<p><small><i><a href="http://en.wikipedia.org/wiki/Permalink" target="_blank">Permalinks</a> enable you to create a scene and save it as a link you can share..</i></small></p>' +
 
 				'<input type=radio name=files id=radFilesReplace onclick=V3PL.files=this.value value="replace" checked=' + ( V3PL.files === 'replace' ) + ' >Replace - new file erases current scene<br>' +
 				'<input type=radio name=files id=radFilesAppend onclick=V3PL.files=this.value value="append" >Append - new file added to current scene<br>' +
@@ -89,8 +91,7 @@
 				'<p><a href=JavaScript:V3PL.clearPermalink(); >Clear Permalink</a></p>' +
 
 				'<p style=text-align:right; >' +
-					'<span class=button onclick=V3PL.permalinks.style.display="none"; >Close</span> ' +
-//					'<span class=button onclick=V3FO.open(); >Open</span>' +
+					'<a class=button href=JavaScript:V3AA.openDialog(); >Close</a> ' +
 				'</p>' +
 			'</div>';
 		return txt;

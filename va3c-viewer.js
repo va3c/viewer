@@ -260,9 +260,9 @@
 				VA3C.scene.children[i].geometry.mergeVertices();
 				VA3C.scene.children[i].castShadow = true;
 				VA3C.scene.children[i].geometry.computeFaceNormals();
-                targetList.push(VA3C.scene.children[i]);
+                targetList.push( VA3C.scene.children[i] );
 			}
-            if(VA3C.scene.children[i].children.length > 0){
+            if( VA3C.scene.children[i].children.length > 0 ){
                 for (var k=0; k<VA3C.scene.children[i].children.length ; k++){
                     if(VA3C.scene.children[i].children[k].hasOwnProperty("geometry")){
                         targetList.push(VA3C.scene.children[i].children[k]);
