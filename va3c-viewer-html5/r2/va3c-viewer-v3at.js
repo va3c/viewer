@@ -50,7 +50,7 @@
 		mouse3D.z = 0.5;
 		var raycaster = V3AT.projector.pickingRay( mouse3D.clone(), camera );
 		var intersects = raycaster.intersectObjects( V3FO.targetList );
-		if ( intersects.length > 0 ) {
+		if ( intersects && intersects.length > 0 ) {
 			V3AT.headsUp.style.left = 10 + V3AT.halfWidth + mouse3D.x * V3AT.halfWidth + 'px';
 			V3AT.headsUp.style.bottom = 10 + V3AT.halfHeight + mouse3D.y * V3AT.halfHeight + 'px';
 			displayAttributes( intersects[ 0 ] );

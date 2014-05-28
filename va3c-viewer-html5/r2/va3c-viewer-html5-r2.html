@@ -58,6 +58,8 @@
 			V3FO.loadFile( fname );
 		}
 
+		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		document.addEventListener( 'click', onDocumentMouseClick, false );
 		window.addEventListener('mouseup', mouseUp, false);
 	}
 

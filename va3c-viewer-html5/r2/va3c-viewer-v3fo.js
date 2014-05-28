@@ -107,11 +107,11 @@
 		V3FO.fname = fname;
 
 // prettify the demo files
-		chkGroundPlane.checked = ( fname !== '../../json/revit/rac_basic_sample_project.rvt.js' ) ? true : false;
+		chkGroundPlane.checked = ( V3FO.fname.search('sample_project') > -1 ) ? false : true;
 
-		if ( fname === '../../json/MissSpacyEyes.json' ||
-			fname === '../../json/TTX.json' ||
-			fname === '../../json/Vase_01.js'
+		if ( V3FO.fname.search('MissSpacyEyes') > -1 ||
+			V3FO.fname.search('TTX.json') > -1 ||
+			V3FO.fname.search('Vase_01') > -1
 		) {
 			V3PL.sclX = 5; V3PL.sclY = 5; V3PL.sclZ = 5; 
 		} else {
