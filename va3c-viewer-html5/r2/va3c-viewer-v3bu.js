@@ -43,29 +43,29 @@
 
 	V3BU.openBundle1 = function() {
 		V3AA.openDialog();
-		location.hash = '#camx=18492#camy=12433#camz=7#posx=5000#sclx=3#scly=3#sclz=3#tarx=-161#tary=270#tarz=537#url=../../json/Vase_01.js';
+		location.hash = '#camx=18492#camy=12433#camz=7#posx=5000#sclx=3#scly=3#sclz=3#tarx=-161#tary=270#tarz=537#url=../../../json/Vase_01.js';
 		V3PL.parsePermalink();
 		V3FO.loadURL( V3PL.url );
 
-		location.hash = '#camx=18492#camy=12433#camz=7#files=append#posz=5000#sclx=3#scly=2#scly=0.75#sclz=2#tarx=-161#tary=270#tarz=537#url=../../json/TypTower.json';
+		location.hash = '#camx=18492#camy=12433#camz=7#files=append#posz=5000#sclx=3#scly=2#scly=0.75#sclz=2#tarx=-161#tary=270#tarz=537#url=../../../json/TypTower.json';
 		V3PL.parsePermalink();
 		V3FO.loadURL( V3PL.url );
 	};
 
 	V3BU.openBundle2 = function() {
 		V3AA.openDialog();
-		location.hash = '#camx=9995#camy=672#camz=11021#files=replace#sclx=3#scly=3#sclz=3#tarx=-368#tary=3818#tarz=-143#url=../../json/TTX.json';
+		location.hash = '#camx=9995#camy=672#camz=11021#files=replace#sclx=3#scly=3#sclz=3#tarx=-368#tary=3818#tarz=-143#url=../../../json/TTX.json';
 		V3PL.parsePermalink();
 		V3FO.loadURL( V3PL.url );
 	};
 
 	V3BU.openBundle3 = function() {
 		V3AA.openDialog();
-		location.hash = '#camx=-5232#camy=22747#camz=46874#files=replace#sclx=3#scly=3#sclz=3#tarx=-545#tary=13070#tarz=-2580#url=../../json/3dsmax/TransamericaPyramid2.js';
+		location.hash = '#camx=-5232#camy=22747#camz=46874#files=replace#sclx=3#scly=3#sclz=3#tarx=-545#tary=13070#tarz=-2580#url=../../../json/3dsmax/TransamericaPyramid2.js';
 		V3PL.parsePermalink();
 		V3FO.loadURL( V3PL.url );
 
-		location.hash = '#files=append#url=../../json/DrMajentaKlein.json';
+		location.hash = '#files=append#url=../../../json/DrMajentaKlein.json';
 		V3PL.parsePermalink();
 		V3FO.loadURL( V3PL.url );
 	};
@@ -74,15 +74,15 @@
 		V3AA.openDialog();
 		chkGroundPlane.checked = false;
 
-		location.hash = '#camx=3922#camy=1899#camz=-6307#files=replace#sclx=1#scly=1#sclz=1#tarx=1423#tary=548#tarz=-79#url=../../json/revit/rac_basic_sample_project.rvt.js';
+		location.hash = '#camx=3922#camy=1899#camz=-6307#files=replace#sclx=1#scly=1#sclz=1#tarx=1423#tary=548#tarz=-79#url=../../../json/revit/rac_basic_sample_project.rvt.js';
 		V3PL.parsePermalink();
 		V3FO.loadURL( V3PL.url );
 
-		location.hash = '#posx=2500#posy=750#sclx=0.15#scly=0.15#sclz=0.15#files=append#url=../../json/Vase_01.js';
+		location.hash = '#posx=2500#posy=750#sclx=0.15#scly=0.15#sclz=0.15#files=append#url=../../../json/Vase_01.js';
 		V3PL.parsePermalink();
 		V3FO.loadURL( V3PL.url );
 
-		location.hash = '#files=append#posx=4500#posy=0#posz=2000#sclx=0.15#scly=0.15#sclz=0.15#url=../../json/TypTower.json';
+		location.hash = '#files=append#posx=4500#posy=0#posz=2000#sclx=0.15#scly=0.15#sclz=0.15#url=../../../json/TypTower.json';
 		V3PL.parsePermalink();
 		V3FO.loadURL( V3PL.url );
 	};
