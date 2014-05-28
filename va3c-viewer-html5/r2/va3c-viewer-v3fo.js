@@ -123,6 +123,7 @@
 		var loader = new THREE.ObjectLoader();
         loader.load( fname, function( result ){
 			if ( V3PL.files === 'replace' ) {
+				V3FO.targetList = [];
 				scene = new THREE.Scene();
 				V3AA.addAssets();
 				V3SU.addLights();
@@ -143,6 +144,7 @@
 		if ( that.files && that.files[0]){
 			var reader = new FileReader();
 			reader.onload = function ( event ) {  
+				V3FO.targetList = [];
 				var data = JSON.parse( event.target.result );
 				scene = loader.parse( data );
 				V3AA.addAssets();
@@ -159,6 +161,7 @@
 		var data = V3FO.requestFile( url );
 		var result = JSON.parse( data );
 		if ( V3PL.files === 'replace' ) {
+			V3FO.targetList = [];
 			scene = new THREE.Scene();
 			V3AA.addAssets();
 			V3SU.addLights();
@@ -185,7 +188,7 @@
 	};
 
 	V3FO.computeNormalsAndFaces = function( obj ) {
-		V3FO.targetList = [];
+		
 //console.log( obj );
 		for ( var i = 0, iLen = obj.children.length, items; i < iLen; i++ ) {
 			items = obj.children;
