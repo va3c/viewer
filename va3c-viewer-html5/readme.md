@@ -31,7 +31,7 @@ Benjamin Howes, Jonatan Schumacher, Jeremy Tammik, Matt Mason, Kevin Vandecar, C
 
 ### Supporters 
 
-Mostapha Roudsari, Ashley Reed, Anne [from Sao Paulo], Jim Quanci, Elcin Ertugrul, Amir Tasbihi and many more. Others?
+Mostapha Roudsari, Ashley Reed, Anne Waelkens, Jim Quanci, Elcin Ertugrul, Amir Tasbihi and many more. Others?
 
 
 ## Road Map
