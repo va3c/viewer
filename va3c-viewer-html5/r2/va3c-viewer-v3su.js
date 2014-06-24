@@ -2,7 +2,6 @@
 
 	V3SU.addSunlight = function() {
 		var sunlightButton = V3AA.menu.appendChild( document.createElement( 'div' ) );
-
 		sunlightButton.innerHTML =
 			'<p class=button >' +
 				'<a href=# onclick=V3AA.openDialog(V3SU.sunlight); ><i class="fa fa-sun-o"></i> Sunlight...</a>' +
