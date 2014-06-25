@@ -19,12 +19,12 @@ Menubar.Help = function ( editor ) {
 				'<p>View Revit, Rhino/Grasshopper and 3DS Max models in 3D with any web browser using Three.js and data rendered as JSON files.</p>' +
 				'<p>Features include:</p>' +
 				'<ul>' +
-					'<li>Export by saving directly to file</li>' +
-					'<li>Permalink supprt to open files. See <a href="va3c.github.io/viewer/va3c-editor/va3c-samples/" target="_blank">vA3C Samples</a></li>' +
-					'<li>Toggle disply of UI</li>' +
-					'<li>Move meshes to new Object 3D a parent</li>' +
-					'<li>Transparent theme</li>' +
-					'<li>This About box</li>' +
+					'<li>Export by saving directly to file
+					'<li>Permalink supprt to open files. See <a href="va3c.github.io/viewer/va3c-editor/va3c-samples/" target="_blank">vA3C Samples</a>
+					'<li>Toggle disply of UI
+					'<li>Move meshes to new Object 3D a parent
+					'<li>Transparent theme
+					'<li>This About box
 				'</ul>' +				
 
 				'<p>This script is an update to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a></p>' +

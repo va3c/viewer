@@ -63,8 +63,8 @@
 				'<p>Team Members: Benjamin Howes, Jonatan Schumacher, Jeremy Tammik, Matt Mason, Kevin Vandecar, Charlie Portelli, Josh Wentz, Femi King, Zach Flanders & Theo Armour</p>' +
 				'<p>Supporters include: Mostapha Roudsari, Ashley Reed, Anne [from Sao Paulo], Jim Quanci, Elcin Ertugrul, Amir Tasbihi and many more. Others?</p>' +
 //				'<ul>' +
-//					'<li>xxx</li>' +
-//					'<li>xxx</li>' +
+//					'<li>xxx
+//					'<li>xxx
 //				'</ul>' +
 
 				'<small>' +
