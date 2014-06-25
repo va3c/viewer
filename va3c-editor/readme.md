@@ -78,9 +78,14 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 ## Change Log
 
+2014-06-25 ~ Theo
+
+* Fix About box
+* Add stuff to read me files
+
 2014-06-24 ~ Theo
 
-* Add files and foldera
+* Add files and folders
 * First commit  
 
 
