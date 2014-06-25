@@ -60,5 +60,6 @@ Features include:
 * Toggle disply of UI
 * Move meshes to new Object 3D a parent
 * Transparent theme
+* Support for Revit attributes in parent object
 * About box
 

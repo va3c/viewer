@@ -25,6 +25,7 @@ Menubar.Help = function ( editor ) {
 					'<li>Move meshes to new Object 3D a parent</li>' +
 					'<li>Transparent theme</li>' +
 					'<li>This About box</li>' +
+					'<li>Support for Revit attributes in parent object</li>' +
 				'</ul>' +				
 
 				'<p>This script is an update to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a></p>' +

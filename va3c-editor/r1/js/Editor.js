@@ -59,7 +59,7 @@ Editor.prototype = {
 	setTheme: function ( value ) {
 
 		document.getElementById( 'theme' ).href = value;
-console.log( value );
+
 		this.signals.themeChanged.dispatch( value );
 
 	},
