@@ -4,7 +4,7 @@ vA3C Editor Read Me
 ### Live Demo
 
 <iframe src="http://va3c.github.io/viewer/va3c-editor/latest/index.html" width=100% height=500px class='overview' >
-There is an `iframe` here. It is not visible when viewed on github.com/xxx. To view, please see 'Project Links' below.
+There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
 _vA3C Editor_
 
@@ -38,12 +38,10 @@ Mostapha Roudsari, Ashley Reed, Anne Waelkens, Jim Quanci, Elcin Ertugrul, Amir 
 
 
 ## Road Map
-* Add ability to open older JSON files
-* Add skybox
 
-## Issues /Bugs
 
-* Difficult to know which controller you are using currently
+## Issues / Bugs
+
 
 ## Project Links
 vA3C is a [GitGub]( http://github.com) [organization account]( https://help.github.com/articles/what-s-the-difference-between-user-and-organization-accounts ) and has multiple owners and admins. 
