@@ -3,7 +3,7 @@ vA3C Viewer
 
 ## Veritable Hackathon Work Product
 
-Live Demo: [vA3C Viewer]( a3c.github.io/viewer/index.html )
+Live Demo: [vA3C Viewer]( va3c.github.io/viewer/index.html )
 
 ### Single File Viewers
 
@@ -28,4 +28,25 @@ WordPress Plugin: 3D Model viewerbased off of the va3c model viewer
 
 ### vA3C Viewer R2 HTML5
 
+Live demo: <http://va3c.github.io/viewer/va3c-viewer-html5/r2/va3c-viewer-html5-r2.html>
+Read Me: <http://va3c.github.io/viewer/va3c-viewer-html5/readme-reader.html>
+GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5>
 
+Features include:
+
+* Simply Three.js and HTML5
+* Mouse-over attribute display
+* Open files locally or by URL
+* Save current currameters to permalinks
+* Open 'bunbles' of pre-selected files
+* Edit position, rotation and scale of models
+* Selet trackbal or irst person cameras
+
+
+### vA2C Editor R1
+
+Live demo: <http://va3c.github.io/viewer/va3c-editor/r1/va3c-editor-r1.html>
+Read me: <http://va3c.github.io/viewer/va3c-editor/readme-reader.html>
+GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/va3c-editor>
+
+Features include:

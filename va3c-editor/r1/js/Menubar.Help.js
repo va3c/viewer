@@ -23,7 +23,7 @@ Menubar.Help = function ( editor ) {
 					'<li>Permalink supprt to open files. See <a href="va3c.github.io/viewer/va3c-editor/va3c-samples/" target="_blank">vA3C Samples</a></li>' +
 					'<li>Toggle disply of UI</li>' +
 					'<li>Move meshes to new Object 3D a parent</li>' +
-					'<li>Transparent Theme</li>' +
+					'<li>Transparent theme</li>' +
 					'<li>This About box</li>' +
 				'</ul>' +				
 
