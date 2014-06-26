@@ -2,7 +2,7 @@ var Storage = function () {
 
 	var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 
-	var name = 'threejs-editor';
+	var name = 'va3c-editor';
 	var version = 1;
 
 	var database;

@@ -80,7 +80,7 @@ Menubar.File = function ( editor ) {
 
 		a.href = URL.createObjectURL( blob );
 		a.download = 'scene.json';
-		a.click();
+//		a.click();
 
 		delete a;
 
