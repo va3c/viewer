@@ -81,7 +81,7 @@ Remember: the JavaScript console is your friend...
 
 ### Vision  
 <!--  a descriptive picture of a desired future state -->
-
+When possible, I try to provide code that an engineer or designer could play with  
 
 ## Features
 <!-- and benefits -->
