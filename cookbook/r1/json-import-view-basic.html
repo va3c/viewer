@@ -56,7 +56,7 @@
 			var reader = new FileReader();
 			reader.onload = function ( event ) {  
 				data = JSON.parse( event.target.result );
-console.log( data );
+console.log( 'loaded' );
 				if ( data.metadata === undefined ) { // 2.0
 					data.metadata = { type: 'Geometry' };
 				}
@@ -66,10 +66,12 @@ console.log( data );
 				if ( data.metadata.version === undefined ) {
 					data.metadata.version = data.metadata.formatVersion;
 				}
+console.log( 'metadata read' );
 				if ( data.metadata.type.toLowerCase() === 'geometry' ) {
 					var loader = new THREE.JSONLoader();
 					var result = loader.parse( data );
 					var geometry = result.geometry;
+
 					var material;
 					if ( result.materials !== undefined ) {
 						if ( result.materials.length > 1 ) {
@@ -85,6 +87,7 @@ console.log( data );
 				} else if ( data.metadata.type.toLowerCase() === 'object' ) {
 					var loader = new THREE.ObjectLoader();
 					var result = loader.parse( data );
+console.log( 'parsed' );
 					if ( result instanceof THREE.Scene ) {
 						scene.add( result );
 					} else {
