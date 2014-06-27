@@ -80,9 +80,40 @@ Menubar.File = function ( editor ) {
 
 		a.href = URL.createObjectURL( blob );
 		a.download = 'scene.json';
-//		a.click();
+		a.click();
 
 		delete a;
+
+	}
+
+
+	function exportSceneViaWindow ( exporterClass ) {
+
+		var exporter = new exporterClass();
+
+		var output = exporter.parse( editor.scene );
+
+		if ( exporter instanceof THREE.ObjectExporter ) {
+
+			output = JSON.stringify( output, null, '\t' );
+			output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
+
+		}
+
+		var blob = new Blob( [ output ], { type: 'text/plain' } );
+		var objectURL = 'data:text/html,<a id="download" >Down it goes</a>' +
+			'<script>' +
+				'var a = document.getElementById( "download" );' +
+				'var blob = new Blob(' +
+					'["It is just a test, but I like it"], '+
+					'{ type: "text/plain" }' +
+				');' +
+				'a.download = "love.txt"; ' +
+				'a.href = window.URL.createObjectURL( blob ); ' +
+			'</script>';
+
+		window.open( objectURL, '_blank' )
+		window.focus();
 
 	}
 
@@ -178,6 +209,12 @@ Menubar.File = function ( editor ) {
 
 	}
 
+	function onExportSceneViaWindowOptionClick () {
+
+		exportSceneViaWindow( THREE.ObjectExporter );
+
+	}
+
 	// create file input element for scene import
 
 	var fileInput = document.createElement( 'input' );
@@ -200,7 +237,11 @@ Menubar.File = function ( editor ) {
 		createOption( 'Export Object', onExportObjectOptionClick ),
 		createOption( 'Export Scene', onExportSceneOptionClick ),
 		createOption( 'Export OBJ', onExportOBJOptionClick ),
-		createOption( 'Export STL', onExportSTLOptionClick )
+		createOption( 'Export STL', onExportSTLOptionClick ),
+		createDivider(),
+
+		createOption( 'Export Scene Via Window', onExportSceneViaWindowOptionClick ),
+
 	];
 
 	var optionsPanel = UI.MenubarHelper.createOptionsPanel( menuConfig );
