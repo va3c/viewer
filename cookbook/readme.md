@@ -6,7 +6,7 @@ vA3C Cookbook Read Me
 <iframe src="http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_vA3C Cookbook: JSON - Build - Export Object_
+_vA3C Cookbook: JSON - Build - Export Object_ / [Full Screen]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html )
 
 
 ## Concept

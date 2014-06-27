@@ -6,7 +6,7 @@ vA3C Viewer HTML5 Read Me
 <iframe src="http://va3c.github.io/viewer/va3c-viewer-html5/latest/index.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com/xxx. To view, please see 'Project Links' below.
 </iframe>
-_vA3C Viewer HTML5_
+_vA3C Viewer HTML5_ / [Full Screen]( http://va3c.github.io/viewer/va3c-viewer-html5/latest/index.html )
 
 
 ## Concept
