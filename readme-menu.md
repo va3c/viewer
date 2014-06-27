@@ -19,8 +19,8 @@
 	<a href=JavaScript:displayPage("#./va3c-editor/readme.md#ed"); >vA3C Editor Read Me</a>
 </p>
 
-<p id=ed >
-	<a href=JavaScript:displayPage("#./cookbook/readme.md#ed"); >vA3C Cookbook Read Me</a>
+<p id=cb >
+	<a href=JavaScript:displayPage("#./cookbook/readme.md#cd"); >vA3C Cookbook Read Me</a>
 </p>
 
 <br>

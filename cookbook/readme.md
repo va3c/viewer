@@ -18,9 +18,9 @@ All the files here can be downloaded and run locally without any cross-origin se
 The goal is to help you develop apps that can help you export data from a heavy-duty design app and make that data available on 
 the web or locally for easy viewing and collaboration in your browser - all using the Three.js library.
 
-A useful starting point to observing how Tree.js creates data and then exports this data to a JSON file.
+A useful starting point to observing how Three.js creates data and then exports this data to a JSON file.
 
-Live demo: [JSON Build - Export Geometry]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-geometry.html )
+Live demo: [JSON Build - Export Geometry]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-geometry.html )  
 Source code: [JSON Build - Export Geometry](  https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-geometry.html )
 
 This file creates a Three.js mesh that represents a 50 m by 30 m by 12 stories at 3 M each.
@@ -35,14 +35,14 @@ and allows you to export the data to an ASCII JSON file. A default file name is 
 Once the file is exported, you may open the file with any text editor and observe how Three.js structures the geometry.
 The script exports geometry only. Materials and other scene data is ignored. 
 
-Since the data is just a box, Three.js exports  just the command o create a box and not all the vertices and faces.
+Since the data is just a box, Three.js exports  just the command to create a box and not all the vertices and faces.
 
-Most variables are globals so you can easily inspect their data at any time.  
-Most aspects are hard-wired - just because the script is designed to be as simple as possible so as to provide a quick glimpse into structure of the data
+Most variables are globals so you can easily inspect their data at any time. 
+Most aspects are hard-wired - just because the script is designed to be as simple as possible so as to provide a quick glimpse into structure of the data.
 
-Now that the data has been exported, let's see if you can imprt the data and view it in 3D
+Now that the data has been exported, let's see if you can import the data and view it in 3D.
 
-Live demo: [JSON Import - View Basic]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic.html )
+Live demo: [JSON Import - View Basic]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic.html )   
 Source code: [JSON Import - View Basic](  https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-import-view-basic.html )
 
 This file has a single command: "Select File' brings up your operating system's file dialog. You can select any file,
@@ -54,10 +54,10 @@ Again, this script is designed to be simple and basic in order t give you the qu
 
 Now that you have viewed the export and import process, it is time to add a bit more complexity.
 
-Live demo: [JSON Build - Export Object]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html )
+Live demo: [JSON Build - Export Object]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html )  
 Source code: [JSON Build - Export Object](  https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-object.html )
 
-This script extrudes a shape and therefore the geometry is more compicated than the first example. 
+This script extrudes a shape and therefore the geometry is more complicated than the first example. 
 Therefore Three.js exports all the vertices and faces.
 
 This script also exports more meta information - including any materials that have been assigned to the geometry.
