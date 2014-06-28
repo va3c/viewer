@@ -3,20 +3,22 @@ vA3C Cookbook Read Me
 
 ### Live Demo
 
-<iframe src="http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html" width=100% height=500px class='overview' >
+<iframe src="hhttp://va3c.github.io/viewer/cookbook/r1/json-build-export-multiple-shapes.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_vA3C Cookbook: JSON - Build - Export Object_ / [Full Screen]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html )
+_vA3C Cookbook: JSON - Build - Export Multiple Shapes_ / [Full Screen]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-multiple-shapes.html )
 
 
 ## Concept
 
 The files here are to help you get started with, for example, building apps that work with [Open Studio]( https://openstudio.nrel.gov/ ).
 
-All the files here can be downloaded and run locally without any cross-origin security issues.
+All the files here may be downloaded and run locally without any cross-origin security issues.
 
 The goal is to help you develop apps that can help you export data from a heavy-duty design app and make that data available on 
 the web or locally for easy viewing and collaboration in your browser - all using the Three.js library.
+
+### Creating Data in Three.js and Exporting it in JSON Format
 
 A useful starting point to observing how Three.js creates data and then exports this data to a JSON file.
 
@@ -35,22 +37,14 @@ and allows you to export the data to an ASCII JSON file. A default file name is 
 Once the file is exported, you may open the file with any text editor and observe how Three.js structures the geometry.
 The script exports geometry only. Materials and other scene data is ignored. 
 
-Since the data is just a box, Three.js exports  just the command to create a box and not all the vertices and faces.
+Since the data is just a box, Three.js exports just the command to create a box and not all the vertices and faces.
 
 Most variables are globals so you can easily inspect their data at any time. 
 Most aspects are hard-wired - just because the script is designed to be as simple as possible so as to provide a quick glimpse into structure of the data.
 
 Now that the data has been exported, let's see if you can import the data and view it in 3D.
 
-Live demo: [JSON Import - View Basic]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic.html )   
-Source code: [JSON Import - View Basic](  https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-import-view-basic.html )
-
-This file has a single command: "Select File' brings up your operating system's file dialog. You can select any file,
-but a good place to start is with the file you just exported.
-
-Once loaded, the file allows you to zoom, pan and rotate. Attribute values - assigned to the entire mesh - may also appear just under the File select button.
-
-Again, this script is designed to be simple and basic in order t give you the quickest feeling of hos things work.
+Further down this page is a link to 'JSON Import - View Basic' a very JSON file viewer 
 
 Now that you have viewed the export and import process, it is time to add a bit more complexity.
 
@@ -58,18 +52,43 @@ Live demo: [JSON Build - Export Object]( http://va3c.github.io/viewer/cookbook/r
 Source code: [JSON Build - Export Object](  https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-object.html )
 
 This script extrudes a shape and therefore the geometry is more complicated than the first example. 
-Therefore Three.js exports all the vertices and faces.
+Therefore Three.js exports all the vertices0 and faces.
 
 This script also exports more meta information - including any materials that have been assigned to the geometry.
 
-This type of data is likely to be far closer to the type of data you will likely be exporting from your app.
+Live demo: [JSON Build - Export Multiple Objects]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-multiple-objects.html )  
+Source code: [JSON Build - Export Multiple Objects]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-multiple-objects.html )
 
-**
+Builds and exports cubes with random position, rotation, scale and color.
 
-Coming next
+Live demo: [JSON Build - Export Pentagon as Planes]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-pentagon-as-planes.html )  
+Source code: [JSON Build - Export Pentagon as Planes]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-pentagon-as-planes.html )
 
-* Text and numeric attributes attached to individual faces
-* Colors assigned to individual faces
+Builds and exports Three.js planes
+
+Live demo: [JSON Build - Export Multiple Shapes]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-multiple-shapes.html )  
+Source code: [JSON Build - Export Pentagon as Planes]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-multiple-shapes.html ) 
+
+Builds and exports three shapes that have been extruded. Because Three.js must export all the vertices and faces for an extrusion, the JSON file
+that is produced is likely to be most similar to a file produced by other apps. Observing files produced by this script may be a good place to start.
+
+Note that the current revision is having issues with materials not appearing correctly. 
+
+
+Live demo: [JSON Import - View Basic]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic.html )   
+Source code: [JSON Import - View Basic]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-import-view-basic.html )
+
+This file has a single command: "Select File' brings up your operating system's file dialog. You can select any file,
+but a good place to start is with the file you just exported.
+
+Once loaded, the file allows you to zoom, pan and rotate. Attribute values - assigned to the entire mesh - may also appear just under the File select button.
+
+An ambient light and a direction light that follows the camera position are built in.
+
+Again, this script is designed to be simple and basic in order to give you the quickest feeling of how things work.
+
+
+
 
 
 Remember: the JavaScript console is your friend...
