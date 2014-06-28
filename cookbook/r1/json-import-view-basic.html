@@ -30,7 +30,7 @@
 		inpFile.onchange = function() { handleJSON ( this ) };
 
 		stats = new Stats();
-		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; zIndex: 100; ';
+		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
 		document.body.appendChild( stats.domElement );
 
 		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
@@ -56,7 +56,7 @@
 			var reader = new FileReader();
 			reader.onload = function ( event ) {  
 				data = JSON.parse( event.target.result );
-console.log( 'loaded' );
+console.log( 'loaded', data);
 				if ( data.metadata === undefined ) { // 2.0
 					data.metadata = { type: 'Geometry' };
 				}
