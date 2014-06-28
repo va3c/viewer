@@ -12,17 +12,18 @@
 <script>
 	var info, stats, renderer, scene, camera, controls;
 	var geometry, material, mesh;
+	var info;
 
 	init();
 	animate();
 
 	function init() {
 
-		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
+		document.body.style.cssText = 'font: 400 12pt monospace; margin: 0; overflow: hidden' ;
 
 		info = document.body.appendChild( document.createElement( 'div' ) );
 
-		info.style.cssText = 'left: 20px; position: absolute; top: 0px; width: 100% ';
+		info.style.cssText = 'left: 20px; position: absolute; ';
 		info.innerHTML = '<h1>' + document.title + '</h1>' +
 			'<p><input type=file id=inpFile ></p>' +
 			'<div id=msg></div>';
@@ -35,6 +36,7 @@
 
 		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
 		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMapEnabled = true;
 		document.body.appendChild( renderer.domElement );
 		scene = new THREE.Scene();
 
@@ -42,11 +44,25 @@
 		camera.position.set( 100, 100, 100 );
 		controls = new THREE.TrackballControls( camera, renderer.domElement );
 
-// axes - just to show soemthing
-		scene.add( new THREE.ArrowHelper( v(1, 0, 0), v(0, 0, 0), 30, 0xcc0000) );
-		scene.add( new THREE.ArrowHelper( v(0, 1, 0), v(0, 0, 0), 30, 0x00cc00) );
-		scene.add( new THREE.ArrowHelper( v(0, 0, 1), v(0, 0, 0), 30, 0x0000cc) );
+		var light = new THREE.AmbientLight( 0x333333 );
+		scene.add( light );
 
+		light = new THREE.DirectionalLight( 0xffffff, 1 );
+		light.position = camera.position;
+
+		light.castShadow = true;
+
+		light.shadowCameraNear = 100;
+		light.shadowCameraFar = 400;
+		light.shadowBias = -0.005; // default 0 ~ distance fron corners?
+
+		var d = 80;
+		light.shadowCameraLeft = -d;
+		light.shadowCameraRight = d;
+		light.shadowCameraTop = d;
+		light.shadowCameraBottom = -d;
+
+		scene.add( light );
 	}
 
 	function handleJSON ( that ) {
@@ -89,12 +105,10 @@ console.log( 'metadata read' );
 					var result = loader.parse( data );
 console.log( 'parsed' );
 					if ( result instanceof THREE.Scene ) {
-						scene.add( result );
+						scene = result;
+						displayAttributes();
 					} else {
 						scene.add( result );
-						var l = scene.children.length - 1;
-						msg.innerHTML = 'Author ' + scene.children[ l ].userData.author + '<br>' +
-							'Date ' + scene.children[ l ].userData.date;
 					}
 				} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
 					// DEPRECATED
@@ -108,7 +122,21 @@ console.log( 'parsed' );
 		}
 	}
 
-	function v(  x, y, z){ return new THREE.Vector3( x, y, z ); }
+	function displayAttributes() {
+		msg.innerHTML = '';
+		var obj = scene.children;
+
+		for (var i = 0, len = obj.length; i < len; i++) {
+			var arr = Object.keys( obj[i].userData );
+			if ( arr.length > 0 ) {
+				msg.innerHTML += 'Object ' + i + '<br>'
+				for ( var j = 0, jLen = arr.length; j < jLen; j++) {
+					msg.innerHTML += arr[j] + ': ' + obj[i].userData[ arr[j] ] + '<br>';
+				}
+				msg.innerHTML += '<br>'
+			}
+		}
+	}
 
 	function animate() {
 		requestAnimationFrame( animate );

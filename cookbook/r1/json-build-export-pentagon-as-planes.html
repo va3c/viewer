@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>JSON Build - Export Multiple Objects</title>
+<title>JSON Build - Export Multiple Objects as Planes</title>
 <meta charset=utf-8 >
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
 </head>
@@ -30,7 +30,7 @@
 
 		info.style.cssText = 'left: 20px; position: absolute; ';
 		info.innerHTML = '<h1>' + document.title + '</h1>' +
-			'<p>Three boxes</p>' +
+			'<p>Pentagon of Objects</p>' +
 			'<p><a href=# id=exportObject >Export Objects</a></p>' +
 		'<div id=msg></div>';
 
@@ -42,7 +42,6 @@
 
 		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
 		renderer.setSize( window.innerWidth, window.innerHeight );
-		renderer.shadowMapEnabled = true;
 		document.body.appendChild( renderer.domElement );
 		scene = new THREE.Scene();
 
@@ -50,44 +49,8 @@
 		camera.position.set( 100, 100, 100 );
 		controls = new THREE.TrackballControls( camera, renderer.domElement );
 
-		var light = new THREE.AmbientLight( 0x333333 );
-		scene.add( light );
+		makeObjectsCylinder( 20, 5, 50 );
 
-		light = new THREE.DirectionalLight( 0xffffff, 1 );
-		light.position = camera.position;
-
-		light.castShadow = true;
-
-		light.shadowCameraNear = 100;
-		light.shadowCameraFar = 400;
-		light.shadowBias = -0.005; // default 0 ~ distance fron corners?
-
-		var d = 80;
-		light.shadowCameraLeft = -d;
-		light.shadowCameraRight = d;
-		light.shadowCameraTop = d;
-		light.shadowCameraBottom = -d;
-
-		scene.add( light );
-
-		for (var i = 0; i < 3; i++) {
-			geometry = new THREE.BoxGeometry( 10, 10, 10 );
-			material = new THREE.MeshPhongMaterial( { ambient: 0x555555, color: 0xffff * Math.random() } );
-			mesh = new THREE.Mesh( geometry, material );
-			mesh.position.set( Math.random() * 100 - 50, Math.random() * 50, Math.random() * 100 - 50  );
-			mesh.rotation.set(  Math.random() * 3, Math.random() * 3, Math.random() * 3 );
-			mesh.scale.set( 8 * Math.random(), 8 * Math.random(), 8 * Math.random() );
-
-			mesh.userData.date = new Date();
-			mesh.userData.id = 'JSON #' + i;
-			mesh.userData.language = window.navigator.language;
-			mesh.userData.scale = mesh.scale.x + ' ' + mesh.scale.y + ' ' + mesh.scale.z;
-
-			mesh.castShadow = true;
-			mesh.receiveShadow = true;
-
-			scene.add( mesh );
-		} 
 	}
 
 	function expObj() {	
@@ -101,8 +64,42 @@
 		var objectURL = URL.createObjectURL( blob );
 
 		exportObject.href = URL.createObjectURL( blob );
-		exportObject.download = 'three-boxes.json';
+		exportObject.download = 'pentagon-as-planes.json';
 	}
+
+	function makeObjectsCylinder( radius, segments, height ) {
+		function cos(a){return Math.cos(a);}
+		function sin(a){return Math.sin(a);}
+		function tan(a){return Math.tan(a);}
+
+		var objects = new THREE.Object3D();
+
+		var pi = Math.PI;
+		var R = radius / cos( pi / segments );
+		var angle = 2 * pi / segments;
+		var length = 2 * R * sin( pi / segments );
+
+		for (var i = 0; i < segments; i++) {
+			geometry = new THREE.PlaneGeometry( length, height );
+			material = new THREE.MeshNormalMaterial( { side: 2 } );
+			mesh = new THREE.Mesh( geometry, material );
+			mesh.position.set( radius * cos( angle * i ), 0, radius * sin( angle * i ) );
+			mesh.rotation.set( 0, pi / 2 - angle * i, 0 );
+			scene.add( mesh );
+		} 
+
+		geometry = new THREE.CircleGeometry( R, segments );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, -0.5 * height, 0  );
+		mesh.rotation.set( pi / 2 - angle * i, 0, 0 );	
+//		scene.add( mesh );
+
+		mesh = mesh.clone();	
+		mesh.position.set( 0, 0.5 * height, 0  );		
+//		scene.add( mesh );
+	}
+
+	function v2( x, y ){ return new THREE.Vector2( x, y ); }
 
 	function animate() {
 		requestAnimationFrame( animate );
