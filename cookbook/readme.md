@@ -147,6 +147,12 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 ## Change Log
 
-2014-06-26 ~ Add folders and files 
+2014-06-28 ~ Theo
+
+* Add more demos
+
+2014-06-26 ~ Theo
+
+* Add folders and files 
 
 
