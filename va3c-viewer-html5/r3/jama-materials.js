@@ -1,6 +1,6 @@
 	JAMA = {} || JAMA;
 
-	JAMA.basePath = 'http://va3c.github.io/viewer/va3c-viewer-html5/textures/';
+	JAMA.basePath = 'http://va3c.github.io/viewer/va3c-viewer-html5/';
 
 	JAMA.addMaterialSelectTab = function() {
 
