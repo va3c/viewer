@@ -106,7 +106,7 @@
 			case 'html' :
 // console.log( basepath, filename);
 				// V3LI.ifr.src = basepath + filename;
-				scene.select = mesh;
+				scene.select = scene.children[0];
 
 				break;
 			case 'babylon':
