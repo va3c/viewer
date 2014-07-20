@@ -48,8 +48,10 @@
 //				THREE.ImageUtils.crossOrigin = 'anonymous';
 				renderer = app.renderer;
 				scene = app.scene;
+				scene.select = app.mesh;
 				camera = app.camera;
 				controls = app.controls;
+				
 				V3CO.updateControlsTab();
 				
 				V3LI.loadFile( basepath, filename );
@@ -67,7 +69,7 @@
 				chkLightPosition.checked = true;
 				JALI.toggleLightPosition();
 
-				scene.select = mesh;
+
 	//			JAPR.setRandomGradient();
 
 			};
