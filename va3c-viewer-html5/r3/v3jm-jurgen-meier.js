@@ -1,7 +1,8 @@
 
 	var V3JM = {} || V3JM;
 
-	V3JM.basepath = 'http://va3c.github.io/algesurf/parametric-equations/equation-files/'
+	V3JM.basepath = 'http://va3c.github.io/algesurf/parametric-equations/equation-files/';
+//	V3JM.basepath = '../../../../jaanga.github.io/projects/algesurf/parametric-equations/equation-files/';
 
 	V3JM.addJurgenMeierTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
@@ -15,7 +16,7 @@
 		V3JM.JurgenMeier = tab.appendChild( document.createElement( 'div' ) );
 		V3JM.JurgenMeier.style.cssText = 'cursor: auto; display: none; ';
 
-		var fileList = '* particularly pretty<br>After \'Egg\' only * have coefficients <br><br>';
+		var fileList = '';
 		var file;
 		for ( var i = 0, len = V3JM.files.length; i < len; i++ ) {
 			fileTitle = V3JM.files[ i ][ 1 ];
@@ -24,9 +25,12 @@
 			fileList += '<a href=JavaScript:openOver.checked===true;' +
 				'V3LI.updateIframe(V3JM.files,' + i + ',"' + basepath + '","' + fname + '.html"); >' + fileTitle + '</a><br>';
 		}
-		V3JM.JurgenMeier.innerHTML =
+		V3JM.JurgenMeier.innerHTML = 
 			'<h3><a href="http://jaanga.github.io/algesurf/" target="_blank" >AlgeSurf</a> Parametric Equations </h3>' +
 			'<p>Equations sourced from:<br><b><a href="http://www.3d-meier.de/tut3/Seite0.html" target="_blank">Parametrische Flächen und Körper</a></b></p>' +
+			'<p>Always overwrites current view</p>' +
+			'<p>* particularly pretty</p>' +
+			'<p>After \'Egg\' only * have dynamic coefficients <br><br>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
 				'<a class=button href=JavaScript:JA.toggleTab(V3JM.JurgenMeier); ); >Close</a> ' +

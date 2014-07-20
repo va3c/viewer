@@ -18,9 +18,8 @@
 <script src=jama-materials-data.js></script>
 <script src=jage-geometry.js></script>
 <script src=japr-preferences.js></script>
-<script src=jath-three.js></script>
 <script>
-// Theo Armour ~ 2014-07-17 ~ MIT License
+// Theo Armour ~ 2014-07-19 ~ MIT License
 
 	JA.init = function() {
 		JA.container = document.body.appendChild( document.createElement( 'div' ) );
@@ -45,7 +44,7 @@
 		JA.addMessageArea();
 		JA.addThreeFooter();
 
-//		V3JM.init();
+		V3LI.init();
 
 		window.addEventListener( 'mouseup', JA.mouseUp, false);
 		window.addEventListener( 'resize', JA.onWindowResize, false );

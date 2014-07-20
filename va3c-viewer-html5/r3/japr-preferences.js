@@ -99,7 +99,7 @@
 //		scene.add( new THREE.FaceNormalsHelper( mesh, -50, col ) );
 
 	JAPR.updateBackground = function( id ) {
-		if ( JAPR.cssBackround ) { document.body.removeChild( JAPR.cssBackround ); }
+		if ( JAPR.cssBackround ) { V3LI.ifr.contentDocument.body.removeChild( JAPR.cssBackround ); }
 		if ( id === 'randomGradient' ) {
 			JAPR.setRandomGradient();
 		} else if ( id === 'randomColor' ) {
@@ -111,7 +111,7 @@
 
 	JAPR.setRandomGradient = function() {
 
-		JAPR.cssBackround = document.body.appendChild( document.createElement('style') );
+		JAPR.cssBackround = V3LI.ifr.contentDocument.body.appendChild( document.createElement('style') );
 		var col1 = "#" + Math.random().toString(16).slice(2, 8);
 		var col2 = "#" + Math.random().toString(16).slice(2, 8);
 		var col3 = "#" + Math.random().toString(16).slice(2, 8);
@@ -124,15 +124,15 @@
 			'background: -moz-radial-gradient(' + X + 'px ' + Y + 'px, farthest-corner, ' + col1 + ' 0%, ' + col2 + ' 50%, ' + col3 + ' 100%); ' +
 			'background: radial-gradient(' + X + 'px ' + Y + 'px, farthest-corner, ' + col1 + ' 0%, ' + col2 + ' 50%, ' + col3 + ' 100%); }' +
 		'';
-console.log( JAPR.cssBackround );
+// console.log( JAPR.cssBackround );
 	};
 
 	JAPR.randomColor = function() {
-		JAPR.cssBackround = document.body.appendChild( document.createElement('style') );
+		JAPR.cssBackround = V3LI.ifr.contentDocument.body.appendChild( document.createElement('style') );
 		JAPR.cssBackround.innerText = 'body { background-color: #' + Math.random().toString(16).slice(2, 8) + '; }';
 	};
 
 	JAPR.selectColor = function() {
-		JAPR.cssBackround = document.body.appendChild( document.createElement('style') );
+		JAPR.cssBackround = V3LI.ifr.contentDocument.body.appendChild( document.createElement('style') );
 		JAPR.cssBackround.innerText = 'body { background-color: ' + selColor.value + '; }';
 	}

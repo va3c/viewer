@@ -1,9 +1,12 @@
 
 	var V3TM = {} || V3TM;
-
 	var V3TB = {} || V3TB;
 
-	V3TM.basepath = '../../../three.js/examples/models/';
+	V3TM.basepath = 'http://va3c.github.io/three.js/examples/models/';
+//	V3TM.basepath = '../../../../three.js/examples/models/';
+
+	V3TB.basepath = 'http://va3c.github.io/three.js/examples/models/';
+//	V3TB.basepath = '../../../../three.js/examples/';
 
 	V3TM.addThreejsModelsReadTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
@@ -19,13 +22,13 @@
 		var fileList = '<br>';
 		var file, fname;
 		for ( var i = 0, len = V3TM.files.length; i < len; i++ ) {
-			file = V3TM.files[ i ];
+			file = V3TM.files[ i ][ 0 ];
 			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TM.files,' + i + ',V3TM.basepath,"' + V3TM.files[ i ][0] + '"); >' + file + '</a><br>';
 		}
 //console.log( fileList )
 		V3TM.threejsModelsTab.innerHTML =
 			'<p>' +
-				'Sourced from <a hr; ef="http://mrdoob.github.io/three.js/examples/" target="_blank"></a>threejs.org<br><br>' +
+				'Sourced from <a href="http://mrdoob.github.io/three.js/examples/" target="_blank">threejs.org</a><br><br>' +
 				'Currently supports: .dae, .js, json, .stl, others?<br>' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +
@@ -155,15 +158,12 @@
 		['vtk/bunny.vtk','']
 	];
 
-
-	V3TB.basepath = '../../../three.js/examples/';
-
 	V3TB.addThreejsHTMLTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'View things from the Three.js repo';
 		tab.innerHTML =
 			'<a href=# id=tabThreeHTML ><p class=button >' +
-				'<i class="fa fa-wrench"></i> Three.js Example HTML...' +
+				'<i class="fa fa-file-image-o"></i> Three.js Example HTML...' +
 			'</p></a>';
 		tabThreeHTML.onclick = function() {JA.toggleTab( V3TB.ThreeHTMLTab ); };
 
@@ -173,13 +173,13 @@
 		var fileList = '<br>';
 		var file;
 		for ( var i = 0, len = V3TB.files.length; i < len; i++ ) {
-			file = V3TB.files[ i ];
+			file = V3TB.files[ i ][ 0 ];
 			fileList += '<a href=JavaScript:openOver.checked===true;' +
 				'V3LI.updateIframe(V3TB.files,' + i + ',V3TB.basepath,"' + V3TB.files[ i ][0] + '"); >' + file + '</a><br>';
 		}
 		V3TB.ThreeHTMLTab.innerHTML =
-			'<h3>Three.js files</h3>' +
-			'<p>Sourced from:<br><b><a href="http://threejs.org" target="_blank">Three.js</a></b></p>' +
+			'<p>HTML sourced from: <b><a href="http://threejs.org" target="_blank">Three.js</a></b></p>' +
+			'<p>Always overwrites current view</p>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
 				'<a class=button href=JavaScript:JA.toggleTab(V3TB.ThreeHTMLTab); ); >Close</a> ' +

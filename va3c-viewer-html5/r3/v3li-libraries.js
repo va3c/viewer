@@ -1,19 +1,23 @@
 	var V3LI = {} || V3LI;
 
+	var loaderBase = '../../../three.js/examples/';
+//	var loaderBase = '../../../../three.js/examples/';
+
 	V3LI.addLibrariesTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'View available libraries';
 		tab.innerHTML =
 			'<a href=# onclick=JA.toggleTab(V3LI.libraries); ><p class=button >' +
-				'<i class="fa fa-paw"></i> Libraries & Tabs...' +
+				'<i class="fa fa-paw"></i> Introduction' +
 			'</p></a>'; 
 
 		V3LI.libraries = JA.menu.appendChild( document.createElement( 'div' ) );
-		V3LI.libraries.style.cssText = 'cursor: auto; display: none; ' ;
+		V3LI.libraries.style.cssText = 'cursor: auto; display: ; ' ;
 		V3LI.libraries.innerHTML =
 			'<input type=radio name=fileOpen id=openOver checked /> Overwrite current view<br>' +
 			'<input type=radio name=fileOpen id=openAppend /> Append to current view<br>' +
-
+			'<p>A work in progress. Much broken. Nonetheless lots worth exploring. More goodies on the way...</p>' +
+/*
 			'<p><input type=checkbox id=chkMeier onchange=JA.toggleTab(V3TM.threejsModelsTab.parentElement); > Three.js Example Models<br>' +
 			'Over 100..</p>' +
 
@@ -25,8 +29,38 @@
 			'<p style=text-align:right; >' +
 				'<a class=button href=JavaScript:JA.toggleTab(V3LI.libraries); >Close</a> ' +
 			'</p>' +
+*/
 		'';
 	};
+
+	V3LI.init = function() {
+		JA.about.style.height = '450px';
+		JA.about.innerHTML =
+			'<h3>' + document.title + ' ' + JA.titleIcon + '</h3>' +
+				'<p>View Revit, Rhino/Grasshopper 3DS Max and other model types models in 3D with any web browser using Three.js and data rendered as JSON files.</p>' +
+				'<p>This script is an update to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a></p>' +
+				'<p>Team Members: Benjamin Howes, Jonatan Schumacher, Jeremy Tammik, Matt Mason, Kevin Vandecar, Charlie Portelli, Josh Wentz, Femi King, Zach Flanders & Theo Armour</p>' +
+				'<p>Supporters include: Mostapha Roudsari, Ashley Reed, Anne [from Sao Paulo], Jim Quanci, Elcin Ertugrul, Amir Tasbihi and many more. Others?</p>' +
+			'<small>' +
+				'<a href="http://va3c.github.io/viewer/va3c-viewer-html5/readme-reader.html" target="_blank">Read Me ~</a> ' +
+				'<a href="https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5" target="_blank">Source Code ~ </a> ' +
+				'Credits: <a href="http://threejs.org" target="_blank">three.js</a> - ' +
+				'<a href="http://khronos.org/webgl/" target="_blank">webgl</a> - ' +
+				'<a href="http://jaanga.github.io" target="_blank">jaanga</a><br>' +
+				'copyright &copy; 2014 Jaanga authors ~ MIT license' +
+			'</small><br><br>' +
+			'<p style=text-align:right; >' +
+				'<a class=button href=JavaScript:JA.toggleDialogs(JA.about); >Close</a> ' +
+			'</p>' +
+		'';
+		var items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
+		index = items[ Math.floor( items.length * Math.random() ) ];
+		fileTitle = V3JM.files[ index ][ 1 ];
+		basepath = V3JM.basepath + '/' + V3JM.files[ index ][ 0 ] + '/';
+		fname = V3JM.files[ index ][ 0 ] + '.html';
+		V3LI.updateIframe( V3JM.files, index, basepath, fname )
+	}
+
 
 	V3LI.updateIframe = function( fileList, index, basepath, filename ) {
 		if ( !V3LI.ifr ) {
@@ -39,7 +73,7 @@
 		var extension = filename.split( '.' ).pop().toLowerCase();
 		if ( openOver.checked === true ) {
 			V3LI.ifr.onload = function() {
-				JAPR.setRandomGradient();
+//				JAPR.setRandomGradient();
 
 				app = V3LI.ifr.contentWindow;
 	//			JA.body = V3FR.ifr.contentDocument;
@@ -55,7 +89,7 @@
 				V3CO.updateControlsTab();
 				
 				V3LI.loadFile( basepath, filename );
-				divMsg1.innerHTML = fileList[ index ][1];
+				divMsg1.innerHTML = index + ' ' + fileList[ index ][0];
 
 				renderer.shadowMapEnabled = true;
 				renderer.shadowMapSoft = true;
@@ -70,7 +104,7 @@
 				JALI.toggleLightPosition();
 
 
-	//			JAPR.setRandomGradient();
+			JAPR.setRandomGradient();
 
 			};
 
@@ -83,7 +117,7 @@
 		} else {
 			V3LI.loadFile( basepath, filename );
 			V3CO.updateControlsTab();
-			divMsg1.innerHTML = fileList[ index ][1];
+			divMsg1.innerHTML = index + ' ' + fileList[ index ][0];
 		}
 
 	};
@@ -100,16 +134,13 @@
 	V3LI.loadFile = function ( basepath, filename ) {
 
 		var scr, reader, contents, fname, loader, result;
-		var loaderBase = '../../../three.js/examples/';
+//		var loaderBase = '../../../three.js/examples/';
 
-//		var filename = fileList[ index ][0];
 		var extension = filename.split( '.' ).pop().toLowerCase();
 
 		switch ( extension ) {
 			case 'html' :
-console.log( basepath, filename);
-				// V3LI.ifr.src = basepath + filename;
-				// scene.select = scene.children[0];
+// console.log( basepath, filename);
 
 				break;
 			case 'babylon':
