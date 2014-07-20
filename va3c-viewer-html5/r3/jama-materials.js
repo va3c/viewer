@@ -1,6 +1,6 @@
 	JAMA = {} || JAMA;
 
-	JAMA.basePath = '../../../';
+	JAMA.basePath = '../../';
 
 	JAMA.addMaterialSelectTab = function() {
 
