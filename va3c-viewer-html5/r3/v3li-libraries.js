@@ -73,6 +73,7 @@ scene.select = scene.children[0];
 
 			if ( extension === 'html' ) {
 				V3LI.ifr.src = basepath + filename;
+				V3CO.updateControlsTab();
 			} else {
 				V3LI.ifr.src = 'boilerplate-simple.html';
 			}
