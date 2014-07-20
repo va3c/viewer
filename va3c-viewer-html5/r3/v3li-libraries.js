@@ -48,13 +48,14 @@
 	//			JA.body = V3FR.ifr.contentDocument;
 
 				THREE = app.THREE;
-				THREE.ImageUtils.crossOrigin = 'anonymous';
+//				THREE.ImageUtils.crossOrigin = 'anonymous';
 				renderer = app.renderer;
 				scene = app.scene;
 				camera = app.camera;
 				controls = app.controls;
 
 				V3LI.loadFile( basepath, filename );
+				divMsg1.innerHTML = filename[ index ][1];
 
 				renderer.shadowMapEnabled = true;
 				renderer.shadowMapSoft = true;
@@ -79,8 +80,9 @@
 			}
 		} else {
 			V3LI.loadFile( basepath, filename );
+			divMsg1.innerHTML = filename[ index ][1];
 		}
-		divMsg1.innerHTML = filename[ index ][1];
+
 	};
 
 

@@ -11,7 +11,7 @@
 		tab.title = 'Be in control of your equations';
 		tab.innerHTML =
 			'<a href=# id=tabControls><p class=button >' +
-				'<i class="fa fa-cogs"></i> Parameter Controls...' +
+				'<i class="fa fa-cogs"></i> Meier Parameter Controls...' +
 			'</p></a>';
 		tabControls.onclick = function() { JA.toggleTab( V3CO.controlsTab ); };
 
