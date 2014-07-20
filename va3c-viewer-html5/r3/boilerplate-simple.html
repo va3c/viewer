@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>boilerplate</title>
+<meta charset=utf-8 >
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
+</head>
+<body>
+<script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/TrackballControls.js ></script>
+<script>
+	var renderer, scene, camera, controls;
+	var geometry, material, mesh;
+
+	var projector = new THREE.Projector();
+	var interescts;
+
+	init();
+	animate();
+
+	function init() {
+
+		document.body.style.cssText = 'margin: 0; overflow: hidden' ;
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
+		camera.position.set( 100, 100, 100 );
+		controls = new THREE.TrackballControls( camera, renderer.domElement );
+
+// ground box
+		geometry = new THREE.BoxGeometry( 200, 1, 100 );
+		material = new THREE.MeshPhongMaterial();
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, -10, 0 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+		window.addEventListener( 'click', onDocumentMouseClick, false );
+		window.addEventListener( 'resize', onWindowResize, false );
+	}
+
+	function onWindowResize() {
+		windowHalfX = window.innerWidth / 2;
+		windowHalfY = window.innerHeight / 2;
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+	}
+
+	function onDocumentMouseClick( event ) {
+		event.preventDefault();
+
+		var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+		projector.unprojectVector( vector, camera );
+		var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+		intersects = raycaster.intersectObjects( scene.children );
+
+		if ( intersects.length > 0 ) {
+			scene.select = intersects[ 0 ].object;
+		}
+	}
+
+	function animate() {
+		requestAnimationFrame( animate );
+		renderer.render( scene, camera );
+		controls.update();
+	}
+
+</script>
+</body>
+</html>
