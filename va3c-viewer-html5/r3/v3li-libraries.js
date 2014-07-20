@@ -95,7 +95,7 @@
 	V3LI.loadFile = function ( basepath, filename ) {
 
 		var scr, reader, contents, fname, loader, result;
-		var loaderBase = '../../../../../git-repos/three.js/examples/';
+		var loaderBase = '../../../three.js/examples/';
 
 //		var filename = fileList[ index ][0];
 		var extension = filename.split( '.' ).pop().toLowerCase();
