@@ -3,7 +3,19 @@
 	JA.titleIcon = '<i class="fa fa-bomb"></i>';  // screen grab please
 	JA.TitleText = '"3D Parametric Equations"';
 
+	var THREE, renderer, scene, camera, controls;
+	var geometry, material, mesh;
 	var app;
+
+	JA.camX = 100;
+	JA.camY = 100;
+	JA.camZ = 100;
+
+	JA.tarX = 0;
+	JA.tarY = 0;
+	JA.tarZ = 0;
+
+
 
 	JA.addCSS = function() {
 		var css = document.body.appendChild( document.createElement('style') );
@@ -93,11 +105,11 @@
 	};
 
 	JA.resetCamera = function() {
-		if ( !app ) return;
-		app.camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
-		app.camera.position.set( JA.camX, JA.camY, JA.camZ );
-		app.controls = new THREE.TrackballControls( app.camera, app.renderer.domElement );
-		app.controls.target.set( JA.tarX, JA.tarY, JA.tarZ );
+		if ( !camera ) return;
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
+		camera.position.set( JA.camX, JA.camY, JA.camZ );
+		controls = new THREE.TrackballControls( app.camera, app.renderer.domElement );
+		controls.target.set( JA.tarX, JA.tarY, JA.tarZ );
 	};
 
 // Toggles

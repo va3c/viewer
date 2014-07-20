@@ -1,8 +1,5 @@
 	var V3LI = {} || V3LI;
 
-	var THREE, renderer, scene, camera, controls;
-	var geometry, material, mesh;
-
 	V3LI.addLibrariesTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'View available libraries';

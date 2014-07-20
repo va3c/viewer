@@ -3,8 +3,6 @@
 	V3CO.u = 80;
 	V3CO.v = 40;
 
-	var app;
-
 	V3CO.addControlsTab = function() {
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
@@ -138,8 +136,8 @@
 
 	V3CO.updateMesh = function() {
 
-		material = JATH.selectedObject.material;
-		if ( JATH.selectedObject ) { app.scene.remove( JATH.selectedObject ); }
+		material = scene.select.material;
+		if ( scene.select ) { app.scene.remove( scene.select ); }
 
 		if ( app.a !== undefined ) app.a = parseFloat( outA.value );
 		if ( app.b !== undefined ) app.b = parseFloat( outB.value );
@@ -166,6 +164,6 @@
 		mesh.receiveShadow = true;
 
 		app.scene.add( mesh );
-		JATH.selectedObject = mesh;
+		scene.select = mesh;
 
 	};
