@@ -9,7 +9,7 @@
 	V3TB.basepath = 'http://va3c.github.io/three.js/examples/models/';
 //	V3TB.basepath = '../../../../three.js/examples/';
 
-	V3TO.basepath = 'http://va3c.github.io/three.js/examples/models/';
+	V3TO.basepath = 'http://va3c.github.io/three.js/examples/obj/';
 //	V3TO.basepath = '../../../../three.js/examples/obj/';
 
 	V3TM.addThreejsModelsReadTab = function() {
