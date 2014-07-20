@@ -23,6 +23,7 @@
 	};
 
 	V3CO.updateControlsTab = function( number ) {
+		divCon,inneHTML = '';
 
 			if ( app.a !== undefined) {
 				divCon.innerHTML += 'a: <input type=range id=inpA title="default ' + app.a + '" ' +
