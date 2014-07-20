@@ -1,7 +1,7 @@
 	var V3LI = {} || V3LI;
 
-	var loaderBase = '../../../three.js/examples/';
-//	var loaderBase = '../../../../three.js/examples/';
+	V3LI.loaderBase = '../../../three.js/examples/';
+//	V3LI.loaderBase = '../../../../three.js/examples/';
 
 	V3LI.addLibrariesTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
@@ -63,6 +63,11 @@
 
 
 	V3LI.updateIframe = function( fileList, index, basepath, filename ) {
+		V3LI.fileList = fileList;
+		V3LI.basepath = basepath;
+		V3LI.index = index;
+		V3LI.filename = filename;
+
 		if ( !V3LI.ifr ) {
 			V3LI.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
 			V3LI.ifr.height = window.innerHeight;
@@ -85,11 +90,12 @@
 				scene.select = app.mesh;
 				camera = app.camera;
 				controls = app.controls;
-				
-				V3CO.updateControlsTab();
-				
+
 				V3LI.loadFile( basepath, filename );
 				divMsg1.innerHTML = index + ' ' + fileList[ index ][0];
+
+				divCon.innerHTML = ''; // why is this duplicate needed?
+				V3CO.updateControlsTab();
 
 				renderer.shadowMapEnabled = true;
 				renderer.shadowMapSoft = true;
@@ -104,7 +110,7 @@
 				JALI.toggleLightPosition();
 
 
-			JAPR.setRandomGradient();
+				JAPR.setRandomGradient();
 
 			};
 
@@ -134,7 +140,6 @@
 	V3LI.loadFile = function ( basepath, filename ) {
 
 		var scr, reader, contents, fname, loader, result;
-//		var loaderBase = '../../../three.js/examples/';
 
 		var extension = filename.split( '.' ).pop().toLowerCase();
 
@@ -193,7 +198,7 @@
 
 							} );
 					};
-					scr.src = loaderBase + 'js/loaders/ctm/CTMLoader.js';
+					scr.src = V3LI.loaderBase + 'js/loaders/ctm/CTMLoader.js';
 
 
 /*
@@ -248,7 +253,7 @@
 
 						} );
 					}
-					scr.src = loaderBase + 'js/loaders/ColladaLoader.js';
+					scr.src = V3LI.loaderBase + 'js/loaders/ColladaLoader.js';
 
 
 /*
@@ -345,7 +350,7 @@
 						scene.add( mesh );
 						scene.select = mesh;
 					}
-					scr.src = loaderBase + 'js/loaders/OBJLoader.js';
+					scr.src = V3LI.loaderBase + 'js/loaders/OBJLoader.js';
 
 				break;
 
@@ -369,7 +374,7 @@
 						scene.add( mesh );
 
 					}
-					scr.src = loaderBase + 'js/loaders/PLYLoader.js';
+					scr.src = V3LI.loaderBase + 'js/loaders/PLYLoader.js';
 
 /*
 				var reader = new FileReader();
@@ -432,7 +437,7 @@
 						}
 
 					}
-					scr.src = loaderBase + 'js/loaders/STLLoader.js';
+					scr.src = V3LI.loaderBase + 'js/loaders/STLLoader.js';
 
 /*
 				var reader = new FileReader();
