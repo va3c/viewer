@@ -183,7 +183,7 @@
 		V3TO.threejsObjTab.innerHTML =
 			'<p>' +
 				'Sourced from <a href="http://mrdoob.github.io/three.js/examples/obj" target="_blank">threejs.org</a><br><br>' +
-				'Currently supports: .dae, .js, json, .stl, others?<br>' +
+				'Many files have issues. Why?<br>' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +

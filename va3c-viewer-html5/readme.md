@@ -83,6 +83,7 @@ This repository contains files that are at an early and volatile stage. Not all 
 * Added Three.js files in obj/ folder tab
 * Added FGx Aircraft
 * Added Stemkoski HTML
+* Added input boxes to geometry
 
 2014-07-19 ~ Theo
 
