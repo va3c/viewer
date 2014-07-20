@@ -42,7 +42,7 @@
 
 	JAMA.updateMaterial = function( key ) {
 		chkMaterial.checked = false;
-		scene.materialKey = JAMA.materials[ key ].set();
+		scene.select.material = JAMA.materials[ key ].set();
 		divMsg3.innerHTML = 'Material: <b>' + JAMA.materials[ key ].title + '</b>';
 
 	};
