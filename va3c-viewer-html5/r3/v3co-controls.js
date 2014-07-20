@@ -9,7 +9,7 @@
 		tab.title = 'Be in control of your equations';
 		tab.innerHTML =
 			'<a href=# id=tabControls><p class=button >' +
-				'<i class="fa fa-cogs"></i> Meier Parameter Controls...' +
+				'<i class="fa fa-cogs"></i> Meier Controls...' +
 			'</p></a>';
 		tabControls.onclick = function() { JA.toggleTab( V3CO.controlsTab ); };
 
@@ -117,20 +117,22 @@
 					'<input id=outR2 style=width:30px; onchange=inpR2.value=outR2.value;V3CO.updateMesh(); value=' + app.R2 + ' ><br>';
 			}
 
-			app.u = ( app.u !== undefined ) ? app.u : V3CO.u;
-			app.v = ( app.v !== undefined ) ? app.v : V3CO.v;
+			if ( app.u !== undefined ) {
 
-			divCon.innerHTML += '<h3>Number of Vertices</h3>' +
-				'u: <input type=range id=inpU title="default ' + V3CO.u + '" ' +
-				'min=1 max=200 step=1 value=' + app.u +
-				' onmousemove=outU.value=inpU.value;V3CO.updateMesh(); style=width:195px; > ' +
-				'<input id=outU style=width:30px; onchange=inpU.value=outU.value;V3CO.updateMesh(); value=' + app.u + ' ><br>';
-
-			divCon.innerHTML += 'v: <input type=range id=inpV title="default ' + V3CO.v + '" ' +
-				'min=1 max=200 step=1 value=' + app.v +
-				' onmousemove=outV.value=inpV.value;V3CO.updateMesh(); style=width:195px; > ' +
-				'<input id=outV style=width:30px; onchange=inpV.value=outV.value;V3CO.updateMesh(); value=' + app.v + ' ><br>';
-
+				divCon.innerHTML += '<h3>Number of Vertices</h3>' +
+					'u: <input type=range id=inpU title="default ' + V3CO.u + '" ' +
+					'min=1 max=200 step=1 value=' + app.u +
+					' onmousemove=outU.value=inpU.value;V3CO.updateMesh(); style=width:195px; > ' +
+					'<input id=outU style=width:30px; onchange=inpU.value=outU.value;V3CO.updateMesh(); value=' + app.u + ' ><br>';
+			}
+			
+			if ( app.v !== undefined ) {
+				divCon.innerHTML += 'v: <input type=range id=inpV title="default ' + V3CO.v + '" ' +
+					'min=1 max=200 step=1 value=' + app.v +
+					' onmousemove=outV.value=inpV.value;V3CO.updateMesh(); style=width:195px; > ' +
+					'<input id=outV style=width:30px; onchange=inpV.value=outV.value;V3CO.updateMesh(); value=' + app.v + ' ><br>';
+			}
+			
 			divCon.innerHTML += '<button onclick=ASFR.updateIframe("' + number + '"); >Reset</button>';
 
 	};
