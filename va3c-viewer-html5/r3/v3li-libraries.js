@@ -55,7 +55,7 @@
 				controls = app.controls;
 
 				V3LI.loadFile( basepath, filename );
-				divMsg1.innerHTML = filename[ index ][1];
+				divMsg1.innerHTML = fileList[ index ][1];
 
 				renderer.shadowMapEnabled = true;
 				renderer.shadowMapSoft = true;
@@ -80,7 +80,7 @@
 			}
 		} else {
 			V3LI.loadFile( basepath, filename );
-			divMsg1.innerHTML = filename[ index ][1];
+			divMsg1.innerHTML = fileList[ index ][1];
 		}
 
 	};
