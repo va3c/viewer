@@ -15,8 +15,6 @@
 	JA.tarY = 0;
 	JA.tarZ = 0;
 
-
-
 	JA.addCSS = function() {
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
