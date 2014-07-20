@@ -1,7 +1,7 @@
 
 	var V3JM = {} || V3JM;
 
-	V3JM.basepath = 'http://v3ac.github.io/algesurf/parametric-equations/equation-files/'
+	V3JM.basepath = 'http://va3c.github.io/algesurf/parametric-equations/equation-files/'
 
 	V3JM.addJurgenMeierTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
