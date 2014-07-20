@@ -50,7 +50,8 @@
 				scene = app.scene;
 				camera = app.camera;
 				controls = app.controls;
-
+				V3CO.updateControlsTab();
+				
 				V3LI.loadFile( basepath, filename );
 				divMsg1.innerHTML = fileList[ index ][1];
 
@@ -73,7 +74,7 @@ scene.select = scene.children[0];
 
 			if ( extension === 'html' ) {
 				V3LI.ifr.src = basepath + filename;
-				V3CO.updateControlsTab();
+
 			} else {
 				V3LI.ifr.src = 'boilerplate-simple.html';
 			}
