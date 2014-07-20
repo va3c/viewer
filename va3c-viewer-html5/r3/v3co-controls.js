@@ -133,7 +133,7 @@
 					'<input id=outV style=width:30px; onchange=inpV.value=outV.value;V3CO.updateMesh(); value=' + app.v + ' ><br>';
 			}
 			
-			divCon.innerHTML += '<button onclick=ASFR.updateIframe("' + number + '"); >Reset</button>';
+			divCon.innerHTML += '<button onclick=v3LI.updateIframe("' + number + '"); >Reset</button>';
 
 	};
 
