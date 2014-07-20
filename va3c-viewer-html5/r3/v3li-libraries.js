@@ -67,7 +67,7 @@
 				chkLightPosition.checked = true;
 				JALI.toggleLightPosition();
 
-scene.select = scene.children[0];
+				scene.select = mesh;
 	//			JAPR.setRandomGradient();
 
 			};
@@ -80,6 +80,7 @@ scene.select = scene.children[0];
 			}
 		} else {
 			V3LI.loadFile( basepath, filename );
+			V3CO.updateControlsTab();
 			divMsg1.innerHTML = fileList[ index ][1];
 		}
 
