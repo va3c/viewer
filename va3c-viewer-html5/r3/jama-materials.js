@@ -1,6 +1,6 @@
 	JAMA = {} || JAMA;
 
-	JAMA.basePath = '../../../../../';
+	JAMA.basePath = '../../../';
 
 	JAMA.addMaterialSelectTab = function() {
 
@@ -42,7 +42,7 @@
 
 	JAMA.updateMaterial = function( key ) {
 		chkMaterial.checked = false;
-		scene.select.material = JAMA.materials[ key ].set();
+		scene.materialKey = JAMA.materials[ key ].set();
 		divMsg3.innerHTML = 'Material: <b>' + JAMA.materials[ key ].title + '</b>';
 
 	};
