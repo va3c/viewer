@@ -1,7 +1,7 @@
 
 	var V3FA = {} || V3FA;
 
-	V3FA.basepath = 'http://fgx.github.io/fgx-aircraft/data/';
+	V3FA.basepath = 'http://va3c.github.io/fgx-aircraft/data/';
 //	V3FA.basepath = '../../../../fgx-repos/fgx-aircraft/data/';
 
 	V3FA.addFgxAircraftTab = function() {
