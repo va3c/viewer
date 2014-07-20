@@ -35,7 +35,8 @@ Mostapha Roudsari, Ashley Reed, Anne Waelkens, Jim Quanci, Elcin Ertugrul, Amir 
 
 
 ## Road Map
-* Add ability to open older JSON files
+
+* Add the models from here: https://github.com/sparkfun/3D_Models/
 * Add skybox
 
 ## Issues /Bugs
@@ -77,10 +78,17 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 ## Change Log
 
+2014-07-20 ~ Theo
+
+* Added Three.js files in obj/ folder tab
+* Added FGx Aircraft
+* Added Stemkoski HTML
+
 2014-07-19 ~ Theo
 
 * R3 - a WIP is up
-* Reads files in a numner of formats
+* Reads files in a number of formats / 
+* Add ability to open older JSON files << wishlist item done
 
 2014-05-27 ~ Theo
 

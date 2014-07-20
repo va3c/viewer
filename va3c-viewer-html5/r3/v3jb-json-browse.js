@@ -24,7 +24,7 @@
 
 		V3JB.JSONBrowseTab.innerHTML =
 			'<p>' +
-				'Sourced from <a hr; ef="http://mrdoob.github.io/three.js/examples/" target="_blank"></a>threejs.org<br><br>' +
+				'Sourced from <a href="http://mrdoob.github.io/three.js/examples/" target="_blank"></a>threejs.org<br><br>' +
 				'Currently supports: .dae, .js, json, .stl, others?<br>' +
 			'</p>' +
 			'<p>You have to zoom *way* out or way in to see stuff.</p>' +

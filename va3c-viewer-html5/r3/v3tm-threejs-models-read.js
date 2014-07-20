@@ -1,6 +1,7 @@
 
 	var V3TM = {} || V3TM;
 	var V3TB = {} || V3TB;
+	var V3TO = {} || V3TO;
 
 	V3TM.basepath = 'http://va3c.github.io/three.js/examples/models/';
 //	V3TM.basepath = '../../../../three.js/examples/models/';
@@ -8,13 +9,16 @@
 	V3TB.basepath = 'http://va3c.github.io/three.js/examples/models/';
 //	V3TB.basepath = '../../../../three.js/examples/';
 
+	V3TO.basepath = 'http://va3c.github.io/three.js/examples/models/';
+//	V3TO.basepath = '../../../../three.js/examples/obj/';
+
 	V3TM.addThreejsModelsReadTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a href=# id=tabFileReader ><p class=button >' +
+			'<a href=# id=tabThreejsModels ><p class=button >' +
 				'<i class="fa fa-file-image-o"></i> Three.js Example Models...' +
 			'</p></a>';
-		tabFileReader.onclick = function() {JA.toggleDialogs(V3TM.threejsModelsTab); };
+		tabThreejsModels.onclick = function() {JA.toggleDialogs(V3TM.threejsModelsTab); };
 
 		V3TM.threejsModelsTab = tab.appendChild( document.createElement( 'div' ) );
 		V3TM.threejsModelsTab.style.cssText = 'cursor: auto; display: none; ' ;
@@ -28,7 +32,7 @@
 //console.log( fileList )
 		V3TM.threejsModelsTab.innerHTML =
 			'<p>' +
-				'Sourced from <a href="http://mrdoob.github.io/three.js/examples/" target="_blank">threejs.org</a><br><br>' +
+				'Sourced from <a href="http://mrdoob.github.io/three.js/examples/models" target="_blank">threejs.org</a><br><br>' +
 				'Currently supports: .dae, .js, json, .stl, others?<br>' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +
@@ -156,6 +160,76 @@
 		['vrml/house.wrl',''],
 		['vrml/simple.wrl',''],
 		['vtk/bunny.vtk','']
+	];
+
+	V3TO.addThreejsObjReadTab = function() {
+		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
+		tab.innerHTML =
+			'<a href=# id=tabThreejsObj ><p class=button >' +
+				'<i class="fa fa-file-image-o"></i> Three.js Example Objects...' +
+			'</p></a>';
+		tabThreejsObj.onclick = function() {JA.toggleDialogs(V3TO.threejsObjTab); };
+
+		V3TO.threejsObjTab = tab.appendChild( document.createElement( 'div' ) );
+		V3TO.threejsObjTab.style.cssText = 'cursor: auto; display: none; ' ;
+
+		var fileList = '<br>';
+		var file, fname;
+		for ( var i = 0, len = V3TO.files.length; i < len; i++ ) {
+			file = V3TO.files[ i ][ 0 ];
+			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TO.files,' + i + ',V3TO.basepath,"' + V3TO.files[ i ][0] + '"); >' + file + '</a><br>';
+		}
+//console.log( fileList )
+		V3TO.threejsObjTab.innerHTML =
+			'<p>' +
+				'Sourced from <a href="http://mrdoob.github.io/three.js/examples/obj" target="_blank">threejs.org</a><br><br>' +
+				'Currently supports: .dae, .js, json, .stl, others?<br>' +
+			'</p>' +
+			'<div >' + fileList + '</div>' +
+			'<p style=text-align:right; >' +
+				'<a class=button href=JavaScript:JA.toggleTab(V3TO.threejsObjTab); ); >Close</a> ' +
+			'</p>' +
+		'';
+
+	};
+	V3TO.files = [
+		['Bird.js','Bird.js'],
+		['Qrcode.js','Qrcode.js'],
+		['Suzanne.js','Suzanne.js'],
+		['terrain.js','terrain.js'],
+		['WaltHeadLo.js','WaltHeadLo.js'],
+		['blenderscene/scene.Cube.js','blenderscene/scene.Cube.js'],
+		['blenderscene/scene.js','blenderscene/scene.js'],
+		['blenderscene/scene.Monkey.js','blenderscene/scene.Monkey.js'],
+		['blenderscene/scene.Plane.js','blenderscene/scene.Plane.js'],
+		['box/box.js','box/box.js'],
+		['camaro/CamaroNoUv_bin.js','camaro/CamaroNoUv_bin.js'],
+		['cubecolors/cubecolors.js','cubecolors/cubecolors.js'],
+		['cubecolors/cube_fvc.js','cubecolors/cube_fvc.js'],
+		['f50/F50NoUv_bin.js','f50/F50NoUv_bin.js'],
+		['female02/Female02_bin.js','female02/Female02_bin.js'],
+		['female02/Female02_slim.js','female02/Female02_slim.js'],
+		['gallardo/GallardoNoUv_bin.js','gallardo/GallardoNoUv_bin.js'],
+		['gallardo/parts/gallardo_body_bin.js','gallardo/parts/gallardo_body_bin.js'],
+		['gallardo/parts/gallardo_wheel_bin.js','gallardo/parts/gallardo_wheel_bin.js'],
+		['leeperrysmith/LeePerrySmith.js','leeperrysmith/LeePerrySmith.js'],
+		['lightmap/lightmap.js','lightmap/lightmap.js'],
+		['lucy/Lucy100k_bin.js','lucy/Lucy100k_bin.js'],
+		['lucy/Lucy100k_slim.js','lucy/Lucy100k_slim.js'],
+		['male02/Male02_bin.js','male02/Male02_bin.js'],
+		['male02/Male02_dds.js','male02/Male02_dds.js'],
+		['male02/Male02_slim.js','male02/Male02_slim.js'],
+		['ninja/NinjaLo_bin.js','ninja/NinjaLo_bin.js'],
+		['suzanne/suzanne.js','suzanne/suzanne.js'],
+		['suzanne/suzanne.Monkey.003.js','suzanne/suzanne.Monkey.003.js'],
+		['suzanne/suzanneHi.js','suzanne/suzanneHi.js'],
+		['suzanne/suzanneHi.Monkey.003.js','suzanne/suzanneHi.Monkey.003.js'],
+		['tree/tree.js','tree/tree.js'],
+		['veyron/VeyronNoUv_bin.js','veyron/VeyronNoUv_bin.js'],
+		['veyron/parts/veyron_body_bin.js','veyron/parts/veyron_body_bin.js'],
+		['veyron/parts/veyron_wheel_bin.js','veyron/parts/veyron_wheel_bin.js'],
+		['walt/WaltHead_bin.js','walt/WaltHead_bin.js'],
+		['walt/WaltHead_slim.js','walt/WaltHead_slim.js'],
 	];
 
 	V3TB.addThreejsHTMLTab = function() {
