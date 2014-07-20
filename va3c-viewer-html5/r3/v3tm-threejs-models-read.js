@@ -156,7 +156,7 @@
 	];
 
 
-	V3TB.basepath = '../../../../../git-repos/three.js/examples/';
+	V3TB.basepath = '../../../three.js/examples/';
 
 	V3TB.addThreejsHTMLTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
