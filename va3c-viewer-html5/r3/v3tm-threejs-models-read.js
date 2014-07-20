@@ -3,7 +3,7 @@
 
 	var V3TB = {} || V3TB;
 
-	V3TM.basepath = '../../../../three.js/examples/models/';
+	V3TM.basepath = '../../../three.js/examples/models/';
 
 	V3TM.addThreejsModelsReadTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
