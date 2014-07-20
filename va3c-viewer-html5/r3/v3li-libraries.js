@@ -69,6 +69,7 @@
 				chkLightPosition.checked = true;
 				JALI.toggleLightPosition();
 
+scene.select = scene.children[0];
 	//			JAPR.setRandomGradient();
 
 			};
@@ -104,9 +105,9 @@
 
 		switch ( extension ) {
 			case 'html' :
-// console.log( basepath, filename);
+console.log( basepath, filename);
 				// V3LI.ifr.src = basepath + filename;
-				scene.select = scene.children[0];
+				// scene.select = scene.children[0];
 
 				break;
 			case 'babylon':
