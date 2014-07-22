@@ -33,9 +33,7 @@
 
 // ground box
 		geometry = new THREE.BoxGeometry( 200, 1, 100 );
-
-		var texture = new THREE.ImageUtils.loadTexture( JAMA.basePath + 'textures/pure-white.png' );
-		material = new THREE.MeshPhongMaterial( { mp: texture } );
+		material = new THREE.MeshPhongMaterial();
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( 0, -50, 0 );
 		mesh.castShadow = true;
