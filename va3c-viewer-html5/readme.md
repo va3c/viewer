@@ -8,7 +8,7 @@ There is an `iframe` here. It is not visible when viewed on github.com/va3c/view
 </iframe>
 _vA3C Viewer HTML5 - latest revision_ / [Full Screen]( http://va3c.github.io/viewer/va3c-viewer-html5/latest/index.html )
 
-The scripts hare are updates to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a>.
+The scripts here are updates to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a>.
 
 ## Concept
 
@@ -30,15 +30,15 @@ The scripts hare are updates to the competition entry and winner of the second p
 * Opens for editing and manipulation any Three.js HTML files - including all the 175 Three.js and 83 Stemkoski code example files
 * Opens for editing.js, json, .obj, .stl, .dae, .wrl, and vtk files. Coming soon: .gltf
 * Enables CORS-compliant access to 1025+ sample data files hosted on GitHub
-* Demos online access to user files in their orginal GitHub home gh-pages folders 
+* Demos online access to user files in their original GitHub home gh-pages folders 
 		* No need to download/upload. 
 		* No need to send your data to closed source walled-garden
 		* Process could be replicated on private CORS-compliant servers
-* Updae positione, scale and rotation any geometry in any of the above - guided by real-time sliders or via text data input
-* Apply any of several dozen pre-define materials to any mesh
+* Update position, scale and rotation any geometry in any of the above - guided by real-time sliders or via text data input
+* Apply any of several dozen pre-defined materials to any mesh
 * Edit every available parameter of any material on any selected mesh
 * Select any mesh for editing by clicking it on screen.
-* Load a new drawing or insert new objects into current drawing.
+* Load a new drawing or insert new objects into current drawing
 * Toggle the display wireframe and normals helpers
 * Add lights, shading and shadows to any model
 * Set background to selected gradient or colors
@@ -59,9 +59,9 @@ Mostapha Roudsari, Ashley Reed, Anne Waelkens, Jim Quanci, Elcin Ertugrul, Amir 
 * Fix any model texture display issues
 * Add permalink read and create capability
 * Add save to file capability
-* Add ability to add texture to matrial of selected objects
+* Add ability to add texture to material of selected objects
 * Add delete capability to Geometry tab
-* Add standard Three.js geomtery tab
+* Add standard Three.js geometry tab
 * Add physics and booleans tabs
 * Add galleries of images of data files
 * Add the models from here: https://github.com/sparkfun/3D_Models/
