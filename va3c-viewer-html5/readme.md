@@ -6,14 +6,15 @@ vA3C Viewer HTML5 Read Me
 <iframe src="http://va3c.github.io/viewer/va3c-viewer-html5/latest/index.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com/va3c/viewer. To view, please see 'Project Links' below.
 </iframe>
-_vA3C Viewer HTML5_ / [Full Screen]( http://va3c.github.io/viewer/va3c-viewer-html5/latest/index.html )
+_vA3C Viewer HTML5 - latest revision_ / [Full Screen]( http://va3c.github.io/viewer/va3c-viewer-html5/latest/index.html )
 
+The scripts hare are updates to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a>.
 
 ## Concept
 
 ### Mission  
 <!-- a statement of a rationale, applicable now as well as in the future -->
-* View Revit, Rhino/Grasshopper and 3DS Max models in 3D with any web browser using Three.js and data rendered as JSON files.
+* View, mash-up edit and save 3D data files with any web browser.
 
 
 ### Vision  
@@ -24,17 +25,24 @@ _vA3C Viewer HTML5_ / [Full Screen]( http://va3c.github.io/viewer/va3c-viewer-ht
 ## Features
 <!-- and benefits -->
 
-* Provides fast, simple access to a thousand models, objects and HTML files - including al the Three.js amd Stemkoski examples
-* Allows any geometry in any of the above to be position, scale and rotation guided by real-time sliders or via text data input
-* Apply any of severl dozen pre-define materials to be applied to any mesh
-* Edit every availabl parameter of any material on any selected object
-* Select any object for editing by clicking it on screen.
-* load a new drawing or insert new objects into current drawing.
+* Provides fast, simple access to 3D models, objects and HTML files
+* Uses the DOM to provide very deep editing and control access to the imported models.
+* Opens for editing and manipulation any Three.js HTML files - including all the 175 Three.js and 83 Stemkoski code example files
+* Opens for editing.js, json, .obj, .stl, .dae, .wrl, and vtk files. Coming soon: .gltf
+* Enables CORS-compliant access to 1025+ sample data files hosted on GitHub
+* Demos online access to user files in their orginal GitHub home gh-pages folders 
+		* No need to download/upload. 
+		* No need to send your data to closed source walled-garden
+		* Process could be replicated on private CORS-compliant servers
+* Updae positione, scale and rotation any geometry in any of the above - guided by real-time sliders or via text data input
+* Apply any of several dozen pre-define materials to any mesh
+* Edit every available parameter of any material on any selected mesh
+* Select any mesh for editing by clicking it on screen.
+* Load a new drawing or insert new objects into current drawing.
 * Toggle the display wireframe and normals helpers
-* Add lights, shade and shadows to any model
+* Add lights, shading and shadows to any model
+* Set background to selected gradient or colors
 
-
-This script is an update to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a>.
 
 ##Team Members
 
@@ -47,15 +55,24 @@ Mostapha Roudsari, Ashley Reed, Anne Waelkens, Jim Quanci, Elcin Ertugrul, Amir 
 
 ## Road Map
 
+* Display attributes
+* Fix any model texture display issues
+* Add permalink read and create capability
+* Add save to file capability
+* Add ability to add texture to matrial of selected objects
+* Add delete capability to Geometry tab
+* Add standard Three.js geomtery tab
+* Add physics and booleans tabs
+* Add galleries of images of data files
 * Add the models from here: https://github.com/sparkfun/3D_Models/
-* Add skybox
+* Add skyboxes
 
 ## Issues /Bugs
 
 * Difficult to know which controller you are using currently
 
 ## Project Links
-vA3C is a [GitGub]( http://github.com) [organization account]( https://help.github.com/articles/what-s-the-difference-between-user-and-organization-accounts ) and has multiple owners and admins. 
+vA3C is a [GitHub]( http://github.com) [organization account]( https://help.github.com/articles/what-s-the-difference-between-user-and-organization-accounts ) and has multiple owners and admins. 
 All vA3EC scripts are [FOSS]( https://en.wikipedia.org/wiki/Free_and_open-source_software ).
 Scripts are hosted on GitHub and are viewable as web pages, as described in the 'Read Me' files and as source code.
 
@@ -89,6 +106,15 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 ## Change Log
 
+2014-07-22 ~
+
+Editing Read me
+
+2014-07-21 ~ Theo
+
+* Models can target particular boilerplate files - so as to adjust for different scales
+* Many minor fixes 
+
 2014-07-20 ~ Theo
 
 * Added Three.js files in obj/ folder tab
@@ -106,7 +132,7 @@ This repository contains files that are at an early and volatile stage. Not all 
 2014-05-27 ~ Theo
 
 * Add the readme and other support files
-* Completed R2 and commited
+* Completed R2 and committed
   
 
 
