@@ -249,7 +249,7 @@
 		for ( var i = 0, len = V3TB.files.length; i < len; i++ ) {
 			file = V3TB.files[ i ][ 0 ];
 			fileList += '<a href=JavaScript:openOver.checked=true;' +
-				'V3LI.updateIframe(V3TB.files,' + i + ',V3TB.basepath,"' + V3TB.files[ i ][0] + '"); >' + file + '</a><br>';
+				'V3LI.updateIframe(V3TB.files,' + i + ',V3TB.basepath,"' + V3TB.files[ i ][0] + '",""); >' + file + '</a><br>';
 		}
 		V3TB.ThreeHTMLTab.innerHTML =
 			'<p>HTML sourced from: <b><a href="http://threejs.org" target="_blank">Three.js</a></b></p>' +
