@@ -6,7 +6,7 @@
 	V3TM.basepath = 'http://va3c.github.io/three.js/examples/models/';
 //	V3TM.basepath = '../../../../three.js/examples/models/';
 
-	V3TB.basepath = 'http://va3c.github.io/three.js/examples/models/';
+	V3TB.basepath = 'http://va3c.github.io/three.js/examples/';
 //	V3TB.basepath = '../../../../three.js/examples/';
 
 	V3TO.basepath = 'http://va3c.github.io/three.js/examples/obj/';
