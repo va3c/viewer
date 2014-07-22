@@ -5,6 +5,7 @@
 
 	V3LI.boilerplate = 'boilerplate-simple.html';
 
+
 	V3LI.addLibrariesTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'View available libraries';
