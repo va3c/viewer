@@ -1,7 +1,8 @@
 	JAMA = {} || JAMA;
 
 	JAMA.basePath = 'http://va3c.github.io/viewer/va3c-viewer-html5/';
-//	JAMA.basePath = '../../../../';
+//	JAMA.basePath = '../../../../'; // three.js/examples/';
+	JAMA.texturePath = '../../../../';
 
 	JAMA.addMaterialSelectTab = function() {
 
@@ -18,6 +19,7 @@
 		JAMA.MaterialSelectTab.style.cssText = 'cursor: auto; display: none; ';
 
 		var basic = '';
+		var texture = ''
 		var envMap = '';
 		var title, category, txt;
 		for ( var key in JAMA.materials ) {
@@ -26,6 +28,8 @@
 			txt = '<a href=# onclick="JAMA.updateMaterial( \'' + key + '\' );" >' + title + '</a><br>';
 			if ( category === "Basic" ) {
 				basic += txt;
+			} else if ( category === "Texture" ){
+				texture += txt;
 			} else {
 				envMap +=  txt;
 			}
@@ -35,6 +39,8 @@
 			'<input type=checkbox id=chkMaterial > Use default material' +
 			'<h3 style=margin:0; >Basic</h3>' +
 			basic +
+			'<h3 style=margin:0; >Texture</h3>' +
+			texture +
 			'<h3 style=margin:0; >Evironment Map</h3>' +
 			envMap +
 		'';

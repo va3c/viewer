@@ -22,7 +22,7 @@
 			fileTitle = V3JM.files[ i ][ 1 ];
 			basepath = V3JM.basepath + '/' + V3JM.files[ i ][ 0 ] + '/';
 			fname = V3JM.files[ i ][ 0 ];
-			fileList += '<a href=JavaScript:openOver.checked===true;' +
+			fileList += '<a href=JavaScript:openOver.checked=true;' +
 				'V3LI.updateIframe(V3JM.files,' + i + ',"' + basepath + '","' + fname + '.html"); >' + fileTitle + '</a><br>';
 		}
 		V3JM.JurgenMeier.innerHTML = 

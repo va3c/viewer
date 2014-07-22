@@ -23,6 +23,17 @@ _vA3C Viewer HTML5_ / [Full Screen]( http://va3c.github.io/viewer/va3c-viewer-ht
 
 ## Features
 <!-- and benefits -->
+
+* Provides fast, simple access to a thousand models, objects and HTML files - including al the Three.js amd Stemkoski examples
+* Allows any geometry in any of the above to be position, scale and rotation guided by real-time sliders or via text data input
+* Apply any of severl dozen pre-define materials to be applied to any mesh
+* Edit every availabl parameter of any material on any selected object
+* Select any object for editing by clicking it on screen.
+* load a new drawing or insert new objects into current drawing.
+* Toggle the display wireframe and normals helpers
+* Add lights, shade and shadows to any model
+
+
 This script is an update to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a>.
 
 ##Team Members
@@ -84,6 +95,7 @@ This repository contains files that are at an early and volatile stage. Not all 
 * Added FGx Aircraft
 * Added Stemkoski HTML
 * Added input boxes to geometry
+* Fixed Reset button
 
 2014-07-19 ~ Theo
 

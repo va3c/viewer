@@ -20,12 +20,12 @@
 		for ( var i = 0, len = V3FA.files.length; i < len; i++ ) {
 			file = V3FA.files[ i ][0];
 			fileList += '<a href=JavaScript:' +
-				'V3LI.updateIframe(V3FA.files,' + i + ',V3FA.basepath,"' + file + '"); >' + file + '</a><br>';
+				'V3LI.updateIframe(V3FA.files,' + i + ',V3FA.basepath,"' + file + '",""); >' + file + '</a><br>';
 		}
 
 		V3FA.FgxAircraftTab.innerHTML =
 			'<p>' +
-				'Sourced from <a href="http://fgx.github.io/fgx-aircraft-overview/r4/aircraft-overview.html#" target="_blank"></a>FGx Aircraft<br><br>' +
+				'Sourced from <a href="http://fgx.github.io/fgx-aircraft-overview/r4/aircraft-overview.html" target="_blank"></a>FGx Aircraft<br><br>' +
 				'Currently supplies over 400 crappy aircraft<br>' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +

@@ -7,14 +7,6 @@
 	var geometry, material, mesh;
 	var app;
 
-	JA.camX = 100;
-	JA.camY = 100;
-	JA.camZ = 100;
-
-	JA.tarX = 0;
-	JA.tarY = 0;
-	JA.tarZ = 0;
-
 	JA.addCSS = function() {
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
@@ -91,6 +83,7 @@
 		''; 
 	};
 
+/*
 	JA.addThreeFooter = function() {
 		var footer = JA.menu.appendChild( document.createElement( 'div' ) );
 		footer.style.cssText = 'cursor: auto;';
@@ -109,6 +102,7 @@
 		controls = new THREE.TrackballControls( app.camera, app.renderer.domElement );
 		controls.target.set( JA.tarX, JA.tarY, JA.tarZ );
 	};
+*/
 
 // Toggles
 

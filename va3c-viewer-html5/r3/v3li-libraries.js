@@ -1,7 +1,9 @@
 	var V3LI = {} || V3LI;
 
 	V3LI.loaderBase = '../../../three.js/examples/';
-//	V3LI.loaderBase = '../../../../three.js/examples/';
+	V3LI.loaderBase = '../../../../three.js/examples/';
+
+	V3LI.boilerplate = 'boilerplate-simple.html';
 
 	V3LI.addLibrariesTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
@@ -14,7 +16,7 @@
 		V3LI.libraries = JA.menu.appendChild( document.createElement( 'div' ) );
 		V3LI.libraries.style.cssText = 'cursor: auto; display: ; ' ;
 		V3LI.libraries.innerHTML =
-			'<input type=radio name=fileOpen id=openOver checked /> Overwrite current view<br>' +
+			'<input type=radio name=fileOpen id=openOver /> Overwrite current view<br>' +
 			'<input type=radio name=fileOpen id=openAppend /> Append to current view<br>' +
 			'<p>A work in progress. Much broken. Nonetheless lots worth exploring. More goodies on the way...</p>' +
 /*
@@ -31,6 +33,8 @@
 			'</p>' +
 */
 		'';
+
+		openOver.checked = true;
 	};
 
 	V3LI.init = function() {
@@ -40,7 +44,7 @@
 				'<p>View Revit, Rhino/Grasshopper 3DS Max and other model types models in 3D with any web browser using Three.js and data rendered as JSON files.</p>' +
 				'<p>This script is an update to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a></p>' +
 				'<p>Team Members: Benjamin Howes, Jonatan Schumacher, Jeremy Tammik, Matt Mason, Kevin Vandecar, Charlie Portelli, Josh Wentz, Femi King, Zach Flanders & Theo Armour</p>' +
-				'<p>Supporters include: Mostapha Roudsari, Ashley Reed, Anne [from Sao Paulo], Jim Quanci, Elcin Ertugrul, Amir Tasbihi and many more. Others?</p>' +
+				'<p>Supporters include: Mostapha Roudsari, Ashley Reed, Anne Waelkens, Jim Quanci, Elcin Ertugrul, Amir Tasbihi and many more. Others?</p>' +
 			'<small>' +
 				'<a href="http://va3c.github.io/viewer/va3c-viewer-html5/readme-reader.html" target="_blank">Read Me ~</a> ' +
 				'<a href="https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5" target="_blank">Source Code ~ </a> ' +
@@ -58,15 +62,18 @@
 		fileTitle = V3JM.files[ index ][ 1 ];
 		basepath = V3JM.basepath + '/' + V3JM.files[ index ][ 0 ] + '/';
 		fname = V3JM.files[ index ][ 0 ] + '.html';
-		V3LI.updateIframe( V3JM.files, index, basepath, fname )
+		V3LI.updateIframe( V3JM.files, index, basepath, fname, '' );
+
 	}
 
 
-	V3LI.updateIframe = function( fileList, index, basepath, filename ) {
+	V3LI.updateIframe = function( fileList, index, basepath, filename, boilerplate ) {
+
 		V3LI.fileList = fileList;
 		V3LI.basepath = basepath;
 		V3LI.index = index;
 		V3LI.filename = filename;
+		
 
 		if ( !V3LI.ifr ) {
 			V3LI.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
@@ -81,7 +88,6 @@
 //				JAPR.setRandomGradient();
 
 				app = V3LI.ifr.contentWindow;
-	//			JA.body = V3FR.ifr.contentDocument;
 
 				THREE = app.THREE;
 //				THREE.ImageUtils.crossOrigin = 'anonymous';
@@ -91,7 +97,14 @@
 				camera = app.camera;
 				controls = app.controls;
 
+				projector = new THREE.Projector();
+				app.window.addEventListener( 'click', onDocumentMouseClick, false );
+
 				V3LI.loadFile( basepath, filename );
+
+				JATH.selection = scene.children;
+//				JATH.findEmbdeddedScene( scene );
+
 				divMsg1.innerHTML = index + ' ' + fileList[ index ][0];
 
 				divCon.innerHTML = ''; // why is this duplicate needed?
@@ -109,16 +122,16 @@
 				chkLightPosition.checked = true;
 				JALI.toggleLightPosition();
 
-
 				JAPR.setRandomGradient();
 
 			};
 
 			if ( extension === 'html' ) {
 				V3LI.ifr.src = basepath + filename;
-
 			} else {
-				V3LI.ifr.src = 'boilerplate-simple.html';
+//console.log( boilerplate );
+
+				V3LI.ifr.src = ( boilerplate != '' ) ? boilerplate : 'boilerplate-simple.html';
 			}
 		} else {
 			V3LI.loadFile( basepath, filename );
@@ -405,7 +418,7 @@
 			case 'stl':
 
 					var scr = document.body.appendChild( document.createElement( 'script' ) );
-					scr.src = basepath + 'js/wip/TypedGeometry.js';
+					scr.src = V3LI.loaderBase + 'js/wip/TypedGeometry.js';
 
 					var scr = document.body.appendChild( document.createElement( 'script' ) );
 					scr.onload = function() {
@@ -496,6 +509,28 @@
 
 			case 'vtk':
 
+					var fname = basepath + filename;
+					var contents = requestFile( fname );
+
+					var scr = document.body.appendChild( document.createElement( 'script' ) );
+					scr.onload = function() {
+
+						geometry = new THREE.VTKLoader().parse( contents );
+
+						material = new THREE.MeshPhongMaterial();
+						mesh = new THREE.Mesh( geometry, material );
+
+						mesh.name = filename;
+
+						mesh.castShadow = true;
+						mesh.receiveShadow = true;
+						scene.add( mesh );
+						scene.select = mesh;
+					}
+					scr.src = V3LI.loaderBase + 'js/loaders/VTKLoader.js';
+
+
+/*
 				var reader = new FileReader();
 				reader.addEventListener( 'load', function ( event ) {
 
@@ -515,11 +550,29 @@
 
 				}, false );
 				reader.readAsText( file );
-
+*/
 				break;
 
 			case 'wrl':
 
+					var fname = basepath + filename;
+					var contents = requestFile( fname );
+
+					var scr = document.body.appendChild( document.createElement( 'script' ) );
+					scr.onload = function() {
+
+						var object = new THREE.VRMLLoader().parse( contents );
+						mesh = object.children[0];
+						mesh.name = filename;
+						mesh.material = new THREE.MeshPhongMaterial();
+						mesh.castShadow = true;
+						mesh.receiveShadow = true;
+						scene.add( object );
+						scene.select = mesh;
+					}
+					scr.src = V3LI.loaderBase + 'js/loaders/VRMLLoader.js';
+
+/*
 				var reader = new FileReader();
 				reader.addEventListener( 'load', function ( event ) {
 
@@ -531,7 +584,7 @@
 
 				}, false );
 				reader.readAsText( file );
-
+*/
 				break;
 
 			default:

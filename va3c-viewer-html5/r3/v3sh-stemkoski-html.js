@@ -18,16 +18,16 @@
 		var file, fname;
 		for ( var i = 0, len = V3SH.files.length; i < len; i++ ) {
 			file = V3SH.files[ i ][0];
-			fileList += '<a href=JavaScript:' +
-				'V3LI.updateIframe(V3SH.files,' + i + ',V3SH.basepath,"' + file + '"); >' + file + '</a><br>';
+			fileList += '<a href=JavaScript:openOver.checked=true;' +
+				'V3LI.updateIframe(V3SH.files,' + i + ',V3SH.basepath,"' + file + '",""); >' + file + '</a><br>';
 		}
 
 		V3SH.StemkoskiHTMLTab.innerHTML =
 			'<p>' +
-				'Sourced from <a href="http://stemkoski.github.io/Three.js/" target="_blank"></a>threejs.org<br><br>' +
-				'Currently ssupplies over 400 crappy aircraft<br>' +
+				'Sourced from <a href="http://stemkoski.github.io/Three.js/" target="_blank"></a>Three.js Examples<br><br>' +
+				'Professor Lee Stemkoski\'s 83 files: <br>' +
 			'</p>' +
-			'<p>.</p>' +
+			'<p><small>The goal of this collection is to provide a set of basic and instructive examples that introduce the various features in Three.js. The source code for each page contains detailed comments.</small></p>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
 				'<a class=button href=JavaScript:JA.toggleTab(V3SH.StemkoskiHTMLTab); ); >Close</a> ' +

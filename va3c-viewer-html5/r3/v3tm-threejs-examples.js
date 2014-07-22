@@ -12,7 +12,7 @@
 	V3TO.basepath = 'http://va3c.github.io/three.js/examples/obj/';
 //	V3TO.basepath = '../../../../three.js/examples/obj/';
 
-	V3TM.addThreejsModelsReadTab = function() {
+	V3TM.addThreejsModelsTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
 			'<a href=# id=tabThreejsModels ><p class=button >' +
@@ -27,13 +27,14 @@
 		var file, fname;
 		for ( var i = 0, len = V3TM.files.length; i < len; i++ ) {
 			file = V3TM.files[ i ][ 0 ];
-			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TM.files,' + i + ',V3TM.basepath,"' + V3TM.files[ i ][0] + '"); >' + file + '</a><br>';
+			boilerplate = V3TM.files[ i ][ 1 ]; 
+			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TM.files,' + i + ',V3TM.basepath,"' + V3TM.files[ i ][0] + '","' + boilerplate + '"); >' + file + '</a><br>';
 		}
 //console.log( fileList )
 		V3TM.threejsModelsTab.innerHTML =
 			'<p>' +
 				'Sourced from <a href="http://mrdoob.github.io/three.js/examples/models" target="_blank">threejs.org</a><br><br>' +
-				'Currently supports: .dae, .js, json, .stl, others?<br>' +
+				'Currently supports: .dae, .js, json, .stl, .vtk, .wrl. Others<br>' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
@@ -44,14 +45,13 @@
 	};
 
 	V3TM.files = [
-		['../obj/walt/WaltHead.obj',''],
-		['animated/elderlyWalk.js',''],
+		['animated/elderlyWalk.js','boilerplate-va3c-small.html'],
 		['animated/flamingo.js',''],
 		['animated/horse.js',''],
 		['animated/parrot.js',''],
-		['animated/sittingBox.js',''],
+		['animated/sittingBox.js','boilerplate-va3c-small.html'],
 		['animated/stork.js',''],
-		['animated/monster/monster.js',''],
+		['animated/monster/monster.js','boilerplate-va3c-big.html'],
 		['animated/ogro/ogro-light.js',''],
 		['animated/ogro/weapon-light.js',''],
 		['animated/ratamahatta/ratamahatta.js',''],
@@ -82,8 +82,8 @@
 		['assimp/interior/interior.3ds.json',''],
 		['assimp/jeep/jeep1.ms3d',''],
 		['assimp/jeep/jeep1.ms3d.json',''],
-		['awd/simple/simple.awd',''],
-		['collada/avatar.dae',''],
+		['awd/simple/simple.awd','boilerplate-va3c-small.html'],
+		['collada/avatar.dae','boilerplate-va3c-small.html'],
 		['collada/multimaterial.dae',''],
 		['collada/monster/monster.dae',''],
 		['collada/pump/pump.dae',''],
@@ -93,13 +93,11 @@
 		['ctm/WaltHead.ctm',''],
 		['ctm/camaro/camaro.ctm',''],
 		['ctm/camaro/camaro.js',''],
-		['gltf/duck/duck.dae',''],
+		['gltf/duck/duck.dae','boilerplate-va3c-small.html'],
 		['gltf/duck/duck.json',''],
 		['gltf/duck/duck0FS.glsl',''],
 		['gltf/duck/duck0VS.glsl',''],
-		['gltf/monster/monster.bin',''],
 		['gltf/monster/monster.dae',''],
-		['gltf/monster/monster.jpg',''],
 		['gltf/monster/monster.json',''],
 		['gltf/monster/monster0FS.glsl',''],
 		['gltf/monster/monster0VS.glsl',''],
@@ -125,19 +123,19 @@
 		['ply/ascii/dolphins_colored.ply',''],
 		['ply/binary/dolphins_be.ply',''],
 		['ply/binary/dolphins_le.ply',''],
-		['skinned/human_walk_0_female.js',''],
-		['skinned/knight.js',''],
+		['skinned/human_walk_0_female.js','boilerplate-va3c-small.html'],
+		['skinned/knight.js','boilerplate-va3c-small.html'],
 		['skinned/UCS_config.json',''],
 		['skinned/marine/m4.js',''],
 		['skinned/marine/marine.js',''],
 		['skinned/marine/marine_anims.js',''],
 		['skinned/marine/marine_ikrig.js',''],
 		['skinned/UCS/umich_ucs.js',''],
-		['stl/ascii/pr2_head\_pan.stl',''],
-		['stl/ascii/pr2_head\_tilt.stl',''],
-		['stl/ascii/slotted_\disk.stl',''],
-		['stl/binary/pr2_head\_pan.stl',''],
-		['stl/binary/pr2_head\_tilt.stl',''],
+		['stl/ascii/pr2_head\_pan.stl','boilerplate-va3c-small.html'],
+		['stl/ascii/pr2_head\_tilt.stl','boilerplate-va3c-small.html'],
+		['stl/ascii/slotted_\disk.stl','boilerplate-va3c-small.html'],
+		['stl/binary/pr2_head\_pan.stl','boilerplate-va3c-small.html'],
+		['stl/binary/pr2_head\_tilt.stl','boilerplate-va3c-small.html'],
 		['utf8/ben.js',''],
 		['utf8/ben.utf8',''],
 		['utf8/ben_dds.js',''],
@@ -157,12 +155,12 @@
 		['utf8/dds/MJeans1TEX_Lores.dds',''],
 		['utf8/dds/MTshirt3TEX_Lores.dds',''],
 		['utf8/dds/Nail_Hand_01_Lores.dds',''],
-		['vrml/house.wrl',''],
-		['vrml/simple.wrl',''],
-		['vtk/bunny.vtk','']
+		['vrml/house.wrl','boilerplate-va3c-small.html'],
+		['vrml/simple.wrl','boilerplate-va3c-small.html'],
+		['vtk/bunny.vtk','boilerplate-va3c-small.html']
 	];
 
-	V3TO.addThreejsObjReadTab = function() {
+	V3TO.addThreejsObjTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
 			'<a href=# id=tabThreejsObj ><p class=button >' +
@@ -177,7 +175,8 @@
 		var file, fname;
 		for ( var i = 0, len = V3TO.files.length; i < len; i++ ) {
 			file = V3TO.files[ i ][ 0 ];
-			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TO.files,' + i + ',V3TO.basepath,"' + V3TO.files[ i ][0] + '"); >' + file + '</a><br>';
+			boilerplate = V3TO.files[ i ][ 1 ];
+			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TO.files,' + i + ',V3TO.basepath,"' + V3TO.files[ i ][0] + '","' + boilerplate + '"); >' + file + '</a><br>';
 		}
 //console.log( fileList )
 		V3TO.threejsObjTab.innerHTML =
@@ -193,43 +192,44 @@
 
 	};
 	V3TO.files = [
-		['Bird.js','Bird.js'],
-		['Qrcode.js','Qrcode.js'],
-		['Suzanne.js','Suzanne.js'],
-		['terrain.js','terrain.js'],
-		['WaltHeadLo.js','WaltHeadLo.js'],
-		['blenderscene/scene.Cube.js','blenderscene/scene.Cube.js'],
-		['blenderscene/scene.js','blenderscene/scene.js'],
-		['blenderscene/scene.Monkey.js','blenderscene/scene.Monkey.js'],
-		['blenderscene/scene.Plane.js','blenderscene/scene.Plane.js'],
-		['box/box.js','box/box.js'],
-		['camaro/CamaroNoUv_bin.js','camaro/CamaroNoUv_bin.js'],
-		['cubecolors/cubecolors.js','cubecolors/cubecolors.js'],
-		['cubecolors/cube_fvc.js','cubecolors/cube_fvc.js'],
-		['f50/F50NoUv_bin.js','f50/F50NoUv_bin.js'],
-		['female02/Female02_bin.js','female02/Female02_bin.js'],
-		['female02/Female02_slim.js','female02/Female02_slim.js'],
-		['gallardo/GallardoNoUv_bin.js','gallardo/GallardoNoUv_bin.js'],
-		['gallardo/parts/gallardo_body_bin.js','gallardo/parts/gallardo_body_bin.js'],
-		['gallardo/parts/gallardo_wheel_bin.js','gallardo/parts/gallardo_wheel_bin.js'],
-		['leeperrysmith/LeePerrySmith.js','leeperrysmith/LeePerrySmith.js'],
-		['lightmap/lightmap.js','lightmap/lightmap.js'],
-		['lucy/Lucy100k_bin.js','lucy/Lucy100k_bin.js'],
-		['lucy/Lucy100k_slim.js','lucy/Lucy100k_slim.js'],
-		['male02/Male02_bin.js','male02/Male02_bin.js'],
-		['male02/Male02_dds.js','male02/Male02_dds.js'],
-		['male02/Male02_slim.js','male02/Male02_slim.js'],
-		['ninja/NinjaLo_bin.js','ninja/NinjaLo_bin.js'],
-		['suzanne/suzanne.js','suzanne/suzanne.js'],
-		['suzanne/suzanne.Monkey.003.js','suzanne/suzanne.Monkey.003.js'],
-		['suzanne/suzanneHi.js','suzanne/suzanneHi.js'],
-		['suzanne/suzanneHi.Monkey.003.js','suzanne/suzanneHi.Monkey.003.js'],
-		['tree/tree.js','tree/tree.js'],
-		['veyron/VeyronNoUv_bin.js','veyron/VeyronNoUv_bin.js'],
-		['veyron/parts/veyron_body_bin.js','veyron/parts/veyron_body_bin.js'],
-		['veyron/parts/veyron_wheel_bin.js','veyron/parts/veyron_wheel_bin.js'],
-		['walt/WaltHead_bin.js','walt/WaltHead_bin.js'],
-		['walt/WaltHead_slim.js','walt/WaltHead_slim.js'],
+		['Bird.js','','Bird.js - broken'],
+		['Qrcode.js','','Qrcode.js - broken'],
+		['Suzanne.js','boilerplate-va3c-small.html','Suzanne.js'],
+		['terrain.js','','terrain.js'],
+		['WaltHeadLo.js','','WaltHeadLo.js'],
+		['blenderscene/scene.Cube.js','boilerplate-va3c-small.html','blenderscene/scene.Cube.js'],
+		['blenderscene/scene.js','boilerplate-va3c-small.html','blenderscene/scene.js'],
+		['blenderscene/scene.Monkey.js','boilerplate-va3c-small.html','blenderscene/scene.Monkey.js'],
+		['blenderscene/scene.Plane.js','boilerplate-va3c-small.html','blenderscene/scene.Plane.js'],
+		['box/box.js','','box/box.js - broken'],
+		['camaro/CamaroNoUv_bin.js','','camaro/CamaroNoUv_bin.js'],
+		['cubecolors/cubecolors.js','boilerplate-va3c-small.html','cubecolors/cubecolors.js'],
+		['cubecolors/cube_fvc.js','boilerplate-va3c-small.html','cubecolors/cube_fvc.js'],
+		['f50/F50NoUv_bin.js','','f50/F50NoUv_bin.js'],
+		['female02/Female02_bin.js','','female02/Female02_bin.js'],
+		['female02/Female02_slim.js','','female02/Female02_slim.js'],
+		['gallardo/GallardoNoUv_bin.js','','gallardo/GallardoNoUv_bin.js'],
+		['gallardo/parts/gallardo_body_bin.js','','gallardo/parts/gallardo_body_bin.js'],
+		['gallardo/parts/gallardo_wheel_bin.js','','gallardo/parts/gallardo_wheel_bin.js'],
+		['leeperrysmith/LeePerrySmith.js','boilerplate-va3c-small.html','leeperrysmith/LeePerrySmith.js'],
+		['lightmap/lightmap.js','boilerplate-va3c-small.html','lightmap/lightmap.js'],
+		['lucy/Lucy100k_bin.js','','lucy/Lucy100k_bin.js'],
+		['lucy/Lucy100k_slim.js','html','lucy/Lucy100k_slim.js'],
+		['male02/Male02_bin.js','','male02/Male02_bin.js'],
+		['male02/Male02_dds.js','','male02/Male02_dds.js'],
+		['male02/Male02_slim.js','','male02/Male02_slim.js'],
+		['ninja/NinjaLo_bin.js','','ninja/NinjaLo_bin.js'],
+		['suzanne/suzanne.js','','suzanne/suzanne.js'],
+		['suzanne/suzanne.Monkey.003.js','','suzanne/suzanne.Monkey.003.js'],
+		['suzanne/suzanneHi.js','','suzanne/suzanneHi.js'],
+		['suzanne/suzanneHi.Monkey.003.js','','suzanne/suzanneHi.Monkey.003.js'],
+		['tree/tree.js','boilerplate-va3c-small.html','tree/tree.js'],
+		['veyron/VeyronNoUv_bin.js','','veyron/VeyronNoUv_bin.js'],
+		['veyron/parts/veyron_body_bin.js','','veyron/parts/veyron_body_bin.js'],
+		['veyron/parts/veyron_wheel_bin.js','','veyron/parts/veyron_wheel_bin.js'],
+		['walt/WaltHead.obj','','walt/WaltHead.obj'],
+		['walt/WaltHead_bin.js','','walt/WaltHead_bin.js'],
+		['walt/WaltHead_slim.js','','walt/WaltHead_slim.js'],
 	];
 
 	V3TB.addThreejsHTMLTab = function() {
@@ -248,7 +248,7 @@
 		var file;
 		for ( var i = 0, len = V3TB.files.length; i < len; i++ ) {
 			file = V3TB.files[ i ][ 0 ];
-			fileList += '<a href=JavaScript:openOver.checked===true;' +
+			fileList += '<a href=JavaScript:openOver.checked=true;' +
 				'V3LI.updateIframe(V3TB.files,' + i + ',V3TB.basepath,"' + V3TB.files[ i ][0] + '"); >' + file + '</a><br>';
 		}
 		V3TB.ThreeHTMLTab.innerHTML =
