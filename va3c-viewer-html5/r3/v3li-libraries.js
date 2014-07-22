@@ -1,7 +1,7 @@
 	var V3LI = {} || V3LI;
 
 	V3LI.loaderBase = '../../../three.js/examples/';
-	V3LI.loaderBase = '../../../../three.js/examples/';
+//	V3LI.loaderBase = '../../../../three.js/examples/';
 
 	V3LI.boilerplate = 'boilerplate-simple.html';
 
