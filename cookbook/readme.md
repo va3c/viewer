@@ -3,20 +3,56 @@ vA3C Cookbook Read Me
 
 ### Live Demo
 
-<iframe src="hhttp://va3c.github.io/viewer/cookbook/r1/json-build-export-multiple-shapes.html" width=100% height=500px class='overview' >
+<iframe src="./json-reader/threejs-iframe.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_vA3C Cookbook: JSON - Build - Export Multiple Shapes_ / [Full Screen]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-multiple-shapes.html )
+_[Test Threejs in an Iframe]( ./json-reader/threejs-iframe.html )_
 
 
 ## Concept
 
-The files here are to help you get started with, for example, building apps that work with [Open Studio]( https://openstudio.nrel.gov/ ).
+The files here are to help you get started with, for example, building apps that work with [Open Studio]( https://openstudio.nrel.gov/ ) 
+or with [WordPress]( http://wordpress.org ).
 
 All the files here may be downloaded and run locally without any cross-origin security issues.
 
-The goal is to help you develop apps that can help you export data from a heavy-duty design app and make that data available on 
+The goal is to help you develop apps that can help you export data from a heavy-duty design app and make that data readily available on 
 the web or locally for easy viewing and collaboration in your browser - all using the Three.js library.
+
+### Reading Data using Three.js and displaying it in HTML
+
+The following is a very simple HTML file that loads Three.js, creates some geometry and displays it. 
+You can use this file as a starting point for embedding Three.js into your content. 
+You will see that all you need to do is provide a `div` element for Three.js to insert itself into. 
+
+[Render to a Div Basic]( ./json-reader/threejs-div-basic.html )
+
+The following file adds a bit of fun. With your pointing device you can pan, rotate and zoom the geometry.
+
+[Render to a Div Interactive]( ./json-reader/threejs-div-interactive.html )
+
+You probably don't want to create your own geometry. 
+You'd rather use geometry that's already been created. 
+The following file loads a simple JSON data file and displays it in a `div`. 
+It also includes the animate function, so you can pan, rotate and zoom. 
+
+
+[Load JSON & Render to a Div]( ./json-reader/threejs-div-json-interactive.html )
+
+An alternative to loading Three.s into a `div` is the use of an `iframe`.
+
+There are several benefits to using a iframe.
+
+* The Three.js library is only loaded as and when its needed.
+* Issues with global variables and name spaces conventions are avoided.
+* Use of iframes solves cross-origin issues
+* Easy to update files without reloading the page
+* See also: <http://www.dwuser.com/education/content/the-magical-iframe-tag-an-introduction/>
+
+And there's an extra bonus: an example of a script in the calling page causing the embedded page to update in real-time. 
+
+[Test Threejs in an Iframe]( ./json-reader/threejs-iframe.html )
+
 
 ### Creating Data in Three.js and Exporting it in JSON Format
 
