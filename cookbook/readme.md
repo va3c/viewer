@@ -3,10 +3,10 @@ vA3C Cookbook Read Me
 
 ### Live Demo
 
-<iframe src="./json-reader/threejs-iframe.html" width=100% height=500px class='overview' >
+<iframe src="http://va3c.github.io/viewer/cookbook/json-reader/threejs-iframe.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_[Test Threejs in an Iframe]( ./json-reader/threejs-iframe.html )_
+_[Test Threejs in an Iframe]( http://va3c.github.io/viewer/cookbook/json-reader/threejs-iframe.html )_
 
 
 ## Concept
@@ -25,11 +25,11 @@ The following is a very simple HTML file that loads Three.js, creates some geome
 You can use this file as a starting point for embedding Three.js into your content. 
 You will see that all you need to do is provide a `div` element for Three.js to insert itself into. 
 
-[Render to a Div Basic]( ./json-reader/threejs-div-basic.html )
+[Render to a Div Basic]( http://va3c.github.io/viewer/cookbook/json-reader/threejs-div-basic.html )
 
 The following file adds a bit of fun. With your pointing device you can pan, rotate and zoom the geometry.
 
-[Render to a Div Interactive]( ./json-reader/threejs-div-interactive.html )
+[Render to a Div Interactive]( http://va3c.github.io/viewer/cookbook/json-reader/threejs-div-interactive.html )
 
 You probably don't want to create your own geometry. 
 You'd rather use geometry that's already been created. 
@@ -37,7 +37,7 @@ The following file loads a simple JSON data file and displays it in a `div`.
 It also includes the animate function, so you can pan, rotate and zoom. 
 
 
-[Load JSON & Render to a Div]( ./json-reader/threejs-div-json-interactive.html )
+[Load JSON & Render to a Div]( http://va3c.github.io/viewer/cookbook/json-reader/threejs-div-json-interactive.html )
 
 An alternative to loading Three.s into a `div` is the use of an `iframe`.
 

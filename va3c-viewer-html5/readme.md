@@ -11,9 +11,9 @@ _vA3C Viewer HTML5 - latest revision_ / [Full Screen]( http://va3c.github.io/vie
 The scripts here are updates to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a>.
 
 ### Blog Posts
-http://www.jaanga.com/2014/07/va3c-viewer-work-in-progress-update.html  
-http://www.jaanga.com/2014/07/va3c-viewer-r3-processes-data-from.html  
-http://www.jaanga.com/2014/07/algesurf-parametric-equations-math-in.html
+<http://www.jaanga.com/2014/07/va3c-viewer-work-in-progress-update.html>  
+<http://www.jaanga.com/2014/07/va3c-viewer-r3-processes-data-from.html>  
+<http://www.jaanga.com/2014/07/algesurf-parametric-equations-math-in.html>
 
 ## Concept
 
@@ -113,7 +113,9 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 2014-07-22 ~
 
-Editing Read me
+* Update Cook book - add samples for displaying Thrre.js as content.
+* Editing Read me
+* Update home page
 
 2014-07-21 ~ Theo
 
