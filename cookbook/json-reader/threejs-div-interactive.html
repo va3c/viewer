@@ -9,7 +9,10 @@
 </style>
 </head>
 <body>
+
 <div id=threejs ></div>
+
+<script src=http://mrdoob.github.com/three.js/examples/js/Detector.js ></script>
 <script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/controls/TrackballControls.js ></script>
 
@@ -23,7 +26,11 @@
 
 		var elem, geometry, material, mesh;
 
-		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		if ( ! Detector.webgl ) {
+			renderer = new THREE.CanvasRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff  } );
+		} else {
+			renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff } );
+		}
 		renderer.setSize( 800, 600 );
 
 		elem = document.getElementById( "threejs" );

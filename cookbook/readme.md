@@ -11,6 +11,8 @@ _[Test Threejs in an Iframe]( http://va3c.github.io/viewer/cookbook/json-reader/
 
 ## Concept
 
+2014-07-24 ~ WebGL detection added throughout
+
 The files here are to help you get started with, for example, building apps that work with [Open Studio]( https://openstudio.nrel.gov/ ) 
 or with [WordPress]( http://wordpress.org ).
 
@@ -55,6 +57,7 @@ And there's an extra bonus: an example of a script in the calling page causing t
 
 
 ### Creating Data in Three.js and Exporting it in JSON Format
+
 
 A useful starting point to observing how Three.js creates data and then exports this data to a JSON file.
 
@@ -111,8 +114,10 @@ that is produced is likely to be most similar to a file produced by other apps. 
 Note that the current revision is having issues with materials not appearing correctly. 
 
 
-Live demo: [JSON Import - View Basic]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic.html )   
-Source code: [JSON Import - View Basic]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-import-view-basic.html )
+Live demo: [JSON Import - View Basic R2]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic-r2.html )   
+Source code: [JSON Import - View Basic R2]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-import-view-basic-r2.html )
+
+2014-07-24 ~ R2 added
 
 This file has a single command: "Select File' brings up your operating system's file dialog. You can select any file,
 but a good place to start is with the file you just exported.
@@ -122,9 +127,6 @@ Once loaded, the file allows you to zoom, pan and rotate. Attribute values - ass
 An ambient light and a direction light that follows the camera position are built in.
 
 Again, this script is designed to be simple and basic in order to give you the quickest feeling of how things work.
-
-
-
 
 
 Remember: the JavaScript console is your friend...
@@ -182,6 +184,12 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+2014-07-24 ~ Theo
+
+* Added R2 json import
+* added webgl detection throughout  
+
 
 2014-06-28 ~ Theo
 
