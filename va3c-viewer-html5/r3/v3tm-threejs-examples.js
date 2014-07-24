@@ -3,7 +3,7 @@
 	var V3TB = {} || V3TB;
 	var V3TO = {} || V3TO;
 
-	if ( window.location.origin === 'http://' ) {
+	if ( window.location.origin.substr(0,7) === 'http://' ) {
 		V3TM.basepath = 'http://va3c.github.io/three.js/examples/models/';
 		V3TB.basepath = 'http://va3c.github.io/three.js/examples/';
 		V3TO.basepath = 'http://va3c.github.io/three.js/examples/obj/';

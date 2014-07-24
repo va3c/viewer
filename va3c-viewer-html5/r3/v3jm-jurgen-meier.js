@@ -1,7 +1,7 @@
 
 	var V3JM = {} || V3JM;
 
-	if ( window.location.origin === 'http://' ) {
+	if ( window.location.origin.substr(0,7) === 'http://' ) {
 		V3JM.basepath = 'http://va3c.github.io/algesurf/parametric-equations/equation-files/';
 	} else {
 		V3JM.basepath = '../../../../jaanga.github.io/projects/algesurf/parametric-equations/equation-files/';
