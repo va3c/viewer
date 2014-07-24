@@ -25,10 +25,9 @@
 
 		V3JB.JSONBrowseTab.innerHTML =
 			'<p>' +
-				'Sourced from <a href="http://va3c.github.io/three.js/examples/" target="_blank"></a>tvA3C<br><br>' +
-				'The files produced during the AEC Hackathon<br>' +
+				'Sourced from <a href="http://va3c.github.io/three.js/examples/" target="_blank"></atvA3C<br><br>' +
+				'These files were produced during the AEC Hackathon. Not all work.' +
 			'</p>' +
-			'<p>You have to zoom *way* out or way in to see stuff.</p>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
 				'<a class=button href=JavaScript:JA.toggleTab(V3JB.JSONBrowseTab); ); >Close</a> ' +

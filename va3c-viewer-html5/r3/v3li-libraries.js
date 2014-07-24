@@ -67,14 +67,12 @@
 
 	}
 
-
 	V3LI.updateIframe = function( fileList, index, basepath, filename, boilerplate ) {
 
 		V3LI.fileList = fileList;
 		V3LI.basepath = basepath;
 		V3LI.index = index;
 		V3LI.filename = filename;
-		
 
 		if ( !V3LI.ifr ) {
 			V3LI.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
@@ -98,6 +96,8 @@
 				camera = app.camera;
 				controls = app.controls;
 
+				material = app.material;
+
 				projector = new THREE.Projector();
 				app.window.addEventListener( 'click', onDocumentMouseClick, false );
 
@@ -110,6 +110,7 @@
 
 				divCon.innerHTML = ''; // why is this duplicate needed?
 				V3CO.updateControlsTab();
+V3CO.updateMesh();
 
 				renderer.shadowMapEnabled = true;
 				renderer.shadowMapSoft = true;
@@ -131,7 +132,6 @@
 				V3LI.ifr.src = basepath + filename;
 			} else {
 //console.log( boilerplate );
-
 				V3LI.ifr.src = ( boilerplate != '' ) ? boilerplate : 'boilerplate-simple.html';
 			}
 		} else {
@@ -159,6 +159,8 @@
 
 		switch ( extension ) {
 			case 'html' :
+
+
 // console.log( basepath, filename);
 
 				break;

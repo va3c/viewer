@@ -139,7 +139,7 @@
 
 	V3CO.updateMesh = function() {
 
-		material = scene.select.material;
+
 		if ( scene.select ) { app.scene.remove( scene.select ); }
 
 		if ( app.a !== undefined ) app.a = parseFloat( outA.value );
@@ -161,7 +161,11 @@
 		if ( app.R2 !== undefined ) app.R2 = parseFloat( outR2.value );
 
 		geometry = new THREE.ParametricGeometry( app.curve, app.u, app.v );
-
+//		material = scene.select.material;
+var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/square.png' );
+		material = new THREE.MeshPhongMaterial( { map, texture, side: THREE.DoubleSide } )
+//		material.map = texture;
+//		material.side = 2;
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;

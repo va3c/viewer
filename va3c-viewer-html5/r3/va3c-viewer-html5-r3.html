@@ -16,10 +16,12 @@
 <script src=v3jm-jurgen-meier.js></script>
 <script src=v3co-controls.js></script>
 <script src=jali-lights.js></script>
+
 <script src=jama-materials.js></script>
 <script src=jama-materials-data.js></script>
 <script src=jage-geometry.js></script>
 <script src=japr-preferences.js></script>
+<script src=jaes-export-scene.js></script>
 <script src=jath-three.js></script>
 <script>
 // Theo Armour ~ 2014-07-19 ~ MIT License
@@ -40,11 +42,12 @@
 		V3SH.addStemkoskiHTMLTab();
 		V3JM.addJurgenMeierTab();
 		V3CO.addControlsTab();
+		JAGE.addGeometryTab();
 		JAMA.addMaterialSelectTab();
 		JAMA.addMaterialEditorTab();
-		JAPR.addPreferencesTab();
 		JALI.addLightsTab();
-		JAGE.addGeometryTab();
+		JAPR.addPreferencesTab();
+		JAES.addExportSceneTab();
 
 		JA.addAboutTab();
 		JA.addMessageArea();
