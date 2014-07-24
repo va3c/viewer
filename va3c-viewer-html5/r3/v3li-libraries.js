@@ -1,7 +1,10 @@
 	var V3LI = {} || V3LI;
 
-	V3LI.loaderBase = '../../../three.js/examples/';
-//	V3LI.loaderBase = '../../../../three.js/examples/';
+	if ( window.location.origin === 'http://' ) {
+		V3LI.loaderBase = '../../../three.js/examples/';
+	} else {
+		V3LI.loaderBase = '../../../../three.js/examples/';
+	}
 
 	V3LI.boilerplate = 'boilerplate-simple.html';
 
@@ -20,19 +23,6 @@
 			'<input type=radio name=fileOpen id=openOver /> Overwrite current view<br>' +
 			'<input type=radio name=fileOpen id=openAppend /> Append to current view<br>' +
 			'<p>A work in progress. Much broken. Nonetheless lots worth exploring. More goodies on the way...</p>' +
-/*
-			'<p><input type=checkbox id=chkMeier onchange=JA.toggleTab(V3TM.threejsModelsTab.parentElement); > Three.js Example Models<br>' +
-			'Over 100..</p>' +
-
-			'<p><input type=checkbox id=chkMeier onchange=JA.toggleTab(V3CO.controlsTab.parentElement);JA.toggleTab(V3JM.JurgenMeier.parentElement); > Jurgen Meier Gallery<br>' +
-			'170+ Parametric equations that create 3D objects</p>' +
-
-			'<p><input type=checkbox id=chkGeometry onchange=JA.toggleTab(JAGE.geometryTab.parentElement); > Geometry<br>' +
-			'Edit position, rotation and scale of the selected element</p>' +
-			'<p style=text-align:right; >' +
-				'<a class=button href=JavaScript:JA.toggleTab(V3LI.libraries); >Close</a> ' +
-			'</p>' +
-*/
 		'';
 
 		openOver.checked = true;
@@ -70,9 +60,10 @@
 	V3LI.updateIframe = function( fileList, index, basepath, filename, boilerplate ) {
 
 		V3LI.fileList = fileList;
-		V3LI.basepath = basepath;
 		V3LI.index = index;
+		V3LI.basepath = basepath;
 		V3LI.filename = filename;
+		V3LI.boilerplate = boilerplate;
 
 		if ( !V3LI.ifr ) {
 			V3LI.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
@@ -84,12 +75,10 @@
 		var extension = filename.split( '.' ).pop().toLowerCase();
 		if ( openOver.checked === true ) {
 			V3LI.ifr.onload = function() {
-//				JAPR.setRandomGradient();
 
 				app = V3LI.ifr.contentWindow;
 
 				THREE = app.THREE;
-//				THREE.ImageUtils.crossOrigin = 'anonymous';
 				renderer = app.renderer;
 				scene = app.scene;
 				scene.select = app.mesh;
@@ -98,19 +87,15 @@
 
 				material = app.material;
 
-				projector = new THREE.Projector();
-				app.window.addEventListener( 'click', onDocumentMouseClick, false );
-
 				V3LI.loadFile( basepath, filename );
 
-				JATH.selection = scene.children;
-//				JATH.findEmbdeddedScene( scene );
-
-				divMsg1.innerHTML = index + ' ' + fileList[ index ][0];
+console.log( filename, scene );
+				detectSceneInScene( scene );
 
 				divCon.innerHTML = ''; // why is this duplicate needed?
+
 				V3CO.updateControlsTab();
-V3CO.updateMesh();
+//				V3CO.updateMesh();
 
 				renderer.shadowMapEnabled = true;
 				renderer.shadowMapSoft = true;
@@ -126,22 +111,34 @@ V3CO.updateMesh();
 
 				JAPR.setRandomGradient();
 
+				projector = new THREE.Projector();
+				app.window.addEventListener( 'click', onDocumentMouseClick, false );
+
+				divMsg1.innerHTML = 'Overwrite ' + index + ' ' + fileList[ index ][0];
+
 			};
 
 			if ( extension === 'html' ) {
 				V3LI.ifr.src = basepath + filename;
 			} else {
-//console.log( boilerplate );
+console.log( boilerplate );
 				V3LI.ifr.src = ( boilerplate != '' ) ? boilerplate : 'boilerplate-simple.html';
 			}
 		} else {
 			V3LI.loadFile( basepath, filename );
 			V3CO.updateControlsTab();
-			divMsg1.innerHTML = index + ' ' + fileList[ index ][0];
+			divMsg1.innerHTML = 'append ' + index + ' ' + fileList[ index ][0];
 		}
 
 	};
 
+	function detectSceneInScene() {
+		if ( scene.children[0] instanceof THREE.Scene ) {
+console.log( 'yup', scene.children[0] ); 
+			scene = scene.children[0];
+			scene.select = scene.children[0];
+		}
+	}
 
 	function requestFile( fname ) {
 		var xmlhttp = new XMLHttpRequest();
@@ -159,7 +156,6 @@ V3CO.updateMesh();
 
 		switch ( extension ) {
 			case 'html' :
-
 
 // console.log( basepath, filename);
 
@@ -343,7 +339,7 @@ V3CO.updateMesh();
 					}
 
 					handleJSON( data, filename, filename );
-
+console.log( 'handled' );
 //				}, false );
 //				reader.readAsText( file );
 
@@ -591,20 +587,17 @@ V3CO.updateMesh();
 				break;
 
 			default:
-				if ( filename.length > 2 ) {
-console.log( filename );
 
-				} else {
 				alert( 'Unsupported file format.' );
-				}
+
 				break;
 
 		}
 
 	}
 
-	var handleJSON = function ( data, file, filename ) {
-
+	var handleJSON = function ( data, filename ) {
+console.log( 'handle' );
 		if ( data.metadata === undefined ) { // 2.0
 
 			data.metadata = { type: 'Geometry' };
@@ -659,6 +652,7 @@ console.log( filename );
 
 			scene.add( mesh );
 			scene.select = mesh;
+console.log( 'geometry', result );
 
 		} else if ( data.metadata.type.toLowerCase() === 'object' ) {
 
@@ -667,12 +661,14 @@ console.log( filename );
 
 			if ( result instanceof THREE.Scene ) {
 
-				scene.add( result );
-
+				scene = result;
+console.log( 'scene', result );
 			} else {
 
 				scene.add( result );
 				scene.select( result );
+console.log( 'object', result );
+
 
 			}
 
@@ -683,8 +679,8 @@ console.log( filename );
 			var loader = new THREE.SceneLoader();
 			loader.parse( data, function ( result ) {
 
-				scne.add( result.scene );
-
+				scene.add( result.scene );
+console.log( 'scene old', result );
 			}, '' );
 
 		}

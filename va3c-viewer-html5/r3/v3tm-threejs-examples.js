@@ -3,14 +3,15 @@
 	var V3TB = {} || V3TB;
 	var V3TO = {} || V3TO;
 
-	V3TM.basepath = 'http://va3c.github.io/three.js/examples/models/';
-//	V3TM.basepath = '../../../../three.js/examples/models/';
-
-	V3TB.basepath = 'http://va3c.github.io/three.js/examples/';
-//	V3TB.basepath = '../../../../three.js/examples/';
-
-	V3TO.basepath = 'http://va3c.github.io/three.js/examples/obj/';
-//	V3TO.basepath = '../../../../three.js/examples/obj/';
+	if ( window.location.origin === 'http://' ) {
+		V3TM.basepath = 'http://va3c.github.io/three.js/examples/models/';
+		V3TB.basepath = 'http://va3c.github.io/three.js/examples/';
+		V3TO.basepath = 'http://va3c.github.io/three.js/examples/obj/';
+	} else {
+		V3TM.basepath = '../../../../three.js/examples/models/';
+		V3TB.basepath = '../../../../three.js/examples/';
+		V3TO.basepath = '../../../../three.js/examples/obj/';
+	}
 
 	V3TM.addThreejsModelsTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );

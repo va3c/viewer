@@ -1,9 +1,11 @@
 	var JAMA = {} || JAMA;
 
-	JAMA.basePath = 'http://va3c.github.io/viewer/va3c-viewer-html5/';
-//	JAMA.basePath = '../../../../'; // three.js/examples/';
+	if ( window.location.origin === 'http://' ) {
+		JAMA.texturePath = 'http://va3c.github.io/viewer/va3c-viewer-html5/';
+	} else {
+		JAMA.texturePath = 'file:///C:/Users/Theo/Dropbox/Public/git-repos/va3c.github.io/viewer/va3c-viewer-html5/';
+	}
 
-	JAMA.texturePath = '../../../../';
 
 	JAMA.addMaterialSelectTab = function() {
 
@@ -49,6 +51,7 @@
 	};
 
 	JAMA.updateMaterial = function( key ) {
+
 		chkMaterial.checked = false;
 		scene.select.material = JAMA.materials[ key ].set();
 		divMsg3.innerHTML = 'Material: <b>' + JAMA.materials[ key ].title + '</b>';

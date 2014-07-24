@@ -74,7 +74,7 @@ console.log( camera );
 
 		camera.position.set( JATH.camX, JATH.camY, JATH.camZ );
 		if ( !controls ) return;
-		controls = new THREE.TrackballControls( camera, renderer.domElement );
+//		controls = new THREE.TrackballControls( camera, renderer.domElement );
 		controls.target.set( JATH.tarX, JATH.tarY, JATH.tarZ );
 	};
 
@@ -90,7 +90,7 @@ console.log( camera );
 		var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
 		projector.unprojectVector( vector, camera );
 		var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
-		intersects = raycaster.intersectObjects( JATH.selection );
+		intersects = raycaster.intersectObjects( scene.children );
 console.log( intersects );
 		if ( intersects.length > 0 ) {
 			scene.select = intersects[ 0 ].object;

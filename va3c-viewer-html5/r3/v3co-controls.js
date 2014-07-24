@@ -3,6 +3,9 @@
 	V3CO.u = 80;
 	V3CO.v = 40;
 
+var outU;
+var outV;
+
 	V3CO.addControlsTab = function() {
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
@@ -124,16 +127,20 @@
 					'min=1 max=200 step=1 value=' + app.u +
 					' onmousemove=outU.value=inpU.value;V3CO.updateMesh(); style=width:195px; > ' +
 					'<input id=outU style=width:30px; onchange=inpU.value=outU.value;V3CO.updateMesh(); value=' + app.u + ' ><br>';
+			} else {
+				app.u  = V3CO.u;
 			}
-			
+
 			if ( app.v !== undefined ) {
 				divCon.innerHTML += 'v: <input type=range id=inpV title="default ' + V3CO.v + '" ' +
 					'min=1 max=200 step=1 value=' + app.v +
 					' onmousemove=outV.value=inpV.value;V3CO.updateMesh(); style=width:195px; > ' +
 					'<input id=outV style=width:30px; onchange=inpV.value=outV.value;V3CO.updateMesh(); value=' + app.v + ' ><br>';
+			} else {
+				app.v  = V3CO.v;
 			}
 			
-			divCon.innerHTML += '<button onclick=V3LI.updateIframe(V3LI.fileList,V3LI.index,V3LI.basepath,V3LI.filename); >Reset</button>';
+			divCon.innerHTML += '<button onclick=V3LI.updateIframe(V3LI.fileList,V3LI.index,V3LI.basepath,V3LI.filename,V3LI.boilerplate); >Reset</button>';
 
 	};
 
@@ -154,8 +161,8 @@
 
 		if ( app.n !== undefined ) app.n = parseFloat( outN.value );
 
-		app.u = ( app.u !== undefined ) ? app.u = parseFloat( outU.value ) : app.u = V3CO.u;
-		app.v = ( app.v !== undefined ) ? app.v = parseFloat( outV.value ) : app.v = V3CO.v;
+		if ( app.u !== undefined && outU !== undefined ) { app.u = parseFloat( outU.value ); }
+		if ( app.v !== undefined && outV !== undefined ) { app.v = parseFloat( outV.value ); }
 
 		if ( app.R1 !== undefined ) app.R1 = parseFloat( outR1.value );
 		if ( app.R2 !== undefined ) app.R2 = parseFloat( outR2.value );

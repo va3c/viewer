@@ -1,7 +1,7 @@
 
 	var V3SH = {} || V3SH;
 
-	V3SH.basepath = 'http://stemkoski.github.io/Three.js/'
+	V3SH.basepath = 'http://stemkoski.github.io/Three.js/';
 
 	V3SH.addStemkoskiHTMLTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );

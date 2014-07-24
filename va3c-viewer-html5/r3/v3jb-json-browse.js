@@ -26,14 +26,13 @@
 		V3JB.JSONBrowseTab.innerHTML =
 			'<p>' +
 				'Sourced from <a href="http://va3c.github.io/three.js/examples/" target="_blank"></atvA3C<br><br>' +
-				'These files were produced during the AEC Hackathon. Not all work.' +
+				'Files were produced during the AEC Hackathon. Not all files work.' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
 				'<a class=button href=JavaScript:JA.toggleTab(V3JB.JSONBrowseTab); ); >Close</a> ' +
 			'</p>' +
 		'';
-
 	};
 
 	V3JB.files = [

@@ -169,14 +169,19 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		}
 	};
 
-// textures
+// Textures
 
 	JAMA.materials.PhongWhiteTextureWhite = {
 		title: "PhongWhiteTextureWhite",
 		category: "Texture",
 		set: function() {
 			var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/pure-white.png' );
-			var material = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture, opacity: 1, transparent: true } );
+			var material = new THREE.MeshPhongMaterial( {
+				color: 0xffffff,
+				map: texture,
+				side: 2,
+				opacity: 1,
+				transparent: true } );
 			material.type = 3;
 			return material;
 		}
@@ -187,9 +192,14 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "Texture",
 		set: function() {
 			var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/square.png' );
-			texture.wrapS = texture.wrapT = THREE.RepeatWrapping; 
+			texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 			texture.repeat.set( 30, 30 );
-			var material = new THREE.MeshPhongMaterial( { map: texture, opacity: 0.5, transparent: true } );
+			var material = new THREE.MeshPhongMaterial( {
+				map: texture,
+				opacity: 0.5,
+				side: 2,
+				transparent: true 
+			} );
 			material.type = 3;
 			return material;
 		}
@@ -200,7 +210,10 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "Texture",
 		set: function() {
 			var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/ash_uvgrid01.jpg' );
-			var material = new THREE.MeshPhongMaterial( { map: texture } );
+			var material = new THREE.MeshPhongMaterial( { 
+				map: texture,
+				side: 2
+			} );
 			material.type = 3;
 			return material;
 		}
@@ -211,7 +224,10 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "Texture",
 		set: function() {
 			var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/lavatile.jpg' );
-			var material = new THREE.MeshPhongMaterial( { map: texture } );
+			var material = new THREE.MeshPhongMaterial( { 
+				map: texture,
+				side: 2
+			} );
 			material.type = 3;
 			return material;
 		}
@@ -222,7 +238,11 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "Texture",
 		set: function() {
 			var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/disturb.jpg' );
-			var material = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture } );
+			var material = new THREE.MeshPhongMaterial( {
+				color: 0xffffff,
+				map: texture,
+				side: 2
+			} );
 			material.type = 3;
 			return material;
 		}
@@ -233,14 +253,17 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "Texture",
 		set: function() {
 			var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/im5.jpg' );
-			var material = new THREE.MeshPhongMaterial( { map: texture } );
+			var material = new THREE.MeshPhongMaterial( {
+				map: texture,
+				side: 2
+			} );
 			material.type = 3;
 			return material;
 		}
 	};
 
 
-// envMap Reflections
+// EnvMap Reflections
 
 	JAMA.materials.PhongDefaultReflectWhite = {
 		title: "Phong Default Reflect White",
@@ -429,7 +452,7 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		title: "Phong Random Reflect Wire",
 		category: "EnvMap",
 		set: function() {
-			var p = JAMA.basePath + 'textures/wire.jpg';
+			var p = JAMA.texturePath + 'textures/wire.jpg';
 			var urls = [ p, p, p, p, p, p ];
 			var reflectionCube = THREE.ImageUtils.loadTextureCube( urls );
 			material = new THREE.MeshPhongMaterial( {
@@ -456,7 +479,7 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		title: "Phong Random Reflect Disturb",
 		category: "EnvMap",
 		set: function() {
-			var p = JAMA.basePath + 'textures/disturb.jpg';
+			var p = JAMA.texturePath + 'textures/disturb.jpg';
 			var urls = [ p, p, p, p, p, p ];
 			var reflectionCube = THREE.ImageUtils.loadTextureCube( urls );
 			reflectionCube.format = THREE.RGBFormat;
@@ -484,7 +507,7 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		title: "Phong Random Reflect Denim",
 		category: "EnvMap",
 		set: function() {
-			var p = JAMA.basePath + 'textures/denim.jpg';
+			var p = JAMA.texturePath + 'textures/denim.jpg';
 			var urls = [ p, p, p, p, p, p ];
 			var reflectionCube = THREE.ImageUtils.loadTextureCube( urls );
 			material = new THREE.MeshPhongMaterial( {
@@ -512,11 +535,11 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "EnvMap",
 		category: "Evironment Map",
 		set: function() {
-			var p = JAMA.basePath + 'textures/denim.jpg';
+			var p = JAMA.texturePath + 'textures/denim.jpg';
 			var urls = [ p, p, p, p, p, p ];
 			var reflectionCube = THREE.ImageUtils.loadTextureCube( urls );
-			var material = new THREE.MeshBasicMaterial( { 
-				envMap: reflectionCube, 
+			var material = new THREE.MeshBasicMaterial( {
+				envMap: reflectionCube,
 				side: 2 } );
 			material.type = 3;
 			return material;
@@ -528,12 +551,12 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "EnvMap",
 		category: "Evironment Map",
 		set: function() {
-			var p = JAMA.basePath + 'textures/denim.jpg';
+			var p = JAMA.texturePath + 'textures/denim.jpg';
 			var urls = [ p, p, p, p, p, p ];
 			var refractionCube = THREE.ImageUtils.loadTextureCube( urls, new THREE.CubeRefractionMapping() );
-			var material = new THREE.MeshBasicMaterial( { 
-				envMap: refractionCube, 
-				side: 2 
+			var material = new THREE.MeshBasicMaterial( {
+				envMap: refractionCube,
+				side: 2
 			} );
 			material.type = 3;
 			return material;
@@ -545,7 +568,7 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "EnvMap",
 		category: "Evironment Map",
 		set: function() {
-			var p = JAMA.basePath + 'textures/im5.jpg';
+			var p = JAMA.texturePath + 'textures/im5.jpg';
 			var urls = [ p, p, p, p, p, p ];
 			var reflectionCube = THREE.ImageUtils.loadTextureCube( urls );
 			material = new THREE.MeshPhongMaterial( {
@@ -573,18 +596,18 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "EnvMap",
 		category: "Evironment Map",
 		set: function() {
-			var path = JAMA.basePath + 'textures/cube/SwedishRoyalCastle/';
+			var path = JAMA.texturePath + 'textures/cube/SwedishRoyalCastle/';
 			var f = '.jpg';
 			var urls = [ path + 'px' + f, path + 'nx' + f, path + 'py' + f, path + 'ny' + f, path + 'pz' + f, path + 'nz' + f ];
 			var texture = THREE.ImageUtils.loadTextureCube( urls, new THREE.CubeRefractionMapping() );
-			material = new THREE.MeshPhongMaterial( { 
-				ambient: 0xffffff, 
-				color: 0xffffff, 
-				emissive: 0xffffff, 
-				envMap: texture, 
-				refractionRatio: 0.98, 
-				reflectivity: 0.9, 
-				side: 2 
+			material = new THREE.MeshPhongMaterial( {
+				ambient: 0xffffff,
+				color: 0xffffff,
+				emissive: 0xffffff,
+				envMap: texture,
+				refractionRatio: 0.98,
+				reflectivity: 0.9,
+				side: 2
 			} );
 			material.type = 3;
 			return material;
@@ -596,7 +619,7 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		category: "EnvMap",
 		category: "Evironment Map",
 		set: function() {
-			var path = JAMA.basePath + 'textures/cube/pisa/';
+			var path = JAMA.texturePath + 'textures/cube/pisa/';
 			var f = '.png';
 			var urls = [ path + 'px' + f, path + 'nx' + f, path + 'py' + f, path + 'ny' + f, path + 'pz' + f, path + 'nz' + f ];
 			var refraction = THREE.ImageUtils.loadTextureCube( urls, new THREE.CubeRefractionMapping() );
@@ -610,7 +633,7 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		title: "Phong White Reflect Pisa",
 		category: "EnvMap",
 		set: function() {
-			var path = JAMA.basePath + 'textures/cube/pisa/';
+			var path = JAMA.texturePath + 'textures/cube/pisa/';
 			var f = '.png';
 			var urls = [ path + 'px' + f, path + 'nx' + f, path + 'py' + f, path + 'ny' + f, path + 'pz' + f, path + 'nz' + f ];
 			var reflectionCube = THREE.ImageUtils.loadTextureCube( urls );
@@ -625,9 +648,9 @@ materials.push( new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xddddd
 		title: "Basic Pattern Reflect Basic",
 		category: "EnvMap",
 		set: function() {
-//			var p = JAMA.basePath + 'textures/svg_48427/icon_48427_64.png';
-//			var p = JAMA.basePath + 'textures/cube/check-2x.jpg';
-			var p = JAMA.basePath + 'textures/cube/sm.png';
+//			var p = JAMA.texturePath + 'textures/svg_48427/icon_48427_64.png';
+//			var p = JAMA.texturePath + 'textures/cube/check-2x.jpg';
+			var p = JAMA.texturePath + 'textures/cube/sm.png';
 
 			var urls = [ p, p, p, p, p, p ];
 			var reflectionCube = THREE.ImageUtils.loadTextureCube( urls );

@@ -1,8 +1,11 @@
 
 	var V3FA = {} || V3FA;
 
-	V3FA.basepath = 'http://va3c.github.io/fgx-aircraft/data/';
-//	V3FA.basepath = '../../../../fgx-repos/fgx-aircraft/data/';
+	if ( window.location.origin === 'http://' ) {
+		V3FA.basepath = 'http://va3c.github.io/fgx-aircraft/data/';
+	} else {
+		V3FA.basepath = '../../../../fgx-repos/fgx-aircraft/data/';
+	}
 
 	V3FA.addFgxAircraftTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );

@@ -1,8 +1,11 @@
 
 	var V3JM = {} || V3JM;
 
-	V3JM.basepath = 'http://va3c.github.io/algesurf/parametric-equations/equation-files/';
-//	V3JM.basepath = '../../../../jaanga.github.io/projects/algesurf/parametric-equations/equation-files/';
+	if ( window.location.origin === 'http://' ) {
+		V3JM.basepath = 'http://va3c.github.io/algesurf/parametric-equations/equation-files/';
+	} else {
+		V3JM.basepath = '../../../../jaanga.github.io/projects/algesurf/parametric-equations/equation-files/';
+	}
 
 	V3JM.addJurgenMeierTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );

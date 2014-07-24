@@ -31,11 +31,11 @@
 		camera.position.set( 100, 100, 100 );
 		controls = new THREE.TrackballControls( camera, renderer.domElement );
 
-// ground box\
+// ground box
 
 		geometry = new THREE.BoxGeometry( 200, 1, 100 );
-		var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/pure-white.png' );
-		material = new THREE.MeshPhongMaterial( { map: texture } );
+		var texture = new THREE.ImageUtils.loadTexture( '../textures/pure-white.png' );
+		material = new THREE.MeshPhongMaterial( { map: texture, side: 2 } );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( 0, -50, 0 );
 		mesh.castShadow = true;
