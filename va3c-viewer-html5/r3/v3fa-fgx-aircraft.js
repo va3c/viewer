@@ -1,7 +1,7 @@
 
 	var V3FA = {} || V3FA;
 
-	if ( window.location.origin === 'http://' ) {
+	if ( window.location.origin.substr(0,7) === 'http://' ) {
 		V3FA.basepath = 'http://va3c.github.io/fgx-aircraft/data/';
 	} else {
 		V3FA.basepath = '../../../../fgx-repos/fgx-aircraft/data/';
