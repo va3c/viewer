@@ -89,7 +89,7 @@
 
 				V3LI.loadFile( basepath, filename );
 
-console.log( filename, scene );
+// console.log( filename, scene );
 				detectSceneInScene( scene );
 
 				divCon.innerHTML = ''; // why is this duplicate needed?
