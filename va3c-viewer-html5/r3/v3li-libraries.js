@@ -121,7 +121,7 @@
 			if ( extension === 'html' ) {
 				V3LI.ifr.src = basepath + filename;
 			} else {
-console.log( boilerplate );
+// console.log( boilerplate );
 				V3LI.ifr.src = ( boilerplate != '' ) ? boilerplate : 'boilerplate-simple.html';
 			}
 		} else {
@@ -134,7 +134,7 @@ console.log( boilerplate );
 
 	function detectSceneInScene() {
 		if ( scene.children[0] instanceof THREE.Scene ) {
-console.log( 'yup', scene.children[0] ); 
+// console.log( 'yup', scene.children[0] ); 
 			scene = scene.children[0];
 			scene.select = scene.children[0];
 		}
@@ -597,7 +597,7 @@ console.log( 'handled' );
 	}
 
 	var handleJSON = function ( data, filename ) {
-console.log( 'handle' );
+// console.log( 'handle' );
 		if ( data.metadata === undefined ) { // 2.0
 
 			data.metadata = { type: 'Geometry' };
@@ -652,7 +652,7 @@ console.log( 'handle' );
 
 			scene.add( mesh );
 			scene.select = mesh;
-console.log( 'geometry', result );
+//console.log( 'geometry', result );
 
 		} else if ( data.metadata.type.toLowerCase() === 'object' ) {
 
@@ -662,12 +662,12 @@ console.log( 'geometry', result );
 			if ( result instanceof THREE.Scene ) {
 
 				scene = result;
-console.log( 'scene', result );
+//console.log( 'scene', result );
 			} else {
 
 				scene.add( result );
 				scene.select( result );
-console.log( 'object', result );
+//console.log( 'object', result );
 
 
 			}
@@ -680,7 +680,7 @@ console.log( 'object', result );
 			loader.parse( data, function ( result ) {
 
 				scene.add( result.scene );
-console.log( 'scene old', result );
+//console.log( 'scene old', result );
 			}, '' );
 
 		}

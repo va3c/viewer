@@ -3,8 +3,8 @@
 	V3CO.u = 80;
 	V3CO.v = 40;
 
-var outU;
-var outV;
+	var outU;
+	var outV;
 
 	V3CO.addControlsTab = function() {
 
@@ -139,13 +139,12 @@ var outV;
 			} else {
 				app.v  = V3CO.v;
 			}
-			
+
 			divCon.innerHTML += '<button onclick=V3LI.updateIframe(V3LI.fileList,V3LI.index,V3LI.basepath,V3LI.filename,V3LI.boilerplate); >Reset</button>';
 
 	};
 
 	V3CO.updateMesh = function() {
-
 
 		if ( scene.select ) { app.scene.remove( scene.select ); }
 
@@ -170,9 +169,7 @@ var outV;
 		geometry = new THREE.ParametricGeometry( app.curve, app.u, app.v );
 //		material = scene.select.material;
 		var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/square.png' );
-		material = new THREE.MeshPhongMaterial( { map: texture, side: THREE.DoubleSide } )
-//		material.map = texture;
-//		material.side = 2;
+		material = new THREE.MeshPhongMaterial( { map: texture, side: THREE.DoubleSide } );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
