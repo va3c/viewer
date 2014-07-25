@@ -1,9 +1,9 @@
 	var JAMA = {} || JAMA;
 
-	if ( window.location.origin === 'http://' ) {
-		JAMA.texturePath = 'http://va3c.github.io/viewer/va3c-viewer-html5/';
-	} else {
+	if ( window.location.origin.substr( 0, 7 ) !== 'http://' ) {
 		JAMA.texturePath = 'file:///C:/Users/Theo/Dropbox/Public/git-repos/va3c.github.io/viewer/va3c-viewer-html5/';
+	} else {
+		JAMA.texturePath = 'http://va3c.github.io/viewer/va3c-viewer-html5/';
 	}
 
 
