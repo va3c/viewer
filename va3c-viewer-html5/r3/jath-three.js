@@ -68,7 +68,7 @@
 	};
 
 	JATH.resetCamera = function() {
-console.log( camera );
+//console.log( camera );
 		if ( !camera ) return;
 //		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
 
@@ -91,7 +91,7 @@ console.log( camera );
 		projector.unprojectVector( vector, camera );
 		var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 		intersects = raycaster.intersectObjects( scene.children );
-console.log( intersects );
+//console.log( intersects );
 		if ( intersects.length > 0 ) {
 			scene.select = intersects[ 0 ].object;
 		}

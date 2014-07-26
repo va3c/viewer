@@ -313,7 +313,7 @@
 						worker.onmessage = function ( event ) {
 
 							event.data.metadata = { version: 2 };
-							handleJSON( event.data, filename, filename );
+							V3LI.handleJSON( event.data, filename, filename );
 
 						};
 
@@ -338,7 +338,7 @@
 
 					}
 
-					handleJSON( data, filename, filename );
+					V3LI.handleJSON( data, filename, filename );
 console.log( 'handled' );
 //				}, false );
 //				reader.readAsText( file );
@@ -596,7 +596,7 @@ console.log( 'handled' );
 
 	}
 
-	var handleJSON = function ( data, filename ) {
+	V3LI.handleJSON = function ( data, filename ) {
 // console.log( 'handle' );
 		if ( data.metadata === undefined ) { // 2.0
 
@@ -661,14 +661,14 @@ console.log( 'handled' );
 
 			if ( result instanceof THREE.Scene ) {
 
-				scene = result;
+//				scene = result;
+				scene.add( result );
 //console.log( 'scene', result );
 			} else {
 
 				scene.add( result );
 				scene.select( result );
 //console.log( 'object', result );
-
 
 			}
 

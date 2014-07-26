@@ -15,15 +15,17 @@
 		JAES.exportScene.style.cssText = 'cursor: auto; display: none; ' ;
 		JAES.exportScene.innerHTML =
 			'<p>Save what you have made...</p>' +
-			'<p><a href=# onclick=saveFile(); >Save scene</a></p>' +
+			'<p><a href=# onclick=JAES.saveFile(); >Save scene</a></p>' +
 			'<p>Open scene: <input type=file id=inpFile ></p>' +
 		'';
-		inpFile.onchange = function() { loadFile ( this ); };
+
+		inpFile.onchange = function() { JAES.loadFile ( this ); };
 
 	}
 
-	function loadScripts ( ) {
+	JAES.loadScripts = function() {
 		var p = 'http://mrdoob.github.io/three.js/examples/js/';
+
 		var scripts = [
 			'utils/GeometryUtils.js',
 			'exporters/BufferGeometryExporter.js',
@@ -35,21 +37,21 @@
 		];
 
 		for (var i = 0; i < 7; i++) {
-			loadScript( p + scripts[i] );
+			JAES.loadScript( p + scripts[i] );
 		}
 	}
 
-	function loadScript( src ) {
-		var scr = document.body.appendChild( document.createElement( 'script' ) );
-		scr.src = src;
-		scr.onload = function () { 
-			if ( JAES.count >= 6 ) { saveFile(); }
+	JAES.loadScript = function ( source ) {
+		var script = document.body.appendChild( document.createElement( 'script' ) );
+		script.src = source;
+		script.onload = function () { 
+			if ( JAES.count >= 6 ) { JAES.saveFile(); }
 			JAES.count++;
 		};
 	}
 
-	function saveFile() {
-		if ( !THREE.ObjectExporter ) { loadScripts(); return; }
+	JAES.saveFile = function() {
+		if ( !THREE.ObjectExporter ) { JAES.loadScripts(); return; }
 
 		var exporter = new THREE.ObjectExporter();
 		var output = exporter.parse( scene );
@@ -63,23 +65,10 @@
 		a.download = 'scene.json';
 		a.click();
 		delete a;
+
 	}
 
-	var loadFile = function ( file ) {
-
-/*
-		var reader = new FileReader();
-		reader.addEventListener( 'load', function ( event ) {
-	//  fileList, index, basepath, filename, boilerplate
-			fileList = [['test.js','']];
-			basepath = '../../../json/';
-			index = 0;
-			filename = file.name;
-			boilerplate = '';
-	console.log( file, file.name );
-			V3LI.updateIframe(  fileList, index, basepath, filename, boilerplate )
-		} );
-*/
+	JAES.loadFile = function ( file ) {
 
 		var reader = new FileReader();
 		reader.addEventListener( 'load', function ( event ) {
@@ -91,7 +80,7 @@
 				var worker = new Worker( url );
 				worker.onmessage = function ( event ) {
 					event.data.metadata = { version: 2 };
-					handleJSON( event.data, file.name );
+					handleJSON2( event.data, file.name );
 				};
 				worker.postMessage( Date.now() );
 				return;
@@ -104,15 +93,15 @@
 				alert( error );
 				return;
 			}
-			handleJSON( data, file.name );
+			JAES.handleJSON( data, file.name );
 		}, false );
 		reader.readAsText( file.files[0] );
 
 	}
 
-	var handleJSON = function ( data, filename ) {
+	JAES.handleJSON = function ( data, filename ) {
 //		scene = new THREE.Scene();
-//		addLights();
+//		JAES.addLights();
 // console.log( data ) 
 		if ( data.metadata === undefined ) { // 2.0
 			data.metadata = { type: 'Geometry' };
@@ -155,6 +144,7 @@
 //console.log( data );  // for Dan
 			var result = loader.parse( data );
 			if ( result instanceof THREE.Scene ) {
+console.log( 'scene' );
 //				scene = result; 
 				scene.add( result );  // so we always have some light...
 			} else {
@@ -171,7 +161,7 @@
 
 	};
 
-	function addLights() {
+	JAES.addLights = function() {
 		light = new THREE.AmbientLight( 0x888888 );
 		scene.add( light );
 
