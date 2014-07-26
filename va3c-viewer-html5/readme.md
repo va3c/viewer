@@ -11,6 +11,7 @@ _vA3C Viewer HTML5 - latest revision_ / [Full Screen]( http://va3c.github.io/vie
 The scripts here are updates to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a>.
 
 ### Blog Posts
+2014-07-25 ~ <http://www.jaanga.com/2014/07/va3c-viewer-r3-update-now-with-save-and.html>
 <http://www.jaanga.com/2014/07/va3c-viewer-work-in-progress-update.html>  
 <http://www.jaanga.com/2014/07/va3c-viewer-r3-processes-data-from.html>  
 <http://www.jaanga.com/2014/07/algesurf-parametric-equations-math-in.html>
@@ -30,23 +31,80 @@ The scripts here are updates to the competition entry and winner of the second p
 ## Features
 <!-- and benefits -->
 
+### File Management
 * Provides fast, simple access to 3D models, objects and HTML files
 * Uses the DOM to provide very deep editing and control access to the imported models.
-* Opens for editing and manipulation any Three.js HTML files - including all the 175 Three.js and 83 Stemkoski code example files
+* Opens for editing and manipulation any Three.js HTML files
 * Opens for editing.js, json, .obj, .stl, .dae, .wrl, and vtk files. Coming soon: .gltf
-* Enables CORS-compliant access to 1025+ sample data files hosted on GitHub
-* Demos online access to user files in their original GitHub home gh-pages folders 
-		* No need to download/upload. 
-		* No need to send your data to closed source walled-garden
-		* Process could be replicated on private CORS-compliant servers
-* Update position, scale and rotation any geometry in any of the above - guided by real-time sliders or via text data input
-* Apply any of several dozen pre-defined materials to any mesh
-* Edit every available parameter of any material on any selected mesh
-* Select any mesh for editing by clicking it on screen.
+	* Currently file open is 'hard wired' to specific links
+	* Currently File open dialog only opens JSON files
+	* This issue will be fixed ASAP
 * Load a new drawing or insert new objects into current drawing
+* Save the current state to a new JSON file
+
+### Sample File Libraries
+* CORS-compliant access to 1025+ sample data files hosted on GitHub
+* Sample files include the following
+	* 27 vA3C JSON files translated from Grasshopper, Revit & 3DS
+	* 227 Three.js HTML code example files
+	* 113 Three.js models
+	* 37 Three.js objects
+	* 83 Stemkoski HTML code example files
+	* 420+ FGx Aircraft JSON files
+	* 170 Jaanga AlgeSurf PE Jurgen Meier Equation in Three.js HTML files
+* Libraries presented via online access to user files in their original GitHub home gh-pages folders 
+	* No need to download/upload. 
+	* No need to send your data to closed source walled-garden
+	* Process could be replicated on private CORS-compliant servers
+
+### Editing and Updating
+* Select any mesh for editing by clicking it on screen.
+* Update position, scale and rotation any geometry in any of the above
+	* Guided by real-time sliders or via text data input
+* Apply any of several dozen pre-defined materials to any mesh
+	* Includes texture, reelections and refractions
+* Material Editor tab enables editing every available parameter of any material on any selected mesh
+	* Includes shading type, smoothness, sides, wireframe, opacity and shininess
+	* Ambient, color, emissive and specular
+
 * Toggle the display wireframe and normals helpers
 * Add lights, shading and shadows to any model
-* Set background to selected gradient or colors
+
+### UI Features
+* Display enables pan, rotate and zoom with pointing device
+* Full-screen display with translucent menu
+* Menu is iconizable and draggable
+* Menu has accordion feature
+* Set background to random gradient or random color or selected color
+
+### Coding Style
+* Every tab has its own script file
+* Tab titles, script file names and namespace titles are all tied together
+	The namespace prefix of any variable or function tells you what tab and script file it relates to
+* Code is designed to be seriously easy
+	* Allows engineers, architects and designers and non-professional programmers to add features
+ 
+
+## Road Map
+
+* Add rotate view after a period of inactivity
+* Add choice of camera controllers 
+* Add tree view of meshes, materials and attributes
+* Display attributes
+* Fix any model texture display issues
+* Add permalink read and create capability
+* Add ability to toge visibility of any mesh
+* Add ability to add texture to material of selected objects
+* Add delete capability to Geometry tab
+* Add standard Three.js geometry tab
+* Add physics and booleans tabs
+* Add galleries of images of data files
+* Add the models from here: https://github.com/sparkfun/3D_Models/
+* Add sky boxes
+
+## Issues /Bugs
+
+* R2: Difficult to know which controller you are using currently
 
 
 ##Team Members
@@ -58,23 +116,7 @@ Benjamin Howes, Jonatan Schumacher, Jeremy Tammik, Matt Mason, Kevin Vandecar, C
 Mostapha Roudsari, Ashley Reed, Anne Waelkens, Jim Quanci, Elcin Ertugrul, Amir Tasbihi and many more. Others?
 
 
-## Road Map
 
-* Display attributes
-* Fix any model texture display issues
-* Add permalink read and create capability
-* Add save to file capability
-* Add ability to add texture to material of selected objects
-* Add delete capability to Geometry tab
-* Add standard Three.js geometry tab
-* Add physics and booleans tabs
-* Add galleries of images of data files
-* Add the models from here: https://github.com/sparkfun/3D_Models/
-* Add skyboxes
-
-## Issues /Bugs
-
-* Difficult to know which controller you are using currently
 
 ## Project Links
 vA3C is a [GitHub]( http://github.com) [organization account]( https://help.github.com/articles/what-s-the-difference-between-user-and-organization-accounts ) and has multiple owners and admins. 
@@ -111,9 +153,14 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 ## Change Log
 
+2014-07-25 ~ Theo
+
+* Add save to file capability
+* Added to read me
+
 2014-07-22 ~
 
-* Update Cook book - add samples for displaying Thrre.js as content.
+* Update Cook book - add samples for displaying Three.js as content.
 * Editing Read me
 * Update home page
 
