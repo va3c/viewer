@@ -79,6 +79,7 @@
 
 	var handleJSON = function ( data, filename ) {
 		scene = new THREE.Scene();
+
 		addLights();
 
 		if ( data.metadata === undefined ) { // 2.0
@@ -142,13 +143,18 @@
 		light = new THREE.AmbientLight( 0x888888 );
 		scene.add( light );
 
-		light = new THREE.PointLight( 0xffffff, 1 );
+		light = new THREE.PointLight( 0xffffff, 0.5 );
 		scene.add( light );
+
+flashlight = new THREE.SpotLight(0xffffff,4,40);
+camera.add(flashlight);
+flashlight.position.set(0,0,1);
+flashlight.target = camera;
 	}
 
 	function animate() {
 		requestAnimationFrame( animate );
-		light.position = camera.position;
+//		light.position.copy( camera.position );
 		controls.update();
 		renderer.render( scene, camera );
 		stats.update();

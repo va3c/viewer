@@ -36,9 +36,6 @@ The scripts here are updates to the competition entry and winner of the second p
 * Uses the DOM to provide very deep editing and control access to the imported models.
 * Opens for editing and manipulation any Three.js HTML files
 * Opens for editing.js, json, .obj, .stl, .dae, .wrl, and vtk files. Coming soon: .gltf
-	* Currently file open is 'hard wired' to specific links
-	* Currently File open dialog only opens JSON files
-	* This issue will be fixed ASAP
 * Load a new drawing or insert new objects into current drawing
 * Save the current state to a new JSON file
 
@@ -56,16 +53,25 @@ The scripts here are updates to the competition entry and winner of the second p
 	* No need to download/upload. 
 	* No need to send your data to closed source walled-garden
 	* Process could be replicated on private CORS-compliant servers
+* Libraries can have dedicated plugins
 
 ### Editing and Updating
 * Select any mesh for editing by clicking it on screen.
-* Update position, scale and rotation any geometry in any of the above
+* Geometry Tab
+	* Update position, scale and rotation any geometry in any of the above
 	* Guided by real-time sliders or via text data input
-* Apply any of several dozen pre-defined materials to any mesh
+* Material Select Tab
+	* Apply any of several dozen pre-defined materials to any mesh
 	* Includes texture, reelections and refractions
-* Material Editor tab enables editing every available parameter of any material on any selected mesh
+* Material Editor Tab 
+	* Enables editing every available parameter of any material on any selected mesh
 	* Includes shading type, smoothness, sides, wireframe, opacity and shininess
 	* Ambient, color, emissive and specular
+* Lights Tab
+	* Add lights to drawings
+	* Point light follows the camera
+	* Directional light position controlled br real-time slders
+
 
 * Toggle the display wireframe and normals helpers
 * Add lights, shading and shadows to any model

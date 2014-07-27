@@ -29,7 +29,7 @@
 		V3FA.FgxAircraftTab.innerHTML =
 			'<p>' +
 				'Sourced from <a href="http://fgx.github.io/fgx-aircraft-overview/r4/aircraft-overview.html" target="_blank"></a>FGx Aircraft<br><br>' +
-				'Currently supplies over 400 crappy aircraft<br>' +
+				'Currently supplies over 400 unfinished aircraft<br>' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +

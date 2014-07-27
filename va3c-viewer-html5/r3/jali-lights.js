@@ -69,13 +69,13 @@
 
 	JALI.toggleLightCamera = function( d ) {
 		if ( chkLightCamera.checked === true ) {
-			JALI.lightCamera = new THREE.DirectionalLight( 0xffffff, 0.25 );
+			JALI.lightCamera = new THREE.DirectionalLight( 0xffffff, 0.5 );
 			JALI.lightCamera.position = camera.position;
 //			JALI.lightCamera.position.set( -100, 100, 100 );
 			JALI.lightCamera.castShadow = true;
 
 
-			JALI.lightCamera.shadowCameraNear = 100;
+			JALI.lightCamera.shadowCameraNear = 200;
 			JALI.lightCamera.shadowCameraFar = 400;
 			JALI.lightCamera.shadowBias = -0.002; // default 0 ~ distance fron corners?
 
@@ -85,11 +85,11 @@
 			JALI.lightCamera.shadowCameraTop = d;
 			JALI.lightCamera.shadowCameraBottom = -d;
 
-			scene.add( JALI.lightCamera );
+			camera.add( JALI.lightCamera );
 			JALI.updateMaterials( scene.children );
 
 		} else {
-			scene.remove( JALI.lightCamera );
+			camera.remove( JALI.lightCamera );
 		}
 	};
 
@@ -119,7 +119,7 @@ http://mrdoob.github.io/three.js/docs/#Reference/Lights/DirectionalLight
 
 // can help stop appearance of gridlines in objects with opacity < 1
 			JALI.lightPosition.shadowBias = -0.002; // default 0 ~ distance fron corners?
-			JALI.lightPosition.shadowDarkness = 0.1; // default 0.5
+			JALI.lightPosition.shadowDarkness = 0.2; // default 0.5
 			JALI.lightPosition.shadowMapWidth = 2048;  // default 512
 			JALI.lightPosition.shadowMapHeight = 2048;
 //			JALI.lightPosition.shadowCameraVisible;

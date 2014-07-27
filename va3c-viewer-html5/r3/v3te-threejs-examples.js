@@ -1,3 +1,5 @@
+// data fieles are on http://mrdoob.github.io/three.js/examples/
+
 
 	var V3TM = {} || V3TM;
 	var V3TB = {} || V3TB;
@@ -31,11 +33,11 @@
 			boilerplate = V3TM.files[ i ][ 1 ]; 
 			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TM.files,' + i + ',V3TM.basepath,"' + V3TM.files[ i ][0] + '","' + boilerplate + '"); >' + file + '</a><br>';
 		}
-//console.log( fileList )
+
 		V3TM.threejsModelsTab.innerHTML =
 			'<p>' +
 				'Sourced from <a href="http://mrdoob.github.io/three.js/examples/models" target="_blank">threejs.org</a><br><br>' +
-				'Currently supports: .dae, .js, json, .stl, .vtk, .wrl. Others<br>' +
+				'Currently supports: .dae, .js, json, .stl, .vtk, .wrl<br>More will follow...<br>' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
@@ -179,7 +181,7 @@
 			boilerplate = V3TO.files[ i ][ 1 ];
 			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TO.files,' + i + ',V3TO.basepath,"' + V3TO.files[ i ][0] + '","' + boilerplate + '"); >' + file + '</a><br>';
 		}
-//console.log( fileList )
+
 		V3TO.threejsObjTab.innerHTML =
 			'<p>' +
 				'Sourced from <a href="http://mrdoob.github.io/three.js/examples/obj" target="_blank">threejs.org</a><br><br>' +
@@ -192,6 +194,7 @@
 		'';
 
 	};
+
 	V3TO.files = [
 		['Bird.js','','Bird.js - broken'],
 		['Qrcode.js','','Qrcode.js - broken'],

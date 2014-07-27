@@ -1,12 +1,12 @@
-	var V3CO = {} || V3CO;
+	var V3MC = {} || V3MC;
 
-	V3CO.u = 80;
-	V3CO.v = 40;
+	V3MC.u = 80;
+	V3MC.v = 40;
 
 	var outU;
 	var outV;
 
-	V3CO.addControlsTab = function() {
+	V3MC.addMeierControlsTab = function() {
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Be in control of your equations';
@@ -14,25 +14,26 @@
 			'<a href=# id=tabControls><p class=button >' +
 				'<i class="fa fa-cogs"></i> Meier Controls...' +
 			'</p></a>';
-		tabControls.onclick = function() { JA.toggleTab( V3CO.controlsTab ); };
+		tabControls.onclick = function() { JA.toggleTab( V3MC.controlsTab ); };
 
-		V3CO.controlsTab = tab.appendChild( document.createElement( 'div' ) );
-		V3CO.controlsTab.style.cssText = 'cursor: auto; display: none;' ;
-		V3CO.controlsTab.innerHTML =
+		V3MC.controlsTab = tab.appendChild( document.createElement( 'div' ) );
+		V3MC.controlsTab.style.cssText = 'cursor: auto; display: none;' ;
+		V3MC.controlsTab.innerHTML =
+			'<p><i>Libraries can have dedicated plugins</i></p>' +
 			'<h3>Coefficients</h3>' +
 			'<div id=divCon ></div>' +
 		'';
 
 	};
 
-	V3CO.updateControlsTab = function( number ) {
+	V3MC.updateControlsTab = function( number ) {
 		divCon.inneHTML = '';
 
 			if ( app.a !== undefined) {
 				divCon.innerHTML += 'a: <input type=range id=inpA title="default ' + app.a + '" ' +
 					'min=' + app.aMin + ' max=' + app.aMax + ' step=' + app.aStep + ' value=' + app.a +
-					' onmousemove=outA.value=inpA.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outA style=width:30px; onchange=inpA.value=outA.value;V3CO.updateMesh(); value=' + app.a + ' ><br>';
+					' onmousemove=outA.value=inpA.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outA style=width:30px; onchange=inpA.value=outA.value;V3MC.updateMesh(); value=' + app.a + ' ><br>';
 //	not			inpA.type = 'range';
 //				inpA.value = app.a;
 //				outA.value = app.a;
@@ -46,105 +47,105 @@
 			if ( app.b !== undefined) {
 				divCon.innerHTML += 'b: <input type=range id=inpB title="default ' + app.b + '" ' +
 					'min=' + app.bMin + ' max=' + app.bMax + ' step=' + app.bStep + ' value=' + app.b +
-					' onmousemove=outB.value=inpB.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outB style=width:30px; onchange=inpB.value=outB.value;V3CO.updateMesh(); value=' + app.b + ' ><br>';
+					' onmousemove=outB.value=inpB.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outB style=width:30px; onchange=inpB.value=outB.value;V3MC.updateMesh(); value=' + app.b + ' ><br>';
 			}
 
 			if ( app.c !== undefined) {
 				divCon.innerHTML += 'c: <input type=range id=inpC title="default ' + app.c + '" ' +
 					'min=' + app.cMin + ' max=' + app.cMax + ' step=' + app.cStep + ' value=' + app.c+
-					' onmousemove=outC.value=inpC.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outC style=width:30px; onchange=inpC.value=outC.value;V3CO.updateMesh(); value=' + app.c + ' ><br>';
+					' onmousemove=outC.value=inpC.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outC style=width:30px; onchange=inpC.value=outC.value;V3MC.updateMesh(); value=' + app.c + ' ><br>';
 			}
 
 			if ( app.d !== undefined ) {
 				divCon.innerHTML += 'd: <input type=range id=inpD title="default ' + app.d + '" ' +
 					'min=' + app.dMin + ' max=' + app.dMax + ' step=' + app.dStep + ' value=' + app.d +
-					' onmousemove=outD.value=inpD.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outD style=width:30px; onchange=inpD.value=outD.value;V3CO.updateMesh(); value=' + app.d + ' ><br>';
+					' onmousemove=outD.value=inpD.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outD style=width:30px; onchange=inpD.value=outD.value;V3MC.updateMesh(); value=' + app.d + ' ><br>';
 			}
 
 			if ( app.e !== undefined  ) {
 				divCon.innerHTML += 'e: <input type=range id=inpE title="default ' + app.e + '" ' +
 					'min=' + app.eMin + ' max=' + app.eMax + ' step=' + app.eStep + ' value=' + app.e +
-					' onmousemove=outE.value=inpE.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outE style=width:30px; onchange=inpE.value=outE.value;V3CO.updateMesh(); value=' + app.e + ' ><br>';
+					' onmousemove=outE.value=inpE.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outE style=width:30px; onchange=inpE.value=outE.value;V3MC.updateMesh(); value=' + app.e + ' ><br>';
 			}
 
 			if ( app.f !== undefined  ) {
 				divCon.innerHTML += 'f: <input type=range id=inpF title="default ' + app.f + '" ' +
 					'min=' + app.fMin + ' max=' + app.fMax + ' step=' + app.fStep + ' value=' + app.f +
-					' onmousemove=outF.value=inpF.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outF style=width:30px; onchange=inpF.value=outF.value;V3CO.updateMesh(); value=' + app.f + ' ><br>';
+					' onmousemove=outF.value=inpF.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outF style=width:30px; onchange=inpF.value=outF.value;V3MC.updateMesh(); value=' + app.f + ' ><br>';
 			}
 
 			if ( app.g !== undefined) {
 				divCon.innerHTML += 'g: <input type=range id=inpG title="default ' + app.g + '" ' +
 					'min=' + app.gMin + ' max=' + app.gMax + ' step=' + app.gStep + ' value=' + app.g +
-					' onmousemove=outG.value=inpG.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outG style=width:30px; onchange=inpG.value=outG.value;V3CO.updateMesh(); value=' + app.g + ' ><br>';
+					' onmousemove=outG.value=inpG.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outG style=width:30px; onchange=inpG.value=outG.value;V3MC.updateMesh(); value=' + app.g + ' ><br>';
 			}
 
 			if ( app.h !== undefined) {
 				divCon.innerHTML += 'h: <input type=range id=inpH title="default ' + app.h + '" ' +
 					'min=' + app.hMin + ' max=' + app.hMax + ' step=' + app.hStep + ' value=' + app.h +
-					' onmousemove=outH.value=inpH.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outH style=width:30px; onchange=inpH.value=outH.value;V3CO.updateMesh(); value=' + app.h + ' ><br>';
+					' onmousemove=outH.value=inpH.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outH style=width:30px; onchange=inpH.value=outH.value;V3MC.updateMesh(); value=' + app.h + ' ><br>';
 			}
 
 			if ( app.i !== undefined) {
 				divCon.innerHTML += 'i: <input type=range id=inpI title="default ' + app.i + '" ' +
 					'min=' + app.hMin + ' max=' + app.iMax + ' step=' + app.iStep + ' value=' + app.i +
-					' onmousemove=outI.value=inpI.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outI style=width:30px; onchange=inpI.value=outI.value;V3CO.updateMesh(); value=' + app.i + ' ><br>';
+					' onmousemove=outI.value=inpI.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outI style=width:30px; onchange=inpI.value=outI.value;V3MC.updateMesh(); value=' + app.i + ' ><br>';
 			}
 
 			if ( app.n !== undefined) {
 				divCon.innerHTML += 'n: <input type=range id=inpN title="default ' + app.n + '" ' +
 					'min=' + app.nMin + ' max=' + app.nMax + ' step=' + app.nStep + ' value=' + app.n +
-					' onmousemove=outN.value=inpN.value;V3CO.updateMesh(); style=width:200px; > ' +
-					'<input id=outN style=width:30px; onchange=inpN.value=outN.value;V3CO.updateMesh(); value=' + app.n + ' ><br>';
+					' onmousemove=outN.value=inpN.value;V3MC.updateMesh(); style=width:200px; > ' +
+					'<input id=outN style=width:30px; onchange=inpN.value=outN.value;V3MC.updateMesh(); value=' + app.n + ' ><br>';
 			}
 
 			if ( app.R1 !== undefined) {
 				divCon.innerHTML += 'R1: <input type=range id=inpR1 title="default ' + app.R1 + '" ' +
 					'min=' + app.R1Min + ' max=' + app.R1Max + ' step=' + app.R1Step + ' value=' + app.R1 +
-					' onmousemove=outR1.value=inpR1.value;V3CO.updateMesh(); style=width:195px; > ' +
-					'<input id=outR1 style=width:30px; onchange=inpR1.value=outR1.value;V3CO.updateMesh(); value=' + app.R1 + ' ><br>';
+					' onmousemove=outR1.value=inpR1.value;V3MC.updateMesh(); style=width:195px; > ' +
+					'<input id=outR1 style=width:30px; onchange=inpR1.value=outR1.value;V3MC.updateMesh(); value=' + app.R1 + ' ><br>';
 			}
 
 			if ( app.R2 !== undefined) {
 				divCon.innerHTML += 'R2: <input type=range id=inpR2 title="default ' + app.R2 + '" ' +
 					'min=' + app.R2Min + ' max=' + app.R2Max + ' step=' + app.R2Step + ' value=' + app.R2 +
-					' onmousemove=outR2.value=inpR2.value;V3CO.updateMesh(); style=width:195px; > ' +
-					'<input id=outR2 style=width:30px; onchange=inpR2.value=outR2.value;V3CO.updateMesh(); value=' + app.R2 + ' ><br>';
+					' onmousemove=outR2.value=inpR2.value;V3MC.updateMesh(); style=width:195px; > ' +
+					'<input id=outR2 style=width:30px; onchange=inpR2.value=outR2.value;V3MC.updateMesh(); value=' + app.R2 + ' ><br>';
 			}
 
 			if ( app.u !== undefined ) {
 
 				divCon.innerHTML += '<h3>Number of Vertices</h3>' +
-					'u: <input type=range id=inpU title="default ' + V3CO.u + '" ' +
+					'u: <input type=range id=inpU title="default ' + V3MC.u + '" ' +
 					'min=1 max=200 step=1 value=' + app.u +
-					' onmousemove=outU.value=inpU.value;V3CO.updateMesh(); style=width:195px; > ' +
-					'<input id=outU style=width:30px; onchange=inpU.value=outU.value;V3CO.updateMesh(); value=' + app.u + ' ><br>';
+					' onmousemove=outU.value=inpU.value;V3MC.updateMesh(); style=width:195px; > ' +
+					'<input id=outU style=width:30px; onchange=inpU.value=outU.value;V3MC.updateMesh(); value=' + app.u + ' ><br>';
 			} else {
-				app.u  = V3CO.u;
+				app.u  = V3MC.u;
 			}
 
 			if ( app.v !== undefined ) {
-				divCon.innerHTML += 'v: <input type=range id=inpV title="default ' + V3CO.v + '" ' +
+				divCon.innerHTML += 'v: <input type=range id=inpV title="default ' + V3MC.v + '" ' +
 					'min=1 max=200 step=1 value=' + app.v +
-					' onmousemove=outV.value=inpV.value;V3CO.updateMesh(); style=width:195px; > ' +
-					'<input id=outV style=width:30px; onchange=inpV.value=outV.value;V3CO.updateMesh(); value=' + app.v + ' ><br>';
+					' onmousemove=outV.value=inpV.value;V3MC.updateMesh(); style=width:195px; > ' +
+					'<input id=outV style=width:30px; onchange=inpV.value=outV.value;V3MC.updateMesh(); value=' + app.v + ' ><br>';
 			} else {
-				app.v  = V3CO.v;
+				app.v  = V3MC.v;
 			}
 
 			divCon.innerHTML += '<button onclick=V3LI.updateIframe(V3LI.fileList,V3LI.index,V3LI.basepath,V3LI.filename,V3LI.boilerplate); >Reset</button>';
 
 	};
 
-	V3CO.updateMesh = function() {
+	V3MC.updateMesh = function() {
 
 		if ( scene.select ) { app.scene.remove( scene.select ); }
 
@@ -167,9 +168,9 @@
 		if ( app.R2 !== undefined ) app.R2 = parseFloat( outR2.value );
 
 		geometry = new THREE.ParametricGeometry( app.curve, app.u, app.v );
-//		material = scene.select.material;
-		var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/square.png' );
-		material = new THREE.MeshPhongMaterial( { map: texture, side: THREE.DoubleSide } );
+		material = scene.select.material;
+//		var texture = new THREE.ImageUtils.loadTexture( JAMA.texturePath + 'textures/square.png' );
+//		material = new THREE.MeshPhongMaterial( { map: texture, side: THREE.DoubleSide } );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;

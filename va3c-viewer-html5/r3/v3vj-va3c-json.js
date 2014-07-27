@@ -1,41 +1,41 @@
 
-	var V3JB = {} || V3JB;
+	var V3VJ = {} || V3VJ;
 
-	V3JB.basepath = '../../../json/';
+	V3VJ.basepath = '../../../json/';
 
-	V3JB.addJSONBrowseTab = function() {
+	V3VJ.addVA3CJSONTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
 			'<a href=# id=tabJSONBrowse ><p class=button >' +
 				'<i class="fa fa-file-image-o"></i> vA3C JSON...' +
 			'</p></a>';
-		tabJSONBrowse.onclick = function() {JA.toggleDialogs(V3JB.JSONBrowseTab); };
+		tabJSONBrowse.onclick = function() {JA.toggleDialogs(V3VJ.JSONBrowseTab); };
 
-		V3JB.JSONBrowseTab = tab.appendChild( document.createElement( 'div' ) );
-		V3JB.JSONBrowseTab.style.cssText = 'cursor: auto; display: none; ' ;
+		V3VJ.JSONBrowseTab = tab.appendChild( document.createElement( 'div' ) );
+		V3VJ.JSONBrowseTab.style.cssText = 'cursor: auto; display: none; ' ;
 
 		var fileList = '<br>';
 		var file, boilerplate, fname;
-		for ( var i = 0, len = V3JB.files.length; i < len; i++ ) {
-			file = V3JB.files[ i ][0];
-			boilerplate = V3JB.files[ i ][1];
+		for ( var i = 0, len = V3VJ.files.length; i < len; i++ ) {
+			file = V3VJ.files[ i ][0];
+			boilerplate = V3VJ.files[ i ][1];
 			fileList += '<a href=JavaScript:' +
-				'V3LI.updateIframe(V3JB.files,' + i + ',V3JB.basepath,"' + file + '","' + boilerplate + '"); >' + file + '</a><br>';
+				'V3LI.updateIframe(V3VJ.files,' + i + ',V3VJ.basepath,"' + file + '","' + boilerplate + '"); >' + file + '</a><br>';
 		}
 
-		V3JB.JSONBrowseTab.innerHTML =
+		V3VJ.JSONBrowseTab.innerHTML =
 			'<p>' +
-				'Sourced from <a href="http://va3c.github.io/three.js/examples/" target="_blank"></atvA3C<br><br>' +
+				'Sourced from <a href="https://github.com/va3c/json" target="_blank"></a>vA3C<br><br>' +
 				'Files were produced during the AEC Hackathon. Not all files work.' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
-				'<a class=button href=JavaScript:JA.toggleTab(V3JB.JSONBrowseTab); ); >Close</a> ' +
+				'<a class=button href=JavaScript:JA.toggleTab(V3VJ.JSONBrowseTab); ); >Close</a> ' +
 			'</p>' +
 		'';
 	};
 
-	V3JB.files = [
+	V3VJ.files = [
 		['DrCyanKlein.json','boilerplate-va3c-big.html'],
 		['DrMajentaKlein.json','boilerplate-va3c-big.html'],
 		['Hex_01.js','boilerplate-va3c-big.html'],

@@ -7,19 +7,17 @@
 		tab.title = 'Export current view to a data file';
 		tab.innerHTML =
 			'<a href=# id=tabExportScene ><p class=button >' +
-				'<i class="fa fa-paw"></i> Save / Open Scenes...' +
+				'<i class="fa fa-paw"></i> Save Scenes...' +
 			'</p></a>'; 
 		tabExportScene.onclick = function() { JA.toggleTab( JAES.exportScene ); };
 
 		JAES.exportScene = JA.menu.appendChild( document.createElement( 'div' ) );
 		JAES.exportScene.style.cssText = 'cursor: auto; display: none; ' ;
 		JAES.exportScene.innerHTML =
-			'<p>Save what you have made...</p>' +
+			'<p>Save what you have created...</p>' +
 			'<p><a href=# onclick=JAES.saveFile(); >Save scene</a></p>' +
-			'<p>Open scene: <input type=file id=inpFile ></p>' +
-		'';
 
-		inpFile.onchange = function() { JAES.loadFile ( this ); };
+		'';
 
 	}
 
@@ -68,70 +66,151 @@
 
 	}
 
-	JAES.loadFile = function ( file ) {
-
+/*
+	JAES.loadFile = function ( that ) {
+		var filename = that.files[0].name;
+		var extension = filename.split( '.' ).pop().toLowerCase();
 		var reader = new FileReader();
 		reader.addEventListener( 'load', function ( event ) {
-			var contents = event.target.result;
-			// 2.0
-			if ( contents.indexOf( 'postMessage' ) !== -1 ) {
-				var blob = new Blob( [ contents ], { type: 'text/javascript' } );
-				var url = URL.createObjectURL( blob );
-				var worker = new Worker( url );
-				worker.onmessage = function ( event ) {
-					event.data.metadata = { version: 2 };
-					handleJSON2( event.data, file.name );
-				};
-				worker.postMessage( Date.now() );
-				return;
+			var contents = reader.result;
+
+			switch ( extension ) {
+				case 'html' :
+// console.log( filename);
+					break;
+
+				case 'dae':
+					JAES.loadDAE( contents, filename );
+					break;
+
+				case 'js':
+				case 'json':
+
+				case '3geo':
+				case '3mat':
+				case '3obj':
+				case '3scn':
+					JAES.loadJSON( contents, filename );
+					break;
+
+				case 'obj':
+					JAES.loadOBJ( contents, filename );
+					break;
+
+				case 'stl':
+					JAES.loadSTL( contents, filename );
+					break;
+
+				case 'vtk':
+					JAES.loadVTK( contents, filename );
+					break;
+
+				case 'wrl':
+					JAES.loadVRML( contents, filename );
+					break;
+
+				default:
+					alert( 'Unsupported file format.' );
+					break;
 			}
-			// >= 3.0
-			var data;
-			try {
-				data = JSON.parse( contents );
-			} catch ( error ) {
-				alert( error );
-				return;
-			}
-			JAES.handleJSON( data, file.name );
+
 		}, false );
-		reader.readAsText( file.files[0] );
+		reader.readAsText( that.files[0] );
 
 	}
 
-	JAES.handleJSON = function ( data, filename ) {
-//		scene = new THREE.Scene();
-//		JAES.addLights();
-// console.log( data ) 
-		if ( data.metadata === undefined ) { // 2.0
-			data.metadata = { type: 'Geometry' };
-		}
-		if ( data.metadata.type === undefined ) { // 3.0
-			data.metadata.type = 'Geometry';
-		}
-		if ( data.metadata.version === undefined ) {
-			data.metadata.version = data.metadata.formatVersion;
-		}
-		if ( data.metadata.type.toLowerCase() === 'geometry' ) {
-			var loader = new THREE.JSONLoader();
-			var result = loader.parse( data );
-			var geometry = result.geometry;
-			var material;
+	JAES.loadDAE = function ( contents, filename ) {
+		scr = document.body.appendChild( document.createElement( 'script' ) );
+		scr.onload = function() {
 
-			if ( result.materials !== undefined ) {
-				if ( result.materials.length > 1 ) {
-					material = new THREE.MeshFaceMaterial( result.materials );
-				} else {
-					material = result.materials[ 0 ];
-				}
-			} else {
-				material = new THREE.MeshPhongMaterial();
-			}
+			var parser = new DOMParser();
+			var xml = parser.parseFromString( contents, 'text/xml' );
 
-			geometry.sourceType = "ascii";
-			geometry.sourceFile = filename;
+			var loader = new THREE.ColladaLoader();
+			loader.parse( xml, function ( collada ) {
 
-			var mesh = new THREE.Mesh( geometry, material );
+				collada.scene.name = filename;
+// console.log( collada, collada.scene )
+				scene.add( collada.scene );
+// 				scene.select( collada.scene.children[0].children[0] );
+
+			} );
+		}
+		scr.src = V3LI.loaderBase + 'js/loaders/ColladaLoader.js';
+	}
+
+	JAES.loadJSON = function ( contents, filename ) {
+		if ( contents.indexOf( 'postMessage' ) !== -1 ) {
+			var blob = new Blob( [ contents ], { type: 'text/javascript' } );
+			var url = URL.createObjectURL( blob );
+			var worker = new Worker( url );
+			worker.onmessage = function ( event ) {
+				event.data.metadata = { version: 2 };
+				V3LI.handleJSON( event.data, filename );
+			};
+			worker.postMessage( Date.now() );
+			return;
+		}
+		// >= 3.0
+		var data;
+		try {
+			data = JSON.parse( contents );
+		} catch ( error ) {
+			alert( error );
+			return;
+		}
+		V3LI.handleJSON( data, filename );
+	}
+
+	JAES.loadOBJ = function ( contents, filename ) {
+		var scr = document.body.appendChild( document.createElement( 'script' ) );
+		scr.onload = function() {
+
+			var object = new THREE.OBJLoader().parse( contents );
+
+			mesh = object.children[0];
+			mesh.name = filename;
+			mesh.material = new THREE.MeshPhongMaterial();
+			mesh.castShadow = true;
+			mesh.receiveShadow = true;
+
+			scene.add( mesh );
+			scene.select = mesh;
+
+		}
+		scr.src = V3LI.loaderBase + 'js/loaders/OBJLoader.js';
+	}
+
+	JAES.loadSTL = function ( contents, filename ) {
+
+		var scr = document.body.appendChild( document.createElement( 'script' ) );
+		scr.src = V3LI.loaderBase + 'js/wip/TypedGeometry.js';
+
+		var scr = document.body.appendChild( document.createElement( 'script' ) );
+		scr.onload = function() {
+
+			geometry = new THREE.STLLoader().parse( contents );
+			material = new THREE.MeshPhongMaterial();
+
+			mesh = new THREE.Mesh( geometry, material );
+			mesh.castShadow = true;
+			mesh.receiveShadow = true;
+
+			scene.add( mesh );
+			scene.select = mesh;
+
+		}
+		scr.src = V3LI.loaderBase + 'js/loaders/STLLoader.js';
+	}
+
+	JAES.loadVTK = function ( contents, filename ) {
+		var scr = document.body.appendChild( document.createElement( 'script' ) );
+		scr.onload = function() {
+
+			geometry = new THREE.VTKLoader().parse( contents );
+			material = new THREE.MeshPhongMaterial();
+
+			mesh = new THREE.Mesh( geometry, material );
 			mesh.name = filename;
 			mesh.castShadow = true;
 			mesh.receiveShadow = true;
@@ -139,27 +218,28 @@
 			scene.add( mesh );
 			scene.select = mesh;
 
-		} else if ( data.metadata.type.toLowerCase() === 'object' ) {
-			var loader = new THREE.ObjectLoader();
-//console.log( data );  // for Dan
-			var result = loader.parse( data );
-			if ( result instanceof THREE.Scene ) {
-console.log( 'scene' );
-//				scene = result; 
-				scene.add( result );  // so we always have some light...
-			} else {
-				scene.add( result );
-				scene.select( result );
-			}
-		} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
-			// DEPRECATED
-			var loader = new THREE.SceneLoader();
-			loader.parse( data, function ( result ) {
-				scene = result.scene;
-			}, '' );
 		}
+		scr.src = V3LI.loaderBase + 'js/loaders/VTKLoader.js';
+	}
 
-	};
+	JAES.loadVRML = function ( contents, filename ) {
+		var scr = document.body.appendChild( document.createElement( 'script' ) );
+		scr.onload = function() {
+
+			object = new THREE.VRMLLoader().parse( contents );
+
+			mesh = object.children[0];
+			mesh.name = filename;
+			mesh.material = new THREE.MeshPhongMaterial();
+			mesh.castShadow = true;
+			mesh.receiveShadow = true;
+
+			scene.add( object );
+			scene.select = mesh;
+
+		}
+		scr.src = V3LI.loaderBase + 'js/loaders/VRMLLoader.js';
+	}
 
 	JAES.addLights = function() {
 		light = new THREE.AmbientLight( 0x888888 );
@@ -168,3 +248,5 @@ console.log( 'scene' );
 		light = new THREE.PointLight( 0xffffff, 1 );
 		scene.add( light );
 	}
+
+*/

@@ -1,34 +1,37 @@
+// data files originally from http://www.3d-meier.de/tut3/Seite0.html
 
-	var V3JM = {} || V3JM;
+// data files used here from https://github.com/jaanga/algesurf/tree/gh-pages/parametric-equations/equation-files
+
+	var V3MH = {} || V3MH;
 
 	if ( window.location.origin.substr(0,7) != 'http://' ) {
-		V3JM.basepath = '../../../../jaanga.github.io/projects/algesurf/parametric-equations/equation-files/';
+		V3MH.basepath = '../../../../jaanga.github.io/projects/algesurf/parametric-equations/equation-files/';
 	} else {
-		V3JM.basepath = 'http://va3c.github.io/algesurf/parametric-equations/equation-files/';
+		V3MH.basepath = 'http://va3c.github.io/algesurf/parametric-equations/equation-files/';
 	}
 
-	V3JM.addJurgenMeierTab = function() {
+	V3MH.addMeierHTMLTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Choose from a number of equations to display';
 		tab.innerHTML =
 			'<a href=# id=tabJurgenMeier ><p class=button >' +
 				'<i class="fa fa-file-image-o"></i> Jürgen Meier Gallery...' +
 			'</p></a>';
-		tabJurgenMeier.onclick = function() { JA.toggleDialogs( V3JM.JurgenMeier ); };
+		tabJurgenMeier.onclick = function() { JA.toggleDialogs( V3MH.JurgenMeier ); };
 
-		V3JM.JurgenMeier = tab.appendChild( document.createElement( 'div' ) );
-		V3JM.JurgenMeier.style.cssText = 'cursor: auto; display: none; ';
+		V3MH.JurgenMeier = tab.appendChild( document.createElement( 'div' ) );
+		V3MH.JurgenMeier.style.cssText = 'cursor: auto; display: none; ';
 
 		var fileList = '';
 		var file;
-		for ( var i = 0, len = V3JM.files.length; i < len; i++ ) {
-			fileTitle = V3JM.files[ i ][ 1 ];
-			basepath = V3JM.basepath + '/' + V3JM.files[ i ][ 0 ] + '/';
-			fname = V3JM.files[ i ][ 0 ];
-			fileList += '<a href=JavaScript:openOver.checked=true;' +
-				'V3LI.updateIframe(V3JM.files,' + i + ',"' + basepath + '","' + fname + '.html"); >' + fileTitle + '</a><br>';
+		for ( var i = 0, len = V3MH.files.length; i < len; i++ ) {
+			fileTitle = V3MH.files[ i ][ 1 ];
+			basepath = V3MH.basepath + '/' + V3MH.files[ i ][ 0 ] + '/';
+			fname = V3MH.files[ i ][ 0 ];
+			fileList += '<a href=JavaScript:libOpenOver.checked=true;' +
+				'V3LI.updateIframe(V3MH.files,' + i + ',"' + basepath + '","' + fname + '.html"); >' + fileTitle + '</a><br>';
 		}
-		V3JM.JurgenMeier.innerHTML = 
+		V3MH.JurgenMeier.innerHTML = 
 			'<h3><a href="http://jaanga.github.io/algesurf/" target="_blank" >AlgeSurf</a> Parametric Equations </h3>' +
 			'<p>Equations sourced from:<br><b><a href="http://www.3d-meier.de/tut3/Seite0.html" target="_blank">Parametrische Flächen und Körper</a></b></p>' +
 			'<p>Always overwrites current view</p>' +
@@ -36,12 +39,12 @@
 			'<p>After \'Egg\' only * have dynamic coefficients <br><br>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
-				'<a class=button href=JavaScript:JA.toggleTab(V3JM.JurgenMeier); ); >Close</a> ' +
+				'<a class=button href=JavaScript:JA.toggleTab(V3MH.JurgenMeier); ); >Close</a> ' +
 			'</p>' +
 		'';
 	};
 
-	V3JM.files = [
+	V3MH.files = [
 		[ "apple-surface-i", "Apple Surface I", "http://www.3d-meier.de/tut3/Seite54.html", "3.50. Apple Surface" ],
 		[ "apple-surface-ii", "Apple II Surface", "http://www.3d-meier.de/tut3/Seite100.html", "3.95. Apple II Surface" ],
 		[ "bent-horns", "Bent Horns", "http://www.3d-meier.de/tut3/Seite49.html", "3.45. Bent Horns" ],
