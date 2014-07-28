@@ -74,6 +74,7 @@
 		var extension = filename.split( '.' ).pop().toLowerCase();
 		if ( libOpenOver.checked === true ) {
 			JAFO.ifr.onload = function() {
+				JATH.attributes.innerHTML = '';
 
 				app = JAFO.ifr.contentWindow;
 
@@ -114,6 +115,8 @@
 				app.window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
 
 				divMsg1.innerHTML = 'Overwrite ' + index + ' ' + fileList[ index ][0];
+
+				JAFO.updateTargetList( filename );
 
 			};
 

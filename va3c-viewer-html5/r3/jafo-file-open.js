@@ -117,6 +117,8 @@
 
 			divMsg1.innerHTML = 'Base: ' + filename;
 
+			JAFO.targetList = scene.children;
+
 		};
 		JAFO.ifr.src = 'boilerplate-simple.html';
 
@@ -351,7 +353,7 @@ console.log( 'worker did some work!', filename );
 
 			if ( result instanceof THREE.Scene ) {
 
-				JAFO.updateScene( result );
+				JAFO.updateScene( result, filename );
 
 			} else {
 //console.log( 'object', result );
@@ -365,13 +367,15 @@ console.log( 'worker did some work!', filename );
 			loader = new THREE.SceneLoader();
 			loader.parse( data, function ( result ) {
 //				scene.add( result.scene );
-				JAFO.updateScene( result );
+				JAFO.updateScene( result, filename );
 			}, '' );
 		}
 	};
 
-	JAFO.updateScene = function( result ) {
+	JAFO.updateScene = function( result, filename ) {
 // console.log( 'scene', result );
+
+		JATH.attributes.innerHTML = '';
 
 		scene = result;
 		app.scene = scene;
@@ -389,6 +393,27 @@ console.log( 'worker did some work!', filename );
 
 		scene.select = result.children[0];
 
+		JAFO.updateTargetList( filename );
+
+	};
+
+	JAFO.updateTargetList = function( filename ) {
+
+		if ( filename.indexOf( '.rvt.js' ) > 0 ) {
+			JAFO.targetList = [];
+			for ( var i = 0; i < scene.children.length; i++ ){
+				for ( var k = 0; k < scene.children[i].children.length; k++){
+//					if ( scene.children[i].children[k].hasOwnProperty("geometry") ) {
+						JAFO.targetList.push( scene.children[i].children[k] );
+						scene.children[i].children[k].userData = scene.children[i].userData;
+//					} else {
+
+//					}
+				}
+			}
+		} else {
+			JAFO.targetList = scene.children;
+		}
 	}
 
 	JAFO.requestFile = function( fname ) {

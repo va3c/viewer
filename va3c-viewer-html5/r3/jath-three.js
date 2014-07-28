@@ -85,16 +85,33 @@
 	};
 */
 
+	JATH.addAttributes = function() {
+		JATH.attributes = document.body.appendChild( document.createElement( 'div' ) );
+		JATH.attributes.style.cssText = 'display: ""; right: 20px; ' +
+			'max-height: 900px; position: absolute; text-align: right; top: 20px; width: 250px; z-index:10; ';
+		JATH.attributes.innerHTML = '';
+
+	}
+
 	JATH.onDocumentMouseClick = function ( event ) {
 		event.preventDefault();
 
 		var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
 		projector.unprojectVector( vector, camera );
 		var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
-		intersects = raycaster.intersectObjects( scene.children );
-//console.log( intersects );
+		intersects = raycaster.intersectObjects( JAFO.targetList );
+
 		if ( intersects.length > 0 ) {
 			scene.select = intersects[ 0 ].object;
+			var data = scene.select.userData;
+			var keys = Object.keys( data );
+			var txt = '';
+			for ( var key in data ) {
+				txt += key + ' ' + data[ key ] + '<br>';
+			}
+			JATH.attributes.innerHTML = txt;
+// console.log( scene.select )
+
 		}
 	}
 
