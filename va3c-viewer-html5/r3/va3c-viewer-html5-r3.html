@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>vA3C ViewerR3</title>
+<title>vA3C Viewer R3</title>
 <meta charset=utf-8 />
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 <link rel=stylesheet href=http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css /><!-- http://fontawesome.io/ -->
 </head>
 <body>
+<script src=jath-three.js></script>
 <script src=ja-core.js></script>
 <script src=jafo-file-open.js></script>
 <script src=v3li-libraries.js></script>
@@ -22,9 +23,9 @@
 <script src=jage-geometry.js></script>
 <script src=japr-preferences.js></script>
 <script src=jaes-export-scene.js></script>
-<script src=jath-three.js></script>
+
 <script>
-// Theo Armour ~ 2014-07-19 ~ MIT License
+// Copyright (c) 2104 vA3C authors ~ MIT License
 
 	JA.init = function() {
 		JA.container = document.body.appendChild( document.createElement( 'div' ) );
@@ -57,11 +58,14 @@
 		V3LI.init();
 
 		window.addEventListener( 'mouseup', JA.mouseUp, false);
-		window.addEventListener( 'resize', JA.onWindowResize, false );
+		window.addEventListener( 'resize', JATH.onWindowResize, false );
+//		window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
 	}
 
 	JA.init();
 
+
+// Thank you Mr.doob
 </script>
 </body>
 </html>

@@ -124,8 +124,8 @@
 			var result = loader.parse( data );
 
 			if ( result instanceof THREE.Scene ) {
-//				scene = result; 
-				scene.add( result );  // so we always have some light...
+				scene = result; 
+//				scene.add( result );  // so we always have some light...
 			} else {
 				scene.add( result );
 				scene.select( result );
@@ -146,10 +146,6 @@
 		light = new THREE.PointLight( 0xffffff, 0.5 );
 		scene.add( light );
 
-flashlight = new THREE.SpotLight(0xffffff,4,40);
-camera.add(flashlight);
-flashlight.position.set(0,0,1);
-flashlight.target = camera;
 	}
 
 	function animate() {

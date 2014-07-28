@@ -18,7 +18,7 @@
 		var file, fname;
 		for ( var i = 0, len = V3SH.files.length; i < len; i++ ) {
 			file = V3SH.files[ i ][0];
-			fileList += '<a href=JavaScript:openOver.checked=true;' +
+			fileList += '<a href=JavaScript:libOpenOver.checked=true;' +
 				'V3LI.updateIframe(V3SH.files,' + i + ',V3SH.basepath,"' + file + '",""); >' + file + '</a><br>';
 		}
 

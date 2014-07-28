@@ -1,11 +1,5 @@
 	var V3LI = {} || V3LI;
 
-	if ( window.location.origin === 'http://' ) {
-		V3LI.loaderBase = '../../../three.js/examples/';
-	} else {
-		V3LI.loaderBase = '../../../../three.js/examples/';
-	}
-
 	V3LI.boilerplate = 'boilerplate-simple.html';
 
 	V3LI.addLibrariesTab = function() {
@@ -28,6 +22,7 @@
 	};
 
 	V3LI.init = function() {
+
 		JA.about.style.height = '450px';
 		JA.about.innerHTML =
 			'<h3>' + document.title + ' ' + JA.titleIcon + '</h3>' +
@@ -47,6 +42,7 @@
 				'<a class=button href=JavaScript:JA.toggleDialogs(JA.about); >Close</a> ' +
 			'</p>' +
 		'';
+
 		var items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
 		index = items[ Math.floor( items.length * Math.random() ) ];
 		fileTitle = V3MH.files[ index ][ 1 ];
@@ -56,26 +52,30 @@
 
 	}
 
+
+// the following will soon be replaced by the similar function in JAFO
+
 	V3LI.updateIframe = function( fileList, index, basepath, filename, boilerplate ) {
 
+// used by meier controls
 		V3LI.fileList = fileList;
 		V3LI.index = index;
 		V3LI.basepath = basepath;
 		V3LI.filename = filename;
 		V3LI.boilerplate = boilerplate;
 
-		if ( !V3LI.ifr ) {
-			V3LI.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
-			V3LI.ifr.height = window.innerHeight;
-			V3LI.ifr.width = window.innerWidth;
-			V3LI.ifr.style.cssText = 'border-width: 0; position: absolute; ';
+		if ( !JAFO.ifr ) {
+			JAFO.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
+			JAFO.ifr.height = window.innerHeight;
+			JAFO.ifr.width = window.innerWidth;
+			JAFO.ifr.style.cssText = 'border-width: 0; position: absolute; ';
 		}
 
 		var extension = filename.split( '.' ).pop().toLowerCase();
 		if ( libOpenOver.checked === true ) {
-			V3LI.ifr.onload = function() {
+			JAFO.ifr.onload = function() {
 
-				app = V3LI.ifr.contentWindow;
+				app = JAFO.ifr.contentWindow;
 
 				THREE = app.THREE;
 				renderer = app.renderer;
@@ -111,39 +111,33 @@
 				JAPR.setRandomGradient();
 
 				projector = new THREE.Projector();
-				app.window.addEventListener( 'click', onDocumentMouseClick, false );
+				app.window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
 
 				divMsg1.innerHTML = 'Overwrite ' + index + ' ' + fileList[ index ][0];
 
 			};
 
 			if ( extension === 'html' ) {
-				V3LI.ifr.src = basepath + filename;
+				JAFO.ifr.src = basepath + filename;
 			} else {
 
-				V3LI.ifr.src = ( boilerplate != '' ) ? boilerplate : 'boilerplate-simple.html';
-//console.log( V3LI.ifr.src, boilerplate );
+				JAFO.ifr.src = ( boilerplate != '' ) ? boilerplate : 'boilerplate-simple.html';
 			}
 		} else {  // append
-			V3LI.loadFile( basepath, filename );
+//			V3LI.loadFile( basepath, filename );
+			JAFO.appendFile( basepath + filename )
 			V3MC.updateControlsTab();
-			divMsg1.innerHTML = 'append ' + index + ' ' + fileList[ index ][0];
+
 		}
 
 	};
 
-	function detectSceneInScene() {
-		if ( scene.children[0] instanceof THREE.Scene ) {
-// console.log( 'yup', scene.children[0] ); 
-			scene = scene.children[0];
-			scene.select = scene.children[0];
-		}
-	}
-
 	V3LI.loadFile = function ( basepath, filename ) {
+
 		var fname = basepath + filename;
 		var contents = JAFO.requestFile( fname );
 
 		JAFO.switchType( filename, contents, 1 );
 //console.log( 'lib - load',filename );
 	}
+

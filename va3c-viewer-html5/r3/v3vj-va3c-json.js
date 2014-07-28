@@ -6,7 +6,7 @@
 	V3VJ.addVA3CJSONTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a href=# id=tabJSONBrowse ><p class=button >' +
+			'<a href=# id=tabJSONBrowse title="Hi Mostapha!"><p class=button >' +
 				'<i class="fa fa-file-image-o"></i> vA3C JSON...' +
 			'</p></a>';
 		tabJSONBrowse.onclick = function() {JA.toggleDialogs(V3VJ.JSONBrowseTab); };
@@ -24,7 +24,7 @@
 		}
 
 		V3VJ.JSONBrowseTab.innerHTML =
-			'<p>' +
+			'<p title="Files hugely vary in scale. Makes appending difficult" >' +
 				'Sourced from <a href="https://github.com/va3c/json" target="_blank"></a>vA3C<br><br>' +
 				'Files were produced during the AEC Hackathon. Not all files work.' +
 			'</p>' +

@@ -83,23 +83,31 @@ The scripts here are updates to the competition entry and winner of the second p
 * Menu has accordion feature
 * Set background to random gradient or random color or selected color
 
+
 ### Coding Style
 * Every tab has its own script file
 * Tab titles, script file names and namespace titles are all tied together
 	The namespace prefix of any variable or function tells you what tab and script file it relates to
+* Two file names groups
+	* Names beginning with 'ja' belong to jaanga, are intended to be generic and can be used with any app
+	* Names beginninh with 'v3' belong to vA3C, are intendeed to be very specific and targeted to the particular app
+	* During the initial development process the distinctions become blurred
 * Code is designed to be seriously easy
-	* Allows engineers, architects and designers and non-professional programmers to add features
+	* Encourages engineers, architects and designers and non-professional programmers to add features
  
 
 ## Road Map
 
+* Open files via URL
+* Open files via Drag and Drop
+* Add zoom extents
 * Add rotate view after a period of inactivity
 * Add choice of camera controllers 
 * Add tree view of meshes, materials and attributes
 * Display attributes
 * Fix any model texture display issues
 * Add permalink read and create capability
-* Add ability to toge visibility of any mesh
+* Add ability to toggle visibility of any mesh. Layers?
 * Add ability to add texture to material of selected objects
 * Add delete capability to Geometry tab
 * Add standard Three.js geometry tab

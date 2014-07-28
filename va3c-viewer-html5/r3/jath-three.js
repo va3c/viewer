@@ -6,6 +6,7 @@
 
 	var THREE, renderer, scene, camera, controls;
 	var geometry, material, mesh;
+	var app;
 
 	JATH.camX = 100;
 	JATH.camY = 100;
@@ -84,7 +85,7 @@
 	};
 */
 
-	function onDocumentMouseClick( event ) {
+	JATH.onDocumentMouseClick = function ( event ) {
 		event.preventDefault();
 
 		var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
@@ -97,10 +98,17 @@
 		}
 	}
 
+	function detectSceneInScene() {
+		if ( scene.children[0] instanceof THREE.Scene ) {
+			scene = scene.children[0];
+			scene.select = scene.children[0];
+		}
+	}
+
 	JATH.findEmbdeddedScene = function( scene ) {
 		for ( var i = 0, len = scene.children.length; i < len; i++) {
 //				console.log( scene.children[i] )
-			if ( scene.children[i] instanceof THREE.Scene ) {
+			if ( scene.children[i] instanceof THREE.Scene ) {  // does not seem to work
 				console.log( 'bingo', scene.children[i] );
 				JATH.selection = scene.children[i].children;
 
@@ -130,3 +138,11 @@
 		}
 
 	};
+
+	JATH.onWindowResize = function() {
+		windowHalfX = window.innerWidth / 2;
+		windowHalfY = window.innerHeight / 2;
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+	}

@@ -3,9 +3,6 @@
 	JA.titleIcon = '<i class="fa fa-bomb"></i>';  // screen grab please
 	JA.TitleText = '"3D Parametric Equations"';
 
-	var THREE, renderer, scene, camera, controls;
-	var geometry, material, mesh;
-	var app;
 
 	JA.addCSS = function() {
 		var css = document.body.appendChild( document.createElement('style') );
@@ -51,9 +48,10 @@
 			'bottom: 0; left: 0; height: 370px; margin: auto; position: absolute; right: 0; top: 0; width: 500px; z-index:10; ';
 		JA.about.innerHTML =
 			'<h3>' + document.title + ' ' + JA.titleIcon + '</h3>' +
-			'<h4>Features include the following:</h4>' +
+			'<p>This is all just boilerplate text. Replace with your own text.</p>' +
+			'<h4>Features of the app include the following:</h4>' +
 			'<ul>' +
-				'<li>xxx</li>' +
+				'<li>Pan, rotate and zoom in real-time</li>' +
 				'<li>xxx</li>' +
 			'</ul>' +
 
@@ -82,27 +80,6 @@
 			'<div id=divMsg5 ></div>' +
 		''; 
 	};
-
-/*
-	JA.addThreeFooter = function() {
-		var footer = JA.menu.appendChild( document.createElement( 'div' ) );
-		footer.style.cssText = 'cursor: auto;';
-		footer.innerHTML =
-			'<h2>' +
-				'<a id=iconHome ><i class="fa fa-home"></i></a> ' +
-			'</h2>'; 
-		iconHome.title = "Reset to default view";
-		iconHome.href = 'JavaScript:JA.resetCamera();';
-	};
-
-	JA.resetCamera = function() {
-		if ( !camera ) return;
-		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
-		camera.position.set( JA.camX, JA.camY, JA.camZ );
-		controls = new THREE.TrackballControls( app.camera, app.renderer.domElement );
-		controls.target.set( JA.tarX, JA.tarY, JA.tarZ );
-	};
-*/
 
 // Toggles
 
@@ -141,7 +118,6 @@
 		}
 	};
 
-// add move cursor 
 	JA.divMove = function( event ){
 		event.target.style.left = ( event.clientX - offsetX ) + 'px';
 		event.target.style.top = ( event.clientY - offsetY ) + 'px';

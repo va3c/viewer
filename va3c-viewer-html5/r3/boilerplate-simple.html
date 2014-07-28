@@ -44,9 +44,11 @@
 		mesh.receiveShadow = true;
 		scene.add( mesh );
 
-		window.addEventListener( 'click', onDocumentMouseClick, false );
-		window.addEventListener( 'resize', onWindowResize, false );
+//		window.addEventListener( 'click', onDocumentMouseClick, false );
+//		window.addEventListener( 'resize', onWindowResize, false );
 	}
+
+/*
 
 	function onWindowResize() {
 		windowHalfX = window.innerWidth / 2;
@@ -55,6 +57,7 @@
 		camera.updateProjectionMatrix();
 		renderer.setSize( window.innerWidth, window.innerHeight );
 	}
+
 
 	function onDocumentMouseClick( event ) {
 		event.preventDefault();
@@ -68,6 +71,7 @@
 			scene.select = intersects[ 0 ].object;
 		}
 	}
+*/
 
 	function animate() {
 		requestAnimationFrame( animate );
