@@ -18,11 +18,13 @@
 <script src=v3mh-meier-html.js></script>
 <script src=v3mc-meier-controls.js></script>
 <script src=jali-lights.js></script>
+<script src=jaca-camera.js></script>
 <script src=jama-materials.js></script>
 <script src=jama-materials-data.js></script>
 <script src=jage-geometry.js></script>
 <script src=japr-preferences.js></script>
 <script src=jaes-export-scene.js></script>
+<script src=japl-permalinks.js></script>
 
 <script>
 // Copyright (c) 2104 vA3C authors ~ MIT License
@@ -48,20 +50,24 @@
 		JAMA.addMaterialSelectTab();
 		JAMA.addMaterialEditorTab();
 		JALI.addLightsTab();
+		JACA.addCameraTab();
 		JAPR.addPreferencesTab();
 		JAES.addExportSceneTab();
+		JAPL.addPermalinksTab();
 
 		JA.addAboutTab();
+		V3LI.updateAboutTab();
+
 		JA.addMessageArea();
 		JATH.addThreeFooter();
 
-JATH.addAttributes();
-
+		JATH.addAttributes();
+		JAPL.parsePermalink();
 		V3LI.init();
 
-		window.addEventListener( 'mouseup', JA.mouseUp, false);
 		window.addEventListener( 'resize', JATH.onWindowResize, false );
-//		window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
+//		window.addEventListener( 'click', JA.onDocumentMouseClick, false );
+		window.addEventListener( 'mouseup', JA.mouseUp, false);
 	}
 
 	JA.init();

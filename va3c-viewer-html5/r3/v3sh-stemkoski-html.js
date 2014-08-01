@@ -19,7 +19,8 @@
 		for ( var i = 0, len = V3SH.files.length; i < len; i++ ) {
 			file = V3SH.files[ i ][0];
 			fileList += '<a href=JavaScript:libOpenOver.checked=true;' +
-				'V3LI.updateIframe(V3SH.files,' + i + ',V3SH.basepath,"' + file + '",""); >' + file + '</a><br>';
+//				'V3LI.updateIframe(V3SH.files,' + i + ',V3SH.basepath,"' + file + '",""); >' + file + '</a><br>';
+				'JAFO.openUrl("' + V3SH.basepath + file + '"); >' + file + '</a><br>';
 		}
 
 		V3SH.StemkoskiHTMLTab.innerHTML =

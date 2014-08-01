@@ -21,8 +21,7 @@
 		libOpenOver.checked = true;
 	};
 
-	V3LI.init = function() {
-
+	V3LI.updateAboutTab = function() {
 		JA.about.style.height = '450px';
 		JA.about.innerHTML =
 			'<h3>' + document.title + ' ' + JA.titleIcon + '</h3>' +
@@ -42,105 +41,54 @@
 				'<a class=button href=JavaScript:JA.toggleDialogs(JA.about); >Close</a> ' +
 			'</p>' +
 		'';
+	}
 
-		var items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
-		index = items[ Math.floor( items.length * Math.random() ) ];
-		fileTitle = V3MH.files[ index ][ 1 ];
-		basepath = V3MH.basepath + '/' + V3MH.files[ index ][ 0 ] + '/';
-		fname = V3MH.files[ index ][ 0 ] + '.html';
-		V3LI.updateIframe( V3MH.files, index, basepath, fname, '' );
+	V3LI.init = function() {
+// if a permalink is found use it, otherwise load the default
+		if ( location.hash.length > 1 ) {
+console.log('hash', location.hash );
+			JAPL.parseMutiplePermalinks();
+		} else {
+//			JAFO.appendUrl( JAPL.url );
+			var items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
+			index = items[ Math.floor( items.length * Math.random() ) ];
+			fileTitle = V3MH.files[ index ][ 1 ];
+			basepath = V3MH.basepath + '/' + V3MH.files[ index ][ 0 ] + '/';
+			fname = V3MH.files[ index ][ 0 ] + '.html';
+			JAPL.url = basepath + fname;
+
+			JAPL.values = JAPL.defaults;
+
+// console.log( 'empty hash', JAPL.url );
+		JAFO.openUrl( JAPL.url );
+		}
+
 
 	}
 
+	function t1() {
 
-// the following will soon be replaced by the similar function in JAFO
+		location.hash = '#url=../../../../three.js/examples/obj/terrain.js#camx=671#camy=199#camz=-20#mat=NormalSmooth#posx=26#posy=-10#posz=12#rotx=0.0785#roty=-0.0815#rotz=-0.0315#sclx=2#scly=1.8#sclz=1.7';
 
-	V3LI.updateIframe = function( fileList, index, basepath, filename, boilerplate ) {
+		JAPL.parsePermalink();
 
-// used by meier controls
-		V3LI.fileList = fileList;
-		V3LI.index = index;
-		V3LI.basepath = basepath;
-		V3LI.filename = filename;
-		V3LI.boilerplate = boilerplate;
+		JAFO.openUrl( JAPL.url );
 
-		if ( !JAFO.ifr ) {
-			JAFO.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
-			JAFO.ifr.height = window.innerHeight;
-			JAFO.ifr.width = window.innerWidth;
-			JAFO.ifr.style.cssText = 'border-width: 0; position: absolute; ';
-		}
-
-		var extension = filename.split( '.' ).pop().toLowerCase();
-		if ( libOpenOver.checked === true ) {
-			JAFO.ifr.onload = function() {
-				JATH.attributes.innerHTML = '';
-
-				app = JAFO.ifr.contentWindow;
-
-				THREE = app.THREE;
-				renderer = app.renderer;
-				scene = app.scene;
-				scene.select = app.mesh;
-				camera = app.camera;
-				controls = app.controls;
-
-//				material = scene.select.material;
-
-				V3LI.loadFile( basepath, filename );
-
-//console.log( 'lib - update', filename  );
-				detectSceneInScene( scene );
-
-				divCon.innerHTML = ''; // why is this duplicate needed?
-
-				V3MC.updateControlsTab();
-//				V3CO.updateMesh();
-
-				renderer.shadowMapEnabled = true;
-				renderer.shadowMapSoft = true;
-
-				chkLightAmbient.checked = true;
-				JALI.toggleLightAmbient();
-
-				chkLightCamera.checked = true;
-				JALI.toggleLightCamera();
-
-				chkLightPosition.checked = true;
-				JALI.toggleLightPosition();
-
-				JAPR.setRandomGradient();
-
-				projector = new THREE.Projector();
-				app.window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
-
-				divMsg1.innerHTML = 'Overwrite ' + index + ' ' + fileList[ index ][0];
-
-				JAFO.updateTargetList( filename );
-
-			};
-
-			if ( extension === 'html' ) {
-				JAFO.ifr.src = basepath + filename;
-			} else {
-
-				JAFO.ifr.src = ( boilerplate != '' ) ? boilerplate : 'boilerplate-simple.html';
-			}
-		} else {  // append
-//			V3LI.loadFile( basepath, filename );
-			JAFO.appendFile( basepath + filename )
-			V3MC.updateControlsTab();
-
-		}
-
-	};
-
-	V3LI.loadFile = function ( basepath, filename ) {
-
-		var fname = basepath + filename;
-		var contents = JAFO.requestFile( fname );
-
-		JAFO.switchType( filename, contents, 1 );
-//console.log( 'lib - load',filename );
 	}
 
+	function t2() {
+
+		location.hash = '#url=../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js#camx=169#camy=20#camz=-30#mat=PhongPurpleFlat#posx=26#posy=10#posz=12#rotx=0.0785#roty=-0.0815#rotz=-0.0315#sclx=2#scly=1.8#sclz=1.7';
+
+		JAPL.parsePermalink();
+
+		JAFO.appendUrl( JAPL.url );
+
+
+		location.hash = '#url=../../../../three.js/examples/obj/walt/WaltHead_slim.js#mat=PhongDefault#posx=200#posy=20#posz=12#rotx=0.0785#roty=-0.0815#rotz=-0.0315#sclx=2#scly=1.8#sclz=1.7';
+
+		JAPL.parsePermalink();
+
+		JAFO.appendUrl( JAPL.url );
+
+	}

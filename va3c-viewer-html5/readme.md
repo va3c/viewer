@@ -26,6 +26,7 @@ The scripts here are updates to the competition entry and winner of the second p
 ### Vision  
 <!--  a descriptive picture of a desired future state -->
 * No clear goals for the moment
+* Perhaps a 'turntable' or mixing studio for 3D DJs
 
 
 ## Features
@@ -34,8 +35,11 @@ The scripts here are updates to the competition entry and winner of the second p
 ### File Management
 * Provides fast, simple access to 3D models, objects and HTML files
 * Uses the DOM to provide very deep editing and control access to the imported models.
-* Opens for editing and manipulation any Three.js HTML files
-* Opens for editing.js, json, .obj, .stl, .dae, .wrl, and vtk files. Coming soon: .gltf
+* Opens for editing and manipulation
+	* Any Three.js HTML files
+	* Files of these types: .js, .json, .obj, .stl, .dae, .wrl and .vtk files. Coming soon: .gltf
+	* Open files via a link and an xmlHttpRequest
+	* Open files via the perating system File Open dialog
 * Load a new drawing or insert new objects into current drawing
 * Save the current state to a new JSON file
 
@@ -85,26 +89,45 @@ The scripts here are updates to the competition entry and winner of the second p
 
 
 ### Coding Style
-* Every tab has its own script file
+* Every tab has its own .js script file
 * Tab titles, script file names and namespace titles are all tied together
-	The namespace prefix of any variable or function tells you what tab and script file it relates to
+	* The namespace prefix of any variable or function tells you what tab and script file it relates to
+	* Examples
+		* Tab name: 'Lights...'
+		* Namespace ID: 'JALI.'
+		* JavaScript file name: 'jali-lights.js'
 * Two file names groups
 	* Names beginning with 'ja' belong to jaanga, are intended to be generic and can be used with any app
 	* Names beginninh with 'v3' belong to vA3C, are intendeed to be very specific and targeted to the particular app
 	* During the initial development process the distinctions become blurred
+* Code is highly-risk taking
+	* Example: Double quotes only used when absolutely necessary
+		* The world: <html lang="en">
+		* Us: <html lang=en>
+* Code is designed to be load or render on demand
+* Code style
+	* Generally follows 'MDCS' 
+	* As generous horizonatally but much more greedy veritically
+	* Also passes jsHint
 * Code is designed to be seriously easy
 	* Encourages engineers, architects and designers and non-professional programmers to add features
- 
+	* No need to know jQuery, Backbone, Angular. Get going if you only kow a tiny bit of JavaScript
+	* And do feel free to build a jQuery version...
 
 ## Road Map
 
+* Bring in all append files as 3DObjects
+* Add boilerplate/default file choices to preferences tab
+* Add default light, shading settings to lights tab
+* Add 3D project management tab
+* Add people dancing in the streets tab
+* Add Jaanga Terrain Viewer tab
 * Open files via URL
 * Open files via Drag and Drop
 * Add zoom extents
 * Add rotate view after a period of inactivity
 * Add choice of camera controllers 
 * Add tree view of meshes, materials and attributes
-* Display attributes
 * Fix any model texture display issues
 * Add permalink read and create capability
 * Add ability to toggle visibility of any mesh. Layers?
@@ -166,6 +189,11 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+2014-07-27 ~ Theo
+
+* Display attributes
+* Much tightening of file open code
 
 2014-07-25 ~ Theo
 

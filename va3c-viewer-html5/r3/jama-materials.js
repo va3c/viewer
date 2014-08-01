@@ -55,6 +55,7 @@
 		chkMaterial.checked = false;
 		scene.select.material = JAMA.materials[ key ].set();
 		divMsg3.innerHTML = 'Material: <b>' + JAMA.materials[ key ].title + '</b>';
+		scene.select.materialKey = key;
 
 	};
 

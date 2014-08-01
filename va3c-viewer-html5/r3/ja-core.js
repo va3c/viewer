@@ -3,7 +3,6 @@
 	JA.titleIcon = '<i class="fa fa-bomb"></i>';  // screen grab please
 	JA.TitleText = '"3D Parametric Equations"';
 
-
 	JA.addCSS = function() {
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
@@ -13,6 +12,7 @@
 			'#movable { background-color: #ccc; opacity: 0.8; cursor: move; left: 20px; max-width: 350px; max-height: ' + (window.innerHeight - 100) + 'px; ' +
 				'overflow-x: hidden; overflow-y: auto; padding: 10px; position: absolute; top: 20px; z-index: 50; }' +
 			'.button { background-color: #eee; outline: 1px #aaa solid; padding: 5px; }' +
+//			'.xyz { width: 50px; text-align: right; }' +
 		'';
 	};
 

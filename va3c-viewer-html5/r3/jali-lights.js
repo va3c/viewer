@@ -2,7 +2,6 @@
 
 	JALI.addLightsTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
-
 		tab.innerHTML =
 			'<a id=tabLight style=cursor:pointer; ><p class=button >' +
 				'<i class="fa fa-lightbulb-o"></i> Lights...' +
@@ -74,7 +73,6 @@
 //			JALI.lightCamera.position.set( -100, 100, 100 );
 			JALI.lightCamera.castShadow = true;
 
-
 			JALI.lightCamera.shadowCameraNear = 200;
 			JALI.lightCamera.shadowCameraFar = 400;
 			JALI.lightCamera.shadowBias = -0.002; // default 0 ~ distance fron corners?
@@ -85,6 +83,7 @@
 			JALI.lightCamera.shadowCameraTop = d;
 			JALI.lightCamera.shadowCameraBottom = -d;
 
+			scene.add( camera );   // to track light
 			camera.add( JALI.lightCamera );
 			JALI.updateMaterials( scene.children );
 

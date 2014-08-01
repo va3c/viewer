@@ -28,10 +28,8 @@
 			fileTitle = V3MH.files[ i ][ 1 ];
 			basepath = V3MH.basepath + '/' + V3MH.files[ i ][ 0 ] + '/';
 			fname = V3MH.files[ i ][ 0 ];
-
 			fileList += '<a href=JavaScript:libOpenOver.checked=true;' +
-//				'V3LI.updateIframe(V3MH.files,' + i + ',"' + basepath + '","' + fname + '.html"); >' + fileTitle + '</a><br>';
-				'JAFO.openUrl("' + basepath + fname + '.html"); >' + fileTitle + '</a><br>';
+				'V3LI.updateIframe(V3MH.files,' + i + ',"' + basepath + '","' + fname + '.html"); >' + fileTitle + '</a><br>';
 		}
 
 		V3MH.JurgenMeier.innerHTML = 

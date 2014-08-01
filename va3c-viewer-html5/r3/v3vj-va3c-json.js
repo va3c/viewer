@@ -20,7 +20,8 @@
 			file = V3VJ.files[ i ][0];
 			boilerplate = V3VJ.files[ i ][1];
 			fileList += '<a href=JavaScript:' +
-				'V3LI.updateIframe(V3VJ.files,' + i + ',V3VJ.basepath,"' + file + '","' + boilerplate + '"); >' + file + '</a><br>';
+//				'V3LI.updateIframe(V3VJ.files,' + i + ',V3VJ.basepath,"' + file + '","' + boilerplate + '"); >' + file + '</a><br>';
+				'JAFO.appendUrl("' + V3VJ.basepath + file + '"); >' + file + '</a><br>';
 		}
 
 		V3VJ.JSONBrowseTab.innerHTML =

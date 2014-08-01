@@ -8,6 +8,12 @@
 	var geometry, material, mesh;
 	var app;
 
+	var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
+	var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians
+
+	function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
+
+
 	JATH.camX = 100;
 	JATH.camY = 100;
 	JATH.camZ = 100;
@@ -70,13 +76,13 @@
 
 	JATH.resetCamera = function() {
 //console.log( camera );
-		if ( !camera ) return;
-//		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
-
-		camera.position.set( JATH.camX, JATH.camY, JATH.camZ );
 		if ( !controls ) return;
 //		controls = new THREE.TrackballControls( camera, renderer.domElement );
 		controls.target.set( JATH.tarX, JATH.tarY, JATH.tarZ );
+
+		if ( !camera ) return;
+
+		camera.position.set( JATH.camX, JATH.camY, JATH.camZ );
 	};
 
 /*
@@ -110,6 +116,7 @@
 				txt += key + ' ' + data[ key ] + '<br>';
 			}
 			JATH.attributes.innerHTML = txt;
+			JAGE.updateGeometryTab( scene.select )
 // console.log( scene.select )
 
 		}

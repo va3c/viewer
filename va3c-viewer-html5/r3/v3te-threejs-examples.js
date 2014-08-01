@@ -31,7 +31,10 @@
 		for ( var i = 0, len = V3TM.files.length; i < len; i++ ) {
 			file = V3TM.files[ i ][ 0 ];
 			boilerplate = V3TM.files[ i ][ 1 ]; 
-			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TM.files,' + i + ',V3TM.basepath,"' + V3TM.files[ i ][0] + '","' + boilerplate + '"); >' + file + '</a><br>';
+//			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TM.files,' + i + ',V3TM.basepath,"' + V3TM.files[ i ][0] + '","' + boilerplate + '"); >' + file + '</a><br>';
+			fileList += '<a href=JavaScript:JAFO.appendUrl("' + V3TM.basepath + V3TM.files[ i ][0] + '"); >' + file + '</a><br>';
+
+
 		}
 
 		V3TM.threejsModelsTab.innerHTML =
@@ -179,7 +182,9 @@
 		for ( var i = 0, len = V3TO.files.length; i < len; i++ ) {
 			file = V3TO.files[ i ][ 0 ];
 			boilerplate = V3TO.files[ i ][ 1 ];
-			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TO.files,' + i + ',V3TO.basepath,"' + V3TO.files[ i ][0] + '","' + boilerplate + '"); >' + file + '</a><br>';
+//			fileList += '<a href=JavaScript:V3LI.updateIframe(V3TO.files,' + i + ',V3TO.basepath,"' + V3TO.files[ i ][0] + '","' + boilerplate + '"); >' + file + '</a><br>';
+			fileList += '<a href=JavaScript:JAFO.appendUrl("' + V3TO.basepath + V3TO.files[ i ][0] + '"); >' + file + '</a><br>';
+
 		}
 
 		V3TO.threejsObjTab.innerHTML =
@@ -253,7 +258,9 @@
 		for ( var i = 0, len = V3TB.files.length; i < len; i++ ) {
 			file = V3TB.files[ i ][ 0 ];
 			fileList += '<a href=JavaScript:libOpenOver.checked=true;' +
-				'V3LI.updateIframe(V3TB.files,' + i + ',V3TB.basepath,"' + V3TB.files[ i ][0] + '",""); >' + file + '</a><br>';
+//				'V3LI.updateIframe(V3TB.files,' + i + ',V3TB.basepath,"' + V3TB.files[ i ][0] + '",""); >' + file + '</a><br>';
+				'JAFO.openUrl("' + V3TB.basepath + V3TB.files[ i ][0] + '"); >' + file + '</a><br>';
+
 		}
 		V3TB.ThreeHTMLTab.innerHTML =
 			'<p>HTML sourced from: <b><a href="http://threejs.org" target="_blank">Three.js</a></b></p>' +
