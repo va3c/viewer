@@ -22,12 +22,12 @@
 		tab.style.cssText = 'cursor: auto;';
 		tab.innerHTML =
 			'<h2>' +
-				'<a id=iconHome ><i class="fa fa-home"></i></a> ' +
+				'<a id=iconHome href=# onclick=JATH.resetCamera(); ><i class="fa fa-home"></i></a> ' +
 			'</h2>'; 
 		iconHome.title = "Reset to default view";
 
 		window.addEventListener( 'resize', JATH.onWindowResize, false );
-		window.addEventListener( 'click', JATH.resetCamera, false );
+//		window.addEventListener( 'click', JATH.resetCamera, false );
 
 	};
 

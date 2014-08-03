@@ -233,7 +233,7 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 			}
 		}
 		window.location.hash = txt;
-console.log( 'setPermalinks', txt );
+//console.log( 'setPermalinks', txt );
 	};
 
 		var hashes, values;
