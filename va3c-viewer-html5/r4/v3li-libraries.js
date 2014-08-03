@@ -15,7 +15,7 @@
 		V3LI.libraries.innerHTML =
 //			'<input type=radio name=libFileOpen id=libOpenOver /> Overwrite current view<br>' +
 //			'<input type=radio name=libFileOpen id=libOpenAppend /> Append to current view<br>' +
-			'<p>A work in progress. Much broken. Nonetheless lots worth exploring. More goodies on the way...</p>' +
+			'<p>A work in progress. Much broken. Nonetheless some aspects worth exploring. More goodies on the way...</p>' +
 		'';
 
 //		libOpenOver.checked = true;
