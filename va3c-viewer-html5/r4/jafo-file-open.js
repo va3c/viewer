@@ -2,13 +2,14 @@
 
 	var JAFO = {} || JAFO;
 
+	var cnt = 0;
+	var camRadius = 250;
+
 	if ( window.location.origin === 'http://' ) {
 		JAFO.loadersBase = '../../../three.js/examples/';
 	} else {
 		JAFO.loadersBase = '../../../../three.js/examples/';
 	}
-
-//	JAFO.count = 0;
 
 	JAFO.addFileOpenTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
@@ -17,6 +18,7 @@
 			'<a href=# id=tabFileOpen ><p class=button >' +
 				'<i class="fa fa-paw"></i> File Open...' +
 			'</p></a>'; 
+		tabFileOpen.style.cssText = 'background-color: #88f; ';
 		tabFileOpen.onclick = function() { JA.toggleTab( JAFO.FileOpen ); };
 
 		JAFO.FileOpen = JA.menu.appendChild( document.createElement( 'div' ) );
@@ -26,6 +28,7 @@
 			'Scale: <input type=number id=inpScale value=1.000 max=1000 min=0.001 step=0.1 /><br>' +
 			'<p>Open & overwrite current view: <input type=file id=inpOpenFile ></p>' +
 			'<p>Append to current view: <input type=file id=inpAppendFile ></p>' +
+			'<p>Note; files that scenes always overwrite.</p>' +
 		'';
 
 		inpOpenFile.onchange = function() { JAFO.openFile ( this ); };
@@ -39,22 +42,75 @@
 		}
 	};
 
-	JAFO.openUrl = function ( things ) {  // good
-console.log( 'openHtml', things[0] )
-		var extension = things[0]['tmpl'].split( '.' ).pop().toLowerCase();
+
+	JAFO.openArrayOfPermalinks = function ( things ) {
+// console.clear();
+//console.log( 'openArrayOfPermalinks', things ) 
+		var iframes = document.getElementsByTagName('iframe');
+		iframes[0].parentNode.removeChild(iframes[0]);
+		JAFO.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
+		JAFO.ifr.height = window.innerHeight;
+		JAFO.ifr.width = window.innerWidth;
+		JAFO.ifr.style.cssText = 'border-width: 0; position: absolute; ';
+
+		JAFO.ifr.onload = function() {
+			JAFO.addUsefelThings( things );
+			for (var i = 1, len = JAPL.things.length; i < len; i++) {
+				JAFO.appendThing( JAPL.things[i] );
+
+				JAFO.ifr.contentWindow.animate3 = function() {
+					requestAnimationFrame( JAFO.ifr.contentWindow.animate3 );
+					for (var i = 0, len = scene.children.length; i < len; i++) {
+						if ( scene.children[i].geometry ) {
+							scene.children[i].rotation.y += 0.001;
+							scene.children[i].rotation.z += 0.001;
+						}
+					}
+					cnt += 0.001;
+					camera.position.set( Math.sin( cnt * 0.7 ) * camRadius, Math.cos( cnt * 0.3 ) * camRadius,  Math.sin( cnt * 0.2 ) * camRadius );
+				}
+				JAFO.ifr.contentWindow.animate3();
+			}
+		};
+		JAFO.ifr.src = things[0].url;
+	};
+
+	JAFO.appendThing = function ( thing ) { // good
+//console.clear();
+
+//console.log( 'append Thing', thing);
+		var link = thing.url;
+		var contents = JAFO.requestFile( link );
+		JAFO.switchType( link, contents, 1, thing );
+
+		var filename = link.split('/').pop();
+		divMsg1.innerHTML += '<br>append: ' + filename;
+	};
+
+
+	JAFO.openUrl = function ( link ) {  // good
+console.clear();
+
+		var thing = JAPL.addValues();
+		thing.url = link;
+		JAPL.things = [];
+		JAPL.things.push( thing );
+
+		var extension = link.split( '.' ).pop().toLowerCase();
 		JAFO.ifr.src = '';
 		if ( extension === 'html' ) {
-			JAFO.ifr.onload = function() {
-				var title = JAFO.ifr.contentDocument.title
-				JAFO.addUsefelThings( things, title );
-			};
-			JAFO.ifr.src = things[0]['tmpl'];
+console.log( 'open link HTML ', JAPL.things );
 
+			JAFO.ifr.onload = function() {
+				JAFO.addUsefelThings( JAPL.things );
+			};
+			JAFO.ifr.src = link;
 
 		} else {
 			JAFO.ifr.onload = function() {
-console.log( 'openObject', link );
-				JAFO.addUsefelThings( link, 'title', thing );
+console.log( 'open link Object', link );
+				JAFO.addUsefelThings( things );
+				link = things[0].url;
 				var contents = JAFO.requestFile( link );
 				JAFO.switchType( link, contents, inpScale.value );
 			};
@@ -63,6 +119,7 @@ console.log( 'openObject', link );
 	};
 
 	JAFO.openFile = function ( that ) {  // good
+console.clear();
 		if ( !that.files ) return;
 
 		var filename = that.files[0].name;
@@ -79,25 +136,33 @@ console.log( 'openObject', link );
 					}
 					JAFO.ifr.srcdoc = contents;
 
-console.log( 'read html ' )
+console.log( 'openFile html ' )
 				}, false );
 				reader.readAsText( that.files[0] );
 
 		} else {
+
 			JAFO.ifr.onload = function() {
-console.log( 'read Object ' )
+console.log( 'openFile Object ' )
+
+
+				var thing = JAPL.addValues();
+				thing.url = that.files[0].name;
+				JAPL.things = [];
+				JAPL.things.push( thing );
+
 				var filename = that.files[0].name;
 				var scale = inpScale.value;
 				var reader = new FileReader();
 
 				reader.addEventListener( 'load', function ( event ) {
 					var contents = reader.result;
-					JAFO.switchType( filename, contents, scale );
+					JAFO.switchType( filename, contents, scale, thing );
 				}, false );
 
 				reader.readAsText( that.files[0] );
 
-				JAFO.addUsefelThings( filename );
+				JAFO.addUsefelThings( JAPL.things );
 
 			};
 			JAFO.ifr.src = 'boilerplate-simple.html';
@@ -105,14 +170,18 @@ console.log( 'read Object ' )
 		}
 	};
 
-	JAFO.addUsefelThings = function( things, title ) {
-		var name = title ? title : things[0]['tmpl'].split('/').pop();
+	JAFO.addUsefelThings = function( things ) {
+		var name;
+		var thing = things[0];
+		if ( JAFO.ifr.contentDocument.title ) {
+			name = JAFO.ifr.contentDocument.title;
+		} else {
+			name = thing.url.split('/').pop();
+		}
 		app = JAFO.ifr.contentWindow;
 		THREE = app.THREE;
 		renderer = app.renderer;
 		scene = app.scene;
-		scene.name = name;
-		scene.select = app.mesh;
 		camera = app.camera;
 		controls = app.controls;
 		material = app.material;
@@ -144,59 +213,77 @@ console.log( 'read Object ' )
 			script.src = 'http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js'
 		}
 
-		var thg = JAPL.things[0];
-
-		if ( controls && thg ) {
-			controls.target.set( thg['tarx'], thg['tary'], thg['tarz'] );
-			camera.position.set( thg['camx'], thg['camy'], thg['camz'] );
+		if ( controls) {
+			controls.target.set( thing.tarx, thing.tary, thing.tarz );
+			camera.position.set( thing.camx, thing.camy, thing.camz );
 			camera.up = v( 0, 1, 0 );
 		}
 
 		JAPR.setRandomGradient();
 
-		projector = new THREE.Projector();
-		app.window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
+		scene.name = name;
+//		scene.template = thing.url;
 
-		scene.template = things[0]['tmpl'];
-		scene.select = scene.children[ 0 ];
+		scene.select = app.mesh ? app.mesh : scene.children[ 0 ];
 		scene.select.name = name;
-		scene.select.link = things[0]['tmpl'];
+		scene.select.link = things.url;
 
-//		scene.select.material = things[0]['mat'];
+		scene.select.position.set( thing.posx, thing.posy, thing.posz );
+		scene.select.rotation.set( thing.rotx, thing.roty, thing.rotz );
+		scene.select.scale.set( thing.sclx, thing.scly, thing.sclz );
+
+//		scene.select.material = JAMA.materials[ thing.mat ].set();
+
 //		scene.select.castShadow = true;
 //		scene.select.receiveShadow = true;
+//		scene.select.geometry.buffersNeedUpdate = true;
+//		scene.select.geometry.uvsNeedUpdate = true;
+//		scene.select.material.needsUpdate = true;
+
+		JATH.addObjectClickEvent();
 
 		JAFO.targetList = scene.children;
 
+		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = name;
 		divMsg1.innerHTML = 'Base: ' + name;
 
-
-		for (var i = 1, len = JAPL.things.length; i < len; i++) {
-//			JAFO.appendUrl( JAPL.things[i]["url"], 1, JAPL.things[i] );
-		}
+//		for (var i = 1, len = JAPL.things.length; i < len; i++) {
+//			JAFO.appendUrl( JAPL.things[i].url, 1, JAPL.things[i] );
+//		}
 	}
 
-	JAFO.appendUrl = function ( link, scale, thing ) { // good
-console.log( 'append URL', thing);
+	JAFO.appendUrl = function ( link, scale ) { // good
+//console.clear();
+		var thing = JAPL.addValues();
+		thing.url = link;
+
+		JAPL.things.push( thing );
 		var scl = scale ? scale : 1;
+console.log( 'append URL',link, scale, thing);
 		var contents = JAFO.requestFile( link );
 		JAFO.switchType( link, contents, scl, thing );
+
 		var filename = link.split('/').pop();
 		divMsg1.innerHTML += '<br>append: ' + filename;
 	};
 
 	JAFO.appendFile = function ( that ) { // good
-console.log( 'append file');
+		var thing = JAPL.addValues();
+		thing.url = that.files[0].name;
+
+		JAPL.things.push( thing );
+
 		if ( that.files ) {
-			var filename = that.files[0].name;
+			var fileName = that.files[0].name;
+console.log( 'append file', fileName );
 			var reader = new FileReader();
 			reader.addEventListener( 'load', function ( event ) {
 				var contents = reader.result;
-				JAFO.switchType( filename, contents, inpScale.value );
+				JAFO.switchType( fileName, contents, inpScale.value, thing );
 			}, false );
 
 			reader.readAsText( that.files[0] );
-			divMsg1.innerHTML += '<br>append ' + filename;
+			divMsg1.innerHTML += '<br>append ' + fileName;
 		}
 	};
 
@@ -390,6 +477,9 @@ console.log( 'worker did some work!', link );
 			mesh.material = new THREE.MeshPhongMaterial();
 			mesh.castShadow = true;
 			mesh.receiveShadow = true;
+			mesh.geometry.buffersNeedUpdate = true;
+			mesh.geometry.uvsNeedUpdate = true;
+			mesh.material.needsUpdate = true;
 
 			scene.add( object );
 			scene.select = mesh;
@@ -399,7 +489,7 @@ console.log( 'worker did some work!', link );
 	};
 
 	JAFO.handleJSON = function ( data, link, scale, thing ) {
-console.log( 'xxxthing', thing );
+//console.log( 'handleJSON', thing );
 		var loader, result;
 
 		if ( data.metadata === undefined ) { // 2.0
@@ -412,12 +502,12 @@ console.log( 'xxxthing', thing );
 			data.metadata.version = data.metadata.formatVersion;
 		}
 		if ( data.metadata.type.toLowerCase() === 'geometry' ) {
-console.log( 'geometry' );
+// console.log( 'found geometry' );
 			loader = new THREE.JSONLoader();
 			result = loader.parse( data );
 
 			geometry = result.geometry;
-
+/*
 			if ( result.materials !== undefined ) {
 				if ( result.materials.length > 1 ) {
 					material = new THREE.MeshFaceMaterial( result.materials );
@@ -429,8 +519,9 @@ console.log( 'geometry' );
 			} else {
 				material = JAMA.materials[ 'NormalSmooth' ].set();
 			}
+*/
+			material = JAMA.materials[ thing.mat ].set();
 
-			material = JAMA.materials[ thing['mat'] ].set();
 
 			geometry.sourceType = "ascii";
 			geometry.sourceFile = link;
@@ -438,16 +529,29 @@ console.log( 'geometry' );
 			var mesh = new THREE.Mesh( geometry, material );
 			mesh.castShadow = true;
 			mesh.receiveShadow = true;
-			
-			if ( thing ) {
-				mesh.position.set( thing['posx'], thing['posy'], thing['posz'] );
-				mesh.rotation.set( thing['rotx'], thing['roty'], thing['rotz'] );
-				mesh.scale.set( thing['sclx'], thing['scly'], thing['sclz'] );
-				mesh.materialKey = thing['mat'];
-			} else {
-console.log( ' no thing');
-				mesh.scale.set( scale, scale, scale );
-			}
+
+/*
+
+trying to stop: [.WebGLRenderingContext]GL ERROR :GL_INVALID_OPERATION : glDrawElements: range out of bounds for buffer 
+
+		mesh.geometry.dynamic = true;
+		mesh.geometry.verticesNeedUpdate = true;
+		mesh.geometry.normalsNeedUpdate = true;
+		mesh.geometry.computeFaceNormals();
+		mesh.geometry.computeVertexNormals();
+		mesh.geometry.computeTangents();
+		mesh.geometry.computeMorphNormals();
+		mesh.geometry.buffersNeedUpdate = true;
+		mesh.geometry.uvsNeedUpdate = true;
+		mesh.material.needsUpdate = true;
+*/
+
+			mesh.position.set( thing.posx, thing.posy, thing.posz );
+			mesh.rotation.set( thing.rotx, thing.roty, thing.rotz );
+			mesh.scale.set( thing.sclx, thing.scly, thing.sclz );
+
+			mesh.materialKey = thing.mat;
+//			mesh.scale.set( scale, scale, scale );
 			mesh.name = link.split('/').pop();
 			mesh.link = link;
 
@@ -461,10 +565,11 @@ console.log( ' no thing');
 			result = loader.parse( data );
 
 			if ( result instanceof THREE.Scene ) {
+console.log( 'found scene' )
 				JAFO.updateScene( result, link, scale, thing );
 
 			} else {
-console.log( 'object', result );
+console.log( 'found object', result );
 				scene.add( result );
 				scene.select = result;
 				scene.select.name = link.split('/').pop();
@@ -473,36 +578,33 @@ console.log( 'object', result );
 				scene.select.castShadow = true;
 				scene.select.receiveShadow = true;
 
-				if ( thing ) {
-					scene.select.position.set( thing['posx'], thing['posy'], thing['posz'] );
-					scene.select.rotation.set( thing['rotx'], thing['roty'], thing['rotz'] );
-					scene.select.scale.set( thing['sclx'], thing['scly'], thing['sclz'] );
-					scene.select.material = JAMA.materials[ thing['mat'] ].set();
-					scene.select.materialKey = thing['mat'];
-				}
+				scene.select.position.set( thing['posx'], thing['posy'], thing['posz'] );
+				scene.select.rotation.set( thing['rotx'], thing['roty'], thing['rotz'] );
+				scene.select.scale.set( thing['sclx'], thing['scly'], thing['sclz'] );
+				scene.select.material = JAMA.materials[ thing['mat'] ].set();
+				scene.select.materialKey = thing['mat'];
+
 			}
 		} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
-console.log( 'deprecated');
+console.log( 'found deprecated');
 			// DEPRECATED
 			loader = new THREE.SceneLoader();
 			loader.parse( data, function ( result ) {
-//				scene.add( result.scene );
 				JAFO.updateScene( result, link, scale );
 			}, '' );
 		} else {
-console.log( 'wh0ops');
+console.log( 'found a whoopsie');
 		}
 	};
 
 	JAFO.updateScene = function( result, link, scale ) {
-console.log( 'scene' );
+console.log( 'updateScene', link );
 
-		JATH.attributes.innerHTML = '';
+		JATH.attributesDiv.innerHTML = '';
+
 		scene = result;
-
 		app.scene = scene;
 		scene.add( camera );
-
 
 		chkLightAmbient.checked = true;
 		JALI.toggleLightAmbient();
@@ -544,9 +646,6 @@ console.log( 'scene' );
 //					if ( scene.children[i].children[k].hasOwnProperty("geometry") ) {
 						JAFO.targetList.push( scene.children[i].children[k] );
 						scene.children[i].children[k].userData = scene.children[i].userData;
-//					} else {
-
-//					}
 				}
 			}
 		} else {

@@ -13,12 +13,12 @@
 		V3LI.libraries = JA.menu.appendChild( document.createElement( 'div' ) );
 		V3LI.libraries.style.cssText = 'cursor: auto; display: ; ' ;
 		V3LI.libraries.innerHTML =
-			'<input type=radio name=libFileOpen id=libOpenOver /> Overwrite current view<br>' +
-			'<input type=radio name=libFileOpen id=libOpenAppend /> Append to current view<br>' +
+//			'<input type=radio name=libFileOpen id=libOpenOver /> Overwrite current view<br>' +
+//			'<input type=radio name=libFileOpen id=libOpenAppend /> Append to current view<br>' +
 			'<p>A work in progress. Much broken. Nonetheless lots worth exploring. More goodies on the way...</p>' +
 		'';
 
-		libOpenOver.checked = true;
+//		libOpenOver.checked = true;
 	};
 
 	V3LI.updateAboutTab = function() {
@@ -42,6 +42,9 @@
 			'</p>' +
 		'';
 	}
+
+
+// code below is a junk pile
 
 	V3LI.init = function() {
 // if a permalink is found use it, otherwise load the default

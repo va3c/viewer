@@ -50,8 +50,6 @@
 
 	 JAGE.updateGeometryTab = function ( obj ) {
 
-		JATH.attributes.innerHTML = geoMsg.innerHTML = obj.name.split( '/' ).pop();
-
 		rngPosX.value = outPosX.value = obj.position.x;
 		rngPosY.value = outPosY.value = obj.position.y;
 		rngPosZ.value = outPosZ.value = obj.position.z;

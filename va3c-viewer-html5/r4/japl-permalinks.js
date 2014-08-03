@@ -44,11 +44,11 @@
 
 			'<p><small><i><a href="http://en.wikipedia.org/wiki/Permalink" target="_blank">Permalinks</a> enable you to create a scene and save it as a link you can share..</i></small></p>' +
 
-			'<p><a href=JavaScript:JAPL.getAutoCrap(); >Get AUTOcrap</a></p>' +
-
 			'<p><a href=JavaScript:JAPL.setPermalinks(); >Set Permalinks</a></p>' +
 
 			'<p><a href=JavaScript:JAPL.parsePermalinks(); >Parse Permalinks</a></p>' +
+
+			'<p><a href=JavaScript:location.hash="autocrapdoodle";JAPL.parsePermalinks(); >Get AUTOcrapdoodle</a></p>' +
 
 			'<p><a href=JavaScript:JAPL.clearPermalink(); >Clear Permalink</a></p>' +
 
@@ -62,47 +62,98 @@
 
 	};
 
-	JAPL.getAutoCrap = function() {
 
+	JAPL.getAutoCrapdoodle = function() {
+		var items, index
 		var mats = [
 			'BasicRedFlat','LambertRandomSmooth','NormalFlat','NormalSmooth','NormalWireframe','PhongBlueFlat','PhongBlueRefractPisa','PhongDefault',
 			'PhongDefaultReflectDenim','PhongDefaultReflectWhite','PhongDefaultReflectionBasic','PhongDefaultRefractDenim','PhongGoldRefLectWhite',
 			'PhongGreenSmooth','PhongPurpleFlat','PhongRandom','PhongRandomReflectCadillac','PhongRandomReflectDenim','PhongRandomReflectDisturb',
 			'PhongRandomReflectGrid','PhongRandomReflectLavatile','PhongRandomReflectUVGrid','PhongRandomReflectWhite','PhongRandomReflectWire',
 			'PhongRedPlastic','PhongWhiteReflectPisa','PhongWhiteReflectWhite','PhongWhiteRelectPalace'
-		]
-		var mat1 = mats[ Math.floor( mats.length * Math.random() ) ];
-		var mat2 = mats[ Math.floor( mats.length * Math.random() ) ];
-		var mat3 = mats[ Math.floor( mats.length * Math.random() ) ];
+		];
 
-		var items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
-		var index = items[ Math.floor( items.length * Math.random() ) ];
+// camera position
+		var radius = 250;
+		var lat = Math.PI * Math.random();
+		var lon = Math.PI * Math.random();
+		var cx = radius * Math.sin( lat ) * Math.cos( lon );
+		var cy = radius * Math.cos( lat );
+		var cz = radius * Math.sin( lat ) * Math.sin( lon );
+
+// Meier's parametric equations
+		items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
+		index = items[ Math.floor( items.length * Math.random() ) ];
 		fileTitle = V3MH.files[ index ][ 1 ];
 		basepath = V3MH.basepath + V3MH.files[ index ][ 0 ] + '/';
 		fname = V3MH.files[ index ][ 0 ] + '.html';
-		JAPL.url = basepath + fname;
 
+// vA3C Objects
+		files = ['DrMajentaKlein.json','Hex_01.json','TypTower.json'];
+		file = files[ Math.floor( files.length * Math.random() ) ];
+		va3cFile = '../../../json-r2/' + file;
+
+// aircraft 	V3FA.files
+		index = V3FA.files[ Math.floor( V3FA.files.length * Math.random() ) ];
+		var aircraftFile = V3FA.basepath + index[ 0 ];
+		var aircraftScale = 3 * index[ 1 ];
+
+// Three.js models
+		items = [ ['animated/elderlyWalk.js',100],['animated/flamingo.js',1],['animated/horse.js',1],['animated/parrot.js',1.5],
+			['animated/monster/monster.js',0.05],['animated/ogro/ogro-light.js',3],
+			['animated/ratamahatta/ratamahatta.js',2],['gltf/duck/duck.dae',100],['skinned/marine/m4.js',2],
+			['skinned/marine/marine.js',0.5]
+		];
+		index = Math.floor( items.length * Math.random() );
+
+		var threeModelName = V3TM.basepath + items[ index ][ 0 ];
+		var threeModelScale = items[ index ][ 1 ];
+
+console.log( 'getAutoCrapdoodle load', threeModelName );
+
+		var d1 = 100, dim2 = 50;
 		var txt = '' +
-			'#camx=' + ( 200 * Math.random() - 100 ) + '#camy=' + ( 200 * Math.random() - 100 ) + '#camz=' + ( 200 * Math.random() - 100 ) + 
+			'#camx=' + cx + '#camy=' + cy + '#camz=' + cz + 
 			'#tarx=0#tary=0#tarz=0' +
-			'#tmpl=' + basepath + fname +
-			'#posx=' + ( 200 * Math.random() - 100 ) + '#posy=' + ( 200 * Math.random() - 100 ) + '#posz=' + ( 200 * Math.random() - 100 ) + 
-			'#rotx=0.5#roty=0.9#rotz=0.2#sclx=1#scly=1#sclz=1#mat=' + mat1 +
-			'#url=' + basepath + fname + '&' +
+			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' + ( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) + 
+			'#rotx=1#roty=1#rotz=1#sclx=1#scly=1#sclz=1#mat=NormalSmooth' + // mat1 +
+			'#url=' + basepath + fname + 
+		'&' +
 
-			'#posx=' + ( 200 * Math.random() - 100 ) + '#posy=' +( 200 * Math.random() - 100 ) + '#posz=' + ( 200 * Math.random() - 100 ) +
+			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
 			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
-			'#sclx=1#scly=1#sclz=1#mat=' + mat2 +
-			'#url=../../../../three.js/examples/models/animated/flamingo.js&' +
+			'#sclx=1#scly=1#sclz=1#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
+			'#url=' + va3cFile +
+		'&' +
 
-			'#posx=' + ( 200 * Math.random() - 100 ) + '#posy=' +( 200 * Math.random() - 100 ) + '#posz=' + ( 200 * Math.random() - 100 ) +
+			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
 			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
-			'#sclx=3#scly=3#sclz=3#mat=' + mat3 +
-			'#url=../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js&'; 
-		'';
+			'#sclx=' + threeModelScale + '#scly=' + threeModelScale + '#sclz=' + threeModelScale + '#mat=' + mats[ Math.floor( mats.length * Math.random() ) ]  +
+			'#url=' + threeModelName +
+		'&' +
+
+			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
+			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
+			'#sclx=1#scly=1#sclz=1#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
+			'#url=../../../../three.js/examples/models/animated/flamingo.js' +
+		'&' +
+
+			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
+			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
+			'#sclx=3#scly=3#sclz=3#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
+			'#url=../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js' +
+		'&' +
+			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
+			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
+			'#sclx=' + aircraftScale + '#scly=' + aircraftScale + '#sclz=' + aircraftScale + '#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
+			'#url=' + aircraftFile +
+
+		'&';
 		location.hash = txt;
-console.log( txt );
-	}
+		JAPL.parsePermalinks();
+
+//console.log( txt );
+	};
 
 	JAPL.setPermalinks = function() {
 		var c = camera.position;
@@ -138,7 +189,7 @@ console.log( txt );
 
 		for (var i = 0, len = scene.children.length; i < len; i++) {
 			var obj = scene.children[i];
-// 			if ( obj.geometry && scene.template !== obj.link ) {
+//			if ( obj.geometry && scene.template !== obj.link ) {
 			if ( obj.geometry ) {
 				txt += '#url=' + obj.link;
 
@@ -179,13 +230,18 @@ console.log( txt );
 		}
 		window.location.hash = txt;
 console.log( 'pmp', txt );
-	}
-		var hashes, vales;
-	JAPL.parsePermalinks = function() {
+	};
 
+		var hashes, values;
+
+	JAPL.parsePermalinks = function() {
+//console.log( 'parsePermalinks' );
+		JAPL.things = [];
+		var items;
 		if ( !location.hash ) {
 
-			var items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
+			values = JAPL.addValues();
+			items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
 			index = items[ Math.floor( items.length * Math.random() ) ];
 			fileTitle = V3MH.files[ index ][ 1 ];
 			basepath = V3MH.basepath + '/' + V3MH.files[ index ][ 0 ] + '/';
@@ -195,37 +251,40 @@ console.log( 'pmp', txt );
 				'#tmpl=' +  basepath + fname +
 				'#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1#mat=NormalSmooth' +
 				'#url=' + basepath + fname +
-			''];
-
-		} else {
-
-			var txt = '';
-			hashes = location.hash.split('&');
-		}
-
-		for ( var i = 0; i < hashes.length; i++ ) {
-
-			values = {};
-			for ( var key in JAPL.defaults ) {
-				values[ key ] = JAPL.defaults [ key ];
-			}
-
-			items = hashes[i].slice(1).split( '#' );
-			for ( var j = 0; j < items.length; j++ ) {
-				item = items[j].split( '=' );
-				if ( item[0] === 'mat' || item[0] === 'tmpl' || item[0] === 'url' ) {
-					values[ item[0] ] = item[1];
-				} else {
-					values[ item[0] ] = parseFloat( item[1] );
-				}
-			}
-
+			'&'];
+			values.url =  basepath + fname;
 			JAPL.things.push( values );
+		} else if ( location.hash.toLowerCase().indexOf('auto') >  0 ){
+			JAPL.getAutoCrapdoodle();
+			location.hash = 'autocrapdoodle';
+		} else {
+			hashes = location.hash.split('&');
+			for ( var i = 0; i < hashes.length - 1; i++ ) {
+				values = JAPL.addValues();
+				items = hashes[i].slice(1).split( '#' );
+				for ( var j = 0; j < items.length; j++ ) {
+					item = items[j].split( '=' );
+					if ( item[0] === 'mat' || item[0] === 'tmpl' || item[0] === 'url' ) {
+						values[ item[0] ] = item[1];
+					} else {
+						values[ item[0] ] = parseFloat( item[1] );
+					}
+				}
+				JAPL.things.push( values );
+			}
 		}
 
-console.log( 'things', values, JAPL.things );
-		JAFO.openUrl( JAPL.things );
-	}
+//console.log( 'parsePermalink things', values, JAPL.things );
+		JAFO.openArrayOfPermalinks( JAPL.things );
+	};
+
+	JAPL.addValues = function() {
+		var values = {};
+		for ( var key in JAPL.defaults ) {
+			values[ key ] = JAPL.defaults [ key ];
+		}
+		return values;
+	};
 
 	JAPL.clearPermalink = function () {
 		window.history.pushState( '', '', window.location.pathname);
