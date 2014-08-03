@@ -32,7 +32,12 @@ The scripts here are updates to the competition entry and winner of the second p
 ## Features
 <!-- and benefits -->
 
+
+
 ### File Management
+
+* AutoCrapdoodle feature
+	* An experiment in playing with files in the cloud
 * Provides fast, simple access to 3D models, objects and HTML files
 * Uses the DOM to provide very deep editing and control access to the imported models.
 * Opens for editing and manipulation
@@ -63,6 +68,7 @@ The scripts here are updates to the competition entry and winner of the second p
 * Select any mesh for editing by clicking it on screen.
 * Geometry Tab
 	* Update position, scale and rotation any geometry in any of the above
+	* Delete currently selected object
 	* Guided by real-time sliders or via text data input
 * Material Select Tab
 	* Apply any of several dozen pre-defined materials to any mesh
@@ -113,9 +119,15 @@ The scripts here are updates to the competition entry and winner of the second p
 	* Encourages engineers, architects and designers and non-professional programmers to add features
 	* No need to know jQuery, Backbone, Angular. Get going if you only kow a tiny bit of JavaScript
 	* And do feel free to build a jQuery version...
+* Content, appearance and behavior that are related are kept togther
+	* Every .js files contains all its associated CSS, HTML data - as well as the JavaScript
+	* No need to keep three files open. It's all in one file just in front of you
+	* This part of techniques that help you become more accustomed too the DOM
 
 ## Road Map
 
+* Divide menu into multiple, scrollable panels
+* Add UI themes including fixed position side bar menus
 * Bring in all append files as 3DObjects
 * Add boilerplate/default file choices to preferences tab
 * Add default light, shading settings to lights tab
@@ -129,10 +141,8 @@ The scripts here are updates to the competition entry and winner of the second p
 * Add choice of camera controllers 
 * Add tree view of meshes, materials and attributes
 * Fix any model texture display issues
-* Add permalink read and create capability
 * Add ability to toggle visibility of any mesh. Layers?
 * Add ability to add texture to material of selected objects
-* Add delete capability to Geometry tab
 * Add standard Three.js geometry tab
 * Add physics and booleans tabs
 * Add galleries of images of data files
@@ -151,8 +161,6 @@ Benjamin Howes, Jonatan Schumacher, Jeremy Tammik, Matt Mason, Kevin Vandecar, C
 ### Supporters 
 
 Mostapha Roudsari, Ashley Reed, Anne Waelkens, Jim Quanci, Elcin Ertugrul, Amir Tasbihi and many more. Others?
-
-
 
 
 ## Project Links
@@ -189,6 +197,11 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+2014-08-02 ~ Theo
+
+* Add permalink read and create capability
+* Add delete capability to Geometry tab
 
 2014-07-27 ~ Theo
 

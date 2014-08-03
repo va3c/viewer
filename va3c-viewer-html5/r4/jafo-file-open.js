@@ -28,7 +28,7 @@
 			'Scale: <input type=number id=inpScale value=1.000 max=1000 min=0.001 step=0.1 /><br>' +
 			'<p>Open & overwrite current view: <input type=file id=inpOpenFile ></p>' +
 			'<p>Append to current view: <input type=file id=inpAppendFile ></p>' +
-			'<p>Note; files that scenes always overwrite.</p>' +
+			'<p>Note: files that are scenes overwrite the current view.</p>' +
 		'';
 
 		inpOpenFile.onchange = function() { JAFO.openFile ( this ); };

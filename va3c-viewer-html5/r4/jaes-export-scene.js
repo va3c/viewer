@@ -4,6 +4,7 @@
 	JAES.callback = function() {};
 
 	JAES.addExportersTab = function() {
+
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Export current view to a data file';
 		tab.innerHTML =
@@ -16,9 +17,9 @@
 		JAES.exporters.style.cssText = 'cursor: auto; display: none; ' ;
 		JAES.exporters.innerHTML =
 			'<p>Save what you have created...</p>' +
-			'<p><a href=# onclick=JAES.exportGeometry(); >Export Geometry</a></p>' +
-			'<p><a href=# onclick=JAES.exportObject(); >Export Object</a></p>' +
-			'<p><a href=# onclick=JAES.exportScene(); >Export Scene</a></p>' +
+			'<p><a href=# onclick=JAES.exportGeometry(); title="Faces and vertices only. No materials." >Export Geometry</a></p>' +
+			'<p><a href=# onclick=JAES.exportObject(); title="Geometry & materials of currently selected objct" >Export Object</a></p>' +
+			'<p><a href=# onclick=JAES.exportScene(); title="Everything including lights and cameras" >Export Scene</a></p>' +
 		'';
 
 	};

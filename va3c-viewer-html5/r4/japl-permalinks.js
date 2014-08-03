@@ -42,15 +42,18 @@
 		var txt =
 		'<div>' +
 
-			'<p><small><i><a href="http://en.wikipedia.org/wiki/Permalink" target="_blank">Permalinks</a> enable you to create a scene and save it as a link you can share..</i></small></p>' +
+			'<p><small><i><a href="http://en.wikipedia.org/wiki/Permalink" target="_blank">Permalinks</a> ' +
+			'enable you to save a scene you have created and send it as a link you can share...</i></small></p>' +
 
-			'<p><a href=JavaScript:JAPL.setPermalinks(); >Set Permalinks</a></p>' +
+			'<p><a href=JavaScript:JAPL.setPermalinks(); title="Send current display parameters to the address bar" >Set Permalinks</a></p>' +
 
-			'<p><a href=JavaScript:JAPL.parsePermalinks(); >Parse Permalinks</a></p>' +
+			'<p><a href=JavaScript:JAPL.parsePermalinks(); title="Read data from the address bar and display the results" >Parse Permalinks</a></p>' +
 
-			'<p><a href=JavaScript:location.hash="autocrapdoodle";JAPL.parsePermalinks(); >Get AUTOcrapdoodle</a></p>' +
+			'<p><a href=JavaScript:location.hash="autocrapdoodle";JAPL.parsePermalinks(); title="Each reload brings randomly generated data files" >Get AUTOcrapdoodle</a></p>' +
 
-			'<p><a href=JavaScript:JAPL.clearPermalink(); >Clear Permalink</a></p>' +
+			'<p><a href=JavaScript:JAPL.clearPermalink(); title="Reset address bar to the default URL" >Clear Permalink</a></p>' +
+
+			'<p><a href="http://goo.gl/" target="_blank">Google URL Shortener</a></p>' +
 
 			'<p style=text-align:right; >' +
 				'<a class=button href=JavaScript:JA.toggleTab(JAPL.permalinks); >Close</a> ' +
@@ -229,7 +232,7 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 			}
 		}
 		window.location.hash = txt;
-console.log( 'pmp', txt );
+// console.log( 'pmp', txt );
 	};
 
 		var hashes, values;
