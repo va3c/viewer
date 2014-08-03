@@ -257,8 +257,7 @@
 		var file;
 		for ( var i = 0, len = V3TB.files.length; i < len; i++ ) {
 			file = V3TB.files[ i ][ 0 ];
-			fileList += '<a href=JavaScript:libOpenOver.checked=true;' +
-//				'V3LI.updateIframe(V3TB.files,' + i + ',V3TB.basepath,"' + V3TB.files[ i ][0] + '",""); >' + file + '</a><br>';
+			fileList += '<a href=JavaScript:' +
 				'JAFO.openUrl("' + V3TB.basepath + V3TB.files[ i ][0] + '"); >' + file + '</a><br>';
 
 		}

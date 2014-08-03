@@ -29,6 +29,7 @@
 			'<p>Open & overwrite current view: <input type=file id=inpOpenFile ></p>' +
 			'<p>Append to current view: <input type=file id=inpAppendFile ></p>' +
 			'<p>Note: files that are scenes overwrite the current view.</p>' +
+			'<p>Note: You cannot use local files to create permalinks.</p>' +
 		'';
 
 		inpOpenFile.onchange = function() { JAFO.openFile ( this ); };
@@ -57,7 +58,8 @@
 			JAFO.addUsefelThings( things );
 			for (var i = 1, len = JAPL.things.length; i < len; i++) {
 				JAFO.appendThing( JAPL.things[i] );
-
+			}
+			if ( location.hash.toLowerCase().indexOf('auto') >  0 ){
 				JAFO.ifr.contentWindow.animate3 = function() {
 					requestAnimationFrame( JAFO.ifr.contentWindow.animate3 );
 					for (var i = 0, len = scene.children.length; i < len; i++) {
@@ -170,6 +172,42 @@ console.log( 'openFile Object ' )
 		}
 	};
 
+	JAFO.appendUrl = function ( link, scale ) { // good
+//console.clear();
+		var thing = JAPL.addValues();
+		thing.url = link;
+
+		JAPL.things.push( thing );
+		var scl = scale ? scale : 1;
+console.log( 'append URL',link, scale, thing);
+		var contents = JAFO.requestFile( link );
+		JAFO.switchType( link, contents, scl, thing );
+
+		var filename = link.split('/').pop();
+		divMsg1.innerHTML += '<br>append: ' + filename;
+	};
+
+	JAFO.appendFile = function ( that ) { // good
+		var thing = JAPL.addValues();
+		thing.url = that.files[0].name;
+
+		JAPL.things.push( thing );
+
+		if ( that.files ) {
+			var fileName = that.files[0].name;
+console.log( 'append file', fileName );
+			var reader = new FileReader();
+			reader.addEventListener( 'load', function ( event ) {
+				var contents = reader.result;
+				JAFO.switchType( fileName, contents, inpScale.value, thing );
+			}, false );
+
+			reader.readAsText( that.files[0] );
+			divMsg1.innerHTML += '<br>append ' + fileName;
+		}
+	};
+
+
 	JAFO.addUsefelThings = function( things ) {
 		var name;
 		var thing = things[0];
@@ -252,40 +290,6 @@ console.log( 'openFile Object ' )
 //		}
 	}
 
-	JAFO.appendUrl = function ( link, scale ) { // good
-//console.clear();
-		var thing = JAPL.addValues();
-		thing.url = link;
-
-		JAPL.things.push( thing );
-		var scl = scale ? scale : 1;
-console.log( 'append URL',link, scale, thing);
-		var contents = JAFO.requestFile( link );
-		JAFO.switchType( link, contents, scl, thing );
-
-		var filename = link.split('/').pop();
-		divMsg1.innerHTML += '<br>append: ' + filename;
-	};
-
-	JAFO.appendFile = function ( that ) { // good
-		var thing = JAPL.addValues();
-		thing.url = that.files[0].name;
-
-		JAPL.things.push( thing );
-
-		if ( that.files ) {
-			var fileName = that.files[0].name;
-console.log( 'append file', fileName );
-			var reader = new FileReader();
-			reader.addEventListener( 'load', function ( event ) {
-				var contents = reader.result;
-				JAFO.switchType( fileName, contents, inpScale.value, thing );
-			}, false );
-
-			reader.readAsText( that.files[0] );
-			divMsg1.innerHTML += '<br>append ' + fileName;
-		}
-	};
 
 	JAFO.switchType = function ( link, contents, scale, thing ) {
 
@@ -293,7 +297,7 @@ console.log( 'append file', fileName );
 
 		switch ( extension ) {
 			case 'html' :
-console.log('switch html', thing );
+//console.log('switchType html', thing );
 				JAFO.loadHtml( link, contents, scale, thing );
 				break;
 
@@ -341,13 +345,12 @@ Each of the following functions should be enhanced to take advatage of the speci
 */
 
 	JAFO.loadHtml = function ( link, contents, scale, thing ) {
-console.log( 'load HTML', thing );
+//console.log( 'load HTML', thing );
 		scene.select = scene.children[0];
 		scene.select.name = link.split('/').pop();
 		scene.select.link = link;
 		scene.select.castShadow = true;
 		scene.select.receiveShadow = true;
-console.log( 'load HTML', scene.select );
 		scene.select.position.set( thing['posx'], thing['posy'], thing['posz'] );
 		scene.select.rotation.set( thing['rotx'], thing['roty'], thing['rotz'] );
 		scene.select.scale.set( thing['sclx'], thing['scly'], thing['sclz'] );
@@ -549,6 +552,9 @@ trying to stop: [.WebGLRenderingContext]GL ERROR :GL_INVALID_OPERATION : glDrawE
 			mesh.position.set( thing.posx, thing.posy, thing.posz );
 			mesh.rotation.set( thing.rotx, thing.roty, thing.rotz );
 			mesh.scale.set( thing.sclx, thing.scly, thing.sclz );
+			if  ( scale ) {
+				mesh.scale.set( scale * thing.sclx, scale * thing.scly, scale * thing.sclz );
+			}
 
 			mesh.materialKey = thing.mat;
 //			mesh.scale.set( scale, scale, scale );

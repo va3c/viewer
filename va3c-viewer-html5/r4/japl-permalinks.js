@@ -160,7 +160,7 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 
 	JAPL.setPermalinks = function() {
 		var c = camera.position;
-		var t = controls.target;
+		var t = controls ? controls.target : { x: 0, y: 9, z: 0 } ;
 		var d = JAPL.defaults;
 		var txt = '';
 /*
@@ -185,8 +185,8 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 		txt += '#tary=' + parseInt( t.y, 10 );
 		txt += '#tarz=' + parseInt( t.z, 10 );
 
-		if ( scene.template ) {
-			txt += '#tmpl=' + scene.template;
+		if ( JAPL.things[0].url ) {
+			txt += '#url=' + JAPL.things[0].url;
 		}
 		txt += '&';
 
@@ -194,6 +194,7 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 			var obj = scene.children[i];
 //			if ( obj.geometry && scene.template !== obj.link ) {
 			if ( obj.geometry ) {
+				obj.link = obj.link ? obj.link : JAPL.things[0].url ;
 				txt += '#url=' + obj.link;
 
 				if ( obj.materialKey && obj.materialKey !== 'undefines' ) {
@@ -232,7 +233,7 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 			}
 		}
 		window.location.hash = txt;
-// console.log( 'pmp', txt );
+console.log( 'setPermalinks', txt );
 	};
 
 		var hashes, values;
