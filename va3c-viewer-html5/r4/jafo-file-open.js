@@ -70,7 +70,7 @@
 					}
 					cnt += 0.001;
 					camera.position.set( Math.sin( cnt * 0.7 ) * camRadius, Math.cos( cnt * 0.3 ) * camRadius,  Math.sin( cnt * 0.2 ) * camRadius );
-				}
+				};
 				JAFO.ifr.contentWindow.animate3();
 			}
 		};
@@ -135,17 +135,17 @@ console.clear();
 					var contents = reader.result;
 					JAFO.ifr.onload = function() {
 						JAFO.addUsefelThings( that.files[0].name );
-					}
+					};
 					JAFO.ifr.srcdoc = contents;
 
-console.log( 'openFile html ' )
+console.log( 'openFile html ' );
 				}, false );
 				reader.readAsText( that.files[0] );
 
 		} else {
 
 			JAFO.ifr.onload = function() {
-console.log( 'openFile Object ' )
+console.log( 'openFile Object ' );
 
 
 				var thing = JAPL.addValues();
@@ -246,9 +246,9 @@ console.log( 'append file', fileName );
 				JAFO.ifr.contentWindow.animate2 = function() {
 					requestAnimationFrame( JAFO.ifr.contentWindow.animate2 );
 					JAFO.ifr.contentWindow.controls.update();
-				}
-			}
-			script.src = 'http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js'
+				};
+			};
+			script.src = 'http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js';
 		}
 
 		if ( controls) {
@@ -351,13 +351,13 @@ Each of the following functions should be enhanced to take advatage of the speci
 		scene.select.link = link;
 		scene.select.castShadow = true;
 		scene.select.receiveShadow = true;
-		scene.select.position.set( thing['posx'], thing['posy'], thing['posz'] );
+		scene.select.position.set( thing.posx, thing.posy, thing.posz );
 		scene.select.rotation.set( thing['rotx'], thing['roty'], thing['rotz'] );
 		scene.select.scale.set( thing['sclx'], thing['scly'], thing['sclz'] );
 		scene.select.material = JAMA.materials[ thing['mat'] ].set();
 		scene.select.materialKey = thing['mat'];
 
-	}
+	};
 
 
 	JAFO.loadDAE = function ( link, contents, scale ) {
@@ -563,6 +563,7 @@ trying to stop: [.WebGLRenderingContext]GL ERROR :GL_INVALID_OPERATION : glDrawE
 
 			scene.add( mesh );
 			scene.select = mesh;
+			JAFO.targetList.push( mesh );
 //			JAPL.resetValues();
 
 		} else if ( data.metadata.type.toLowerCase() === 'object' ) {
@@ -589,6 +590,7 @@ console.log( 'found object', result );
 				scene.select.scale.set( thing['sclx'], thing['scly'], thing['sclz'] );
 				scene.select.material = JAMA.materials[ thing['mat'] ].set();
 				scene.select.materialKey = thing['mat'];
+				JAFO.targetList.push( scene.select );
 
 			}
 		} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
@@ -603,12 +605,18 @@ console.log( 'found a whoopsie');
 		}
 	};
 
-	JAFO.updateScene = function( result, link, scale ) {
+	JAFO.updateScene = function( result, link, scale, thing ) {
 console.log( 'updateScene', link );
 
 		JATH.attributesDiv.innerHTML = '';
 
 		scene = result;
+
+		var values = JAPL.addValues;
+
+//		JAPL.things[0] = values;
+		JAPL.things[0].url = 'boilerplate-simple.html';
+
 		app.scene = scene;
 		scene.add( camera );
 
@@ -657,7 +665,7 @@ console.log( 'updateScene', link );
 		} else {
 			JAFO.targetList = scene.children;
 		}
-	}
+	};
 
 	JAFO.requestFile = function( fname ) {
 		var xmlhttp = new XMLHttpRequest();

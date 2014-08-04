@@ -17,8 +17,8 @@
 		sclz: 1,
 		tarx: 0,
 		tary: 0,
-		tarz: 0, 
-		tmpl: 'boilerplate-simple.html',
+		tarz: 0,
+//		tmpl: 'boilerplate-simple.html',
 		url: ''
 	};
 	JAPL.values = {}; // current or runtime updates
@@ -67,7 +67,7 @@
 
 
 	JAPL.getAutoCrapdoodle = function() {
-		var items, index
+		var items, index;
 		var mats = [
 			'BasicRedFlat','LambertRandomSmooth','NormalFlat','NormalSmooth','NormalWireframe','PhongBlueFlat','PhongBlueRefractPisa','PhongDefault',
 			'PhongDefaultReflectDenim','PhongDefaultReflectWhite','PhongDefaultReflectionBasic','PhongDefaultRefractDenim','PhongGoldRefLectWhite',
@@ -87,16 +87,16 @@
 // Meier's parametric equations
 		items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
 		index = items[ Math.floor( items.length * Math.random() ) ];
-		fileTitle = V3MH.files[ index ][ 1 ];
-		basepath = V3MH.basepath + V3MH.files[ index ][ 0 ] + '/';
-		fname = V3MH.files[ index ][ 0 ] + '.html';
+		var fileTitle = V3MH.files[ index ][ 1 ];
+		var basepath = V3MH.basepath + V3MH.files[ index ][ 0 ] + '/';
+		var fname = V3MH.files[ index ][ 0 ] + '.html';
 
 // vA3C Objects
-		files = ['DrMajentaKlein.json','Hex_01.json','TypTower.json'];
-		file = files[ Math.floor( files.length * Math.random() ) ];
-		va3cFile = '../../../json-r2/' + file;
+		var files = ['DrMajentaKlein.json','Hex_01.json','TypTower.json'];
+		var file = files[ Math.floor( files.length * Math.random() ) ];
+		var va3cFile = '../../../json-r2/' + file;
 
-// aircraft 	V3FA.files
+// aircraft  V3FA.files
 		index = V3FA.files[ Math.floor( V3FA.files.length * Math.random() ) ];
 		var aircraftFile = V3FA.basepath + index[ 0 ];
 		var aircraftScale = 3 * index[ 1 ];
@@ -116,38 +116,38 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 
 		var d1 = 100, dim2 = 50;
 		var txt = '' +
-			'#camx=' + cx + '#camy=' + cy + '#camz=' + cz + 
+			'#camx=' + cx + '#camy=' + cy + '#camz=' + cz +
 			'#tarx=0#tary=0#tarz=0' +
-			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' + ( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) + 
+			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' + ( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
 			'#rotx=1#roty=1#rotz=1#sclx=1#scly=1#sclz=1#mat=NormalSmooth' + // mat1 +
-			'#url=' + basepath + fname + 
+			'#url=' + basepath + fname +
 		'&' +
 
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
-			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
+			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=1#scly=1#sclz=1#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
 			'#url=' + va3cFile +
 		'&' +
 
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
-			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
+			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=' + threeModelScale + '#scly=' + threeModelScale + '#sclz=' + threeModelScale + '#mat=' + mats[ Math.floor( mats.length * Math.random() ) ]  +
 			'#url=' + threeModelName +
 		'&' +
 
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
-			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
+			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=1#scly=1#sclz=1#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
 			'#url=../../../../three.js/examples/models/animated/flamingo.js' +
 		'&' +
 
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
-			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
+			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=3#scly=3#sclz=3#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
 			'#url=../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js' +
 		'&' +
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
-			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) + 
+			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=' + aircraftScale + '#scly=' + aircraftScale + '#sclz=' + aircraftScale + '#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
 			'#url=' + aircraftFile +
 
@@ -250,7 +250,7 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 			fileTitle = V3MH.files[ index ][ 1 ];
 			basepath = V3MH.basepath + '/' + V3MH.files[ index ][ 0 ] + '/';
 			fname = V3MH.files[ index ][ 0 ] + '.html';
-			hashes = 
+			hashes =
 				['#camx=100#camy=100#camz=100#tarx=0#tary=0#tarz=0' +
 				'#tmpl=' +  basepath + fname +
 				'#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1#mat=NormalSmooth' +
@@ -262,7 +262,9 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 			JAPL.getAutoCrapdoodle();
 			location.hash = 'autocrapdoodle';
 		} else {
-			hashes = location.hash.split('&');
+			hashes = decodeURIComponent( location.hash );
+console.log( 'hashes', hashes )
+			hashes = hashes.split('&');
 			for ( var i = 0; i < hashes.length - 1; i++ ) {
 				values = JAPL.addValues();
 				items = hashes[i].slice(1).split( '#' );
@@ -296,6 +298,24 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 
 
 /*
+
+file:///C:/Users/theo/Dropbox/Public/git-repos/va3c.github.io/viewer/va3c-viewer-html5/r4/va3c-viewer-html5-r4.html
+#camx=4000#camy=1500#camz=2000#tarx=20#tary=1300#tarz=200#url=boilerplate-simple.html&
+#url=../../../json/revit/rac_basic_sample_project.rvt.js#mat=PhongRandom#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&
+#url=../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js#mat=PhongRandom#posx=0#posy=1100#posz=1200#rotx=0#roty=0#rotz=0#sclx=50#scly=50#sclz=50&
+#url=../../../../three.js/examples/obj/Suzanne.js#mat=PhongRandom#posx=-8000#posy=1100#posz=-10000#rotx=1.75#roty=0#rotz=-1.57#sclx=900#scly=900#sclz=900&
+
+
+http://va3c.github.io/viewer/va3c-viewer-html5/r4/va3c-viewer-html5-r4.html
+#camx=4000#camy=1500#camz=2000#tarx=20#tary=1300#tarz=200#url=boilerplate-simple.html&
+#url=../../../json/revit/rac_basic_sample_project.rvt.js#mat=PhongRandom#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&
+#url=../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js#mat=PhongRandom#posx=0#posy=1100#posz=1200#rotx=0#roty=0#rotz=0#sclx=50#scly=50#sclz=50&
+#url=../../../../three.js/examples/obj/Suzanne.js#mat=PhongRandom#posx=-8000#posy=1100#posz=-10000#rotx=1.75#roty=0#rotz=-1.57#sclx=900#scly=900#sclz=900&
+
+
+
+
+file:///C:/Users/theo/Dropbox/Public/git-repos/va3c.github.io/viewer/va3c-viewer-html5/r4/va3c-viewer-html5-r4.html#camx=57#camy=57#camz=57#tarx=0#tary=0#tarz=0#url=boilerplate-simple.html&
 
 #camx=233#camy=169#camz=163#tarx=0#tary=0#tarz=0#tmpl=../../../../jaanga.github.io/projects/algesurf/parametric-equations/equation-files//jeener-klein-surface/jeener-klein-surface.html&#url=../../../../jaanga.github.io/projects/algesurf/parametric-equations/equation-files//jeener-klein-surface/jeener-klein-surface.html#mat=NormalSmooth#posx=0#posy=-35#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&#url=../../../../three.js/examples/models/animated/horse.js#mat=NormalSmooth#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&#url=../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js#mat=PhongRedPlastic#posx=82#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&#url=../../../../three.js/examples/models/animated/flamingo.js#mat=PhongGreenSmooth#posx=38#posy=78#posz=46#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&#url=../../../../fgx-repos/fgx-aircraft/data/C-160-Transall/c160.js#mat=PhongRandom#posx=74#posy=56#posz=-42#rotx=-0.0015#roty=2.5285#rotz=-0.0015#sclx=5#scly=5#sclz=5&
 
