@@ -160,7 +160,7 @@ console.log( 'getAutoCrapdoodle load', threeModelName );
 
 	JAPL.setPermalinks = function() {
 		var c = camera.position;
-		var t = controls ? controls.target : { x: 0, y: 9, z: 0 } ;
+		var t = controls && controls.target ? controls.target : { x: 0, y: 9, z: 0 } ;
 		var d = JAPL.defaults;
 		var txt = '';
 /*

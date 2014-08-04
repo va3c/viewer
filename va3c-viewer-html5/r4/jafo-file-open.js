@@ -251,7 +251,7 @@ console.log( 'append file', fileName );
 			script.src = 'http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js';
 		}
 
-		if ( controls) {
+		if ( controls && controls.target ) {
 			controls.target.set( thing.tarx, thing.tary, thing.tarz );
 			camera.position.set( thing.camx, thing.camy, thing.camz );
 			camera.up = v( 0, 1, 0 );
