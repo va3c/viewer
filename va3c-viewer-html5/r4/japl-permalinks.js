@@ -299,6 +299,14 @@ console.log( 'hashes', hashes )
 
 /*
 
+lee + walt
+http://va3c.github.io/viewer/va3c-viewer-html5/r4/va3c-viewer-html5-r4.html#camx=576#camy=970#camz=-406#tarx=0#tary=9#tarz=0#url=http://va3c.github.io/three.js/examples/webgl_materials_bumpmap_skin.html&#url=http://va3c.github.io/three.js/examples/webgl_materials_bumpmap_skin.html#mat=PhongRandom#posx=0#posy=-50#posz=0#rotx=0.1385#roty=0.0985#rotz=0#sclx=100#scly=100#sclz=100&#url=http://va3c.github.io/three.js/examples/obj/walt/WaltHead_slim.js#mat=PhongRandom#posx=0#posy=50#posz=14#rotx=-0.0015#roty=0#rotz=0#sclx=8#scly=8#sclz=8&#url=http://va3c.github.io/three.js/examples/obj/walt/WaltHead_slim.js#mat=PhongRandom#posx=0#posy=50#posz=14#rotx=-0.0015#roty=0#rotz=0#sclx=8#scly=8#sclz=8&
+
+http://va3c.github.io/viewer/va3c-viewer-html5/r4/va3c-viewer-html5-r4.html#camx=576#camy=970#camz=-406#tarx=0#tary=9#tarz=0#url=http://va3c.github.io/three.js/examples/webgl_materials_bumpmap_skin.html&#url=http://va3c.github.io/three.js/examples/webgl_materials_bumpmap_skin.html#mat=PhongRandom#posx=0#posy=-50#posz=0#rotx=0.1385#roty=0.0985#rotz=0#sclx=100#scly=100#sclz=100&
+#url=http://va3c.github.io/three.js/examples/obj/walt/WaltHead_slim.js#mat=PhongRandom#posx=0#posy=50#posz=14#rotx=-0.0015#roty=0#rotz=0#sclx=8#scly=8#sclz=8&
+
+
+
 file:///C:/Users/theo/Dropbox/Public/git-repos/va3c.github.io/viewer/va3c-viewer-html5/r4/va3c-viewer-html5-r4.html
 #camx=4000#camy=1500#camz=2000#tarx=20#tary=1300#tarz=200#url=boilerplate-simple.html&
 #url=../../../json/revit/rac_basic_sample_project.rvt.js#mat=PhongRandom#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&
