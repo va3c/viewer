@@ -124,8 +124,8 @@
 			var result = loader.parse( data );
 
 			if ( result instanceof THREE.Scene ) {
-				scene = result; 
-//				scene.add( result );  // so we always have some light...
+//				scene = result; 
+				scene.add( result );  // so we always have some light...
 			} else {
 				scene.add( result );
 				scene.select( result );
@@ -140,10 +140,15 @@
 	};
 
 	function addLights() {
+
 		light = new THREE.AmbientLight( 0x888888 );
 		scene.add( light );
 
 		light = new THREE.PointLight( 0xffffff, 0.5 );
+		scene.add( light );
+
+		light = new THREE.DirectionalLight( 0xffffff );
+		light.position.set( 10000, 10000, 10000 ).normalize();
 		scene.add( light );
 
 	}

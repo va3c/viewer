@@ -117,6 +117,11 @@ Note that the current revision is having issues with materials not appearing cor
 Live demo: [JSON Import - View Basic R2]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic-r2.html )   
 Source code: [JSON Import - View Basic R2]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-import-view-basic-r2.html )
 
+Live Demo: [Revit JSON Import]( http://va3c.github.io/viewer/cookbook/r1/revit-json-import.html )   
+Source code: [Revit JSON Import]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/revit-json-import.html )
+
+2014-08-07 ~ Revit JSON Import added
+
 2014-07-24 ~ R2 added
 
 This file has a single command: "Select File' brings up your operating system's file dialog. You can select any file,
