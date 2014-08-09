@@ -9,7 +9,7 @@
 		tary: 0,
 		tarz: 0,
 		name: ''
-	}
+	};
 
 	JAPL.defaultObject = {
 		posx: 0,
@@ -28,7 +28,7 @@
 		src: 'template-basic.html'
 	};
 
-	JAPL.addPermalinksTab = function() {
+	JAPL.addPermalinksTab = function () {
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
@@ -50,7 +50,7 @@
 			'<p><small><i><a href="http://en.wikipedia.org/wiki/Permalink" target="_blank">Permalinks</a> ' +
 			'enable you to save a scene you have created and send it as a link you can share...</i></small></p>' +
 
-			'<p><a href=JavaScript:JAPL.setPermalinks(); title="Send current display parameters to the address bar" >Set Permalinks</a></p>' +
+			'<p><a href=JavaScript:JAPL.setPermalinks(); title="Send current display parameters to the address bar" >Create Permalinks</a></p>' +
 
 			'<p><a href=JavaScript:JAPL.parsePermalinks(); title="Read data from the address bar and display the results" >Parse Permalinks</a></p>' +
 
@@ -70,7 +70,7 @@
 
 	};
 
-	JAPL.getAutoCrapdoodle = function() {
+	JAPL.getAutoCrapdoodle = function () {
 		var items, item, index;
 		var mats = [
 			'BasicRedFlat','LambertRandomSmooth','NormalFlat','NormalSmooth','NormalWireframe','PhongBlueFlat','PhongBlueRefractPisa','PhongDefault',
@@ -120,8 +120,6 @@
 		var txt = '' +
 			'#camx=' + cx + '#camy=' + cy + '#camz=' + cz +
 			'#tarx=0#tary=0#tarz=0' +
-//			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' + ( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
-//			'#rotx=1#roty=1#rotz=1#sclx=1#scly=1#sclz=1#mat=NormalSmooth' + // mat1 +
 			'#name=' + basepath + meierFile +
 		'&' +
 
@@ -160,7 +158,7 @@
 //console.log( 'getAutoCrapdoodle', txt );
 	};
 
-	JAPL.setPermalinks = function() {
+	JAPL.setPermalinks = function () {
 		var c = camera.position;
 		var t = controls && controls.target ? controls.target : { x: 0, y: 9, z: 0 } ;
 		var d = JAPL.defaultObject;
@@ -247,7 +245,7 @@ console.log( 'setPermalinks', txt );
 	};
 
 
-	JAPL.parsePermalinks = function() {
+	JAPL.parsePermalinks = function () {
 //console.log( 'parsePermalinks' );
 
 		var hashes, defaults, src, name;
@@ -320,7 +318,7 @@ console.log( 'hashes', JAPL.bundles );
 
 		return bundle;
 
-	}
+	};
 
 	JAPL.clearPermalink = function () {
 		window.history.pushState( '', '', window.location.pathname);

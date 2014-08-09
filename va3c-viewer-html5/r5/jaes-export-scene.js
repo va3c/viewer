@@ -1,9 +1,9 @@
 	var JAES = {} || JAES;
 
 	JAES.count = 0;
-	JAES.callback = function() {};
+	JAES.callback = function () {};
 
-	JAES.addExportersTab = function() {
+	JAES.addExportersTab = function () {
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Export current view to a data file';
@@ -24,7 +24,7 @@
 
 	};
 
-	JAES.loadScripts = function() {
+	JAES.loadScripts = function () {
 		var p = 'http://mrdoob.github.io/three.js/examples/js/';
 
 		var scripts = [
@@ -40,7 +40,7 @@
 		for (var i = 0; i < 7; i++) {
 			JAES.loadScript( p + scripts[i] );
 		}
-	}
+	};
 
 	JAES.loadScript = function ( source ) {
 		var script = document.body.appendChild( document.createElement( 'script' ) );
@@ -64,7 +64,7 @@
 		var output = exporter.parse( object.geometry );
 
 		if ( exporter instanceof THREE.BufferGeometryExporter ||
-		     exporter instanceof THREE.GeometryExporter ) {
+			exporter instanceof THREE.GeometryExporter ) {
 
 			output = JSON.stringify( output, null, '\t' );
 			output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
@@ -109,7 +109,7 @@
 		a.download = scene.select.name + '.json';
 		a.click();
 		delete a;
-	}
+	};
 
 	JAES.exportScene = function() {
 		if ( !THREE.ObjectExporter ) { 
@@ -131,4 +131,4 @@
 		a.click();
 		delete a;
 
-	}
+	};

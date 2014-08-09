@@ -28,8 +28,9 @@
 			'Scale: <input type=number id=inpScale value=1.000 max=1000 min=0.001 step=0.1 /><br>' +
 			'<p>Open & overwrite current view: <input type=file id=inpOpenFile ></p>' +
 			'<p>Append to current view: <input type=file id=inpAppendFile ></p>' +
-			'<p>Note: files that are scenes overwrite the current view.</p>' +
-			'<p>Note: You cannot use local files to create permalinks.</p>' +
+			'<p>Notes: files that are scenes overwrite the current view. ' +
+				'Local files cannot be used to create permalinks. Best to reload page between opens.' +
+			'</p>' +
 		'';
 
 		inpOpenFile.onchange = function() { JAFO.openFile ( this ); };
@@ -83,7 +84,7 @@
 	};
 
 	JAFO.appendBundle = function ( bundle ) {
-console.log( 'appendBundle', bundle);
+//console.log( 'appendBundle', bundle);
 
 		var contents = JAFO.requestFile( bundle.src );
 		JAFO.switchType( bundle, contents );
@@ -127,7 +128,14 @@ console.log( 'appendBundle', bundle);
 					var contents = reader.result;
 					JAFO.switchType( bundle, contents );
 				}, false );
-				reader.readAsText( that.files[0] );
+
+
+				if ( reader.readAsBinaryString !== undefined ) {
+					reader.readAsBinaryString( that.files[0] );
+				} else {
+//					reader.readAsArrayBuffer( file );
+					reader.readAsText( that.files[0] );
+				}
 
 				JAFO.updateIframe( JAPL.bundles );
 
@@ -205,10 +213,7 @@ console.log( 'appendBundle', bundle);
 
 		if ( JAFO.ifr.contentDocument.title ) {
 			bundle.name = JAFO.ifr.contentDocument.title;
-		} else {
-//			name = bundle.src.split('/').pop();
-		}
-
+		} 
 
 // Connect to Three.js
 		app = JAFO.ifr.contentWindow;
@@ -256,10 +261,6 @@ console.log( 'appendBundle', bundle);
 		}
 
 // Add scene things
-//		scene.name = bundle.name;
-//		scene.select = app.mesh ? app.mesh : scene.children[ 0 ];
-//		JAFO.targetList = scene.children;
-
 		JATH.addObjectClickEvent();
 
 // update parent screen
@@ -337,17 +338,19 @@ Each of the following functions should be enhanced to take advatage of the speci
 	};
 
 	JAFO.loadDAE = function ( bundle, contents ) {
-console.log( 'loadDAE', bundle );
+console.log( 'loadDAE', bundle, contents );
 
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.onload = function() {
 
-//			var parser = new DOMParser();
-//			var xml = parser.parseFromString( contents, 'text/xml' );
-
 			var loader = new THREE.ColladaLoader();
-//			loader.parse( xml, function ( collada ) {
 			loader.load( bundle.src, function ( collada ) {
+
+// Following may be used to open files using file dialog, but materials are a no show. WIP
+
+//			var parser = new DOMParser();
+//			var xml = parser.parseFromString( contents, 'text/xml' );//
+//			loader.parse( xml, function ( collada ) {
 
 				collada.scene.name = bundle.name;
 				scene.add( collada.scene );
@@ -424,6 +427,19 @@ console.log( 'worker did some work!', src );
 			mesh = new THREE.Mesh( geometry, material );
 
 			JAFO.updateObject ( mesh, bundle );
+
+//		mesh.geometry.verticesNeedUpdate = true;
+
+//		mesh.geometry.normalsNeedUpdate = true;
+//		mesh.geometry.computeFaceNormals();
+//		mesh.geometry.computeVertexNormals();
+//		mesh.geometry.computeTangents();
+//		mesh.geometry.computeMorphNormals();
+//		mesh.geometry.buffersNeedUpdate = true;
+//		mesh.geometry.uvsNeedUpdate = true;
+//		material.needsUpdate = true;
+
+
 			JAFO.targetList.push( mesh );
 
 			scene.add( mesh );
@@ -493,6 +509,7 @@ console.log( 'found geometry' );
 			geometry = content.geometry;
 
 			if ( content.materials !== undefined ) {
+console.log( 'found geometry', content.materials );
 				if ( content.materials.length > 1 ) {
 					material = new THREE.MeshFaceMaterial( content.materials );
 				} else {
@@ -511,7 +528,7 @@ console.log( 'found geometry' );
 
 			var mesh = new THREE.Mesh( geometry, material );
 
-			JAFO.updateObject ( mesh, bundle );
+//			JAFO.updateObject ( mesh, bundle );
 
 			scene.add( mesh );
 			scene.select = mesh;
@@ -537,11 +554,11 @@ console.log( 'found geometry' );
 
 			}
 		} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
-//console.log( 'found deprecated');
+console.log( 'found deprecated');
 
-			// DEPRECATED
-			loader = new THREE.SceneLoader();
-			loader.parse( data, function ( contents ) {
+// DEPRECATED
+			var loader = new THREE.SceneLoader();
+			loader.load( bundle.src, function ( contents ) {
 				JAFO.updateScene( bundle, contents );
 			}, '' );
 		} else {

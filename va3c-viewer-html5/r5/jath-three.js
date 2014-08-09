@@ -13,7 +13,7 @@
 
 	function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
 
-	JATH.addThreeFooterTab = function() {
+	JATH.addThreeFooterTab = function () {
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.style.cssText = 'cursor: auto;';
@@ -28,7 +28,7 @@
 
 	};
 
-	JATH.onWindowResize = function() {
+	JATH.onWindowResize = function () {
 //console.log( 'resize event' );
 
 		windowHalfX = window.innerWidth / 2;
@@ -37,9 +37,9 @@
 		camera.updateProjectionMatrix();
 		renderer.setSize( window.innerWidth, window.innerHeight );
 
-	}
+	};
 
-	JATH.resetCamera = function() {
+	JATH.resetCamera = function () {
 //console.log( 'reset camera event' );
 
 		if ( !controls ) return;
@@ -60,14 +60,14 @@
 			'max-height: 900px; position: absolute; text-align: right; top: 20px; width: 250px; z-index:10; ';
 		JATH.attributesDiv.innerHTML = '';
 
-	}
+	};
 
-	JATH.addObjectClickEvent = function() {
+	JATH.addObjectClickEvent = function () {
 
 		projector = new THREE.Projector();
 		app.window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
 
-	}
+	};
 
 	JATH.onDocumentMouseClick = function ( event ) {
 
@@ -94,4 +94,4 @@
 
 		}
 
-	}
+	};

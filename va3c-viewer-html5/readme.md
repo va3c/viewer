@@ -11,6 +11,9 @@ _vA3C Viewer HTML5 - latest revision_ / [Full Screen]( http://va3c.github.io/vie
 The scripts here are updates to the competition entry and winner of the second prize at the <a href="https://www.hackerleague.org/hackathons/aec-technology-hackathon-2014" target="_blank">AEC Technology Hackathon 2014</a>.
 
 ### Blog Posts
+
+2014-08-03 ~ [vAEC Viewer R4: Permalinks Provide Fast Easy Free Ways To Source and Save Data Online]( http://www.jaanga.com/2014/08/vaec-viewer-r4-permalinks-provide-fast.html )
+2014-07-27 ~ [vA3C Viewer R3 Update ~ 2014-07-27 ~ No More Russian Dolls ( scenes inside scenes inside scenes )]( http://www.jaanga.com/2014/07/va3c-viewer-r3-update-2014-07-27-no.html )
 2014-07-25 ~ <http://www.jaanga.com/2014/07/va3c-viewer-r3-update-now-with-save-and.html>
 <http://www.jaanga.com/2014/07/va3c-viewer-work-in-progress-update.html>  
 <http://www.jaanga.com/2014/07/va3c-viewer-r3-processes-data-from.html>  
@@ -36,17 +39,29 @@ The scripts here are updates to the competition entry and winner of the second p
 
 ### File Management
 
-* AutoCrapdoodle feature
-	* An experiment in playing with files in the cloud
 * Provides fast, simple access to 3D models, objects and HTML files
 * Uses the DOM to provide very deep editing and control access to the imported models.
 * Opens for editing and manipulation
-	* Any Three.js HTML files
-	* Files of these types: .js, .json, .obj, .stl, .dae, .wrl and .vtk files. Coming soon: .gltf
 	* Open files via a link and an xmlHttpRequest
-	* Open files via the perating system File Open dialog
-* Load a new drawing or insert new objects into current drawing
-* Save the current state to a new JSON file
+		* Any Three.js HTML files
+		* Files of these types: .js, .json, .obj, .stl, .dae, .wrl and .vtk files. Coming soon: .gltf
+
+	* Open files via the operating system File Open dialog
+		* Opens Three.js HTML files that only have absolute links
+		* Opens .js, .json, .obj, .stl ascii, .vtk, 
+		* Opens .wrl files but have issues with materials
+		* Fails to open .dae files. See lines 342... of jafo-file-open.js for temporary partial fix
+* Load a new drawing or append (insert) new objects into current drawing  << which word is better: 'append 'or 'insert'??
+* Export the current state to a new JSON file as geometry, object or scene
+
+### Permalinks
+* Create permalink
+* Parse permalink
+	* let's you see what a parmalink creates
+* Clear permalink resets the address bar to the base URL 
+* AutoCrapdoodle feature
+	* An experiment in playing with files in the cloud
+* Link to goo.gl URL Shortener
 
 ### Sample File Libraries
 * CORS-compliant access to 1025+ sample data files hosted on GitHub
@@ -126,6 +141,7 @@ The scripts here are updates to the competition entry and winner of the second p
 
 ## Road Map
 
+* Google Cardboard support
 * Divide menu into multiple, scrollable panels
 * Add UI themes including fixed position side bar menus
 * Bring in all append files as 3DObjects
@@ -140,7 +156,6 @@ The scripts here are updates to the competition entry and winner of the second p
 * Add rotate view after a period of inactivity
 * Add choice of camera controllers 
 * Add tree view of meshes, materials and attributes
-* Fix any model texture display issues
 * Add ability to toggle visibility of any mesh. Layers?
 * Add ability to add texture to material of selected objects
 * Add standard Three.js geometry tab
@@ -197,6 +212,11 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+2014-08-08 ~ Theo
+
+* R5 now opening vy file dialog or URL most supported file types
+* * Fix any model texture display issues << mostly fixed - especially .dea issues
 
 2014-08-02 ~ Theo
 
