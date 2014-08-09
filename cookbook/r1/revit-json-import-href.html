@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>JSON - Import - View - R2</title>
+<title>Revit JSON Import via XMLHttpRequest</title>
 <meta charset=utf-8 >
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
 </head>
@@ -23,9 +23,10 @@
 		info = document.body.appendChild( document.createElement( 'div' ) );
 		info.style.cssText = 'left: 20px; position: absolute; ';
 		info.innerHTML = '<h1>' + document.title + '</h1>' +
-			'<p><input type=file id=inpFile ></p>' +
+			'<p><a href=JavaScript:loadFile("../../../json/revit/Project2.rvt.js"); >Project 2</a></p>' +
+			'<p><a href=JavaScript:loadFile("../../../json/revit/rac_basic_sample_project.rvt.js"); >Revit Basic Sample Project</a></p>' +
+
 		'';
-		inpFile.onchange = function() { loadFile ( this ); };
 
 		stats = new Stats();
 		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
@@ -40,110 +41,11 @@
 		renderer.shadowMapEnabled = true;
 		document.body.appendChild( renderer.domElement );
 
-		scene = new THREE.Scene();
-		addLights();
-
 		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100000 );
-		camera.position.set( 100, 100, 100 );
+		camera.position.set( 15000, 15000, 15000 );
 		controls = new THREE.TrackballControls( camera, renderer.domElement );
-	}
 
-	var loadFile = function ( file ) {
-		var reader = new FileReader();
-		reader.addEventListener( 'load', function ( event ) {
-			var contents = event.target.result;
-			// 2.0
-			if ( contents.indexOf( 'postMessage' ) !== -1 ) {
-				var blob = new Blob( [ contents ], { type: 'text/javascript' } );
-				var url = URL.createObjectURL( blob );
-				var worker = new Worker( url );
-				worker.onmessage = function ( event ) {
-					event.data.metadata = { version: 2 };
-					handleJSON( event.data, file.name );
-				};
-				worker.postMessage( Date.now() );
-				return;
-			}
-			// >= 3.0
-			var data;
-			try {
-				data = JSON.parse( contents );
-			} catch ( error ) {
-				alert( error );
-				return;
-			}
-			handleJSON( data, file.name );
-		}, false );
-		reader.readAsText( file.files[0] );
-	}
-
-	var handleJSON = function ( data, filename ) {
 		scene = new THREE.Scene();
-
-		addLights();
-
-		if ( data.metadata === undefined ) { // 2.0
-			data.metadata = { type: 'Geometry' };
-		}
-		if ( data.metadata.type === undefined ) { // 3.0
-			data.metadata.type = 'Geometry';
-		}
-		if ( data.metadata.version === undefined ) {
-			data.metadata.version = data.metadata.formatVersion;
-		}
-		if ( data.metadata.type.toLowerCase() === 'geometry' ) {
-console.log( 'found geometry' );
-			var loader = new THREE.JSONLoader();
-			var result = loader.parse( data );
-
-			var geometry = result.geometry;
-			var material;
-/*
-			if ( result.materials !== undefined ) {
-				if ( result.materials.length > 1 ) {
-					material = new THREE.MeshFaceMaterial( result.materials );
-				} else {
-					material = result.materials[ 0 ];
-				}
-			} else {
-				material = new THREE.MeshPhongMaterial();
-			}
-*/
-				material = new THREE.MeshPhongMaterial();
-
-			geometry.sourceType = "ascii";
-			geometry.sourceFile = filename;
-
-			var mesh = new THREE.Mesh( geometry, material );
-			mesh.name = filename;
-			mesh.castShadow = true;
-			mesh.receiveShadow = true;
-
-			scene.add( mesh );
-			scene.select = mesh;
-
-		} else if ( data.metadata.type.toLowerCase() === 'object' ) {
-			var loader = new THREE.ObjectLoader();
-// console.log( data );  // for Dan
-			var result = loader.parse( data );
-
-			if ( result instanceof THREE.Scene ) {
-//				scene = result; 
-				scene.add( result );  // so we always have some light...
-			} else {
-				scene.add( result );
-				scene.select( result );
-			}
-		} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
-			// DEPRECATED
-			var loader = new THREE.SceneLoader();
-			loader.parse( data, function ( result ) {
-				scene = result.scene;
-			}, '' );
-		}
-	};
-
-	function addLights() {
 
 		light = new THREE.AmbientLight( 0x888888 );
 		scene.add( light );
@@ -157,9 +59,87 @@ console.log( 'found geometry' );
 
 	}
 
+	var loadFile = function ( file ) {
+		var data = requestFile( file );
+		data = JSON.parse( data );
+
+//console.log( data );
+
+		if ( data.metadata === undefined ) { // 2.0
+			data.metadata = { type: 'Geometry' };
+		}
+		if ( data.metadata.type === undefined ) { // 3.0
+			data.metadata.type = 'Geometry';
+		}
+		if ( data.metadata.version === undefined ) {
+			data.metadata.version = data.metadata.formatVersion;
+		}
+
+		if ( data.metadata.type.toLowerCase() === 'geometry' ) {
+console.log( 'found geometry' );
+
+			loader = new THREE.JSONLoader();
+			contents = loader.parse( data );
+
+			geometry = contents.geometry;
+
+			if ( contents.materials !== undefined ) {
+console.log( 'found geometry', contents.materials );
+				if ( contents.materials.length > 1 ) {
+					material = new THREE.MeshFaceMaterial( contents.materials );
+				} else {
+					material = contents.materials[ 0 ];
+				}
+			} else if ( bundle ){
+				material = JAMA.materials[ bundle.mat ].set();
+			} else {
+				material = JAMA.materials.NormalSmooth.set();
+			}
+
+			var mesh = new THREE.Mesh( geometry, material );
+			scene.add( mesh );
+
+		} else if ( data.metadata.type.toLowerCase() === 'object' ) {
+
+			loader = new THREE.ObjectLoader();
+			contents = loader.parse( data );
+
+			if ( contents instanceof THREE.Scene ) {
+console.log( 'found scene' );
+
+				scene.add( contents );
+
+			} else {
+console.log( 'found object', contents );
+
+				scene.add( contents );
+
+			}
+		} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
+console.log( 'found deprecated');
+
+// DEPRECATED
+			var loader = new THREE.SceneLoader();
+			loader.load( bundle.src, function ( contents ) {
+				scene.add( contents );
+
+			}, '' );
+		} else {
+console.log( 'found a whoopsie');
+		}
+
+	}
+
+	function requestFile ( fname ) {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.crossOrigin = "Anonymous"; 
+		xmlhttp.open( 'GET', fname, false );
+		xmlhttp.send( null );
+		return xmlhttp.responseText;
+	};
+
 	function animate() {
 		requestAnimationFrame( animate );
-//		light.position.copy( camera.position );
 		controls.update();
 		renderer.render( scene, camera );
 		stats.update();

@@ -291,7 +291,7 @@ console.log( 'setPermalinks', txt );
 				JAPL.bundles.push( defaults );
 			}
 		}
-console.log( 'hashes', JAPL.bundles );
+//console.log( 'hashes', JAPL.bundles );
 		JAFO.openBundles( JAPL.bundles );
 
 	};

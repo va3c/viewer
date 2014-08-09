@@ -89,7 +89,7 @@
 		var contents = JAFO.requestFile( bundle.src );
 		JAFO.switchType( bundle, contents );
 
-		divMsg1.innerHTML += '<br>file: ' + bundle.name;
+//		divMsg1.innerHTML += '<br>file: ' + bundle.name;
 
 	};
 
@@ -159,7 +159,7 @@
 		}, false );
 		reader.readAsText( that.files[0] );
 
-		divMsg1.innerHTML += '<br>Append ' + bundle.name;
+//		divMsg1.innerHTML += '<br>Append ' + bundle.name;
 
 	};
 
@@ -203,7 +203,7 @@
 		var contents = JAFO.requestFile( bundle.src );
 		JAFO.switchType( bundle, contents );
 
-		divMsg1.innerHTML += '<br>Append: ' + bundle.name;
+//		divMsg1.innerHTML += '<br>Append: ' + bundle.name;
 
 	};
 
@@ -262,6 +262,7 @@
 
 // Add scene things
 		JATH.addObjectClickEvent();
+		JAFO.targetList = [];
 
 // update parent screen
 		JAPR.setRandomGradient();
@@ -274,6 +275,9 @@
 	JAFO.switchType = function ( bundle, contents ) {
 
 		var extension = bundle.src.split( '.' ).pop().toLowerCase();
+
+		JATH.attributesDiv.innerHTML += '<br>Append: ' + bundle.name;
+		divMsg1.innerHTML += '<br>Append: ' + bundle.name;
 
 		switch ( extension ) {
 
@@ -425,19 +429,22 @@ console.log( 'worker did some work!', src );
 			material = new THREE.MeshPhongMaterial();
 
 			mesh = new THREE.Mesh( geometry, material );
+			material = new THREE.MeshNormalMaterial();
 
 			JAFO.updateObject ( mesh, bundle );
 
-//		mesh.geometry.verticesNeedUpdate = true;
+			mesh.material = new THREE.MeshNormalMaterial();
 
-//		mesh.geometry.normalsNeedUpdate = true;
-//		mesh.geometry.computeFaceNormals();
-//		mesh.geometry.computeVertexNormals();
-//		mesh.geometry.computeTangents();
-//		mesh.geometry.computeMorphNormals();
-//		mesh.geometry.buffersNeedUpdate = true;
-//		mesh.geometry.uvsNeedUpdate = true;
-//		material.needsUpdate = true;
+			mesh.geometry.verticesNeedUpdate = true;
+
+			mesh.geometry.normalsNeedUpdate = true;
+			mesh.geometry.computeFaceNormals();
+			mesh.geometry.computeVertexNormals();
+	//		mesh.geometry.computeTangents();
+	//		mesh.geometry.computeMorphNormals();
+			mesh.geometry.buffersNeedUpdate = true;
+			mesh.geometry.uvsNeedUpdate = true;
+			mesh.material.needsUpdate = true;
 
 
 			JAFO.targetList.push( mesh );

@@ -117,11 +117,6 @@ Note that the current revision is having issues with materials not appearing cor
 Live demo: [JSON Import - View Basic R2]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic-r2.html )   
 Source code: [JSON Import - View Basic R2]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-import-view-basic-r2.html )
 
-Live Demo: [Revit JSON Import]( http://va3c.github.io/viewer/cookbook/r1/revit-json-import.html )   
-Source code: [Revit JSON Import]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/revit-json-import.html )
-
-2014-08-07 ~ Revit JSON Import added
-
 2014-07-24 ~ R2 added
 
 This file has a single command: "Select File' brings up your operating system's file dialog. You can select any file,
@@ -132,6 +127,13 @@ Once loaded, the file allows you to zoom, pan and rotate. Attribute values - ass
 An ambient light and a direction light that follows the camera position are built in.
 
 Again, this script is designed to be simple and basic in order to give you the quickest feeling of how things work.
+
+Live Demo: [Revit JSON Import R1]( http://va3c.github.io/viewer/cookbook/r1/revit-json-import.html )   
+Source code: [Revit JSON Import R1]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/revit-json-import.html )
+
+
+Live Demo: [Revit JSON Import via XMLHttpRequest]( http://va3c.github.io/viewer/cookbook/r1/revit-json-import-ajax.html )   
+Source code: [Revit JSON Import via XMLHttpRequest]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/revit-json-import-ajax.html )
 
 
 Remember: the JavaScript console is your friend...
@@ -189,6 +191,10 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+2014-08-09 ~ Added Revit JSON Import via XMLHttpRequest
+
+2014-08-07 ~ Revit JSON Import added
 
 2014-07-24 ~ Theo
 
