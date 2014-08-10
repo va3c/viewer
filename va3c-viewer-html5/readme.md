@@ -83,8 +83,11 @@ The scripts here are updates to the competition entry and winner of the second p
 * Select any mesh for editing by clicking it on screen.
 * Geometry Tab
 	* Update position, scale and rotation any geometry in any of the above
-	* Delete currently selected object
 	* Guided by real-time sliders or via text data input
+	* Delete currently selected object
+		* Remove mesh from current view
+		* Remove mesh from scene.children
+		* Remove mesh-associated geometry, material, texture
 * Material Select Tab
 	* Apply any of several dozen pre-defined materials to any mesh
 	* Includes texture, reelections and refractions
@@ -97,7 +100,11 @@ The scripts here are updates to the competition entry and winner of the second p
 	* Point light follows the camera
 	* Directional light position controlled br real-time slders
 
+### Viewing
+* Reset camera position
+* Zoom extents
 
+### Preferences
 * Toggle the display wireframe and normals helpers
 * Add lights, shading and shadows to any model
 

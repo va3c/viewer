@@ -30,7 +30,6 @@
 		var file, fname;
 		for ( var i = 0, len = V3TM.files.length; i < len; i++ ) {
 			file = V3TM.files[ i ][ 0 ];
-			boilerplate = V3TM.files[ i ][ 1 ]; 
 			fileList += '<a href=JavaScript:JAFO.appendUrl("' + V3TM.basepath + V3TM.files[ i ][0] + '"); >' + file + '</a><br>';
 		}
 

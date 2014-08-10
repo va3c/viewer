@@ -6,7 +6,7 @@
 		tab.title = 'View available libraries';
 		tab.innerHTML =
 			'<a href=# onclick=JA.toggleTab(V3LI.libraries); ><p class=button >' +
-				'<i class="fa fa-paw"></i> Introduction' +
+				'<i class="fa fa-thumbs-up"></i> Introduction' +
 			'</p></a>'; 
 
 		V3LI.libraries = JA.menu.appendChild( document.createElement( 'div' ) );

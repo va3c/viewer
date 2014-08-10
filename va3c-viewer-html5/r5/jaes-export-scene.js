@@ -9,7 +9,7 @@
 		tab.title = 'Export current view to a data file';
 		tab.innerHTML =
 			'<a href=# id=tabExporters ><p class=button >' +
-				'<i class="fa fa-paw"></i> Exporters...' +
+				'<i class="fa fa-save"></i> Exporters...' +
 			'</p></a>'; 
 		tabExporters.onclick = function() { JA.toggleTab( JAES.exporters ); };
 

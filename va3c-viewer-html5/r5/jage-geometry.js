@@ -43,7 +43,7 @@
 				'Z <input type=range id=rngSclZ onmousemove=outSclZ.value=this.value;scene.select.scale.z=this.value min=0.1 max=10 step=0.1 value=1 /> ' +
 					'<input type=number id=outSclZ class=xyz onchange=rngSclZ.value=this.value;scene.select.scale.z=this.value; value=1 /><br>' +
 			'</p>' +
-			'<p><button onclick=scene.remove(scene.select); >Delete</button></p>' +
+			'<p><button onclick=JAGE.sceneRemove(scene.select); >Delete</button></p>' +
 		'';
 
 	};
@@ -62,5 +62,14 @@
 		rngSclX.value = outSclX.value = obj.scale.x;
 		rngSclY.value = outSclY.value = obj.scale.y;
 		rngSclZ.value = outSclZ.value = obj.scale.z;
+
+	}
+
+	JAGE.sceneRemove = function ( mesh ) {
+		scene.remove( mesh );
+		mesh.geometry.dispose();
+		if ( mesh.material && mesh.material.dispose ) { mesh.material.dispose(); }
+		if ( mesh.texture ) { mesh.texture.dispose(); }
+scene.children.splice( scene.children.indexOf( mesh ), 1 );
 
 	}

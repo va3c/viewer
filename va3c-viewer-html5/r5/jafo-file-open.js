@@ -16,7 +16,7 @@
 		tab.title = 'Open a file';
 		tab.innerHTML =
 			'<a href=# id=tabFileOpen ><p class=button >' +
-				'<i class="fa fa-paw"></i> File Open...' +
+				'<i class="fa fa-files-o"></i> File Open...' +
 			'</p></a>'; 
 		tabFileOpen.style.cssText = 'background-color: #88f; ';
 		tabFileOpen.onclick = function() { JA.toggleTab( JAFO.FileOpen ); };
@@ -75,9 +75,10 @@
 					cnt += 0.001;
 					camera.position.set( Math.sin( cnt * 0.7 ) * camRadius, Math.cos( cnt * 0.3 ) * camRadius,  Math.sin( cnt * 0.2 ) * camRadius );
 				};
-				JAFO.ifr.contentWindow.animate3();
+//				JAFO.ifr.contentWindow.animate3();
 
 			}
+// zoomExtents();
 		};
 		JAFO.ifr.src = bundles[1].src;
 
@@ -339,6 +340,7 @@ Each of the following functions should be enhanced to take advatage of the speci
 
 		JAFO.updateTargetList( bundle.src );
 
+
 	};
 
 	JAFO.loadDAE = function ( bundle, contents ) {
@@ -357,13 +359,13 @@ console.log( 'loadDAE', bundle, contents );
 //			loader.parse( xml, function ( collada ) {
 
 				collada.scene.name = bundle.name;
-				scene.add( collada.scene );
-
-				scene.select = collada.scene;
 
 				JAFO.updateObject ( scene.select, bundle );
-
 				JAFO.updateTargetList( bundle.src );
+				scene.add( collada.scene );
+				scene.select = collada.scene;
+
+
 
 			} );
 		};
@@ -408,7 +410,6 @@ console.log( 'worker did some work!', src );
 
 			JAFO.updateObject ( mesh, bundle );
 			JAFO.targetList.push( mesh );
-
 			scene.add( mesh );
 			scene.select = mesh;
 
@@ -431,8 +432,6 @@ console.log( 'worker did some work!', src );
 			mesh = new THREE.Mesh( geometry, material );
 			material = new THREE.MeshNormalMaterial();
 
-			JAFO.updateObject ( mesh, bundle );
-
 			mesh.material = new THREE.MeshNormalMaterial();
 
 			mesh.geometry.verticesNeedUpdate = true;
@@ -446,9 +445,8 @@ console.log( 'worker did some work!', src );
 			mesh.geometry.uvsNeedUpdate = true;
 			mesh.material.needsUpdate = true;
 
-
+			JAFO.updateObject ( mesh, bundle );
 			JAFO.targetList.push( mesh );
-
 			scene.add( mesh );
 			scene.select = mesh;
 
@@ -468,7 +466,6 @@ console.log( 'worker did some work!', src );
 
 			JAFO.updateObject ( mesh, bundle );
 			JAFO.targetList.push( mesh );
-
 			scene.add( mesh );
 			scene.select = mesh;
 
@@ -481,12 +478,13 @@ console.log( 'worker did some work!', src );
 		script.onload = function() {
 
 			object = new THREE.VRMLLoader().parse( contents );
-			scene.add( object );
 
 // needs work...
 			mesh = object.children[0];
+
 			JAFO.updateObject ( mesh, bundle );
 			JAFO.targetList.push( mesh );
+			scene.add( object );
 			scene.select = mesh;
 
 		};
@@ -516,7 +514,7 @@ console.log( 'found geometry' );
 			geometry = content.geometry;
 
 			if ( content.materials !== undefined ) {
-console.log( 'found geometry', content.materials );
+//console.log( 'found geometry', content.materials );
 				if ( content.materials.length > 1 ) {
 					material = new THREE.MeshFaceMaterial( content.materials );
 				} else {
@@ -535,7 +533,7 @@ console.log( 'found geometry', content.materials );
 
 			var mesh = new THREE.Mesh( geometry, material );
 
-//			JAFO.updateObject ( mesh, bundle );
+			JAFO.updateObject ( mesh, bundle );
 
 			scene.add( mesh );
 			scene.select = mesh;
@@ -617,6 +615,8 @@ console.log( 'found a whoopsie');
 // Update parent
 		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = bundle.name + '<br>';
 		divMsg1.innerHTML = 'Base: ' + bundle.name;
+
+
 
 	};
 
