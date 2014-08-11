@@ -4,9 +4,9 @@
 	V3VJ.basepath = '../../../json/';
 
 	V3VJ.addVa3cJsonTab = function() {
-		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
+		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a href=# id=tabVa3cJson title="Hi Mostapha!"><p class=button >' +
+			'<a id=tabVa3cJson title="Hi Mostapha!" ><p class=buttonLibrary >' +
 				'<i class="fa fa-file-image-o"></i> vA3C JSON...' +
 			'</p></a>';
 		tabVa3cJson.onclick = function() { V3VJ.updateVa3cTab(); JA.toggleDialogs(V3VJ.Va3cJsonTab); };

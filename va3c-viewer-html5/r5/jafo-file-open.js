@@ -15,13 +15,12 @@
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Open a file';
 		tab.innerHTML =
-			'<a href=# id=tabFileOpen ><p class=button >' +
+			'<a id=tabFileOpen ><p class=buttonFile >' +
 				'<i class="fa fa-files-o"></i> File Open...' +
-			'</p></a>'; 
-		tabFileOpen.style.cssText = 'background-color: #88f; ';
+			'</p></a>';
 		tabFileOpen.onclick = function() { JA.toggleTab( JAFO.FileOpen ); };
 
-		JAFO.FileOpen = JA.menu.appendChild( document.createElement( 'div' ) );
+		JAFO.FileOpen = tab.appendChild( document.createElement( 'div' ) );
 		JAFO.FileOpen.style.cssText = 'cursor: auto; display: none; ' ;
 		JAFO.FileOpen.innerHTML =
 			'<p>Select a file to load</p>' +
@@ -40,7 +39,7 @@
 
 	JAFO.openBundles = function ( bundles ) {
 //console.clear();
-//console.log( 'openBundles', bundles ) 
+//console.log( 'openBundles', bundles )
 
 		var iframes = document.getElementsByTagName( 'iframe' ) ;
 
@@ -214,7 +213,7 @@
 
 		if ( JAFO.ifr.contentDocument.title ) {
 			bundle.name = JAFO.ifr.contentDocument.title;
-		} 
+		}
 
 // Connect to Three.js
 		app = JAFO.ifr.contentWindow;
@@ -597,7 +596,7 @@ console.log( 'found a whoopsie');
 		for (var i = 0, len = contents.children.length; i < len; i++) {
 			if ( contents.children[i].geometry ) {
 				contents.children[i].geometry.applyMatrix( new THREE.Matrix4().multiplyScalar( scale) );
-			} 
+			}
 			for (var j = 0, lenJ = contents.children[i].length; j < lenJ; j++) {
 				if ( contents.children[i].children[j] && contents.children[i].children[j].geometry ) {
 					contents.children[i].children[j].geometry.applyMatrix( new THREE.Matrix4().multiplyScalar( scale) );
@@ -655,7 +654,7 @@ console.log( 'found a whoopsie');
 
 	JAFO.requestFile = function( fname ) {
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.crossOrigin = "Anonymous"; 
+		xmlhttp.crossOrigin = "Anonymous";
 		xmlhttp.open( 'GET', fname, false );
 		xmlhttp.send( null );
 		return xmlhttp.responseText;

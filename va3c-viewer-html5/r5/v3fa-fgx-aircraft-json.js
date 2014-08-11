@@ -8,9 +8,9 @@
 	}
 
 	V3FA.addFgxAircraftTab = function() {
-		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
+		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a href=# id=tabFgxAircraft ><p class=button >' +
+			'<a id=tabFgxAircraft ><p class=buttonLibrary >' +
 				'<i class="fa fa-file-image-o"></i> FGx Aircraft...' +
 			'</p></a>';
 		tabFgxAircraft.onclick = function() {JA.toggleDialogs(V3FA.FgxAircraftTab); };

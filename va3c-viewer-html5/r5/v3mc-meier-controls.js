@@ -8,10 +8,10 @@
 
 	V3MC.addMeierControlsTab = function() {
 
-		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
+		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Be in control of your equations';
 		tab.innerHTML =
-			'<a href=# id=tabControls><p class=button >' +
+			'<a id=tabControls><p class=buttonLibrary >' +
 				'<i class="fa fa-cogs"></i> Meier Controls...' +
 			'</p></a>';
 		tabControls.onclick = function() { V3MC.updateControlsTab(); JA.toggleTab( V3MC.controlsTab ); };

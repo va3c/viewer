@@ -1,6 +1,5 @@
 // data fieles are on http://mrdoob.github.io/three.js/examples/
 
-
 	var V3TM = {} || V3TM;
 	var V3TB = {} || V3TB;
 	var V3TO = {} || V3TO;
@@ -16,9 +15,9 @@
 	}
 
 	V3TM.addThreejsModelsTab = function() {
-		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
+		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a href=# id=tabThreejsModels ><p class=button >' +
+			'<a id=tabThreejsModels ><p class=buttonLibrary >' +
 				'<i class="fa fa-file-image-o"></i> Three.js Example Models...' +
 			'</p></a>';
 		tabThreejsModels.onclick = function() {JA.toggleDialogs(V3TM.threejsModelsTab); };
@@ -165,12 +164,12 @@
 	];
 
 	V3TO.addThreejsObjTab = function() {
-		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
+		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a href=# id=tabThreejsObj ><p class=button >' +
+			'<a id=tabThreejsObj ><p class=buttonLibrary >' +
 				'<i class="fa fa-file-image-o"></i> Three.js Example Objects...' +
 			'</p></a>';
-		tabThreejsObj.onclick = function() {JA.toggleDialogs(V3TO.threejsObjTab); };
+		tabThreejsObj.onclick = function() {JA.toggleDialogs( V3TO.threejsObjTab ); };
 
 		V3TO.threejsObjTab = tab.appendChild( document.createElement( 'div' ) );
 		V3TO.threejsObjTab.style.cssText = 'cursor: auto; display: none; ' ;
@@ -240,10 +239,10 @@
 	];
 
 	V3TB.addThreejsHTMLTab = function() {
-		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
+		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
 		tab.title = 'View things from the Three.js repo';
 		tab.innerHTML =
-			'<a href=# id=tabThreeHTML ><p class=button >' +
+			'<a id=tabThreeHTML ><p class=buttonLibrary >' +
 				'<i class="fa fa-file-image-o"></i> Three.js Example HTML...' +
 			'</p></a>';
 		tabThreeHTML.onclick = function() {JA.toggleTab( V3TB.ThreeHTMLTab ); };

@@ -4,12 +4,12 @@
 	V3SH.basepath = 'http://va3c.github.io/stemkoski.github.com/Three.js/';
 
 	V3SH.addStemkoskiHTMLTab = function() {
-		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
+		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a href=# id=tabStemkoskiHTML ><p class=button >' +
+			'<a id=tabStemkoskiHTML ><p class=buttonLibrary >' +
 				'<i class="fa fa-file-image-o"></i> Stemkoski HTML...' +
 			'</p></a>';
-		tabStemkoskiHTML.onclick = function() {JA.toggleDialogs(V3SH.StemkoskiHTMLTab); };
+		tabStemkoskiHTML.onclick = function() { JA.toggleDialogs( V3SH.StemkoskiHTMLTab ); };
 
 		V3SH.StemkoskiHTMLTab = tab.appendChild( document.createElement( 'div' ) );
 		V3SH.StemkoskiHTMLTab.style.cssText = 'cursor: auto; display: none; ' ;

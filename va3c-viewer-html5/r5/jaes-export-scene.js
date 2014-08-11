@@ -8,12 +8,12 @@
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Export current view to a data file';
 		tab.innerHTML =
-			'<a href=# id=tabExporters ><p class=button >' +
+			'<a id=tabExporters ><p class=buttonFile >' +
 				'<i class="fa fa-save"></i> Exporters...' +
 			'</p></a>'; 
 		tabExporters.onclick = function() { JA.toggleTab( JAES.exporters ); };
 
-		JAES.exporters = JA.menu.appendChild( document.createElement( 'div' ) );
+		JAES.exporters = tab.appendChild( document.createElement( 'div' ) );
 		JAES.exporters.style.cssText = 'cursor: auto; display: none; ' ;
 		JAES.exporters.innerHTML =
 			'<p>Save what you have created...</p>' +

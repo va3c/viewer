@@ -96,17 +96,19 @@ The scripts here are updates to the competition entry and winner of the second p
 	* Includes shading type, smoothness, sides, wireframe, opacity and shininess
 	* Ambient, color, emissive and specular
 * Lights Tab
-	* Add lights to drawings
+	* Add lights, shading and shadows to any model
 	* Point light follows the camera
 	* Directional light position controlled br real-time slders
 
 ### Viewing
 * Reset camera position
 * Zoom extents
+	* Nice simple, fast, easy-to-understand algorithm
+	* WIP regarding scaled objects 
 
 ### Preferences
-* Toggle the display wireframe and normals helpers
-* Add lights, shading and shadows to any model
+* Toggle the display of wireframe and normals helpers
+
 
 ### UI Features
 * Display enables pan, rotate and zoom with pointing device

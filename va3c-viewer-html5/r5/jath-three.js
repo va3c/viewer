@@ -21,7 +21,7 @@
 		tab.innerHTML =
 			'<h2>' +
 				'<a id=iconHome href=JavaScript:JATH.resetCamera(); title="Reset camera position" ><i class="fa fa-home"></i></a> ' +
-				'<a id=iconHome href=JavaScript:JATH.zoomExtents(true); title="Zoome Extents"><i class="fa fa-arrows-alt"></i></a> ' +
+				'<a id=iconHome href=JavaScript:JATH.zoomExtents(); title="Zoom Extents"><i class="fa fa-arrows-alt"></i></a> ' +
 			'</h2>'; 
 		iconHome.title = "Reset to default view";
 
@@ -101,11 +101,11 @@ console.log( 'geo', geo);
 console.log( 'camera.far', camera.far );
 		}
 
-//		updateShadows( c, r );
+		updateShadows( c, r );
 
 	}
 
-	function updateShadows( cen, rad ) {
+	function updateShadows( cen, rad, test ) {
 
 		lightDirectional = new THREE.DirectionalLight( 0xffffff, 1 );
 
@@ -128,7 +128,7 @@ console.log( 'camera.far', camera.far );
 		lightDirectional.updateMatrix();
 		lightDirectional.updateMatrixWorld();  
 
-		lightDirectional.shadowCameraVisible = true;
+		if ( test ) { lightDirectional.shadowCameraVisible = true; }
 		scene.add( lightDirectional );
 	}
 

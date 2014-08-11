@@ -2,7 +2,7 @@
 
 // defaults
 	JA.titleIcon = '<i class="fa fa-bomb"></i>';  // utlimately should be something created on the fly
-	JA.TitleText = '"Your 3D fun place"';
+	JA.TitleText = '"Your free animated online real-time 3D happy place"';
 
 // Parent window GUI
 	JA.addCSS = function() {
@@ -11,9 +11,12 @@
 			'h1 { margin: 0; }' +
 			'a { text-decoration: none; opacity: 0.8; }' +
 			'#closer p { margin: 0; opacity: 0.8; }' +
-			'#movable { background-color: #ccc; opacity: 0.8; cursor: move; left: 20px; max-width: 350px; max-height: ' + (window.innerHeight - 100) + 'px; ' +
+			'#movable { background-color: #ccc; opacity: 0.8; cursor: move; left: 20px; max-width: 400px; ' +
+				'max-height: ' + (window.innerHeight - 100) + 'px; min-width: 320px;' +
 				'overflow-x: hidden; overflow-y: auto; padding: 10px; position: absolute; top: 20px; z-index: 50; }' +
 			'.button { background-color: #eee; outline: 1px #aaa solid; padding: 5px; }' +
+			'.buttonFile { background-color: #eeffee; cursor: pointer; outline: 1px #aaa solid; padding: 5px; }' +
+			'.buttonLibrary { background-color: #ddddff; cursor: pointer; outline: 1px #aaa solid; padding: 5px; }' +
 		'';
 	};
 

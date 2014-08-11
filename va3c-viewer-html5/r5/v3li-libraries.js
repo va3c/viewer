@@ -5,9 +5,12 @@
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'View available libraries';
 		tab.innerHTML =
-			'<a href=# onclick=JA.toggleTab(V3LI.libraries); ><p class=button >' +
+			'<a JA.toggleTab(V3LI.libraries); id=librariesTab ><p class=buttonLibrary >' +
+				'<span id=libOpen ><i class="fa fa-chevron-down"></i></span> ' +
+				'<span id=libClose style=display:none; ><i class="fa fa-chevron-right"></i></span> ' +
 				'<i class="fa fa-thumbs-up"></i> Introduction' +
 			'</p></a>'; 
+		librariesTab.onclick = function() { JA.toggleTab( libOpen ); JA.toggleTab( libClose ); JA.toggleDialogs( V3LI.libraries ); };
 
 		V3LI.libraries = JA.menu.appendChild( document.createElement( 'div' ) );
 		V3LI.libraries.style.cssText = 'cursor: auto; display: ; ' ;
@@ -18,7 +21,7 @@
 			'Nonetheless <a href="http://va3c.github.io/viewer/va3c-viewer-html5/r4/va3c-viewer-html5-r4.html#autocrapdoodle" >some aspects</a> worth exploring. More goodies on the way...</p>' +
 //			'<p><a href=JavaScript:JAFO.appendUrl("../../../../Programming3DApplications/models/Cottus_Elec/cottus_elec.DAE"); >Ruins</a></p>' +
 //			'<p><a href=JavaScript:JAFO.appendUrl("../../../dae/Robie-House/models/model.dae"); >Robie House</a></p>' +
-			'<p><a href=JavaScript:JAFO.appendUrl("http://nasa3d.arc.nasa.gov/shared_assets/models/jpl-vtad-dawn/Dawn_19.stl"); >Dawn</a></p>' +
+//			'<p><a href=JavaScript:JAFO.appendUrl("http://nasa3d.arc.nasa.gov/shared_assets/models/jpl-vtad-dawn/Dawn_19.stl"); >Dawn</a></p>' +
 		'';
 
 	};

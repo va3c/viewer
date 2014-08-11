@@ -11,10 +11,10 @@
 	}
 
 	V3MH.addMeierHTMLTab = function() {
-		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
+		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Choose from a number of equations to display';
 		tab.innerHTML =
-			'<a href=# id=tabJurgenMeier ><p class=button >' +
+			'<a id=tabJurgenMeier ><p class=buttonLibrary >' +
 				'<i class="fa fa-file-image-o"></i> Jürgen Meier Gallery...' +
 			'</p></a>';
 		tabJurgenMeier.onclick = function() { JA.toggleDialogs( V3MH.JurgenMeier ); };
