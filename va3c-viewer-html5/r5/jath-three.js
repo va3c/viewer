@@ -39,7 +39,15 @@
 
 	};
 
+	JATH.addObjectClickEvent = function () {
 
+		projector = new THREE.Projector();
+		app.window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
+
+	};
+
+
+// Manipulate the view
 
 	JATH.resetCamera = function () {
 //console.log( 'reset camera event' );
@@ -54,8 +62,6 @@
 		camera.up = v( 0, 1, 0 );
 
 	};
-
-// Update the view
 
 	JATH.zoomExtents = function ( testing ) {
 
@@ -132,22 +138,17 @@ console.log( 'camera.far', camera.far );
 		scene.add( lightDirectional );
 	}
 
-	JATH.addObjectClickEvent = function () {
-
-		projector = new THREE.Projector();
-		app.window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
-
-	};
-
-
 // handle events
+
 	JATH.onWindowResize = function () {
 //console.log( 'resize event' );
 
 		windowHalfX = window.innerWidth / 2;
 		windowHalfY = window.innerHeight / 2;
+
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
+
 		renderer.setSize( window.innerWidth, window.innerHeight );
 
 	};

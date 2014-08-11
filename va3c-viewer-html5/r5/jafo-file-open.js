@@ -74,7 +74,7 @@
 					cnt += 0.001;
 					camera.position.set( Math.sin( cnt * 0.7 ) * camRadius, Math.cos( cnt * 0.3 ) * camRadius,  Math.sin( cnt * 0.2 ) * camRadius );
 				};
-//				JAFO.ifr.contentWindow.animate3();
+				JAFO.ifr.contentWindow.animate3();
 
 			}
 // zoomExtents();
