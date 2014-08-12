@@ -1,5 +1,7 @@
 Load Collada Load
 ===
+[Web page version]( http://va3c.github.io/viewer/cookbook/load-collada-load/ )
+[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-collada-load/ )
 
 ### Live Demo
 
@@ -7,7 +9,7 @@ Load Collada Load
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
 _[Load Collada Load R1]( http://va3c.github.io/viewer/cookbook/load-collada-load/r1/load-collada-load-r1.html )_
-[Source code]( 
+[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-collada-load )
 
 
 Remember: the JavaScript console is your friend...

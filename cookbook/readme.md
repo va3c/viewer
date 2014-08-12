@@ -1,6 +1,7 @@
 vA3C Cookbook Read Me
 ===
 [Web page version]( http://va3c.github.io/viewer/cookbook/readme-reader.html )
+[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook )
 
 <!--
 ### Live Demo
@@ -23,7 +24,7 @@ All the files here may be downloaded and run locally without any cross-origin se
 The goal is to help you develop apps that can help you export data from a heavy-duty design app and make that data readily available on 
 the web or locally for easy viewing and collaboration in your browser - all using the Three.js library.
 
-Folder includes
+Folders include:
 
 [JSON Reader]( http://va3c.github.io/viewer/cookbook/json-reader/ )   
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json )
@@ -33,8 +34,10 @@ Folder includes
 [Export Data JSON](  http://va3c.github.io/viewer/cookbook/export-data-json )  
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/json-reader )
 
+* Basic introduction to exporting data from a Three.js file
 
 
+<!--
 ### Creating Data in Three.js and Exporting it in JSON Format
 
 
@@ -115,6 +118,7 @@ Live Demo: [Revit JSON Import via XMLHttpRequest]( http://va3c.github.io/viewer/
 Source code: [Revit JSON Import via XMLHttpRequest]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/revit-json-import-ajax.html )
 
 
+
 Remember: the JavaScript console is your friend...
 
 ### Mission  
@@ -135,6 +139,7 @@ When possible, I try to provide code that an engineer or designer could play wit
 
 ## Issues / Bugs
 
+-->
 
 ## Project Links
 vA3C is a [GitHub]( http://github.com) [organization account]( https://help.github.com/articles/what-s-the-difference-between-user-and-organization-accounts ) and has multiple owners and admins. 

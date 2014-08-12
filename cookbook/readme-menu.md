@@ -4,7 +4,29 @@
 <p id=rm >
 	<a href=JavaScript:displayPage("#readme.md#rm"); >Read Me</a>
 </p>
+
+<p id=rm >
+	<a href=JavaScript:displayPage("#json-reader/readme.md#rm"); >JSON Reader</a>
+</p>
+
+<p id=rm >
+	<a href=JavaScript:displayPage("#export-data-json/readme.md#rm"); >Export Data JSON</a>
+</p>
+
+<p id=rm >
+	<a href=JavaScript:displayPage("#load-collada-load/readme.md#rm"); >Load Collada Load</a>
+</p>
+
+<p id=rm >
+	<a href=JavaScript:displayPage("#load-collada-parse/readme.md#rm"); >Load Collada Parse</a>
+</p>
+
+
+
+
 <!--
+http://va3c.github.io/viewer/cookbook/json-reader/readme-reader.html
+
 <i class="fa fa-external-link"></i> [Live Demo (latest)]( http://va3c.github.io/viewer/va3c-editor/latest/index.html ) 
 -->
 
