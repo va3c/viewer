@@ -16,8 +16,8 @@ _[Test Threejs in an Iframe]( http://va3c.github.io/viewer/cookbook/json-reader/
 
 A useful starting point to observing how Three.js creates data and then exports this data to a JSON file.
 
-Live demo: [JSON Build - Export Geometry]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-geometry.html )  
-Source code: [JSON Build - Export Geometry](  https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-geometry.html )
+Live demo: [JSON Build - Export Geometry]( http://va3c.github.io/viewer/cookbook/export-data-json/json-build-export-geometry.html )  
+Source code: [JSON Build - Export Geometry](  https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json/json-build-export-geometry.html )
 
 This file creates a Three.js mesh that represents a 50 m by 30 m by 12 stories at 3 M each.
 
@@ -42,26 +42,26 @@ Further down this page is a link to 'JSON Import - View Basic' a very JSON file 
 
 Now that you have viewed the export and import process, it is time to add a bit more complexity.
 
-Live demo: [JSON Build - Export Object]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html )  
-Source code: [JSON Build - Export Object](  https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-object.html )
+Live demo: [JSON Build - Export Object]( http://va3c.github.io/viewer/cookbook/export-data-json/json-build-export-object.html )  
+Source code: [JSON Build - Export Object](  https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json/json-build-export-object.html )
 
 This script extrudes a shape and therefore the geometry is more complicated than the first example. 
 Therefore Three.js exports all the vertices0 and faces.
 
 This script also exports more meta information - including any materials that have been assigned to the geometry.
 
-Live demo: [JSON Build - Export Multiple Objects]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-multiple-objects.html )  
-Source code: [JSON Build - Export Multiple Objects]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-multiple-objects.html )
+Live demo: [JSON Build - Export Multiple Objects]( http://va3c.github.io/viewer/cookbook/export-data-json/json-build-export-multiple-objects.html )  
+Source code: [JSON Build - Export Multiple Objects]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json/json-build-export-multiple-objects.html )
 
 Builds and exports cubes with random position, rotation, scale and color.
 
-Live demo: [JSON Build - Export Pentagon as Planes]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-pentagon-as-planes.html )  
-Source code: [JSON Build - Export Pentagon as Planes]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-pentagon-as-planes.html )
+Live demo: [JSON Build - Export Pentagon as Planes]( http://va3c.github.io/viewer/cookbook/export-data-json/json-build-export-pentagon-as-planes.html )  
+Source code: [JSON Build - Export Pentagon as Planes]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json/json-build-export-pentagon-as-planes.html )
 
 Builds and exports Three.js planes
 
-Live demo: [JSON Build - Export Multiple Shapes]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-multiple-shapes.html )  
-Source code: [JSON Build - Export Pentagon as Planes]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-build-export-multiple-shapes.html ) 
+Live demo: [JSON Build - Export Multiple Shapes]( http://va3c.github.io/viewer/cookbook/export-data-json/json-build-export-multiple-shapes.html )  
+Source code: [JSON Build - Export Pentagon as Planes]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json/json-build-export-multiple-shapes.html ) 
 
 Builds and exports three shapes that have been extruded. Because Three.js must export all the vertices and faces for an extrusion, the JSON file
 that is produced is likely to be most similar to a file produced by other apps. Observing files produced by this script may be a good place to start.
@@ -69,8 +69,8 @@ that is produced is likely to be most similar to a file produced by other apps. 
 Note that the current revision is having issues with materials not appearing correctly. 
 
 
-Live demo: [JSON Import - View Basic R2]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic-r2.html )   
-Source code: [JSON Import - View Basic R2]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-import-view-basic-r2.html )
+Live demo: [JSON Import - View Basic R2]( http://va3c.github.io/viewer/cookbook/export-data-json/json-import-view-basic-r2.html )   
+Source code: [JSON Import - View Basic R2]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json/json-import-view-basic-r2.html )
 
 
 2014-07-24 ~ R2 added
@@ -84,12 +84,12 @@ An ambient light and a direction light that follows the camera position are buil
 
 Again, this script is designed to be simple and basic in order to give you the quickest feeling of how things work.
 
-Live Demo: [Revit JSON Import R1]( http://va3c.github.io/viewer/cookbook/r1/revit-json-import.html )   
-Source code: [Revit JSON Import R1]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/revit-json-import.html )
+Live Demo: [Revit JSON Import R1]( http://va3c.github.io/viewer/cookbook/export-data-json/revit-json-import.html )   
+Source code: [Revit JSON Import R1]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json/revit-json-import.html )
 
 
-Live Demo: [Revit JSON Import via XMLHttpRequest]( http://va3c.github.io/viewer/cookbook/r1/revit-json-import-ajax.html )   
-Source code: [Revit JSON Import via XMLHttpRequest]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/revit-json-import-ajax.html )
+Live Demo: [Revit JSON Import via XMLHttpRequest]( http://va3c.github.io/viewer/cookbook/export-data-json/revit-json-import-ajax.html )   
+Source code: [Revit JSON Import via XMLHttpRequest]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json/revit-json-import-ajax.html )
 
 
 Remember: the JavaScript console is your friend...
@@ -120,7 +120,7 @@ Scripts are hosted on GitHub and are viewable as web pages, as described in the 
 
 The three ways of looking at the vA3C scripts:
 
-1. [Live Demo]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html )  
+1. [Live Demo]( http://va3c.github.io/viewer/cookbook/export-data-json/json-build-export-object.html )  
 2. [Read Me]( http://va3c.github.io/viewer/cookbook "view the files as apps." ) <input value="<< You are now probably here." size=28 style="font:bold 12pt monospace;border-width:0;" >   
 3. [Source Code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook "View the files as source code." ) <scan style=display:none ><< You are now probably here.</scan>  
 

@@ -1,4 +1,4 @@
-Load Collad Load
+Load Collada Load
 ===
 
 ### Live Demo
@@ -7,7 +7,7 @@ Load Collad Load
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
 _[Load Collada Load R1]( http://va3c.github.io/viewer/cookbook/load-collada-load/r1/load-collada-load-r1.html )_
-
+[Source code]( 
 
 
 Remember: the JavaScript console is your friend...

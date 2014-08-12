@@ -8,7 +8,7 @@
 <i class="fa fa-external-link"></i> [Live Demo (latest)]( http://va3c.github.io/viewer/va3c-editor/latest/index.html ) 
 -->
 
-<i class="fa fa-github"></i> [Source code on GitHub]( https://github.com/va3c/viewer/tree/gh-pages/cookbook )  
+<i class="fa fa-github"></i> [Source code on GitHub]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json )  
 <br>
 <br>
 
