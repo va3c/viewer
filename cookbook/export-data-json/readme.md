@@ -1,4 +1,4 @@
-vA3C Cookbook Read Me
+Export Data JSON Read Me
 ===
 
 <!--
@@ -9,25 +9,6 @@ There is an `iframe` here. It is not visible when viewed on github.com. To view,
 </iframe>
 _[Test Threejs in an Iframe]( http://va3c.github.io/viewer/cookbook/json-reader/threejs-iframe.html )_
 -->
-
-## Concept
-
-2014-07-24 ~ WebGL detection added throughout
-
-The files here are to help you get started with, for example, building apps that work with [Open Studio]( https://openstudio.nrel.gov/ ) 
-or with [WordPress]( http://wordpress.org ).
-
-All the files here may be downloaded and run locally without any cross-origin security issues.
-
-The goal is to help you develop apps that can help you export data from a heavy-duty design app and make that data readily available on 
-the web or locally for easy viewing and collaboration in your browser - all using the Three.js library.
-
-Folder includes
-
-[JSON Reader]( http://va3c.github.io/viewer/cookbook/readme-reader.html )  << fix link  
-
-* Basic introduction to reading in JSON data into an HTML web page
-
 
 
 ### Creating Data in Three.js and Exporting it in JSON Format
@@ -90,6 +71,7 @@ Note that the current revision is having issues with materials not appearing cor
 
 Live demo: [JSON Import - View Basic R2]( http://va3c.github.io/viewer/cookbook/r1/json-import-view-basic-r2.html )   
 Source code: [JSON Import - View Basic R2]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/r1/json-import-view-basic-r2.html )
+
 
 2014-07-24 ~ R2 added
 
@@ -166,9 +148,17 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 ## Change Log
 
-2014-08-09 ~ Added Revit JSON Import via XMLHttpRequest
+2014-08-12 ~ Theo
 
-2014-08-07 ~ Revit JSON Import added
+* Files and folders all moved about in all manner of ways
+
+2014-08-09 ~ Theo
+
+* Added Revit JSON Import via XMLHttpRequest
+
+2014-08-07 ~ 
+
+* Revit JSON Import added
 
 2014-07-24 ~ Theo
 
