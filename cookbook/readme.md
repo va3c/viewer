@@ -1,5 +1,6 @@
 vA3C Cookbook Read Me
 ===
+[Web page version]( http://va3c.github.io/viewer/cookbook/readme-reader.html )
 
 <!--
 ### Live Demo
@@ -24,9 +25,13 @@ the web or locally for easy viewing and collaboration in your browser - all usin
 
 Folder includes
 
-[JSON Reader]( http://va3c.github.io/viewer/cookbook/readme-reader.html )  << fix link  
+[JSON Reader]( http://va3c.github.io/viewer/cookbook/json-reader/ )   
+[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json )
 
 * Basic introduction to reading in JSON data into an HTML web page
+
+[Export Data JSON](  http://va3c.github.io/viewer/cookbook/export-data-json )  
+[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/json-reader )
 
 
 
