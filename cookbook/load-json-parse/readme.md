@@ -9,7 +9,7 @@ Load JSON Parse Read Me
 <iframe src="http://va3c.github.io/viewer/cookbook/load-json-parse/latest/index.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_[Load Collada Parse R1]( http://va3c.github.io/viewer/cookbook/load-json-parse/latest/index.html )_  
+_[Load JSON Parse R1]( http://va3c.github.io/viewer/cookbook/load-json-parse/latest/index.html )_  
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-parse/ )
 
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>Three.js Object Loader</title>
+<title>Three.js Object Loader - Load</title>
 <meta charset=utf-8 >
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
 </head>
@@ -9,41 +9,11 @@
 <script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/controls/TrackballControls.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
+
+<script src=../../js/load-file-includes.js ></script>
 <script>
 
-	var warehouse3DList = [
-		['robie-house/untitled/robie-house.js','1909 slow but good'],
-		['schroder-house/untitled/schroder-house.js', '1919'],
-		['villa-savoye/images/villa-savoye.js','1929'],
-		['barcelona-pavilion/untitled/barcelona-pavilion.js', '1930'],
-		['glass-house/untitled/glass-house.js', '1949 - slow loading']
-	];
-	var warehouse3DBasePath = '../../../../3d-warehouse-samples/';
-
-
-	var va3cList =[
-		['../../samples/WaltHeadLo.js','for testing'],
-
-		['../../../../json/DrMajentaKlein.json',''],
-		['../../../../json/DrMajentaKlein.json',''],
-		['../../../../json/Hex_01.js',''],
-		['../../../../json/MissSpacyEyes.json',''],
-		['../../../../json/TTX.json',''],
-		['../../../../json/TypTower.json',''],
-		['../../../../json/Vase_01.js',''],
-		['../../../../json/3dsmax/test_3dsmax.js',''],
-		['../../../../json/3dsmax/TransamericaPyramid2.js',''],
-		['../../../../json/aeron/hey-ron.js',''],
-		['../../../../json/lounge/scrounge.js',''], 
-		['../../../../json/revit/WallWindow.rvt.js',''],
-		['../../../../json/revit/Project2.rvt.js',''],
-		['../../../../json/revit/rac_basic_sample_project.rvt.js','']
-
-	]
-
 	var info, renderer, scene, camera, controls, stats;
-	var lightAmbient, lightPoint, lightDirectional;
-	var zoomSphere;
 
 	init();
 	animate();
@@ -55,27 +25,16 @@
 
 		var info = document.body.appendChild( document.createElement( 'div' ) );
 		info.style.cssText = 'left: 20px; position: absolute; ';
-		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
+		info.innerHTML = '<a href="" ><h1>' + document.title + '</a> ~ ' +
+			'<a id=aHelp href=# onclick=help.style.display="block"; >&#x24D8;</a></h1>' +
 			'<div><input type=checkbox id=chkZoom /> Display bounding sphere & shadow area<br><br></div>' +
-			'<div id=msg>Click any link to view the 3D model...</div>' +
-			'<div id=menu ></div><br>' +
+			'<div id=msg><h3>Click any link to view the 3D model...</h3></div>' +
+			'<div id=menu ></div>' +
 		'';
 
-		var linkList = '<h3>3D Warehouse Samples</h3>';
-		var file;
-		for ( var i = 0, len = warehouse3DList.length; i < len; i++ ) {
-			file = warehouse3DList[ i ];
-			linkList += '<a href=JavaScript:loadFile("' + warehouse3DBasePath + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
-		}
-		menu.innerHTML = linkList;
+		menu.innerHTML = JSONLinkList;
 
-		linkList = '<h3>vA3C Samples</h3>';
-		for ( var i = 0, len = va3cList.length; i < len; i++ ) {
-			file = va3cList[ i ];
-			linkList += '<a href=JavaScript:loadFile("' + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
-		}
-		menu.innerHTML += linkList;
-
+		addHelp();
 
 		stats = new Stats();
 		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; zIndex: 100; ';
@@ -99,17 +58,21 @@
 
 	}
 
-
 	function loadFile( fileName ) {
+// Still cannot trap the error if not JSON 4...
 
-		var loader = new THREE.ObjectLoader();
+		loader = new THREE.ObjectLoader();
+
         loader.load( fileName, function( result ){
-			scene = result;
-
-// axes
-		scene.add( new THREE.AxisHelper( 1500 ) );
+//console.log( result );
+			if ( result ) {
+				scene = result;
+			} else {
+				console.log( 'oooops' );
+			}
 
 			lightAmbient = new THREE.AmbientLight( 0x888888 );
+
 			scene.add( lightAmbient );
 
 			if ( !lightPoint ) {
@@ -120,91 +83,49 @@
 
 			zoomExtents( chkZoom.checked );
 
-			msg.innerHTML = fileName.split('/').pop();
+			msg.innerHTML = '<h3>' + fileName.split('/').pop() + '</h3>';
 
 // add loader.showStatus...
 
-		} );
+		}, onLoad, onError );
 
-	}
-
-	function zoomExtents( testing ) {
-
-		scale = 1; // scene.children[3].scale.x;
-		var meshes = 0;
-		var c, r;
-		var geo = new THREE.Geometry();
-		scene.traverse( function ( child ) {
-			if ( child instanceof THREE.Mesh && child.name !== 'zoomSphere' ) {
-				geo.merge( child.geometry );
-// while traversing, might as well do this...
-				child.castShadow = true;
-				child.receiveShadow = true;
-				meshes++;
-			}
-		} );
-
-		geo.computeBoundingSphere();
-		c = geo.boundingSphere.center.multiplyScalar( scale );
-		controls.target.set( c.x, c.y, c.z);
-		r = 1.25 * geo.boundingSphere.radius * scale;
-		camera.position.set( (c.x + r), ( c.y + r ), ( c.z + r ) );
-
-		if ( zoomSphere ) { scene.remove( zoomSphere ); }
-
-		if ( testing ) {
-			geometry = new THREE.SphereGeometry( r );
-			material = new THREE.MeshNormalMaterial( { opacity: 0.5, transparent: true, wireframe: true } );
-			zoomSphere = new THREE.Mesh( geometry, material );
-			zoomSphere.position.set( c.x, c.y, c.z);
-			zoomSphere.name = 'zoomSphere';
-			scene.add( zoomSphere );
-
-console.log( 'meshes', meshes, 'rad', r, 'scl', scale );
-console.log( 'center', c );
-console.log( 'target', controls.target );
-console.log( 'camera', camera.position );
-console.log( 'geo', geo);
-
+		function onLoad(event) {
+			console.log( 'yay' ); 
 		}
 
-console.log( 'camera.near', camera.near, 'camera.far', camera.far );
-		camera.near = ( r < 100 ) ? r * 0.01 : 1;
-		camera.far = ( r > 10000 ) ? 10 * r : 10000;
-		camera.updateProjectionMatrix();
-console.log( 'camera.near', camera.near, 'camera.far', camera.far );
-
-		updateShadows( c, r, testing );
+		function onError(event) {
+		 console.log( 'oops' );
+		}
 
 	}
 
-	function updateShadows( cen, rad, testing ) {
-
-		var lightDirectional = new THREE.DirectionalLight( 0xffffff, 1 );
-
-		lightDirectional.castShadow = true;
-		lightDirectional.shadowMapWidth = 2048;
-		lightDirectional.shadowMapHeight = 2048;
-
-		cenObj = new THREE.Object3D();
-		cenObj.position.set( cen.x, cen.y, cen.z )
-		lightDirectional.position.set( -rad + cen.x, rad + cen.y, rad + cen.z );
-		lightDirectional.target = cenObj;
-
-		lightDirectional.shadowCameraLeft = -rad;
-		lightDirectional.shadowCameraRight = rad;
-		lightDirectional.shadowCameraTop = rad;
-		lightDirectional.shadowCameraBottom = -rad;
-
-		lightDirectional.shadowCameraNear = 0;
-		lightDirectional.shadowCameraFar = 3 * rad;
-		lightDirectional.updateMatrix();
-		lightDirectional.updateMatrixWorld();  
-
-		if ( testing ) { lightDirectional.shadowCameraVisible = true; }
-		scene.add( lightDirectional );
+	function addHelp() {
+		help = document.body.appendChild( document.createElement( 'div' ) );
+		help.style.cssText = 'display: none; background-color: #ccc; opacity: 0.9; padding: 20px; ' +
+			'bottom: 0; left: 0; height: 370px; margin: auto; position: absolute; right: 0; top: 0; width: 500px; ';
+		help.innerHTML =
+			'<div onclick=help.style.display="none"; >' +
+				'<h3>' + document.title + '</h3>' +
+				'<h4>Considerations include the following:</h4>' +
+				'<ul>' +
+					'<li>Loads Three.js JSON files using:<br>' +
+					' &nbsp; loader = new THREE.ObjectLoader();<br>' +
+					' &nbsp; loader.load( fileName, function( result ) )' +
+					'</li>' +
+					'<li>ObjectLoader only reads Three.js JSON 4.0+ files. All others fail. </li>' +
+					'<li>Errors reading lower versions are difficult to catch</li>' +
+					'<li>Suggests: loader.<b><i>parse</i></b> is better current solution</li>' +
+				'</ul>' +
+				'<a href="https://github.com/vA3C/viewer/cookbook/load-json-object/" target="_blank">Source code</a><br>' +
+				'<small>credits: <a href="http://threejs.org" target="_blank">three.js</a> - ' +
+				'<a href="http://khronos.org/webgl/" target="_blank">webgl</a> - ' +
+				'<a href="http://jaanga.github.io" target="_blank">jaanga</a><br>' +
+				'copyright &copy; 2014 vA3C authors ~ MIT license</small>' +
+				'<p style=text-align:right; ><button>Close</button></p>' +
+		'</div>';
+		aHelp.style.cssText += 'text-decoration: none; ';
+		aHelp.title = 'Get help and information';
 	}
-
 
 	function animate() {
 		requestAnimationFrame( animate );

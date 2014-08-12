@@ -11,6 +11,7 @@
 <script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/loaders/ColladaLoader.js ></script>
 
+<script src=../../js/load-file-includes.js ></script>
 <script>
 
 	var warehouse3DList = [
@@ -66,6 +67,7 @@
 
 		info.style.cssText = 'left: 20px; position: absolute; ';
 		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
+			'<p>2014-08-12 ~ Geometry comes in, but texture folder not found</p>' +
 			'<div><input type=checkbox id=chkZoom /> Display bounding sphere & shadow area<br><br></div>' +
 			'<div id=msg>Click any link to view the 3D model...</div>' +
 			'<div id=menu ></div><br>' +
@@ -134,8 +136,6 @@
 			camera.add( lightPoint );
 		}
 
-		scene.add( new THREE.AxisHelper( 50 ) );
-
 		var data = requestFile( fileName );
 //		data = JSON.parse( data );
 
@@ -156,7 +156,7 @@
 
 	function zoomExtents( testing ) {
 
-		scale = scene.children[3].scale.x;
+		scale = scene.children[2].scale.x;
 		var meshes = 0;
 		var c, r;
 		var geo = new THREE.Geometry();
@@ -186,6 +186,8 @@
 			zoomSphere.name = 'zoomSphere';
 			scene.add( zoomSphere );
 
+			scene.add( new THREE.AxisHelper( 50 ) );
+
 console.log( 'meshes', meshes, 'rad', r, 'scl', scale );
 console.log( 'center', c );
 console.log( 'target', controls.target );
@@ -204,6 +206,7 @@ console.log( 'camera.near', camera.near, 'camera.far', camera.far );
 
 	}
 
+/*
 	function updateShadows( cen, rad, testing ) {
 
 		var lightDirectional = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -238,6 +241,7 @@ console.log( 'camera.near', camera.near, 'camera.far', camera.far );
 		xmlhttp.send( null );
 		return xmlhttp.responseText;
 	};
+*/
 
 	function animate() {
 		requestAnimationFrame( animate );

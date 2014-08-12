@@ -1,4 +1,4 @@
-Load JSON Object Read Me
+Load JSON Object - Load Read Me
 ===
 [Web page version]( http://va3c.github.io/viewer/cookbook/load-json-object/ ) - 
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-object/ )
@@ -9,11 +9,17 @@ Load JSON Object Read Me
 <iframe src="http://va3c.github.io/viewer/cookbook/load-json-object/latest/index.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_[Load Collada Parse R1]( http://va3c.github.io/viewer/cookbook/load-json-object/latest/index.html )_  
+_[Load JSON Object R1]( http://va3c.github.io/viewer/cookbook/load-json-object/latest/index.html )_  
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-object/ )
 
+* Loads Three.js JSON files using:  
+    loader = new THREE.ObjectLoader();   
+    loader.load( fileName, function( result ) )...
 
-Remember: the JavaScript console is your friend...
+
+* ObjectLoader only reads Three.js JSON 4.0+ files. All others fail  
+* Errors reading lower versions are difficult to catch  
+* Suggests: loader.<b><i>parse</i></b> is better current solution   
 
 ### Mission  
 <!-- a statement of a rationale, applicable now as well as in the future -->

@@ -9,8 +9,10 @@
 <script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/controls/TrackballControls.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
-<script>
 
+<script src=../../js/load-file-includes.js ></script>
+<script>
+/*
 	var fileList =[
 		['../../samples/WaltHeadLo.js','for testing'],
 		['../../../../json/revit/Project2.rvt.js','Revit file not loading'], // not
@@ -21,10 +23,10 @@
 		['../../../../3d-warehouse-samples/barcelona-pavilion/untitled/barcelona-pavilion.js','1930 - good'],
 		['../../../../3d-warehouse-samples/glass-house/untitled/glass-house.js','1949 - results not pretty']
 	]
-
+*/
 	var info, renderer, scene, camera, controls, stats;
-	var lightAmbient, lightPoint, lightDirectional;
-	var zoomSphere;
+//	var lightAmbient, lightPoint, lightDirectional;
+//	var zoomSphere;
 
 	init();
 	animate();
@@ -37,21 +39,21 @@
 		info = document.body.appendChild( document.createElement( 'div' ) );
 		info.style.cssText = 'left: 20px; position: absolute; top: 0px; ';
 		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
-			'<p>Collada files imported to Blender and exported as Three.js JSON</p>' +
-			'<p>Includes Walt and Revit JSON files for testing</p>' +
+//			'<p>Collada files imported to Blender and exported as Three.js JSON</p>' +
+//			'<p>Includes Walt and Revit JSON files for testing</p>' +
 			'<input type=checkbox id=chkZoom /> display bounding sphere & shadow area' +
+			'<div id=msg>Click any link to view the 3D model...</div>' +
 			'<div id=menu ></div><br>' +
-			'<div id=msg></div>' +
 		'';
 
 		var linkList = '<br>';
 		var file;
-		for ( var i = 0, len = fileList.length; i < len; i++ ) {
-			file = fileList[ i ];
+		for ( var i = 0, len = JSONFileList.length; i < len; i++ ) {
+			file = JSONFileList[ i ];
 			linkList += '<a href=JavaScript:loadFile("' + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
 		}
 
-		menu.innerHTML = linkList;
+		menu.innerHTML = JSONLinkList;
 
 		stats = new Stats();
 		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; zIndex: 100; ';
@@ -92,8 +94,6 @@
 			camera.add( lightPoint );
 		}
 
-// axes
-		scene.add( new THREE.AxisHelper( 50 ) );
 
 		var loader = new THREE.JSONLoader();
 		loader.load( fileName, function ( geometry, materials ) {
@@ -124,6 +124,8 @@
 		} );
 
 	}
+
+/*
 
 	function zoomExtents( testing ) {
 
@@ -203,6 +205,7 @@ console.log( 'camera.far', camera.far );
 		if ( testing ) { lightDirectional.shadowCameraVisible = true; }
 		scene.add( lightDirectional );
 	}
+*/
 
 
 	function animate() {

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>Load Collada Load R1</title>
+<title>Three.js Object Loader</title>
 <meta charset=utf-8 >
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
 </head>
@@ -9,62 +9,53 @@
 <script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/controls/TrackballControls.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
-<script src=http://mrdoob.github.io/three.js/examples/js/loaders/ColladaLoader.js ></script>
 
 <script src=../../js/load-file-includes.js ></script>
 <script>
-
+/*
 	var warehouse3DList = [
-		['monkey.dae','Suzanne - zoom extents issues'],
-		['robie-house/robie-house.dae','1909 may freeze browser!!!'],
-		['schroder-house/schroder-house.dae', '1919'],
-		['villa-savoye/models/villa-savoye.dae','1929'],
-		['barcelona-pavilion/barcelona-pavilion.dae', '1930'],
-		['glass-house/glass-house.dae', '1949 - slow loading']
+		['robie-house/untitled/robie-house.js','1909 slow but good'],
+		['schroder-house/untitled/schroder-house.js', '1919'],
+		['villa-savoye/images/villa-savoye.js','1929'],
+		['barcelona-pavilion/untitled/barcelona-pavilion.js', '1930'],
+		['glass-house/untitled/glass-house.js', '1949 - slow loading']
 	];
 	var warehouse3DBasePath = '../../../../3d-warehouse-samples/';
 
-	var threejsList = [
-		['collada/avatar.dae',''],
-		['collada/multimaterial.dae',''],
-		['collada/monster/monster.dae',''],
-		['collada/pump/pump.dae',''],
-		['gltf/duck/duck.dae',''],
-		['gltf/monster/monster.dae','']
+
+	var va3cList =[
+		['../../samples/WaltHeadLo.js','for testing'],
+
+		['../../../../json/DrMajentaKlein.json',''],
+		['../../../../json/DrMajentaKlein.json',''],
+		['../../../../json/Hex_01.js',''],
+		['../../../../json/MissSpacyEyes.json',''],
+		['../../../../json/TTX.json',''],
+		['../../../../json/TypTower.json',''],
+		['../../../../json/Vase_01.js',''],
+		['../../../../json/3dsmax/test_3dsmax.js',''],
+		['../../../../json/3dsmax/TransamericaPyramid2.js',''],
+		['../../../../json/aeron/hey-ron.js',''],
+		['../../../../json/lounge/scrounge.js',''], 
+		['../../../../json/revit/WallWindow.rvt.js',''],
+		['../../../../json/revit/Project2.rvt.js',''],
+		['../../../../json/revit/rac_basic_sample_project.rvt.js','']
+
 	]
-
-	var threejsBasePath = '../../../../../three.js/examples/models/';
-
-	var programming3DApplicationsList = [
-
-		['duck.dae',''],
-		['Cottus_Elec/cottus_elec.DAE',''],
-		['Cottus_Rktlauncher/cottus_rktlauncher.DAE',''],
-		['Cottus_Twincannon/cottus_twincannon.DAE',''],
-		['futurgo/futurgo.dae',''],
-		['futurgo_city/futurgo_city.dae',''],
-		['futurgo_mobile/futurgo_mobile.dae',''],
-		['rambler/Rambler.dae',''],
-		['ruins/Ruins_dae.dae',''],
-		['vc/vc.dae','']
-	]
-
-	var programming3DApplicationsBasePath = '../../../../../Programming3DApplications/models/';
-
-	var info, stats, renderer, scene, camera, controls;
-	var lightAmbient, lightPoint, lightDirectional;
-	var geometry, material, mesh;
-	var zoomSphere;
+*/
+	var info, renderer, scene, camera, controls, stats;
+//	var lightAmbient, lightPoint, lightDirectional;
+//	var zoomSphere;
 
 	init();
 	animate();
 
 	function init() {
+		var geometry, material, mesh;
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
 		var info = document.body.appendChild( document.createElement( 'div' ) );
-
 		info.style.cssText = 'left: 20px; position: absolute; ';
 		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
 			'<div><input type=checkbox id=chkZoom /> Display bounding sphere & shadow area<br><br></div>' +
@@ -72,31 +63,28 @@
 			'<div id=menu ></div><br>' +
 		'';
 
+/*
 		var linkList = '<h3>3D Warehouse Samples</h3>';
 		var file;
 		for ( var i = 0, len = warehouse3DList.length; i < len; i++ ) {
 			file = warehouse3DList[ i ];
 			linkList += '<a href=JavaScript:loadFile("' + warehouse3DBasePath + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
 		}
-		menu.innerHTML = linkList;
+*/
 
-		linkList = '<h3>Three.js Samples</h3>';
-		for ( var i = 0, len = threejsList.length; i < len; i++ ) {
-			file = threejsList[ i ];
-			linkList += '<a href=JavaScript:loadFile("' + threejsBasePath + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
+		menu.innerHTML = JSONLinkList;
+
+/*
+		linkList = '<h3>vA3C Samples</h3>';
+		for ( var i = 0, len = va3cList.length; i < len; i++ ) {
+			file = va3cList[ i ];
+			linkList += '<a href=JavaScript:loadFile("' + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
 		}
 		menu.innerHTML += linkList;
-
-		linkList = '<h3>Programming 3D Applications</h3>' +
-		'Models in <a href="http://www.amazon.com/Programming-Applications-HTML5-WebGL-Visualization/dp/1449362966/ref=la_B008UZ888I_1_1" target="_blank">O\'Reilly book</a> by Tony Parisi<br>';
-		for ( var i = 0, len = programming3DApplicationsList.length; i < len; i++ ) {
-			file = programming3DApplicationsList[ i ];
-			linkList += '<a href=JavaScript:loadFile("' + programming3DApplicationsBasePath + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
-		}
-		menu.innerHTML += linkList;
+*/
 
 		stats = new Stats();
-		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
+		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; zIndex: 100; ';
 		document.body.appendChild( stats.domElement );
 
 		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
@@ -107,56 +95,68 @@
 
 		scene = new THREE.Scene();
 
-		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 0.1, 100000 );
-		camera.position.set( 1, 1, 1 );
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 50000 );
+		camera.position.set( 15000, 15000, 15000 );
 		controls = new THREE.TrackballControls( camera, renderer.domElement );
 
 		if ( location.hash ) {
 			loadFile( location.hash.substr( 1) );
 		}
+
 	}
 
 	function loadFile( fileName ) {
-		meshes = 0;
-		scene = new THREE.Scene();
+// Still cannot trap the error if not JSON 4...
 
-		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 0.1, 100000 );
-		camera.position.set( 1, 1, 1 );
-		controls = new THREE.TrackballControls( camera, renderer.domElement );
+		loader = new THREE.ObjectLoader();
 
-		scene.add( camera );  // needed for light to track
+        loader.load( fileName, function( result ){
+//console.log( result );
+			if ( result ) {
+				scene = result;
+			} else {
+				console.log( 'oooops' );
+			}
 
-		lightAmbient = new THREE.AmbientLight( 0x888888 );
-		scene.add( lightAmbient );
+			lightAmbient = new THREE.AmbientLight( 0x888888 );
 
-		if ( !lightPoint ) {
-			lightPoint = new THREE.PointLight( 0xffffff, 0.5 );
-			lightPoint.position = camera.position;
-			camera.add( lightPoint );
+			scene.add( lightAmbient );
+
+			if ( !lightPoint ) {
+				lightPoint = new THREE.PointLight( 0xffffff, 0.5 );
+				lightPoint.position = camera.position;
+				camera.add( lightPoint );
+			}
+
+			zoomExtents( chkZoom.checked );
+
+			msg.innerHTML = fileName.split('/').pop();
+
+// add loader.showStatus...
+
+		}, onLoad, onError );
+
+		function onLoad(event) {
+			console.log( 'yay' ); 
 		}
 
+		function onError(event) {
+		 console.log( 'oops' );
+		}
 
-		var loader = new THREE.ColladaLoader();
-//		loader.options.centerGeometry = true;  // does this work?
-		loader.options.convertUpAxis = true;
-		loader.load( fileName, function colladaReady( collada ) {
-
-			scene.add( collada.scene );
-			zoomExtents( chkZoom.checked ) ;
-			msg.innerHTML = 'Currently: ' + fileName.split('/').pop();
-
-		} );
 	}
 
+/*
 	function zoomExtents( testing ) {
 
-		scale = scene.children[2].scale.x;
+		scale = 1; // scene.children[3].scale.x;
 		var meshes = 0;
 		var c, r;
 		var geo = new THREE.Geometry();
 		scene.traverse( function ( child ) {
 			if ( child instanceof THREE.Mesh && child.name !== 'zoomSphere' ) {
 				geo.merge( child.geometry );
+// while traversing, might as well do this...
 				child.castShadow = true;
 				child.receiveShadow = true;
 				meshes++;
@@ -169,7 +169,6 @@
 		r = 1.25 * geo.boundingSphere.radius * scale;
 		camera.position.set( (c.x + r), ( c.y + r ), ( c.z + r ) );
 
-
 		if ( zoomSphere ) { scene.remove( zoomSphere ); }
 
 		if ( testing ) {
@@ -180,9 +179,6 @@
 			zoomSphere.name = 'zoomSphere';
 			scene.add( zoomSphere );
 
-		scene.add( new THREE.AxisHelper( 50 ) );
-
-
 console.log( 'meshes', meshes, 'rad', r, 'scl', scale );
 console.log( 'center', c );
 console.log( 'target', controls.target );
@@ -192,8 +188,8 @@ console.log( 'geo', geo);
 		}
 
 console.log( 'camera.near', camera.near, 'camera.far', camera.far );
-		camera.near = ( r < 100 ) ? 0.01 : 1;
-		camera.far = ( r > 10000 ) ? 100000 : 10000;
+		camera.near = ( r < 100 ) ? r * 0.01 : 1;
+		camera.far = ( r > 10000 ) ? 10 * r : 10000;
 		camera.updateProjectionMatrix();
 console.log( 'camera.near', camera.near, 'camera.far', camera.far );
 
@@ -201,7 +197,6 @@ console.log( 'camera.near', camera.near, 'camera.far', camera.far );
 
 	}
 
-/*
 	function updateShadows( cen, rad, testing ) {
 
 		var lightDirectional = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -232,10 +227,11 @@ console.log( 'camera.near', camera.near, 'camera.far', camera.far );
 
 	function animate() {
 		requestAnimationFrame( animate );
-		renderer.render( scene, camera );
 		controls.update();
 		stats.update();
+		renderer.render( scene, camera );
 	}
+
 </script>
 </body>
 </html>
