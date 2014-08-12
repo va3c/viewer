@@ -5,10 +5,10 @@
 	<a href=JavaScript:displayPage("#readme.md#rm"); >Read Me</a>
 </p>
 
-<i class="fa fa-external-link"></i> [Live Demo (latest)]( http://va3c.github.io/viewer/cookbook/load-collada/latest/index.html ) 
+<i class="fa fa-external-link"></i> [Live Demo (latest)]( http://va3c.github.io/viewer/cookbook/load-collada-load/latest/index.html ) 
 
 
-<i class="fa fa-github"></i> [Source code on GitHub]( https://github.com/va3c/viewer/tree/gh-pages/cookbook )  
+<i class="fa fa-github"></i> [Source code on GitHub]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-collada-load/ )  
 <br>
 <br>
 

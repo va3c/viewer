@@ -1,15 +1,16 @@
-Load Collada Load Read Me
+Load JSON Object Read Me
 ===
-[Web page version]( http://va3c.github.io/viewer/cookbook/load-collada-load/ ) - 
-[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-collada-load/ )
+[Web page version]( http://va3c.github.io/viewer/cookbook/load-json-object/ ) - 
+[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-object/ )
+
 
 ### Live Demo
 
-<iframe src="http://va3c.github.io/viewer/cookbook/load-collada-load/r1/load-collada-load-r1.html" width=100% height=500px class='overview' >
+<iframe src="http://va3c.github.io/viewer/cookbook/load-json-load/latest/index.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_[Load Collada Load R1]( http://va3c.github.io/viewer/cookbook/load-collada-load/r1/load-collada-load-r1.html )_
-[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-collada-load/ )
+_[Load Collada Parse R1]( http://va3c.github.io/viewer/cookbook/load-json-object/latest/index.html )_  
+[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-object/ )
 
 
 Remember: the JavaScript console is your friend...
@@ -39,7 +40,7 @@ Scripts are hosted on GitHub and are viewable as web pages, as described in the 
 
 The three ways of looking at the vA3C scripts:
 
-1. [Live Demo]( http://va3c.github.io/viewer/cookbook/ )  
+1. [Live Demo]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html )  
 2. [Read Me]( http://va3c.github.io/viewer/cookbook "view the files as apps." ) <input value="<< You are now probably here." size=28 style="font:bold 12pt monospace;border-width:0;" >   
 3. [Source Code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook "View the files as source code." ) <scan style=display:none ><< You are now probably here.</scan>  
 

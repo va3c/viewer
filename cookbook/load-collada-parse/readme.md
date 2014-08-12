@@ -1,6 +1,6 @@
-Load Collada Parse
+Load Collada Parse Read Me
 ===
-[Web page version]( http://va3c.github.io/viewer/cookbook/load-collada-parse/ )
+[Web page version]( http://va3c.github.io/viewer/cookbook/load-collada-parse/ ) - 
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-collada-parse/ )
 
 
@@ -9,8 +9,8 @@ Load Collada Parse
 <iframe src="http://va3c.github.io/viewer/cookbook/load-collada-parse/latest/index.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_[Load Collada Parse R1]( http://va3c.github.io/viewer/cookbook/load-collada-parse/latest/index.html )_
-
+_[Load Collada Parse R1]( http://va3c.github.io/viewer/cookbook/load-collada-parse/latest/index.html )_  
+[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-collada-parse/ )
 
 
 Remember: the JavaScript console is your friend...
@@ -70,4 +70,4 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 2014-08-11 ~ Theo
 
-* Fiesr commit
+* First commit
