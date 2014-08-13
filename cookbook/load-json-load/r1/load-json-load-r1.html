@@ -12,21 +12,8 @@
 
 <script src=../../js/load-file-includes.js ></script>
 <script>
-/*
-	var fileList =[
-		['../../samples/WaltHeadLo.js','for testing'],
-		['../../../../json/revit/Project2.rvt.js','Revit file not loading'], // not
-		['../../../../json/revit/rac_basic_sample_project.rvt.js','Revit file not loading'],
-		['../../../../3d-warehouse-samples/robie-house/untitled/robie-house.js','1909 - loads slowly but worth the wait'],
-		['../../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js','1909 - good'],
-		['../../../../3d-warehouse-samples/villa-savoye/images/villa-savoye.js','1929 - result nor pretty'],
-		['../../../../3d-warehouse-samples/barcelona-pavilion/untitled/barcelona-pavilion.js','1930 - good'],
-		['../../../../3d-warehouse-samples/glass-house/untitled/glass-house.js','1949 - results not pretty']
-	]
-*/
+
 	var info, renderer, scene, camera, controls, stats;
-//	var lightAmbient, lightPoint, lightDirectional;
-//	var zoomSphere;
 
 	init();
 	animate();
@@ -38,11 +25,10 @@
 
 		info = document.body.appendChild( document.createElement( 'div' ) );
 		info.style.cssText = 'left: 20px; position: absolute; top: 0px; ';
-		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
-//			'<p>Collada files imported to Blender and exported as Three.js JSON</p>' +
-//			'<p>Includes Walt and Revit JSON files for testing</p>' +
+		info.innerHTML = '<a href="" ><h1>' + document.title + '</a> ~ ' +
+			'<a id=aHelp href=# onclick=help.style.display="block"; >&#x24D8;</a></h1>' +
 			'<input type=checkbox id=chkZoom /> display bounding sphere & shadow area' +
-			'<div id=msg>Click any link to view the 3D model...</div>' +
+			'<div id=msg><h3 style=margin-bottom:0; >Click any link to view the 3D model...</h3></div>' +
 			'<div id=menu ></div><br>' +
 		'';
 
@@ -53,7 +39,9 @@
 			linkList += '<a href=JavaScript:loadFile("' + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
 		}
 
-		menu.innerHTML = JSONLinkList;
+		menu.innerHTML = getJSONLinkList();
+
+		addHelp();
 
 		stats = new Stats();
 		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; zIndex: 100; ';
@@ -81,20 +69,6 @@
 
 		scene = new THREE.Scene();
 
-		controls = new THREE.TrackballControls( camera, renderer.domElement );
-
-		scene.add( camera );  // needed for light to track
-
-		lightAmbient = new THREE.AmbientLight( 0x888888 );
-		scene.add( lightAmbient );
-
-		if ( !lightPoint ) {
-			lightPoint = new THREE.PointLight( 0xffffff, 0.5 );
-			lightPoint.position = camera.position;
-			camera.add( lightPoint );
-		}
-
-
 		var loader = new THREE.JSONLoader();
 		loader.load( fileName, function ( geometry, materials ) {
 
@@ -111,13 +85,12 @@
 			}
 
 			mesh = new THREE.Mesh( geometry, material );
-			mesh.castShadow = true;
-			mesh.receiveShadow = true;
+
 			scene.add( mesh );
 
-			zoomExtents( chkZoom.checked );
+			zoomExtents();
 
-			msg.innerHTML = fileName.split('/').pop();
+			msg.innerHTML = '<h3>' + fileName.split('/').pop() + '</h3>';
 
 // add loader.showStatus...
 
@@ -125,88 +98,34 @@
 
 	}
 
-/*
-
-	function zoomExtents( testing ) {
-
-		scale = 1; // scene.children[3].scale.x;
-		var meshes = 0;
-		var c, r;
-		var geo = new THREE.Geometry();
-		scene.traverse( function ( child ) {
-			if ( child instanceof THREE.Mesh && child.name !== 'zoomSphere' ) {
-				geo.merge( child.geometry );
-// while traversing, miht as well do this...
-				child.castShadow = true;
-				child.receiveShadow = true;
-				meshes++;
-			}
-		} );
-
-		geo.computeBoundingSphere();
-		c = geo.boundingSphere.center.multiplyScalar( scale );
-		controls.target.set( c.x, c.y, c.z);
-		r = 1.25 * geo.boundingSphere.radius * scale;
-		camera.position.set( (c.x + r), ( c.y + r ), ( c.z + r ) );
-
-
-		if ( zoomSphere ) { scene.remove( zoomSphere ); }
-
-		if ( testing ) {
-			geometry = new THREE.SphereGeometry( r );
-			material = new THREE.MeshNormalMaterial( { opacity: 0.5, transparent: true, wireframe: true } );
-			zoomSphere = new THREE.Mesh( geometry, material );
-			zoomSphere.position.set( c.x, c.y, c.z);
-			zoomSphere.name = 'zoomSphere';
-			scene.add( zoomSphere );
-
-console.log( 'meshes', meshes, 'rad', r, 'scl', scale );
-console.log( 'center', c );
-console.log( 'target', controls.target );
-console.log( 'camera', camera.position );
-console.log( 'geo', geo);
-
-		}
-
-		if ( camera.far < r || camera.far >  3 * r ) {
-			camera.far = 5 * r;
-			camera.updateProjectionMatrix();
-console.log( 'camera.far', camera.far );
-
-		}
-
-		updateShadows( c, r, testing );
-
+	function addHelp() {
+		help = document.body.appendChild( document.createElement( 'div' ) );
+		help.style.cssText = 'display: none; background-color: #ccc; opacity: 0.9; padding: 20px; ' +
+			'bottom: 0; left: 0; height: 370px; margin: auto; position: absolute; right: 0; top: 0; width: 500px; ';
+		help.innerHTML =
+			'<div onclick=help.style.display="none"; >' +
+				'<h3>' + document.title + '</h3>' +
+				'<h4>Considerations include the following:</h4>' +
+				'<ul>' +
+					'<li>Loads Three.js JSON files using:<br>' +
+					' &nbsp; loader = new THREE.JSONLoader();<br>' +
+					' &nbsp; loader.load( fileName, function( result ) )' +
+					'</li>' +
+					'<li>JSONLoader only reads Three.js JSON 3.0+ and below files. 4.0+ files fail. </li>' +
+					'<li>Errors reading higher versions are difficult to catch</li>' +
+					'<li>Reads geometry, materials and textures well</li>' +
+					'<li>This suggests: loader.<b><i>parse</i></b> is better current solution</li>' +
+				'</ul>' +
+				'<a href="https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-load" target="_blank">Source code</a><br>' +
+				'<small>credits: <a href="http://threejs.org" target="_blank">three.js</a> - ' +
+				'<a href="http://khronos.org/webgl/" target="_blank">webgl</a> - ' +
+				'<a href="http://jaanga.github.io" target="_blank">jaanga</a><br>' +
+				'copyright &copy; 2014 vA3C authors ~ MIT license</small>' +
+				'<p style=text-align:right; ><button>Close</button></p>' +
+		'</div>';
+		aHelp.style.cssText += 'text-decoration: none; ';
+		aHelp.title = 'Get help and information';
 	}
-
-	function updateShadows( cen, rad, testing ) {
-
-		var lightDirectional = new THREE.DirectionalLight( 0xffffff, 1 );
-
-		lightDirectional.castShadow = true;
-		lightDirectional.shadowMapWidth = 2048;
-		lightDirectional.shadowMapHeight = 2048;
-
-		cenObj = new THREE.Object3D();
-		cenObj.position.set( cen.x, cen.y, cen.z )
-		lightDirectional.position.set( -rad + cen.x, rad + cen.y, rad + cen.z );
-		lightDirectional.target = cenObj;
-
-		lightDirectional.shadowCameraLeft = -rad;
-		lightDirectional.shadowCameraRight = rad;
-		lightDirectional.shadowCameraTop = rad;
-		lightDirectional.shadowCameraBottom = -rad;
-
-		lightDirectional.shadowCameraNear = 0;
-		lightDirectional.shadowCameraFar = 3 * rad;
-		lightDirectional.updateMatrix();
-		lightDirectional.updateMatrixWorld();  
-
-		if ( testing ) { lightDirectional.shadowCameraVisible = true; }
-		scene.add( lightDirectional );
-	}
-*/
-
 
 	function animate() {
 		requestAnimationFrame( animate );

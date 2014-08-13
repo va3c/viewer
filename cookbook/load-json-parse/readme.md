@@ -13,7 +13,13 @@ _[Load JSON Parse R1]( http://va3c.github.io/viewer/cookbook/load-json-parse/lat
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-parse/ )
 
 
-Remember: the JavaScript console is your friend...
+* Loads Three.js JSON files using following technique:  
+	* Open file and read contents
+	* Run tests to determine version
+	* Use loader.parse file using JSONLoader or ObjectLoader as appropriate
+*  Loads geometry, materials and textures correctly 
+* This suggests: loader.<b><i>parse</i></b> is best current solution   
+
 
 ### Mission  
 <!-- a statement of a rationale, applicable now as well as in the future -->

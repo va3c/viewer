@@ -32,7 +32,7 @@
 			'<div id=menu ></div>' +
 		'';
 
-		menu.innerHTML = JSONLinkList;
+		menu.innerHTML = getJSONLinkList();
 
 		addHelp();
 
@@ -71,17 +71,7 @@
 				console.log( 'oooops' );
 			}
 
-			lightAmbient = new THREE.AmbientLight( 0x888888 );
-
-			scene.add( lightAmbient );
-
-			if ( !lightPoint ) {
-				lightPoint = new THREE.PointLight( 0xffffff, 0.5 );
-				lightPoint.position = camera.position;
-				camera.add( lightPoint );
-			}
-
-			zoomExtents( chkZoom.checked );
+			zoomExtents();
 
 			msg.innerHTML = '<h3>' + fileName.split('/').pop() + '</h3>';
 
@@ -90,11 +80,11 @@
 		}, onLoad, onError );
 
 		function onLoad(event) {
-			console.log( 'yay' ); 
+//console.log( 'yay' ); 
 		}
 
 		function onError(event) {
-		 console.log( 'oops' );
+console.log( 'oops' );
 		}
 
 	}
@@ -116,7 +106,7 @@
 					'<li>Errors reading lower versions are difficult to catch</li>' +
 					'<li>Suggests: loader.<b><i>parse</i></b> is better current solution</li>' +
 				'</ul>' +
-				'<a href="https://github.com/vA3C/viewer/cookbook/load-json-object/" target="_blank">Source code</a><br>' +
+				'<a href="https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-object" target="_blank">Source code</a><br>' +
 				'<small>credits: <a href="http://threejs.org" target="_blank">three.js</a> - ' +
 				'<a href="http://khronos.org/webgl/" target="_blank">webgl</a> - ' +
 				'<a href="http://jaanga.github.io" target="_blank">jaanga</a><br>' +

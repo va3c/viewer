@@ -13,7 +13,15 @@ _[Load JSON Load R1]( http://va3c.github.io/viewer/cookbook/load-json-load/lates
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-load/ )
 
 
-Remember: the JavaScript console is your friend...
+* Loads Three.js JSON files using:  
+    loader = new THREE.JSONLoader();   
+    loader.load( fileName, function( result ) )...
+
+
+* JSONLoader only reads Three.js JSON 3.0+ and below files. 4.0+ files fail.
+* Errors reading higher versions are difficult to catch  
+* This suggests: loader.<b><i>parse</i></b> is better current solution   
+
 
 ### Mission  
 <!-- a statement of a rationale, applicable now as well as in the future -->

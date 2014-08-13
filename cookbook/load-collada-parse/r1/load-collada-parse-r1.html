@@ -125,17 +125,6 @@
 		camera.position.set( 1, 1, 1 );
 		controls = new THREE.TrackballControls( camera, renderer.domElement );
 
-		scene.add( camera );  // needed for light to track
-
-		lightAmbient = new THREE.AmbientLight( 0x888888 );
-		scene.add( lightAmbient );
-
-		if ( !lightPoint ) {
-			lightPoint = new THREE.PointLight( 0xffffff, 0.5 );
-			lightPoint.position = camera.position;
-			camera.add( lightPoint );
-		}
-
 		var data = requestFile( fileName );
 //		data = JSON.parse( data );
 

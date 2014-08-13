@@ -3,60 +3,69 @@
 		['Title', 'Three.js Samples - ~3'],
 		['../../samples/WaltHeadLo.js','for testing'],
 		['../../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js',''],
+		['../../../../../three.js/examples/obj/cubecolors/cubecolors.js',''],
+		['../../../../../three.js/examples/obj/female02/Female02_slim.js',''],
+		['../../../../../three.js/examples/obj/leeperrysmith/LeePerrySmith.js',''],
 
-		['Title','Revit vA3C Samples - 4.3'],
-// 		['../../../../json/revit/Project2.rvt.js','Revit file'], // not
+		['Title','vA3C Hackathon Samples - 4.3'],
+		['../../../../json/DrCyanKlein.json','Revit'],
+		['../../../../json/DrMajentaKlein.json','Revit'],
+		['../../../../json/Hex_01.js','Grasshopper'],
+		['../../../../json/MissSpacyEyes.json','Grasshopper'],
+		['../../../../json/TTX.json','Grasshopper'],
+		['../../../../json/TypTower.json','Grasshopper'],
+		['../../../../json/Vase_01.js','Grasshopper'],
+		['../../../../json/3dsmax/test_3dsmax.js','3DS'],
+		['../../../../json/3dsmax/TransamericaPyramid2.js','3DS'],
+		['../../../../json/aeron/hey-ron.js','3DS'],
+		['../../../../json/lounge/scrounge.js','3DS'], 
+		['../../../../json/revit/WallWindow.rvt.js','Revit'],
+		['../../../../json/revit/Project2.rvt.js','Revit'],
+		['../../../../json/revit/rac_basic_sample_project.rvt.js','Revit'],
 
-		['../../../../json/DrCyanKlein.json',''],
-		['../../../../json/DrMajentaKlein.json',''],
-		['../../../../json/Hex_01.js',''],
-		['../../../../json/MissSpacyEyes.json',''],
-		['../../../../json/TTX.json',''],
-		['../../../../json/TypTower.json',''],
-		['../../../../json/Vase_01.js',''],
-		['../../../../json/3dsmax/test_3dsmax.js',''],
-		['../../../../json/3dsmax/TransamericaPyramid2.js',''],
-		['../../../../json/aeron/hey-ron.js',''],
-		['../../../../json/lounge/scrounge.js',''], 
-		['../../../../json/revit/WallWindow.rvt.js',''],
-		['../../../../json/revit/Project2.rvt.js',''],
-		['../../../../json/revit/rac_basic_sample_project.rvt.js','Revit file'],
 		['Title','3D Warehouse Samples - 3.1'],
-		['../../../../3d-warehouse-samples/robie-house/untitled/robie-house.js','1909 - loads slowly but worth the wait'],
+		['../../../../3d-warehouse-samples/robie-house/untitled/robie-house.js','1909 - slow but worth it'],
 		['../../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js','1909'],
 		['../../../../3d-warehouse-samples/villa-savoye/images/villa-savoye.js','1929'],
 		['../../../../3d-warehouse-samples/barcelona-pavilion/untitled/barcelona-pavilion.js','1930'],
-		['../../../../3d-warehouse-samples/glass-house/untitled/glass-house.js','1949']
+		['../../../../3d-warehouse-samples/glass-house/untitled/glass-house.js','1949'],
+
+		['Title','Programming 3D Applications'],
+		['../../../../../Programming3DApplications/models/ball_chair/ball_chair.js',''],
+//		['../../../../../Programming3DApplications/models/duck/duck.json',''],
+		['../../../../../Programming3DApplications/models/egg_chair/eggchair.js',''],
+		['../../../../../Programming3DApplications/models/flashdrive/flashdrive.Plane.js','']
+//		['../../../../../Programming3DApplications/models/futurgo_mobile/futurgo_mobile.json',''],  // binary
+
 	];
 
+	var lightAmbient, lightPoint, lightDirectional;
+	var zoomSphere;
 
-
-	
-
+	function getJSONLinkList() {
 		var JSONLinkList = '<br>';
 		var file;
 		for ( var i = 0, len = JSONFileList.length; i < len; i++ ) {
 			file = JSONFileList[ i ];
 			if ( file[0] === 'Title' ) {
-				JSONLinkList += '<h3>' + file[1] + '</h3>';
+				JSONLinkList += '<h3 style=margin-bottom:0; >' + file[1] + '</h3>';
 			} else {
 				JSONLinkList += '<a href=JavaScript:loadFile("' + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
 			}
 		}
+		return JSONLinkList;
+	}
 
-	var lightAmbient, lightPoint, lightDirectional;
-	var zoomSphere;
+	function zoomExtents( scale ) {
+		if ( zoomSphere ) { scene.remove( zoomSphere ); }
 
-	function zoomExtents( testing ) {
-
-		scale = 1; // scene.children[3].scale.x;
-		var meshes = 0;
-		var c, r;
+		scale = scale ? scale : 1; // scene.children[3].scale.x;
+		var meshes = 0, c, r;
 		var geo = new THREE.Geometry();
 		scene.traverse( function ( child ) {
-			if ( child instanceof THREE.Mesh && child.name !== 'zoomSphere' ) {
+			if ( child instanceof THREE.Mesh ) {
 				geo.merge( child.geometry );
-// while traversing, miht as well do this...
+// while traversing, might as well do this...
 				child.castShadow = true;
 				child.receiveShadow = true;
 				meshes++;
@@ -64,20 +73,19 @@
 		} );
 
 		geo.computeBoundingSphere();
-		c = geo.boundingSphere.center.multiplyScalar( scale );
+		c = scene.extentsCenter = geo.boundingSphere.center.multiplyScalar( scale );
 		controls.target.set( c.x, c.y, c.z);
-		r = 1.25 * geo.boundingSphere.radius * scale;
-		camera.position.set( (c.x + r), ( c.y + r ), ( c.z + r ) );
+		r = scene.extentsRadius = 1.25 * geo.boundingSphere.radius * scale;
+		camera.position.set( ( c.x + r), ( c.y + r ), ( c.z + r ) );
 
 
-		if ( zoomSphere ) { scene.remove( zoomSphere ); }
 
-		if ( testing ) {
+		if ( chkZoom.checked ) {
 
 			scene.add( new THREE.AxisHelper( 50 ) );
 
 			geometry = new THREE.SphereGeometry( r );
-			material = new THREE.MeshNormalMaterial( { opacity: 0.5, transparent: true, wireframe: true } );
+			material = new THREE.MeshNormalMaterial( { wireframe: true } );
 			zoomSphere = new THREE.Mesh( geometry, material );
 			zoomSphere.position.set( c.x, c.y, c.z);
 			zoomSphere.name = 'zoomSphere';
@@ -91,35 +99,42 @@ console.log( 'geo', geo);
 
 		}
 
-/*
-		if ( camera.far < r || camera.far >  3 * r ) {
-			camera.far = 5 * r;
-			camera.updateProjectionMatrix();
-console.log( 'camera.far', camera.far );
-		}
-*/
-
-console.log( 'camera.near', camera.near, 'camera.far', camera.far );
+//console.log( 'camera.near', camera.near, 'camera.far', camera.far );
 		camera.near = ( r < 100 ) ? r * 0.01 : 1;
 		camera.far = ( r > 10000 ) ? r * 10000 : 10000;
 		camera.updateProjectionMatrix();
-console.log( 'camera.near', camera.near, 'camera.far', camera.far );
+//console.log( 'camera.near', camera.near.toFixed( 3 ), 'camera.far', camera.far );
 
-		updateShadows( c, r, testing );
+		updateLights( c, r );
 
 	}
 
-	function updateShadows( cen, rad, testing ) {
+	function updateLights( cen, rad ) {
 
-		var lightDirectional = new THREE.DirectionalLight( 0xffffff, 1 );
+		scene.add( camera );  // needed for light to track
+
+		lightAmbient = new THREE.AmbientLight( 0x555555 );
+		scene.add( lightAmbient );
+
+		if ( !lightPoint && camera.children.length < 1 ) {
+			lightPoint = new THREE.PointLight( 0xffffff, 1 );
+			lightPoint.position = camera.position;
+			camera.add( lightPoint );
+		}
+
+		lightDirectional = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		scene.add( lightDirectional );
 
 		lightDirectional.castShadow = true;
 		lightDirectional.shadowMapWidth = 2048;
 		lightDirectional.shadowMapHeight = 2048;
 
-		cenObj = new THREE.Object3D();
-		cenObj.position.set( cen.x, cen.y, cen.z )
-		lightDirectional.position.set( -rad + cen.x, rad + cen.y, rad + cen.z );
+		var cenObj = new THREE.Object3D();
+		var c = scene.extentsCenter;
+
+		cenObj.position.set( c.x, c.y, c.z );
+		var r = scene.extentsRadius;
+		lightDirectional.position.set( -r + c.x, r + c.y, r + c.z );
 		lightDirectional.target = cenObj;
 
 		lightDirectional.shadowCameraLeft = -rad;
@@ -132,8 +147,8 @@ console.log( 'camera.near', camera.near, 'camera.far', camera.far );
 		lightDirectional.updateMatrix();
 		lightDirectional.updateMatrixWorld();  
 
-		if ( testing ) { lightDirectional.shadowCameraVisible = true; }
-		scene.add( lightDirectional );
+		if ( chkZoom.checked ) { lightDirectional.shadowCameraVisible = true; }
+
 	}
 
 	function requestFile ( fname ) {
@@ -142,4 +157,4 @@ console.log( 'camera.near', camera.near, 'camera.far', camera.far );
 		xmlhttp.open( 'GET', fname, false );
 		xmlhttp.send( null );
 		return xmlhttp.responseText;
-	};
+	}

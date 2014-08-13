@@ -12,8 +12,11 @@ There is an `iframe` here. It is not visible when viewed on github.com. To view,
 _[Load Collada Parse R1]( http://va3c.github.io/viewer/cookbook/load-collada-parse/latest/index.html )_  
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-collada-parse/ )
 
+* Loads Collada .dae file using:
+	* colladLoader.js
+	* loader.parse
+* Geometry, materials load as expected. Textures fail to load
 
-Remember: the JavaScript console is your friend...
 
 ### Mission  
 <!-- a statement of a rationale, applicable now as well as in the future -->

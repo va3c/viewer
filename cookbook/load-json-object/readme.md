@@ -1,4 +1,4 @@
-Load JSON Object - Load Read Me
+Load JSON Object Read Me
 ===
 [Web page version]( http://va3c.github.io/viewer/cookbook/load-json-object/ ) - 
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-json-object/ )
@@ -19,7 +19,7 @@ _[Load JSON Object R1]( http://va3c.github.io/viewer/cookbook/load-json-object/l
 
 * ObjectLoader only reads Three.js JSON 4.0+ files. All others fail  
 * Errors reading lower versions are difficult to catch  
-* Suggests: loader.<b><i>parse</i></b> is better current solution   
+* This suggests: loader.<b><i>parse</i></b> is better current solution   
 
 ### Mission  
 <!-- a statement of a rationale, applicable now as well as in the future -->
