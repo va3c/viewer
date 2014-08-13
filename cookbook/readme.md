@@ -50,6 +50,15 @@ Folders include:
 
 ## Load Collada Parse
 
+[Web page version]( http://va3c.github.io/viewer/cookbook/load-collada-parse/ ) - 
+[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/load-collada-parse/ )
+
+* Loads Collada .dae file using:
+	* colladLoader.js
+	* loader.parse
+* Geometry, materials load as expected. Textures are a fail/
+* There seems to be no current work-around
+
 
 ##Load JSON Object - Load
 
@@ -78,6 +87,13 @@ Folders include:
 	* Use loader.parse file using JSONLoader or ObjectLoader as appropriate
 *  Loads geometry, materials and textures correctly 
 * This suggests: loader.<b><i>parse</i></b> is best current solution   
+
+## Drag and Drop Demo
+
+[Web page version]( http://va3c.github.io/viewer/cookbook/drag-and-drop/r1/drag-and-drop-r1.html/ ) - 
+[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/drag-and-drop/ )
+
+* JSON only for the moment
 
 
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>Three.js Load JSON Parse</title>
+<title>Three.js Load JSON Drag & Drop</title>
 <meta charset=utf-8 >
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
 </head>
@@ -94,10 +94,12 @@ console.log( that );
 				reader.readAsText( that.files[0] );
 	}
 
+		var texturePath;
+
 	function loadFile( file ) {
 
 
-//		var texturePath = file.substr(0, 1 + file.lastIndexOf('/') )
+		texturePath = file.substr(0, 1 + file.lastIndexOf('/') )
 console.log( file );
 
 		var data = requestFile( file );
@@ -124,7 +126,7 @@ console.log( file );
 console.log( 'found geometry' );
 
 			loader = new THREE.JSONLoader();
-			contents = loader.parse( data  );
+			contents = loader.parse( data, texturePath  );
 
 			geometry = contents.geometry, material;
 
