@@ -1,5 +1,5 @@
 
-	var JSONFileList =[
+	var JSONFileList = [
 		['Title', 'Three.js Samples - ~3'],
 		['../../samples/WaltHeadLo.js','for testing'],
 		['../../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js',''],
@@ -51,6 +51,62 @@
 				JSONLinkList += '<h3 style=margin-bottom:0; >' + file[1] + '</h3>';
 			} else {
 				JSONLinkList += '<a href=JavaScript:loadFile("' + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
+			}
+		}
+		return JSONLinkList;
+	}
+
+	var binaryJSONFileList = [
+		['Title', 'Three.js Samples - ~3'],
+		['Bird.js','','Bird.js - broken'],
+		['Qrcode.js','','Qrcode.js - broken'],
+		['Suzanne.js','','Suzanne.js'],
+		['terrain.js','','terrain.js'],
+		['WaltHeadLo.js','','WaltHeadLo.js'],
+		['blenderscene/scene.Cube.js','','blenderscene/scene.Cube.js'],
+		['blenderscene/scene.js','','blenderscene/scene.js'],
+		['blenderscene/scene.Monkey.js','','blenderscene/scene.Monkey.js'],
+		['blenderscene/scene.Plane.js','','blenderscene/scene.Plane.js'],
+		['box/box.js','ok',],
+		['camaro/CamaroNoUv_bin.js','oj'],
+		['cubecolors/cubecolors.js',''],
+		['cubecolors/cube_fvc.js',''],
+		['f50/F50NoUv_bin.js','ok'],
+		['female02/Female02_bin.js','ok',],
+		['female02/Female02_slim.js',''],
+		['gallardo/GallardoNoUv_bin.js','ok'],
+		['gallardo/parts/gallardo_body_bin.js','ok'],
+		['gallardo/parts/gallardo_wheel_bin.js','ok'],
+		['leeperrysmith/LeePerrySmith.js',''],
+		['lightmap/lightmap.js',''],
+		['lucy/Lucy100k_bin.js','ok'],
+		['lucy/Lucy100k_slim.js',''],
+		['male02/Male02_bin.js','ok'],
+		['male02/Male02_dds.js',''],
+		['male02/Male02_slim.js',''],
+		['ninja/NinjaLo_bin.js','ok'],
+		['suzanne/suzanne.js',''],
+		['suzanne/suzanne.Monkey.003.js',''],
+		['suzanne/suzanneHi.js',''],
+		['suzanne/suzanneHi.Monkey.003.js',''],
+		['tree/tree.js',''],
+		['veyron/VeyronNoUv_bin.js','ok'],
+		['veyron/parts/veyron_body_bin.js','ok'],
+		['veyron/parts/veyron_wheel_bin.js','ok'],
+		['walt/WaltHead.obj',''],
+		['walt/WaltHead_bin.js','ok'],
+		['walt/WaltHead_slim.js',''],
+	];
+
+	function getBinaryJSONLinkList() {
+		var JSONLinkList = '<br>';
+		var file;
+		for ( var i = 0, len = binaryJSONFileList.length; i < len; i++ ) {
+			file = binaryJSONFileList[ i ];
+			if ( file[0] === 'Title' ) {
+				JSONLinkList += '<h3 style=margin-bottom:0; >' + file[1] + '</h3>';
+			} else {
+				JSONLinkList += '<a href=JavaScript:loadFile("../../../../../three.js/examples/obj/' + file[0] + '"); >' + file[0].split('/').pop() + '</a> ' + file[1] + '<br>';
 			}
 		}
 		return JSONLinkList;
