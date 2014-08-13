@@ -44,24 +44,29 @@ The scripts here are updates to the competition entry and winner of the second p
 * Opens for editing and manipulation
 	* Open files via a link and an xmlHttpRequest
 		* Any Three.js HTML files
-		* Files of these types: .js, .json, .obj, .stl, .dae, .wrl and .vtk files. Coming soon: .gltf
+		* Files of these types: .js, .json (ASCII and binary), .obj, .stl (ASCII and binary), .dae, .wrl and .vtk files. Coming soon: .gltf
 
 	* Open files via the operating system File Open dialog
 		* Opens Three.js HTML files that only have absolute links
 		* Opens .js, .json, .obj, .stl ascii, .vtk, 
 		* Opens .wrl files but have issues with materials
 		* Fails to open .dae files. See lines 342... of jafo-file-open.js for temporary partial fix
+	* Open files via the text in the address bar using location.Hash
+		* often called permalinks
+		* See below
+	* Open files via drag and drop
 * Load a new drawing or append (insert) new objects into current drawing  << which word is better: 'append 'or 'insert'??
 * Export the current state to a new JSON file as geometry, object or scene
 
 ### Permalinks
 * Create permalink
 * Parse permalink
-	* let's you see what a parmalink creates
+	* let's you see what a permalink creates
 * Clear permalink resets the address bar to the base URL 
 * AutoCrapdoodle feature
 	* An experiment in playing with files in the cloud
 * Link to goo.gl URL Shortener
+* Permalinks are an effective very lightweight method of saving data
 
 ### Sample File Libraries
 * CORS-compliant access to 1025+ sample data files hosted on GitHub
@@ -73,7 +78,8 @@ The scripts here are updates to the competition entry and winner of the second p
 	* 83 Stemkoski HTML code example files
 	* 420+ FGx Aircraft JSON files
 	* 170 Jaanga AlgeSurf PE Jurgen Meier Equation in Three.js HTML files
-* Libraries presented via online access to user files in their original GitHub home gh-pages folders 
+	* Files from 3D Warehouse, Clara.io, NASA files, _Programming 3D Applications_ in the pipeline
+* Libraries presented to you via online access to user files in their original GitHub home gh-pages folders 
 	* No need to download/upload. 
 	* No need to send your data to closed source walled-garden
 	* Process could be replicated on private CORS-compliant servers
@@ -90,7 +96,7 @@ The scripts here are updates to the competition entry and winner of the second p
 		* Remove mesh-associated geometry, material, texture
 * Material Select Tab
 	* Apply any of several dozen pre-defined materials to any mesh
-	* Includes texture, reelections and refractions
+	* Includes texture, reflections and refractions
 * Material Editor Tab 
 	* Enables editing every available parameter of any material on any selected mesh
 	* Includes shading type, smoothness, sides, wireframe, opacity and shininess
@@ -98,13 +104,16 @@ The scripts here are updates to the competition entry and winner of the second p
 * Lights Tab
 	* Add lights, shading and shadows to any model
 	* Point light follows the camera
-	* Directional light position controlled br real-time slders
+	* Directional light position controlled by real-time slders
 
 ### Viewing
 * Reset camera position
 * Zoom extents
 	* Nice simple, fast, easy-to-understand algorithm
 	* WIP regarding scaled objects 
+	* Updates the dimensions of the directional light shadow box
+	* Updates camera near and far settings
+	* Toggle display of bounding sphere and axis
 
 ### Preferences
 * Toggle the display of wireframe and normals helpers
@@ -128,7 +137,7 @@ The scripts here are updates to the competition entry and winner of the second p
 		* JavaScript file name: 'jali-lights.js'
 * Two file names groups
 	* Names beginning with 'ja' belong to jaanga, are intended to be generic and can be used with any app
-	* Names beginninh with 'v3' belong to vA3C, are intendeed to be very specific and targeted to the particular app
+	* Names beginning with 'v3' belong to vA3C, are intended to be very specific and targeted to the particular app
 	* During the initial development process the distinctions become blurred
 * Code is highly-risk taking
 	* Example: Double quotes only used when absolutely necessary
@@ -137,13 +146,13 @@ The scripts here are updates to the competition entry and winner of the second p
 * Code is designed to be load or render on demand
 * Code style
 	* Generally follows 'MDCS' 
-	* As generous horizonatally but much more greedy veritically
+	* As generous horizonatally but much more greedy vertically
 	* Also passes jsHint
 * Code is designed to be seriously easy
 	* Encourages engineers, architects and designers and non-professional programmers to add features
-	* No need to know jQuery, Backbone, Angular. Get going if you only kow a tiny bit of JavaScript
+	* No need to know jQuery, Backbone, Angular. Get going if you only know a tiny bit of JavaScript
 	* And do feel free to build a jQuery version...
-* Content, appearance and behavior that are related are kept togther
+* Content, appearance and behavior that are related are kept together
 	* Every .js files contains all its associated CSS, HTML data - as well as the JavaScript
 	* No need to keep three files open. It's all in one file just in front of you
 	* This part of techniques that help you become more accustomed too the DOM
