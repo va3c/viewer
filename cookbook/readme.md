@@ -90,7 +90,7 @@ Folders include:
 
 ## Drag and Drop Demo
 
-[Web page version]( http://va3c.github.io/viewer/cookbook/drag-and-drop/r1/drag-and-drop-r1.html/ ) - 
+[Web page version]( http://va3c.github.io/viewer/cookbook/drag-and-drop/r1/drag-and-drop-r1.html ) - 
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/drag-and-drop/ )
 
 * JSON only for the moment
