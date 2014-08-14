@@ -32,7 +32,7 @@
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a id=tabPermalinks style=cursor:pointer; ><p class=buttonFile >' +
+			'<a id=tabPermalinks ><p class=buttonFile >' +
 				'<i class="fa fa-link"></i> Permalinks...' +
 			'</p></a>';
 		tabPermalinks.onclick = function() { V3PL.updatePermalinksTab(); JA.toggleTab( V3PL.permalinksTab ); };

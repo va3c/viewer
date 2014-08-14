@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>file open ColladaLoader Parse</title>
+<title>File Open ColladaLoader Parse</title>
 <meta charset=utf-8 >
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
 </head>
@@ -27,6 +27,7 @@
 		info = document.body.appendChild( document.createElement( 'div' ) );
 		info.style.cssText = 'left: 20px; position: absolute; ';
 		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
+			'<div>texture path: <br>' + '<input id=inpUrl size=90 value="../../samples/" />' +
 			'<div><input type=checkbox id=chkZoom /> Display bounding sphere & shadow area<br><br></div>' +
 			'<p><input type=file id=inpFile ></p>' +
 		'';
@@ -59,8 +60,6 @@
 		var reader = new FileReader();
 		scene = new THREE.Scene();
 
-		addLights();
-
 		reader.addEventListener( 'load', function ( event ) {
 			var contents = event.target.result;
 
@@ -73,9 +72,12 @@
 
 				scene.add( collada.scene );
 
-		zoomExtents();
 
-			}, './');
+				zoomExtents();
+
+				addLights();
+
+			}, inpUrl.value );
 
 		}, false );
 

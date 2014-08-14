@@ -8,7 +8,7 @@
 
 	V3MC.addMeierControlsTab = function() {
 
-		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
+		var tab = V3.librariesTab.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Be in control of your equations';
 		tab.innerHTML =
 			'<a id=tabControls><p class=buttonLibrary >' +

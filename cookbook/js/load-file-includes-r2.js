@@ -142,7 +142,6 @@
 			material = new THREE.MeshNormalMaterial( { wireframe: true } );
 			zoomSphere = new THREE.Mesh( geometry, material );
 			zoomSphere.position.set( c.x, c.y, c.z);
-			zoomSphere.name = 'zoomSphere';
 			scene.add( zoomSphere );
 
 console.clear();

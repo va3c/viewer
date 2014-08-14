@@ -134,11 +134,9 @@
 		r = scene.extentsRadius = 1.25 * geo.boundingSphere.radius * scale;
 		camera.position.set( ( c.x + r), ( c.y + r ), ( c.z + r ) );
 
-
-
 		if ( chkZoom.checked ) {
 
-			scene.add( new THREE.AxisHelper( 50 ) );
+			scene.add( new THREE.AxisHelper( r ) );
 
 			geometry = new THREE.SphereGeometry( r );
 			material = new THREE.MeshNormalMaterial( { wireframe: true } );

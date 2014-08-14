@@ -62,7 +62,7 @@
 
 			for (var i = 2, len = V3PL.bundles.length; i < len; i++) {
 				//JAFO.appendBundle( V3PL.bundles[i] );
-				JAFO.switchType2( bundle );
+				JAFO.switchType( bundle );
 			}
 
 			if ( location.hash.toLowerCase().indexOf('auto') >  0 ){  // autocrapdoodle
@@ -83,7 +83,7 @@
 				JAFO.ifr.contentWindow.animate3();
 
 			}
-// zoomExtents();
+
 		};
 		JAFO.ifr.src = bundles[1].src;
 
@@ -103,49 +103,32 @@
 
 		if ( !that.files ) return;
 
-		var fileName = that.files[0].name;
-		var extension = fileName.split( '.' ).pop().toLowerCase();
-		var scale = inpScale.value;
-
 		V3PL.bundles = [];
 		V3PL.bundles.push( V3PL.setDefaults( V3PL.defaultScene ) );
+
+		var scale = inpScale.value;
+		var fileName = that.files[0].name;
 		var bundle = V3PL.buildBundle( fileName, scale );
+		var extension = fileName.split( '.' ).pop().toLowerCase();
 
 		if ( extension === 'html' ) {
-//console.log( 'openFile html', bundle );
 
-				var reader = new FileReader();
-				reader.addEventListener( 'load', function ( event ) {
-					var contents = reader.result;
-					JAFO.ifr.onload = function() {
-						JAFO.updateIframe( V3PL.bundles );
-					};
-					JAFO.ifr.srcdoc = contents;
-				}, false );
-				reader.readAsText( that.files[0] );
+			JAFO.openFileHTML();
+
+		} else if ( extension === 'dae' ) {
+
+			alert( 'Opening a .dae file with the file dialog is still under construction. \n' +
+					'Currently .dae files are supported using URLs and permalinks.' +
+			''); 
+
+//			JAFO.openFileLoadDAE( that, bundle );
 
 		} else {
 
 			JAFO.ifr.onload = function() {
-
 //console.log( 'openFile Object', bundle );
 
-//				JAFO.switchType2( bundle, that )
-
-				var reader = new FileReader();
-				reader.addEventListener( 'load', function ( event ) {
-					var contents = reader.result;
-					JAFO.switchType( bundle, contents );
-				}, false );
-
-
-				if ( reader.readAsBinaryString !== undefined ) {
-					reader.readAsBinaryString( that.files[0] );
-				} else {
-//					reader.readAsArrayBuffer( file );
-					reader.readAsText( that.files[0] );
-				}
-
+				JAFO.getFileReaderContents( bundle, that );
 				JAFO.updateIframe( V3PL.bundles );
 
 			};
@@ -159,20 +142,25 @@
 		if ( !that.files ) return;
 
 		var bundle = V3PL.buildBundle( that.files[0].name );
-//console.log( 'append file', bundle );
-//			JAFO.switchType2( bundle, that);
 
+		JAFO.getFileReaderContents( bundle, that );
+
+	};
+
+	JAFO.getFileReaderContents = function ( bundle, that ) {
 
 		var reader = new FileReader();
 		reader.addEventListener( 'load', function ( event ) {
 			var contents = reader.result;
 			JAFO.switchType( bundle, contents );
 		}, false );
-		reader.readAsText( that.files[0] );
+		if ( reader.readAsBinaryString !== undefined ) {
+			reader.readAsBinaryString( that.files[0] );
+		} else {
+			reader.readAsText( that.files[0] );
+		}
 
-//		divMsg1.innerHTML += '<br>Append ' + bundle.name;
-
-	};
+	}
 
 	JAFO.openUrl = function ( src ) {
 
@@ -235,10 +223,9 @@
 		camera = app.camera;
 		controls = app.controls;
 		material = app.material;
-/*
+
 
 // Should be in JALI...
-
 // Update shade, shadow and lights
 		renderer.shadowMapEnabled = true;
 		renderer.shadowMapSoft = true;
@@ -253,7 +240,7 @@
 
 		chkLightPosition.checked = true;
 		JALI.toggleLightPosition();
-*/
+
 
 // Update controls and camera
 // should be in JATH...
@@ -278,23 +265,21 @@
 		}
 
 // Add scene things
-//		JATH.addObjectClickEvent();
+		JATH.addObjectClickEvent();
 		JAFO.targetList = [];
 
 // update parent screen
-//		JAPR.setRandomGradient();
+		JAPR.setRandomGradient();
 
-//		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = bundle.name;
-//		divMsg1.innerHTML = 'Base: ' + bundle.name + '<br>';
+		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = bundle.name;
+		divMsg1.innerHTML = 'Base: ' + bundle.name + '<br>';
+
 
 	};
 
 	JAFO.switchType = function ( bundle, contents ) {
 
 		var extension = bundle.src.split( '.' ).pop().toLowerCase();
-
-//		JATH.attributesDiv.innerHTML += '<br>Append: ' + bundle.name;
-//		divMsg1.innerHTML += '<br>Append: ' + bundle.name;
 
 		switch ( extension ) {
 
@@ -342,71 +327,28 @@
 	};
 
 
-	JAFO.switchType2 = function ( bundle, file ) {
-
-		var extension = bundle.src.split( '.' ).pop().toLowerCase();
-
-//		JATH.attributesDiv.innerHTML += '<br>Append: ' + bundle.name;
-//		divMsg1.innerHTML += '<br>Append: ' + bundle.name;
-
-		switch ( extension ) {
-
-			case 'html':
-//console.log('switchType html', bundle );
-
-				JAFO.loadHtml( bundle );
-
-				break;
-
-			case 'dae':
-
-				JAFO.loadDAE( bundle, file );
-
-				break;
-
-			case 'js':
-			case 'json':
-
-			case '3geo':
-			case '3mat':
-			case '3obj':
-			case '3scn':
-
-				JAFO.loadJSON( bundle, contents );
-
-				break;
-
-			case 'obj':
-
-				JAFO.loadOBJ( bundle, contents );
-
-				break;
-
-			case 'stl':
-				JAFO.loadSTL( bundle, contents );
-				break;
-
-			case 'vtk':
-				JAFO.loadVTK( bundle, contents );
-				break;
-
-			case 'wrl':
-				JAFO.loadVRML( bundle, contents );
-				break;
-
-			default:
-				alert( 'Unsupported file format.' );
-				break;
-		}
-	};
-
 /*
 
 Each of the following functions should be enhanced to take advatage of the special features and unique characteristics of each file type...
 
 */
 
-	JAFO.loadHtml = function ( bundle ) {
+	JAFO.openFileHTML = function () {
+//console.log( 'openFile html', bundle );
+
+		var reader = new FileReader();
+		reader.addEventListener( 'load', function ( event ) {
+			var contents = reader.result;
+			JAFO.ifr.onload = function() {
+				JAFO.updateIframe( V3PL.bundles );
+			};
+			JAFO.ifr.srcdoc = contents;
+		}, false );
+		reader.readAsText( that.files[0] );
+
+	};
+
+	JAFO.loadHTML = function ( bundle ) {
 //console.log( 'load HTML', bundle );
 
 		scene.select = scene.children[0];
@@ -415,6 +357,69 @@ Each of the following functions should be enhanced to take advatage of the speci
 
 		JAFO.updateTargetList( bundle.src );
 
+
+	};
+
+	JAFO.openFileParseDAE = function ( file, bundle ) {
+
+		var reader = new FileReader();
+
+		var script = document.body.appendChild( document.createElement( 'script' ) );
+		script.onload = function() {
+
+			reader.addEventListener( 'load', function ( event ) {
+				var contents = event.target.result;
+
+				var parser = new DOMParser();
+				var xml = parser.parseFromString( contents, 'text/xml' );
+
+				loader = new THREE.ColladaLoader();
+				loader.options.convertUpAxis = true;
+				loader.parse( xml, function ( collada ) {
+//	console.log( 'openFileDAE', collada.scene );
+//					JAFO.updateObject ( scene.select, bundle );
+//					JAFO.updateTargetList( bundle.src );
+					scene.add( collada.scene );
+//					scene.select = collada.scene;
+
+				}, './' );
+
+			}, false );
+
+			reader.readAsText( file.files[0] );
+		};
+		script.src = JAFO.loadersBase + 'js/loaders/ColladaLoader.js';
+	};
+
+	JAFO.openFileLoadDAE = function ( that, bundle ) {
+console.log( 'openFileLoadDAE', bundle );
+
+		var reader = new FileReader();
+		var script = document.body.appendChild( document.createElement( 'script' ) );
+		script.onload = function() {
+
+			reader.addEventListener( 'load', function ( event ) {
+				var contents = event.target.result;
+
+
+				var loader = new THREE.ColladaLoader();
+				loader.load( bundle.src, function ( collada ) {
+
+					collada.scene.name = bundle.name;
+
+					JAFO.updateObject ( scene.select, bundle );
+					JAFO.updateTargetList( bundle.src );
+					scene.add( collada.scene );
+					scene.select = collada.scene;
+
+				} );
+
+
+			}, false );
+
+			reader.readAsText( that.files[0] );
+		};
+		script.src = JAFO.loadersBase + 'js/loaders/ColladaLoader.js';
 
 	};
 
@@ -495,7 +500,7 @@ console.log( 'worker did some work!', src );
 	};
 
 	JAFO.loadSTL = function ( bundle, contents ) {
-
+console.log( 'loadSTL', bundle );
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.src = JAFO.loadersBase + 'js/wip/TypedGeometry.js';
 
@@ -524,7 +529,7 @@ console.log( 'worker did some work!', src );
 			JAFO.updateObject ( mesh, bundle );
 			JAFO.targetList.push( mesh );
 			scene.add( mesh );
-			scene.select = mesh;
+			scene.select = mesh; 
 
 		};
 		script.src = JAFO.loadersBase + 'js/loaders/STLLoader.js';
@@ -692,7 +697,7 @@ console.log( 'found a whoopsie');
 		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = bundle.name + '<br>';
 		divMsg1.innerHTML = 'Base: ' + bundle.name;
 
-
+		JATH.zoomExtents();
 
 	};
 

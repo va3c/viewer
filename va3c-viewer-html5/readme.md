@@ -1,5 +1,7 @@
 vA3C Viewer HTML5 Read Me
 ===
+[Web page version]( http://va3c.github.io/viewer/va3c-viewer-html5/ )
+[Source code version]( https://github.com/va3c/viewer/va3c-viewer-html5/ )
 
 ### Live Demo
 
@@ -12,12 +14,12 @@ The scripts here are updates to the competition entry and winner of the second p
 
 ### Blog Posts
 
-2014-08-03 ~ [vAEC Viewer R4: Permalinks Provide Fast Easy Free Ways To Source and Save Data Online]( http://www.jaanga.com/2014/08/vaec-viewer-r4-permalinks-provide-fast.html )
-2014-07-27 ~ [vA3C Viewer R3 Update ~ 2014-07-27 ~ No More Russian Dolls ( scenes inside scenes inside scenes )]( http://www.jaanga.com/2014/07/va3c-viewer-r3-update-2014-07-27-no.html )
-2014-07-25 ~ <http://www.jaanga.com/2014/07/va3c-viewer-r3-update-now-with-save-and.html>
+2014-08-03 ~ [vAEC Viewer R4: Permalinks Provide Fast Easy Free Ways To Source and Save Data Online]( http://www.jaanga.com/2014/08/vaec-viewer-r4-permalinks-provide-fast.html )  
+2014-07-27 ~ [vA3C Viewer R3 Update ~ 2014-07-27 ~ No More Russian Dolls ( scenes inside scenes inside scenes )]( http://www.jaanga.com/2014/07/va3c-viewer-r3-update-2014-07-27-no.html )  
+2014-07-25 ~ <http://www.jaanga.com/2014/07/va3c-viewer-r3-update-now-with-save-and.html>  
 <http://www.jaanga.com/2014/07/va3c-viewer-work-in-progress-update.html>  
 <http://www.jaanga.com/2014/07/va3c-viewer-r3-processes-data-from.html>  
-<http://www.jaanga.com/2014/07/algesurf-parametric-equations-math-in.html>
+<http://www.jaanga.com/2014/07/algesurf-parametric-equations-math-in.html>  
 
 ## Concept
 
@@ -30,11 +32,10 @@ The scripts here are updates to the competition entry and winner of the second p
 <!--  a descriptive picture of a desired future state -->
 * No clear goals for the moment
 * Perhaps a 'turntable' or mixing studio for 3D DJs
+* Follows Mr.doobs' maxim: 'code built for dummies'
 
-
-## Features
+## Viewer Features
 <!-- and benefits -->
-
 
 
 ### File Management

@@ -11,7 +11,7 @@
 	}
 
 	V3MH.addMeierHTMLTab = function() {
-		var tab = V3LI.libraries.appendChild( document.createElement( 'div' ) );
+		var tab = V3.librariesTab.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Choose from a number of equations to display';
 		tab.innerHTML =
 			'<a id=tabJurgenMeier ><p class=buttonLibrary >' +

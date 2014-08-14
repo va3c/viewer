@@ -1,13 +1,16 @@
 vA3C Viewer
-======
+===
+[Web page version]( http://va3c.github.io/viewer/readme-reader.html )
+[Source code version]( https://github.com/va3c/viewer/ )
+
 
 ## Veritable Hackathon Work Product
 
-Live Demo: [vA3C Viewer]( va3c.github.io/viewer/index.html )
+Full Screen Live Demo (R1): [vA3C Viewer]( va3c.github.io/viewer/index.html )
 
 ### Single File Viewers
 
-* Used until the viewer supported permalinks
+* Test scripts made during the Hackathon until the viewer supported permalinks
 
 <http://va3c.github.io/viewer/3dsmax1.html>  
 <http://va3c.github.io/viewer/grasshopper1.html>  
@@ -21,17 +24,17 @@ Live Demo: [vA3C Viewer]( va3c.github.io/viewer/index.html )
 
 ### ibuilder/3D-Model-Viewer
 
-WordPress Plugin: 3D Model viewerbased off of the va3c model viewer
+Work in Progress: WordPress Plugin: 3D Model viewer based off of the va3c model viewer
 
 <https://github.com/ibuilder/3D-Model-Viewer>
 
 
-### vA3C Viewer R2 HTML5
+### vA3C Viewer HTML5
 
 This version is built using simply Three.js and HTML5
 
-Live demo: <http://va3c.github.io/viewer/va3c-viewer-html5/r2/va3c-viewer-html5-r2.html>  
-Read Me: <http://va3c.github.io/viewer/va3c-viewer-html5/readme-reader.html>  
+Live demo: <http://va3c.github.io/viewer/va3c-viewer-html5/latest/>  
+Read Me: <http://va3c.github.io/viewer/va3c-viewer-html5/>  
 GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5>  
 
 Features include:
@@ -68,5 +71,9 @@ Features include:
 
 Files to help you get started with, for example, building apps that work with [Open Studio]( https://openstudio.nrel.gov/ )
 
-Read me: <http://va3c.github.io/viewer/cookbook/readme-reader.html>  
+Read me: <http://va3c.github.io/viewer/cookbook/>  
 GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/cookbook> 
+
+### Sample Files
+
+A WIP
