@@ -1,7 +1,7 @@
-	var JAPL = [] || JAPL;
+	var V3PL = [] || V3PL;
 
 // defaults & values all lower case to make editing the URL by hand easier
-	JAPL.defaultScene = {
+	V3PL.defaultScene = {
 		camx: 100,
 		camy: 100,
 		camz: 100,
@@ -11,7 +11,7 @@
 		name: ''
 	};
 
-	JAPL.defaultObject = {
+	V3PL.defaultObject = {
 		posx: 0,
 		posy: 0,
 		posz: 0,
@@ -28,21 +28,21 @@
 		src: 'template-basic.html'
 	};
 
-	JAPL.addPermalinksTab = function () {
+	V3PL.addPermalinksTab = function () {
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
 			'<a id=tabPermalinks style=cursor:pointer; ><p class=buttonFile >' +
 				'<i class="fa fa-link"></i> Permalinks...' +
 			'</p></a>';
-		tabPermalinks.onclick = function() { JAPL.updatePermalinksTab(); JA.toggleTab( JAPL.permalinksTab ); };
+		tabPermalinks.onclick = function() { V3PL.updatePermalinksTab(); JA.toggleTab( V3PL.permalinksTab ); };
 
-		JAPL.permalinksTab = tab.appendChild( document.createElement( 'div' ) );
-		JAPL.permalinksTab.style.cssText = 'cursor: auto; display: none; ' ;
+		V3PL.permalinksTab = tab.appendChild( document.createElement( 'div' ) );
+		V3PL.permalinksTab.style.cssText = 'cursor: auto; display: none; ' ;
 
 	};
 
-	JAPL.updatePermalinksTab = function () {
+	V3PL.updatePermalinksTab = function () {
 
 		var txt =
 		'<div>' +
@@ -50,27 +50,27 @@
 			'<p><small><i><a href="http://en.wikipedia.org/wiki/Permalink" target="_blank">Permalinks</a> ' +
 			'enable you to save a scene you have created and send it as a link you can share...</i></small></p>' +
 
-			'<p><a href=JavaScript:JAPL.setPermalinks(); title="Send current display parameters to the address bar" >Create Permalinks</a></p>' +
+			'<p><a href=JavaScript:V3PL.setPermalinks(); title="Send current display parameters to the address bar" >Create Permalinks</a></p>' +
 
-			'<p><a href=JavaScript:JAPL.parsePermalinks(); title="Read data from the address bar and display the results" >Parse Permalinks</a></p>' +
+			'<p><a href=JavaScript:V3PL.parsePermalinks(); title="Read data from the address bar and display the results" >Parse Permalinks</a></p>' +
 
-			'<p><a href=JavaScript:location.hash="autocrapdoodle";JAPL.parsePermalinks(); title="Each reload brings randomly generated data files" >Get AUTOcrapdoodle</a></p>' +
+			'<p><a href=JavaScript:location.hash="autocrapdoodle";V3PL.parsePermalinks(); title="Each reload brings randomly generated data files" >Get AUTOcrapdoodle</a></p>' +
 
-			'<p><a href=JavaScript:JAPL.clearPermalink(); title="Reset address bar to the default URL" >Clear Permalink</a></p>' +
+			'<p><a href=JavaScript:V3PL.clearPermalink(); title="Reset address bar to the default URL" >Clear Permalink</a></p>' +
 
 			'<p><a href="http://goo.gl/" target="_blank">Google URL Shortener</a></p>' +
 
 			'<p style=text-align:right; >' +
-				'<a class=button href=JavaScript:JA.toggleTab(JAPL.permalinksTab); >Close</a> ' +
+				'<a class=button href=JavaScript:JA.toggleTab(V3PL.permalinksTab); >Close</a> ' +
 			'</p>' +
 
 		'</div>';
 
-		JAPL.permalinksTab.innerHTML = txt;
+		V3PL.permalinksTab.innerHTML = txt;
 
 	};
 
-	JAPL.getAutoCrapdoodle = function () {
+	V3PL.getAutoCrapdoodle = function () {
 		var items, item, index;
 		var mats = [
 			'BasicRedFlat','LambertRandomSmooth','NormalFlat','NormalSmooth','NormalWireframe','PhongBlueFlat','PhongBlueRefractPisa','PhongDefault',
@@ -153,17 +153,17 @@
 		'';
 
 		location.hash = txt;
-		JAPL.parsePermalinks();
+		V3PL.parsePermalinks();
 
 
 
 //console.log( 'getAutoCrapdoodle', txt );
 	};
 
-	JAPL.setPermalinks = function () {
+	V3PL.setPermalinks = function () {
 		var c = camera.position;
 		var t = controls && controls.target ? controls.target : { x: 0, y: 9, z: 0 } ;
-		var d = JAPL.defaultObject;
+		var d = V3PL.defaultObject;
 		var txt = '';
 /*
 
@@ -190,15 +190,15 @@
 		txt += '#tary=' + parseInt( t.y, 10 );
 		txt += '#tarz=' + parseInt( t.z, 10 );
 
-		if ( JAPL.bundles[0].name ) {
-			txt += '#name=' + JAPL.bundles[0].name;
+		if ( V3PL.bundles[0].name ) {
+			txt += '#name=' + V3PL.bundles[0].name;
 		}
 		txt += '&';
 
 		for (var i = 0, len = scene.children.length; i < len; i++) {
 			var obj = scene.children[i];
 			if ( obj.geometry || obj.src ) {
-				obj.src = obj.src ? obj.src : JAPL.bundles[1].src ;
+				obj.src = obj.src ? obj.src : V3PL.bundles[1].src ;
 				txt += '#src=' + obj.src;
 
 				if ( obj.materialKey && obj.materialKey !== 'undefines' ) {
@@ -246,59 +246,7 @@ console.log( 'setPermalinks', txt );
 
 	};
 
-/*
-	JAPL.parsePermalinks = function () {
-//console.log( 'parsePermalinks' );
-
-		var hashes, defaults, src, name;
-		var items, item, basepath, fileName;
-
-		if ( !location.hash ) { // Call a Meier parametric equation
-
-			JAPL.bundles = [];
-			JAPL.bundles.push( JAPL.setDefaults( JAPL.defaultScene ) );
-
-			items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
-			item = items[ Math.floor( items.length * Math.random() ) ];
-			basepath = V3MH.basepath + '/' + V3MH.files[ item ][ 0 ] + '/';
-			fileName = V3MH.files[ item ][ 0 ] + '.html';
-			src =  basepath + fileName;
-			name = V3MH.files[ item ][ 1 ];
-			JAPL.buildBundle( src, 1, name );
-
-		} else if ( location.hash.toLowerCase().indexOf('auto') >  0 ){
-
-			JAPL.getAutoCrapdoodle();
-			location.hash = 'autocrapdoodle';
-
-		} else {
-
-			hashes = decodeURIComponent( location.hash );  // because goo.gl encodes hashes
-			hashes = hashes.split('&');
-
-			JAPL.bundles = [];
-			JAPL.bundles.push( JAPL.setDefaults( JAPL.defaultScene ) );
-
-			for ( var i = 0; i < hashes.length; i++ ) {
-				defaults = JAPL.setDefaults( JAPL.defaultObject );
-				items = hashes[i].slice(1).split( '#' );
-				for ( var j = 0; j < items.length; j++ ) {
-					item = items[j].split( '=' );
-					if ( item[0] === 'mat' || item[0] === 'tmpl' || item[0] === 'src' ) {
-						defaults[ item[0] ] = item[1];
-					} else {
-						defaults[ item[0] ] = parseFloat( item[1] );
-					}
-				}
-				JAPL.bundles.push( defaults );
-			}
-		}
-//console.log( 'hashes', JAPL.bundles );
-		JAFO.openBundles( JAPL.bundles );
-	};
-*/
-
-	JAPL.setDefaults = function ( defaultSource ) {
+	V3PL.setDefaults = function ( defaultSource ) {
 
 		var defaults = {};
 		for ( var key in defaultSource ) {
@@ -308,21 +256,21 @@ console.log( 'setPermalinks', txt );
 
 	};
 
-	JAPL.buildBundle = function ( src, scale, name ) {
+	V3PL.buildBundle = function ( src, scale, name ) {
 
-		var bundle = JAPL.setDefaults( JAPL.defaultObject );
+		var bundle = V3PL.setDefaults( V3PL.defaultObject );
 		bundle.name = src.split('/').pop();
 		bundle.scl =  scale ? scale : 1;
 		bundle.src = src;
 
-		JAPL.bundles.push( bundle );
+		V3PL.bundles.push( bundle );
 //console.log( 'buildBundle', bundle );
 
 		return bundle;
 
 	};
 
-	JAPL.clearPermalink = function () {
+	V3PL.clearPermalink = function () {
 		window.history.pushState( '', '', window.location.pathname);
 	};
 

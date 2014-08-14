@@ -170,7 +170,7 @@ The scripts here are updates to the competition entry and winner of the second p
 * Add Jaanga Terrain Viewer tab
 * Open files via URL
 * Open files via Drag and Drop
-* Add zoom extents
+
 * Add rotate view after a period of inactivity
 * Add choice of camera controllers 
 * Add tree view of meshes, materials and attributes
@@ -185,6 +185,28 @@ The scripts here are updates to the competition entry and winner of the second p
 ## Issues /Bugs
 
 * R2: Difficult to know which controller you are using currently
+
+## Questions to ask your local matrixian
+
+When a file to be appended contains a scene to you add it to the current scene or replace the current scene?
+
+### Collada / .dae
+
+Accessing Collada file via URL
+
+* Use ColladaLoader.js and loader.load
+* loads geometry, materials and textures as expected
+
+Accessing Collada file via OS file open dialog or Drag and Drop
+
+* ColladaLoader.js has no ability to 
+* OS file reader only returns only file contents and name
+	* for security reasons, reader does not pass identify the directory path
+	* therefore cannot use loader.load which requires the full path
+	* must use loader.parse( doc, callback, url )
+	* can supply url manually'
+
+
 
 
 ##Team Members
@@ -230,6 +252,11 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+
+2014-08-13 ~ Theo
+
+* Add zoom extents
 
 2014-08-08 ~ Theo
 

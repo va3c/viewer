@@ -134,8 +134,6 @@
 		r = scene.extentsRadius = 1.25 * geo.boundingSphere.radius * scale;
 		camera.position.set( ( c.x + r), ( c.y + r ), ( c.z + r ) );
 
-
-
 		if ( chkZoom.checked ) {
 
 			scene.add( new THREE.AxisHelper( 50 ) );
@@ -161,8 +159,6 @@ console.log( 'geo', geo);
 		camera.far = ( r > 10000 ) ? r * 10000 : 10000;
 		camera.updateProjectionMatrix();
 //console.log( 'camera.near', camera.near.toFixed( 3 ), 'camera.far', camera.far );
-
-		updateLights();
 
 	}
 
