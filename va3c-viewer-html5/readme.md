@@ -32,7 +32,7 @@ The scripts here are updates to the competition entry and winner of the second p
 <!--  a descriptive picture of a desired future state -->
 * No clear goals for the moment
 * Perhaps a 'turntable' or mixing studio for 3D DJs
-* Follows Mr.doobs' maxim: 'code built for dummies'
+* Follows Mr.doobs' maxim: 'to create a lightweight 3D library with a very low level of complexity — in other words, for dummies'
 
 ## Viewer Features
 <!-- and benefits -->
