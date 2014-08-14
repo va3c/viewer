@@ -246,7 +246,7 @@ console.log( 'setPermalinks', txt );
 
 	};
 
-/*
+
 	JAPL.parsePermalinks = function () {
 //console.log( 'parsePermalinks' );
 
@@ -296,7 +296,7 @@ console.log( 'setPermalinks', txt );
 //console.log( 'hashes', JAPL.bundles );
 		JAFO.openBundles( JAPL.bundles );
 	};
-*/
+
 
 	JAPL.setDefaults = function ( defaultSource ) {
 
