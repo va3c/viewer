@@ -52,9 +52,9 @@
 
 			'<p><a href=JavaScript:V3PL.setPermalinks(); title="Send current display parameters to the address bar" >Create Permalinks</a></p>' +
 
-			'<p><a href=JavaScript:V3PL.parsePermalinks(); title="Read data from the address bar and display the results" >Parse Permalinks</a></p>' +
+			'<p><a href=JavaScript:V3.init(); title="Read data from the address bar and display the results" >Parse Permalinks</a></p>' +
 
-			'<p><a href=JavaScript:location.hash="autocrapdoodle";V3PL.parsePermalinks(); title="Each reload brings randomly generated data files" >Get AUTOcrapdoodle</a></p>' +
+			'<p><a href=JavaScript:location.hash="autocrapdoodle";V3.init(); title="Each reload brings randomly generated data files" >Get AUTOcrapdoodle</a></p>' +
 
 			'<p><a href=JavaScript:V3PL.clearPermalink(); title="Reset address bar to the default URL" >Clear Permalink</a></p>' +
 
@@ -153,11 +153,12 @@
 		'';
 
 		location.hash = txt;
-		V3PL.parsePermalinks();
+//		V3PL.parsePermalinks();
 
 
 
 //console.log( 'getAutoCrapdoodle', txt );
+		V3.getPermalinkBundles();
 	};
 
 	V3PL.setPermalinks = function () {

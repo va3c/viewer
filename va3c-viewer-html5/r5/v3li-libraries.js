@@ -18,7 +18,7 @@
 //			'<input type=radio name=libFileOpen id=libOpenOver /> Overwrite current view<br>' +
 //			'<input type=radio name=libFileOpen id=libOpenAppend /> Append to current view<br>' +
 			'<p>A work in progress. Much broken. ' +
-			'Nonetheless <a href="http://va3c.github.io/viewer/va3c-viewer-html5/r4/va3c-viewer-html5-r4.html#autocrapdoodle" >some aspects</a> worth exploring. More goodies on the way...</p>' +
+			'Nonetheless <a href="http://va3c.github.io/viewer/va3c-viewer-html5/r5/va3c-viewer-r5.html#autocrapdoodle" >some aspects</a> worth exploring. More goodies on the way...</p>' +
 //			'<p><a href=JavaScript:JAFO.appendUrl("../../../../Programming3DApplications/models/Cottus_Elec/cottus_elec.DAE"); >Ruins</a></p>' +
 //			'<p><a href=JavaScript:JAFO.appendUrl("../../../dae/Robie-House/models/model.dae"); >Robie House</a></p>' +
 //			'<p><a href=JavaScript:JAFO.appendUrl("http://nasa3d.arc.nasa.gov/shared_assets/models/jpl-vtad-dawn/Dawn_19.stl"); >Dawn</a></p>' +

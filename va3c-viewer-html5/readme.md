@@ -31,8 +31,10 @@ The scripts here are updates to the competition entry and winner of the second p
 ### Vision  
 <!--  a descriptive picture of a desired future state -->
 * No clear goals for the moment
+* Perhaps to enable and to attract more people into thinking about and acting on the designed ( as opposed to the merely 'constructd' ) environment 
+* Perhaps to help design professionals comminicate their specialist skills to a broader population 
 * Perhaps a 'turntable' or mixing studio for 3D DJs
-* Follows Mr.doobs' maxim: 'to create a lightweight 3D library with a very low level of complexity — in other words, for dummies'
+* Follow Mr.doobs' maxim: 'to create a lightweight 3D library with a very low level of complexity — in other words, for dummies'
 
 ## Viewer Features
 <!-- and benefits -->
@@ -188,6 +190,8 @@ The scripts here are updates to the competition entry and winner of the second p
 * R2: Difficult to know which controller you are using currently
 
 ## Questions to ask your local matrixian
+
+What'd the simplest most understandable way to offer opening or appending a file?
 
 When a file to be appended contains a scene to you add it to the current scene or replace the current scene?
 

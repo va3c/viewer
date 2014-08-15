@@ -32,7 +32,7 @@
 			'</p>' +
 			'<h3 >Zoom Extents</h3>' +
 			'<p>' +
-			'<input type=checkbox id=chkPrefsZoom />' +
+			'<input type=checkbox id=chkPrefsZoom /> Display zoom extents boundary sphere, axis & shadow camera  ' +
 			'</p>'
 		'';
 
@@ -40,6 +40,7 @@
 		randomColor.onchange = function() { JAPR.updateBackground( this.id ); };
 		selectColor.onchange = function() { JAPR.updateBackground( this.id ); };
 		selColor.onchange = function() { outBackColor.value = this.value; };
+		chkPrefsZoom.onchange = function() { JATH.zoomExtents( 1 ); }
 
 		chkWires.checked = false;
 		chkWires.onchange = function() {

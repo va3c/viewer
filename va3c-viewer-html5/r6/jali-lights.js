@@ -6,11 +6,11 @@
 			'<a id=tabLight style=cursor:pointer; ><p class=button >' +
 				'<i class="fa fa-lightbulb-o"></i> Lights...' +
 			'</p></a>'; 
-		tabLight.onclick = function() { JA.toggleTab( JALI.lightsBox ); }; 
+		tabLight.onclick = function() { JA.toggleTab( JALI.lightsTab ); }; 
 
-		JALI.lightsBox = tab.appendChild( document.createElement( 'div' ) );
-		JALI.lightsBox.style.cssText = 'cursor: auto; display: none; ' ;
-		JALI.lightsBox.innerHTML =
+		JALI.lightsTab = tab.appendChild( document.createElement( 'div' ) );
+		JALI.lightsTab.style.cssText = 'cursor: auto; display: none; ' ;
+		JALI.lightsTab.innerHTML =
 			'<p>' +
 				'<input type=checkbox id=chkLightAmbient onclick=JALI.toggleLightAmbient(); /> Ambient Light ' +
 				'<input type=color id=colLightAmbient value=#333333 > <output id=outLightAmbient >#33333</output><br>' +
@@ -55,40 +55,73 @@
 		chkLightPositionHelper.onchange = function() { JALI.lightPosition.shadowCameraVisible = chkLightPositionHelper.checked === true ? true : false; };
 	};
 
+	JALI.initLights = function () {
+console.log( 'checkLights count', scene.__lights, scene.__lights.length );
 
-	JALI.toggleLightAmbient = function() {
+
+
+		chkLightAmbient.checked = true;
+		JALI.toggleLightAmbient();
+
+		chkLightCamera.checked = true;
+		JALI.toggleLightCamera();
+
+		chkLightPosition.checked = true;
+		JALI.toggleLightPosition();
+
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+
+		scene.add( camera );
+
+//console.log( 'initLights count', scene.__lights.length );
+	};
+
+	JALI.checkLights = function () {
+console.log( 'checkLights count', scene.__lights, scene.__lights.length );
+
+
+		chkLightAmbient.checked = true;
+		JALI.toggleLightAmbient();
+
+		chkLightCamera.checked = true;
+		JALI.toggleLightCamera();
+
+		chkLightPosition.checked = true;
+		JALI.toggleLightPosition();
+
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+
+		scene.add( camera );
+	}
+
+	JALI.toggleLightAmbient = function () {
+
 		if ( chkLightAmbient.checked === true ) {
 			JALI.lightAmbient = new THREE.AmbientLight( 0x333333 );
+			JALI.lightAmbient.name = 'lightAmbient';
 			scene.add( JALI.lightAmbient );
 			JALI.updateMaterials( scene.children );
 		} else {
-			scene.remove( JALI.lightAmbient );
+//			scene.remove( JALI.lightAmbient );
 		}
 	};
-
+// 
 	JALI.toggleLightCamera = function( d ) {
 		if ( chkLightCamera.checked === true ) {
-			JALI.lightCamera = new THREE.DirectionalLight( 0xffffff, 0.5 );
+//console.log( 'toggleLightCamera' );
+   // to track light
+			JALI.lightCamera = new THREE.PointLight( 0xffffff, 0.5 );
+			JALI.lightCamera.name = 'lightCamera';
 			JALI.lightCamera.position = camera.position;
-//			JALI.lightCamera.position.set( -100, 100, 100 );
-			JALI.lightCamera.castShadow = true;
-
-			JALI.lightCamera.shadowCameraNear = 200;
-			JALI.lightCamera.shadowCameraFar = 400;
-			JALI.lightCamera.shadowBias = -0.002; // default 0 ~ distance fron corners?
-
-			d = d ? d : 110;
-			JALI.lightCamera.shadowCameraLeft = -d;
-			JALI.lightCamera.shadowCameraRight = d;
-			JALI.lightCamera.shadowCameraTop = d;
-			JALI.lightCamera.shadowCameraBottom = -d;
-
-			scene.add( camera );   // to track light
 			camera.add( JALI.lightCamera );
+			scene.add( camera );
 			JALI.updateMaterials( scene.children );
 
 		} else {
-			camera.remove( JALI.lightCamera );
+//			camera.remove( JALI.lightCamera );
+//			scene.remove( JALI.lightCamera );
 		}
 	};
 
@@ -98,8 +131,9 @@ http://mrdoob.github.io/three.js/docs/#Reference/Lights/DirectionalLight
 */
 
 	JALI.toggleLightPosition = function( d ) {
-		if ( chkLightPosition.checked === true ) {
+		if ( chkLightPosition.checked === true  ) {
 			JALI.lightPosition = new THREE.DirectionalLight( 0xffffff, 0.25 );  // 0xffffff 1.0
+			JALI.lightPosition.name = 'lightPosition';
 //			JALI.lightDirectional = new THREE.SpotLight( 0xffffff, 1 );
 
 			JALI.updateLightPosition( rngLightLat.value, rngLightLon.value );
@@ -123,10 +157,12 @@ http://mrdoob.github.io/three.js/docs/#Reference/Lights/DirectionalLight
 			JALI.lightPosition.shadowMapHeight = 2048;
 //			JALI.lightPosition.shadowCameraVisible;
 	
+			if ( chkPrefsZoom.checked ) { JALI.lightPosition.shadowCameraVisible = true; }
+
 			scene.add( JALI.lightPosition );
 			JALI.updateMaterials( scene.children );
 		} else {
-			scene.remove( JALI.lightPosition );
+//			scene.remove( JALI.lightPosition );
 		}
 	};
 

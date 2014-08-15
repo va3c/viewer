@@ -40,7 +40,7 @@
 	};
 
 	JATH.addObjectClickEvent = function () {
-
+//console.log( 'addObjectClickEvent' );
 		projector = new THREE.Projector();
 		app.window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
 
@@ -108,7 +108,7 @@ console.log( 'geo', geo);
 //console.log( 'camera.near', camera.near.toFixed( 3 ), 'camera.far', camera.far );
 
 	}
-
+/*
 	function updateShadows( cen, rad, test ) {
 
 		lightDirectional = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -129,12 +129,13 @@ console.log( 'geo', geo);
 
 		lightDirectional.shadowCameraNear = 0;
 		lightDirectional.shadowCameraFar = 3 * rad;
-		lightDirectional.updateMatrix();
-		lightDirectional.updateMatrixWorld();  
+//		lightDirectional.updateMatrix();
+//		lightDirectional.updateMatrixWorld();  
 
 		if ( test ) { lightDirectional.shadowCameraVisible = true; }
 		scene.add( lightDirectional );
 	}
+*/
 
 // handle events
 
@@ -152,7 +153,7 @@ console.log( 'geo', geo);
 	};
 
 	JATH.onDocumentMouseClick = function ( event ) {
-
+//console.log( 'onDocumentMouseClick', scene.select );
 		event.preventDefault();
 
 		var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );

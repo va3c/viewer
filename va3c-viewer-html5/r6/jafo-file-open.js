@@ -37,7 +37,7 @@
 
 	};
 
-	JAFO.resetIframe = function () {
+	JAFO.initIframe = function () {
 		var iframes = document.getElementsByTagName( 'iframe' ) ;
 
 		for (var i = 0, len = iframes.length; i < len; i++) {
@@ -54,15 +54,15 @@
 //console.clear();
 //console.log( 'openBundles', bundles )
 
-		JAFO.resetIframe();
+		JAFO.initIframe();
 
 		JAFO.ifr.onload = function() {
 
 			JAFO.updateIframe( bundles );
 
-			for (var i = 2, len = V3PL.bundles.length; i < len; i++) {
-				//JAFO.appendBundle( V3PL.bundles[i] );
-				JAFO.switchType( bundle );
+			for (var i = 1, len = V3PL.bundles.length; i < len; i++) {
+//JAFO.appendBundle( V3PL.bundles[i] );
+				JAFO.switchType( bundles[i] );
 			}
 
 			if ( location.hash.toLowerCase().indexOf('auto') >  0 ){  // autocrapdoodle
@@ -89,6 +89,7 @@
 
 	};
 
+/*
 	JAFO.appendBundle = function ( bundle ) {
 //console.log( 'appendBundle', bundle);
 
@@ -98,6 +99,7 @@
 //		divMsg1.innerHTML += '<br>file: ' + bundle.name;
 
 	};
+*/
 
 	JAFO.openFile = function ( that ) {
 
@@ -113,23 +115,33 @@
 
 		if ( extension === 'html' ) {
 
-			JAFO.openFileHTML();
+			var reader = new FileReader();
+			reader.addEventListener( 'load', function ( event ) {
+				var contents = reader.result;
+				JAFO.ifr.onload = function() {
+					JAFO.updateIframe( V3PL.bundles );
+				};
+				JAFO.ifr.srcdoc = contents;
+			}, false );
+
+		reader.readAsText( that.files[0] );
 
 		} else if ( extension === 'dae' ) {
 
 			alert( 'Opening a .dae file with the file dialog is still under construction. \n' +
-					'Currently .dae files are supported using URLs and permalinks.' +
+					'Opening a .dae file is possible, but prevents any further interaction the Viewer. \n' +
+					'Currently .dae files are best viewed using URLs and permalinks.' +
 			''); 
 
-//			JAFO.openFileLoadDAE( that, bundle );
+			JAFO.openFileParseDAE(  bundle, that );
 
 		} else {
 
 			JAFO.ifr.onload = function() {
 //console.log( 'openFile Object', bundle );
-
-				JAFO.getFileReaderContents( bundle, that );
 				JAFO.updateIframe( V3PL.bundles );
+				JAFO.getFileReaderContents( bundle, that );
+
 
 			};
 			JAFO.ifr.src = JAFO.template;
@@ -138,6 +150,8 @@
 
 	};
 
+
+// Needs adjusting according to extension...
 	JAFO.appendFile = function ( that ) { // good
 		if ( !that.files ) return;
 
@@ -152,6 +166,7 @@
 		var reader = new FileReader();
 		reader.addEventListener( 'load', function ( event ) {
 			var contents = reader.result;
+//console.log( 'getFileReaderContents', contents );
 			JAFO.switchType( bundle, contents );
 		}, false );
 		if ( reader.readAsBinaryString !== undefined ) {
@@ -224,24 +239,6 @@
 		controls = app.controls;
 		material = app.material;
 
-
-// Should be in JALI...
-// Update shade, shadow and lights
-		renderer.shadowMapEnabled = true;
-		renderer.shadowMapSoft = true;
-
-		scene.add( camera );
-
-		chkLightAmbient.checked = true;
-		JALI.toggleLightAmbient();
-
-		chkLightCamera.checked = true;
-		JALI.toggleLightCamera();
-
-		chkLightPosition.checked = true;
-		JALI.toggleLightPosition();
-
-
 // Update controls and camera
 // should be in JATH...
 		if ( !JAFO.ifr.contentWindow.controls ) {
@@ -264,6 +261,8 @@
 			camera.up = new THREE.Vector3( 0, 1, 0 );
 		}
 
+		JALI.initLights();
+
 // Add scene things
 		JATH.addObjectClickEvent();
 		JAFO.targetList = [];
@@ -274,7 +273,6 @@
 		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = bundle.name;
 		divMsg1.innerHTML = 'Base: ' + bundle.name + '<br>';
 
-
 	};
 
 	JAFO.switchType = function ( bundle, contents ) {
@@ -284,13 +282,17 @@
 		switch ( extension ) {
 
 			case 'html':
+
+
+				JAFO.loadHTML( bundle, contents );
 //console.log('switchType html', bundle );
 
-				JAFO.loadHtml( bundle, contents );
 				break;
 
 			case 'dae':
-				JAFO.loadDAE( bundle, contents );
+
+				JAFO.loadDAE( bundle );
+
 				break;
 
 			case 'js':
@@ -300,16 +302,22 @@
 			case '3mat':
 			case '3obj':
 			case '3scn':
+
 				JAFO.loadJSON( bundle, contents );
+// console.log('switchType json', bundle );
 
 				break;
 
 			case 'obj':
+
 				JAFO.loadOBJ( bundle, contents );
+
 				break;
 
 			case 'stl':
+
 				JAFO.loadSTL( bundle, contents );
+
 				break;
 
 			case 'vtk':
@@ -333,21 +341,6 @@ Each of the following functions should be enhanced to take advatage of the speci
 
 */
 
-	JAFO.openFileHTML = function () {
-//console.log( 'openFile html', bundle );
-
-		var reader = new FileReader();
-		reader.addEventListener( 'load', function ( event ) {
-			var contents = reader.result;
-			JAFO.ifr.onload = function() {
-				JAFO.updateIframe( V3PL.bundles );
-			};
-			JAFO.ifr.srcdoc = contents;
-		}, false );
-		reader.readAsText( that.files[0] );
-
-	};
-
 	JAFO.loadHTML = function ( bundle ) {
 //console.log( 'load HTML', bundle );
 
@@ -360,7 +353,7 @@ Each of the following functions should be enhanced to take advatage of the speci
 
 	};
 
-	JAFO.openFileParseDAE = function ( file, bundle ) {
+	JAFO.openFileParseDAE = function ( bundle, file ) {
 
 		var reader = new FileReader();
 
@@ -423,27 +416,23 @@ console.log( 'openFileLoadDAE', bundle );
 
 	};
 
-	JAFO.loadDAE = function ( bundle, that ) {
+	JAFO.loadDAE = function ( bundle ) {
 console.log( 'loadDAE', bundle );
 
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.onload = function() {
 
 			var loader = new THREE.ColladaLoader();
+//			loader.options.centerGeometry = true;  // does this work?
+			loader.options.convertUpAxis = true;
 			loader.load( bundle.src, function ( collada ) {
-
-// Following may be used to open files using file dialog, but materials are a no show. WIP
-
-//			var parser = new DOMParser();
-//			var xml = parser.parseFromString( contents, 'text/xml' );//
-//			loader.parse( xml, function ( collada ) {
-
 				collada.scene.name = bundle.name;
 
-				JAFO.updateObject ( scene.select, bundle );
-				JAFO.updateTargetList( bundle.src );
 				scene.add( collada.scene );
 				scene.select = collada.scene;
+				JAFO.updateObject ( scene.select, bundle );
+				JAFO.updateTargetList( bundle.src );
+				JATH.zoomExtents();
 
 			} );
 		};
@@ -452,6 +441,8 @@ console.log( 'loadDAE', bundle );
 	};
 
 	JAFO.loadJSON = function ( bundle, contents ) {
+
+		contents = contents ? contents : JAFO.requestFile( bundle.src );
 
 // the following code is from the Three.js Editor
 // Not everybody understands it. Leave it out if you wish...
@@ -482,6 +473,8 @@ console.log( 'worker did some work!', src );
 
 	JAFO.loadOBJ = function ( bundle, contents ) {
 
+		contents = contents ? contents : JAFO.requestFile( bundle.src );
+
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.onload = function() {
 
@@ -489,10 +482,12 @@ console.log( 'worker did some work!', src );
 
 			mesh = object.children[0];
 
-			JAFO.updateObject ( mesh, bundle );
-			JAFO.targetList.push( mesh );
 			scene.add( mesh );
 			scene.select = mesh;
+			JAFO.updateObject ( mesh, bundle );
+			JAFO.targetList.push( mesh );
+
+			JATH.zoomExtents();
 
 		};
 		script.src = JAFO.loadersBase + 'js/loaders/OBJLoader.js';
@@ -500,7 +495,10 @@ console.log( 'worker did some work!', src );
 	};
 
 	JAFO.loadSTL = function ( bundle, contents ) {
-console.log( 'loadSTL', bundle );
+//console.log( 'loadSTL', bundle, contents );
+	
+		contents = contents ? contents : JAFO.requestFile( bundle.src );
+
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.src = JAFO.loadersBase + 'js/wip/TypedGeometry.js';
 
@@ -526,17 +524,21 @@ console.log( 'loadSTL', bundle );
 			mesh.geometry.uvsNeedUpdate = true;
 			mesh.material.needsUpdate = true;
 
-			JAFO.updateObject ( mesh, bundle );
-			JAFO.targetList.push( mesh );
 			scene.add( mesh );
 			scene.select = mesh; 
+			JAFO.updateObject ( mesh, bundle );
+			JAFO.targetList.push( mesh );
 
+			JATH.zoomExtents();
 		};
 		script.src = JAFO.loadersBase + 'js/loaders/STLLoader.js';
 
 	};
 
 	JAFO.loadVTK = function ( bundle, contents ) {
+
+		contents = contents ? contents : JAFO.requestFile( bundle.src );
+
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.onload = function() {
 
@@ -555,6 +557,8 @@ console.log( 'loadSTL', bundle );
 	};
 
 	JAFO.loadVRML = function ( bundle, contents ) {
+
+		contents = contents ? contents : JAFO.requestFile( bundle.src );
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.onload = function() {
 
@@ -572,34 +576,44 @@ console.log( 'loadSTL', bundle );
 		script.src = JAFO.loadersBase + 'js/loaders/VRMLLoader.js';
 	};
 
-	JAFO.handleJSON = function ( bundle, data ) {
+	JAFO.handleJSON = function ( bundle, contents ) {
 //console.log( 'handleJSON', bundle );
 
-		var loader, content;
+		var loader, contents;
 
-		if ( data.metadata === undefined ) { // 2.0
-			data.metadata = { type: 'Geometry' };
+		if ( contents.metadata === undefined ) { // 2.0
+			contents.metadata = { type: 'Geometry' };
 		}
-		if ( data.metadata.type === undefined ) { // 3.0
-			data.metadata.type = 'Geometry';
+		if ( contents.metadata.type === undefined ) { // 3.0
+			contents.metadata.type = 'Geometry';
 		}
-		if ( data.metadata.version === undefined ) {
-			data.metadata.version = data.metadata.formatVersion;
+		if ( contents.metadata.version === undefined ) {
+			contents.metadata.version = contents.metadata.formatVersion;
 		}
-		if ( data.metadata.type.toLowerCase() === 'geometry' ) {
+		if ( contents.metadata.type.toLowerCase() === 'geometry' ) {
 console.log( 'found geometry' );
 
+/*
+
+3DS Try
+			loader = new THREE.ObjectLoader();
+			loader.load( 'file:///C:/Users/theo/Dropbox/Public/git-repos/va3c.github.io/json/3dsmax/TransamericaPyramid2.js', function( result ){
+				scene = result;
+				JAFO.updateScene( bundle, result );
+			} );
+*/
+
 			loader = new THREE.JSONLoader();
-			content = loader.parse( data );
+			contents = loader.parse( contents );
 
-			geometry = content.geometry;
+			geometry = contents.geometry;
 
-			if ( content.materials !== undefined ) {
-//console.log( 'found geometry', content.materials );
-				if ( content.materials.length > 1 ) {
-					material = new THREE.MeshFaceMaterial( content.materials );
+			if ( contents.materials !== undefined ) {
+//console.log( 'found geometry', contents.materials );
+				if ( contents.materials.length > 1 ) {
+					material = new THREE.MeshFaceMaterial( contents.materials );
 				} else {
-					material = content.materials[ 0 ];
+					material = contents.materials[ 0 ];
 				}
 			} else if ( bundle ){
 				material = JAMA.materials[ bundle.mat ].set();
@@ -620,26 +634,27 @@ console.log( 'found geometry' );
 			scene.select = mesh;
 			JAFO.targetList.push( mesh );
 
-		} else if ( data.metadata.type.toLowerCase() === 'object' ) {
+		} else if ( contents.metadata.type.toLowerCase() === 'object' ) {
 
 			loader = new THREE.ObjectLoader();
-			content = loader.parse( data );
+			contents = loader.parse( contents );
 
-			if ( content instanceof THREE.Scene ) {
-//console.log( 'found scene' );
+			if ( contents instanceof THREE.Scene ) {
+console.log( 'found scene' );
 
-				JAFO.updateScene( bundle, content );
+				JAFO.updateScene( bundle, contents );
 
 			} else {
-//console.log( 'found object', content );
+console.log( 'found object', contents );
 
-				scene.add( content );
-				scene.select = content;
-				JAFO.updateObject ( content, bundle );
+//				scene.add( contents );
+		scene = contents;
+				scene.select = contents;
+				JAFO.updateObject ( contents, bundle );
 				JAFO.targetList.push( contents );
 
 			}
-		} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
+		} else if ( contents.metadata.type.toLowerCase() === 'scene' ) {
 console.log( 'found deprecated');
 
 // DEPRECATED
@@ -653,28 +668,22 @@ console.log( 'found a whoopsie');
 	};
 
 	JAFO.updateScene = function( bundle, contents ) {
-//console.log( 'updateScene', bundle );
+console.log( 'updateScene', bundle, 'scale', scale );
 
 		scene = contents;
 		JAFO.targetList = scene.children;
 
 // Update controller and camera
-		var values = V3PL.addValues;
+//		var values = V3PL.addValues;
 		V3PL.bundles[0].src = JAFO.template;
 
 // Update Three.js
 		app.scene = scene;
-		scene.add( camera );
+
+		JALI.checkLights();
 
 
-		chkLightAmbient.checked = true;
-		JALI.toggleLightAmbient();
-		chkLightCamera.checked = true;
-		JALI.toggleLightCamera();
-		chkLightPosition.checked = true;
-		JALI.toggleLightPosition();
-
-
+// where is scale coming from?
 		for (var i = 0, len = contents.children.length; i < len; i++) {
 			if ( contents.children[i].geometry ) {
 				contents.children[i].geometry.applyMatrix( new THREE.Matrix4().multiplyScalar( scale) );
@@ -687,9 +696,9 @@ console.log( 'found a whoopsie');
 		}
 
 		scene.select = contents.children[0];
-//		scene.name = scene.select.name = bundle.name;
-//		scene.scr = scene.select.src = bundle.src;
-//		scene.select.materialKey = V3PL.mat;
+		scene.name = scene.select.name = bundle.name;
+		scene.scr = scene.select.src = bundle.src;
+		scene.select.materialKey = V3PL.mat;
 
 		JAFO.updateTargetList( bundle.src );
 
@@ -698,6 +707,7 @@ console.log( 'found a whoopsie');
 		divMsg1.innerHTML = 'Base: ' + bundle.name;
 
 		JATH.zoomExtents();
+
 
 	};
 
@@ -710,8 +720,8 @@ console.log( 'found a whoopsie');
 		obj.scale = bundle.scl;
 		obj.src = bundle.src;
 
-//		obj.material = JAMA.materials[ bundle.mat ].set();
-//		obj.materialKey = bundle.mat;
+		obj.material = JAMA.materials[ bundle.mat ].set();
+		obj.materialKey = bundle.mat;
 
 		obj.castShadow = true;
 		obj.receiveShadow = true;

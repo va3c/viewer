@@ -19,7 +19,7 @@
 		V3.librariesTab.innerHTML =
 			'<p>' +
 				'A work in progress. Much broken. ' +
-				'Nonetheless <a href="http://va3c.github.io/viewer/va3c-viewer-html5/r4/va3c-viewer-html5-r4.html#autocrapdoodle" >some aspects</a> worth exploring. More goodies on the way...' +
+				'Nonetheless <a href="http://va3c.github.io/viewer/va3c-viewer-html5/r5/va3c-viewer-html5-r5.html#autocrapdoodle" >some aspects</a> worth exploring. More goodies on the way...' +
 			'</p>' +
 			'<p><a href="http://va3c.github.io/viewer/va3c-viewer-html5/readme-reader.html" target="_blank">Read Me w/ Features, Issues, Road Map</a></p>' +
 		'';
@@ -54,7 +54,7 @@
 
 
 	V3.init = function () {
-console.log( 'parseHref' );
+//console.log( 'parseHref' );
 
 		if ( !location.hash ) { 
 
@@ -66,7 +66,7 @@ console.log( 'parseHref' );
 
 		} else {
 
-				V3.getPermalinkBundles ();
+			V3.getPermalinkBundles ();
 
 		}
 
@@ -94,7 +94,6 @@ console.log( 'parseHref' );
 		V3PL.getAutoCrapdoodle();
 		location.hash = 'autocrapdoodle';
 
-		JAFO.openBundles( V3PL.bundles );
 	};
 
 	V3.getPermalinkBundles = function () {
@@ -120,7 +119,7 @@ console.log( 'parseHref' );
 			}
 			V3PL.bundles.push( defaults );
 		}
-
+//console.log( 'getPermalinkBundles', V3PL.bundles );
 		JAFO.openBundles( V3PL.bundles );
 
 	}
