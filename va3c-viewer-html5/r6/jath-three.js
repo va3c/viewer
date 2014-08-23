@@ -39,10 +39,29 @@
 
 	};
 
+// called in jafo-file-open.js
+// Needs iframe and THREE to be loaded first...
+
 	JATH.addObjectClickEvent = function () {
 //console.log( 'addObjectClickEvent' );
 		projector = new THREE.Projector();
+
 		app.window.addEventListener( 'click', JATH.onDocumentMouseClick, false );
+
+		app.window.addEventListener( 'dragover', function ( event ) {
+
+			event.preventDefault();
+			event.dataTransfer.dropEffect = 'copy';
+
+		}, false );
+
+		app.window.addEventListener( 'drop', function ( event ) {
+
+			event.preventDefault();
+
+			JAFO.openDragAndDrop( event.dataTransfer );
+
+		}, false );
 
 	};
 

@@ -19,7 +19,6 @@
 	var info, stats, renderer, scene, camera, controls, light;
 	var geometry, material, mesh;
 
-
 	init();
 	animate();
 
@@ -31,11 +30,11 @@
 		info.innerHTML = '<a href="" ><h1>' + document.title + '</a> - ' +
 			'<a id=aHelp href=# onclick=help.style.display="block"; >&#x24D8;</a></h1>' +
 			'<input type=checkbox id=chkZoom /> display bounding sphere & shadow area' +
-			'<div id=msg><h3 style=margin-bottom:0; >Click any link to view the 3D model...</h3></div>' +
+			'<div id=msg><h3 style=margin-bottom:0; >Drag any JSON file onto the main window...</h3></div>' +
 			'<div id=menu ></div><br>' +
 		'';
 
-		menu.innerHTML = getJSONLinkList();
+//		menu.innerHTML = getJSONLinkList();
 
 		addHelp();
 
@@ -60,11 +59,11 @@
 		camera.position.set( 1, 1, 1 );
 		controls = new THREE.TrackballControls( camera, renderer.domElement );
 
+/*
 		if ( location.hash ) {
 			loadFile( location.hash.substr( 1 ) );
 		}
-
-	}
+*/
 
 		document.addEventListener( 'dragover', function ( event ) {
 
@@ -83,28 +82,26 @@
 
 		}, false );
 
+
+	}
+
+var name;
+
 	function readFile( that ) {
 thing = that;
 console.log( that );
-				var reader = new FileReader();
-				reader.addEventListener( 'load', function ( event ) {
-					var contents = reader.result;
-					processFile( contents ) 
-				}, false );
-				reader.readAsText( that.files[0] );
+		name = that.files[0].name;
+		var reader = new FileReader();
+		reader.addEventListener( 'load', function ( event ) {
+
+			var contents = reader.result;
+			processFile( contents, that.files[0] ) 
+
+		}, false );
+		reader.readAsText( that.files[0] );
 	}
 
-		var texturePath;
-
-	function loadFile( file ) {
-
-
-		texturePath = file.substr(0, 1 + file.lastIndexOf('/') )
-console.log( file );
-
-		var data = requestFile( file );
-		processFile( data );
-	}
+	var texturePath;
 
 	function processFile( data ) {
 		var loader, contents, geomtery, material, mesh;
@@ -144,7 +141,6 @@ console.log( 'found geometry' );
 			var mesh = new THREE.Mesh( geometry, material );
 
 			scene.add( mesh );
-//			zoomExtents();
 
 		} else if ( data.metadata.type.toLowerCase() === 'object' ) {
 
@@ -155,13 +151,11 @@ console.log( 'found geometry' );
 console.log( 'found scene' );
 
 				scene.add( contents );
-//				zoomExtents();
 
 			} else {
 console.log( 'found object', contents );
 
 				scene.add( contents );
-//				zoomExtents();
 
 			}
 		} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
@@ -169,7 +163,9 @@ console.log( 'found a deprecated scene');
 
 			var loader = new THREE.SceneLoader();
 			loader.load( data, function ( contents ) {
+
 				scene.add( contents );
+
 			} );
 
 		} else {
@@ -177,7 +173,9 @@ console.log( 'found a deprecated scene');
 console.log( 'found a whoopsie');
 
 		}
-				zoomExtents();
+
+		zoomExtents();
+		menu.innerHTML = '<h3>File: ' + name + '<h3>';
 	}
 
 	function addHelp() {

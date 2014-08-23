@@ -31,16 +31,25 @@ The scripts here are updates to the competition entry and winner of the second p
 ### Vision  
 <!--  a descriptive picture of a desired future state -->
 * No clear goals for the moment
-* Perhaps to enable and to attract more people into thinking about and acting on the designed ( as opposed to the merely 'constructd' ) environment 
-* Perhaps to help design professionals comminicate their specialist skills to a broader population 
+* Perhaps to enable and to attract more people into thinking about and acting on the designed ( as opposed to the merely 'constructed' ) environment 
+	* Works - eventually - on devices normally used by general populaations - ie tablets and phones
+	* FOSS benefits
+* Perhaps to help design professionals communicate their specialist skills to a broader population 
+	* No attempt to compete with the tools professionals use to tackle sophisticated and complex designs
+	* Very much attempting to bring engineering and design _savoire faire_ - both high end levels and plain old common sense levels - to a broader swathe of humanity 
 * Perhaps a 'turntable' or mixing studio for 3D DJs
 * Follow Mr.doobs' maxim: 'to create a lightweight 3D library with a very low level of complexity — in other words, for dummies'
+	* Code is designed to be very fast to read
+		* Encourages engineers, architects and designers and non-professional programmers to add features
+		* Encouages designers to improve the design over improving the code
+		* No need to know jQuery, Backbone, Angular. Get going if you only know a tiny bit of JavaScript
+
 
 ## Viewer Features
 <!-- and benefits -->
 
 
-### File Management
+### File Management: File Open
 
 * Provides fast, simple access to 3D models, objects and HTML files
 * Uses the DOM to provide very deep editing and control access to the imported models.
@@ -54,21 +63,27 @@ The scripts here are updates to the competition entry and winner of the second p
 		* Opens .js, .json, .obj, .stl ascii, .vtk, 
 		* Opens .wrl files but have issues with materials
 		* Fails to open .dae files. See lines 342... of jafo-file-open.js for temporary partial fix
-	* Open files via the text in the address bar using location.Hash
+	* Open files via the text in the address bar using location.hash
 		* often called permalinks
 		* See below
 	* Open files via drag and drop
+		* Starting with r6
 * Load a new drawing or append (insert) new objects into current drawing  << which word is better: 'append 'or 'insert'??
+
+### File Management: Save as File  
 * Export the current state to a new JSON file as geometry, object or scene
 
-### Permalinks
+### File Management: Save as Permalink
 * Create permalink
+	* Generates a permalink based on all the objects with geometry in the current scene
 * Parse permalink
-	* let's you see what a permalink creates
-* Clear permalink resets the address bar to the base URL 
+	* Lets you see what a permalink creates
+* Clear permalink
+	* Resets the address bar to the base URL 
 * AutoCrapdoodle feature
 	* An experiment in playing with files in the cloud
-* Link to goo.gl URL Shortener
+* Link to goo.gl
+	* Provides speedy acces to a popular URL Shortener
 * Permalinks are an effective very lightweight method of saving data
 
 ### Sample File Libraries
@@ -107,7 +122,7 @@ The scripts here are updates to the competition entry and winner of the second p
 * Lights Tab
 	* Add lights, shading and shadows to any model
 	* Point light follows the camera
-	* Directional light position controlled by real-time slders
+	* Directional light position controlled by real-time sliders
 
 ### Viewing
 * Reset camera position
@@ -125,7 +140,7 @@ The scripts here are updates to the competition entry and winner of the second p
 ### UI Features
 * Display enables pan, rotate and zoom with pointing device
 * Full-screen display with translucent menu
-* Menu is iconizable and draggable
+* Menu is iconizable and dragable
 * Menu has accordion feature
 * Set background to random gradient or random color or selected color
 
@@ -142,14 +157,29 @@ The scripts here are updates to the competition entry and winner of the second p
 	* Names beginning with 'ja' belong to jaanga, are intended to be generic and can be used with any app
 	* Names beginning with 'v3' belong to vA3C, are intended to be very specific and targeted to the particular app
 	* During the initial development process the distinctions become blurred
+* Separation of 3D in-world code and 2D user interface code
+	* All interaction with the Three.js code for 3D interaction is via emdedded iframes
+	* Allows parent window to use any of the many popular JavaScript libraries
+	* Makes no attempt to turn Three.js code into, say, jQuery and ditto _vice versa_
+* Takes as much advantage of the HTML 5 [Document Object Model (DOM)]( http://en.wikipedia.org/wiki/Document_Object_Model ) as possible
+	* Example: `<tag id=thing >stuff</tag>`
+		* 'thing' is taken as a global variable directly and immediately
+			* `document.getElemenById` is never invoked
+	* Implies no support for elderly browsers
+		* OK since WebGL canot run in elderly browsers
+		* Follows the Mr.doob ethos of no nostalgia, remain calm and progress into the future ASAP
 * Code is highly-risk taking
 	* Example: Double quotes only used when absolutely necessary
 		* The world: <html lang="en">
-		* Us: <html lang=en>
+		* Us: <html lang=en >
+	* Example: plays happily, willfully with untyped variables 
+	* Example: see above / no support for elderly browsers
 * Code is designed to be load or render on demand
+	* In other words to load and display something ASAP
+	* 'Just-in-time' library and data loading
 * Code style
-	* Generally follows 'MDCS' 
-	* As generous horizonatally but much more greedy vertically
+	* Generally follows ['MDCS']( https://github.com/mrdoob/three.js/wiki/Mr.doob's-Code-Style%E2%84%A2 ) 
+	* As generous horizontally but much more greedy vertically
 	* Also passes jsHint
 * Code is designed to be seriously easy
 	* Encourages engineers, architects and designers and non-professional programmers to add features
@@ -158,7 +188,7 @@ The scripts here are updates to the competition entry and winner of the second p
 * Content, appearance and behavior that are related are kept together
 	* Every .js files contains all its associated CSS, HTML data - as well as the JavaScript
 	* No need to keep three files open. It's all in one file just in front of you
-	* This part of techniques that help you become more accustomed too the DOM
+	* This os part of techniques that help you become more accustomed to the DOM
 
 ## Road Map
 
@@ -186,6 +216,15 @@ The scripts here are updates to the competition entry and winner of the second p
 * Add sky boxes
 
 ## Issues /Bugs
+
+* R6 ~ 2014-08-21 ~ 3DS JSON. Not successfully loading, using the File Open dialog, JSON files created using the vA3C 3D3 exporter.
+This is because using loader.parse fails. Loader.load works just fine. So does loading by URL.
+A fix should not be difficult ad can be done as and when needed
+  
+* R6 ~ 2014-08-21 ~ zoom extents 
+	* Not taking into account the global scale of an appended object at insert time, yet doing so when called manually
+	* Not handliing THREE.TypedGeometry - as found in impoted .stl files
+
 
 * R2: Difficult to know which controller you are using currently
 
@@ -257,6 +296,10 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+2014-08-21 ~ Theo
+
+* File open minor fixes and adding issues to read me.
 
 
 2014-08-13 ~ Theo

@@ -93,7 +93,7 @@ console.log( 'found geometry' );
 			loader = new THREE.JSONLoader();
 			contents = loader.parse( data, texturePath  );
 
-			geometry = contents.geometry, material;
+			geometry = contents.geometry;
 
 			if ( contents.materials !== undefined ) {
 // console.log( 'found materials', contents.materials );

@@ -24,7 +24,7 @@
 		JAFO.FileOpenTab.style.cssText = 'cursor: auto; display: none; ' ;
 		JAFO.FileOpenTab.innerHTML =
 			'<p>Select a file to load</p>' +
-			'Scale: <input type=number id=inpScale value=1.000 max=1000 min=0.001 step=0.1 /><br>' +
+			'Scale: <input type=number id=inpScale value=1.000 max=1000 min=0.001 step=1 /><br>' +
 			'<p>Open & overwrite current view: <input type=file id=inpOpenFile ></p>' +
 			'<p>Append to current view: <input type=file id=inpAppendFile ></p>' +
 			'<p>Notes: files that are scenes overwrite the current view. ' +
@@ -35,19 +35,6 @@
 		inpOpenFile.onchange = function() { JAFO.openFile ( this ); };
 		inpAppendFile.onchange = function() { JAFO.appendFile ( this ); };
 
-	};
-
-	JAFO.initIframe = function () {
-		var iframes = document.getElementsByTagName( 'iframe' ) ;
-
-		for (var i = 0, len = iframes.length; i < len; i++) {
-			iframes[0].parentNode.removeChild(iframes[0]);
-		}
-
-		JAFO.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
-		JAFO.ifr.height = window.innerHeight;
-		JAFO.ifr.width = window.innerWidth;
-		JAFO.ifr.style.cssText = 'border-width: 0; position: absolute; ';
 	};
 
 	JAFO.openBundles = function ( bundles ) {
@@ -89,6 +76,19 @@
 
 	};
 
+	JAFO.initIframe = function () {
+		var iframes = document.getElementsByTagName( 'iframe' ) ;
+
+		for (var i = 0, len = iframes.length; i < len; i++) {
+			iframes[0].parentNode.removeChild(iframes[0]);
+		}
+
+		JAFO.ifr = document.body.appendChild( document.createElement( 'iframe' ) );
+		JAFO.ifr.height = window.innerHeight;
+		JAFO.ifr.width = window.innerWidth;
+		JAFO.ifr.style.cssText = 'border-width: 0; position: absolute; ';
+	};
+
 /*
 	JAFO.appendBundle = function ( bundle ) {
 //console.log( 'appendBundle', bundle);
@@ -102,6 +102,7 @@
 */
 
 	JAFO.openFile = function ( that ) {
+console.log( 'OpenFile', that, that.files[0] );
 
 		if ( !that.files ) return;
 
@@ -124,7 +125,7 @@
 				JAFO.ifr.srcdoc = contents;
 			}, false );
 
-		reader.readAsText( that.files[0] );
+			reader.readAsText( that.files[0] );
 
 		} else if ( extension === 'dae' ) {
 
@@ -135,13 +136,21 @@
 
 			JAFO.openFileParseDAE(  bundle, that );
 
+		} else if ( extension === 'stl' ) {
+
+			JAFO.ifr.onload = function() {
+				JAFO.updateIframe( V3PL.bundles );
+				JAFO.loadSTL( bundle, that );
+			};
+			JAFO.ifr.src = JAFO.template;
+
 		} else {
 
 			JAFO.ifr.onload = function() {
+
 //console.log( 'openFile Object', bundle );
 				JAFO.updateIframe( V3PL.bundles );
 				JAFO.getFileReaderContents( bundle, that );
-
 
 			};
 			JAFO.ifr.src = JAFO.template;
@@ -155,33 +164,91 @@
 	JAFO.appendFile = function ( that ) { // good
 		if ( !that.files ) return;
 
-		var bundle = V3PL.buildBundle( that.files[0].name );
+		var scale = inpScale.value;
+		var bundle = V3PL.buildBundle( that.files[0].name, scale );
+		var extension = that.files[0].name.split( '.' ).pop().toLowerCase();
 
-		JAFO.getFileReaderContents( bundle, that );
+		if ( extension === 'stl' ) {
 
+			JAFO.loadSTL( bundle, that );
+
+		} else {
+
+			JAFO.getFileReaderContents( bundle, that );
+
+		}
 	};
 
 	JAFO.getFileReaderContents = function ( bundle, that ) {
 
 		var reader = new FileReader();
 		reader.addEventListener( 'load', function ( event ) {
+
 			var contents = reader.result;
 //console.log( 'getFileReaderContents', contents );
+
 			JAFO.switchType( bundle, contents );
+
 		}, false );
+
+
 		if ( reader.readAsBinaryString !== undefined ) {
+console.log( 'reader.readAsBinaryString', reader.readAsBinaryString );
+
 			reader.readAsBinaryString( that.files[0] );
+
 		} else {
+
 			reader.readAsText( that.files[0] );
+
 		}
 
 	}
 
-	JAFO.openUrl = function ( src ) {
+	JAFO.openDragAndDrop = function( that ) {
 
+
+		var name = that.files[0].name;
+		var scale = inpScale.value;
+		var bundle = V3PL.buildBundle( name, scale );
+
+		var extension = that.files[0].name.split( '.' ).pop().toLowerCase();
+/*
+		if ( extension === 'stl' ) {
+console.log( 'openDragAndDrop', that,'name:', that.files[0].name );
+			JAFO.loadSTL( bundle, that );
+
+		} else {
+*/
+			var reader = new FileReader();
+			reader.addEventListener( 'load', function ( event ) {
+
+				var contents = reader.result;
+
+				JAFO.switchType( bundle, contents ); 
+
+			}, false );
+
+			if ( reader.readAsBinaryString !== undefined ) {
+	//console.log( 'reader.readAsBinaryString', reader.readAsBinaryString );
+
+				reader.readAsBinaryString( that.files[0] );
+
+			} else {
+
+				reader.readAsText( that.files[0] );
+
+			}
+//		}
+	}
+
+
+	JAFO.openUrl = function ( src, scale ) {
+		var contents;
+		var scl = scale  ? scale : 1;
 		V3PL.bundles = [];
 		V3PL.bundles.push( V3PL.setDefaults( V3PL.defaultScene ) );
-		var bundle = V3PL.buildBundle( src );
+		var bundle = V3PL.buildBundle( src, scale );
 		var extension = src.split( '.' ).pop().toLowerCase();
 
 		if ( extension === 'html' ) {
@@ -190,18 +257,26 @@
 			JAFO.ifr.onload = function() {
 				JAFO.updateIframe( V3PL.bundles );
 
-
-//				JAFO.loadHtml = ( bundle )
+//				JAFO.loadHtml = ( bundle );
 			};
 			JAFO.ifr.src = src;
 
+		} else if ( extension === 'stl' ) {
+			JAFO.ifr.onload = function() {
+
+				JAFO.updateIframe( V3PL.bundles );
+				JAFO.switchType( bundle );
+
+			};
+			JAFO.ifr.src = JAFO.template;
+
 		} else {
 			JAFO.ifr.onload = function() {
-//console.log( 'open src Object', src );
 
-				JAFO.updateIframe( bundles );
-				var contents = JAFO.requestFile( src );
+				JAFO.updateIframe( V3PL.bundles );
+				contents = JAFO.requestFile( src );
 				JAFO.switchType( bundle, contents );
+
 			};
 			JAFO.ifr.src = JAFO.template;
 		}
@@ -209,17 +284,22 @@
 	};
 
 	JAFO.appendUrl = function ( src, scale ) {
+		var contents;
+		var scl = scale ? scale : 1 ;
 
-		var bundle = V3PL.buildBundle( src, scale );
+		var bundle = V3PL.buildBundle( src, scl );
 
 //console.log( 'appendUrl', src, scale, bundle);
+		var extension = src.split( '.' ).pop().toLowerCase();
 
-		var contents = JAFO.requestFile( bundle.src );
-		JAFO.switchType( bundle, contents );
-
-//		divMsg1.innerHTML += '<br>Append: ' + bundle.name;
-
+		if ( extension === 'stl' ) {
+			JAFO.switchType( bundle );
+		} else {
+			contents = JAFO.requestFile( bundle.src );
+			JAFO.switchType( bundle, contents );
+		}
 	};
+
 
 	JAFO.updateIframe = function( bundles ) {
 
@@ -265,6 +345,8 @@
 
 // Add scene things
 		JATH.addObjectClickEvent();
+
+
 		JAFO.targetList = [];
 
 // update parent screen
@@ -315,8 +397,8 @@
 				break;
 
 			case 'stl':
-
-				JAFO.loadSTL( bundle, contents );
+//console.log('switchType stl', bundle );
+				JAFO.loadSTL( bundle, null, contents );
 
 				break;
 
@@ -425,10 +507,12 @@ console.log( 'loadDAE', bundle );
 			var loader = new THREE.ColladaLoader();
 //			loader.options.centerGeometry = true;  // does this work?
 			loader.options.convertUpAxis = true;
-			loader.load( bundle.src, function ( collada ) {
+			loader.load( bundle.src, function colladaReady( collada ) {
 				collada.scene.name = bundle.name;
 
 				scene.add( collada.scene );
+//				scene = collada.scene;  // does not compute
+
 				scene.select = collada.scene;
 				JAFO.updateObject ( scene.select, bundle );
 				JAFO.updateTargetList( bundle.src );
@@ -436,7 +520,9 @@ console.log( 'loadDAE', bundle );
 
 			} );
 		};
-		script.src = JAFO.loadersBase + 'js/loaders/ColladaLoader.js';
+//		script.src = JAFO.loadersBase + 'js/loaders/ColladaLoader.js';
+
+		script.src ='http://mrdoob.github.io/three.js/examples/js/loaders/ColladaLoader.js' ;
 
 	};
 
@@ -487,55 +573,143 @@ console.log( 'worker did some work!', src );
 			JAFO.updateObject ( mesh, bundle );
 			JAFO.targetList.push( mesh );
 
-			JATH.zoomExtents();
-
 		};
 		script.src = JAFO.loadersBase + 'js/loaders/OBJLoader.js';
 
 	};
 
-	JAFO.loadSTL = function ( bundle, contents ) {
-//console.log( 'loadSTL', bundle, contents );
-	
-		contents = contents ? contents : JAFO.requestFile( bundle.src );
+	JAFO.loadSTL = function ( bundle, that, contents ) {
+
 
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.src = JAFO.loadersBase + 'js/wip/TypedGeometry.js';
 
+		var reader = new FileReader();
 		script = document.body.appendChild( document.createElement( 'script' ) );
 		script.onload = function() {
+console.log( 'loadSTL', bundle,  that );
+			if ( contents  ) {
 
-			geometry = new THREE.STLLoader().parse( contents );
-			material = new THREE.MeshPhongMaterial();
+//				reader.addEventListener( 'load', function ( event ) {
+console.log( 'got here' );
+//					var contents = event.target.result;
+					geometry = new THREE.STLLoader().parse( contents );
+					material = new THREE.MeshPhongMaterial();
 
-			mesh = new THREE.Mesh( geometry, material );
-			material = new THREE.MeshNormalMaterial();
+					mesh = new THREE.Mesh( geometry, material );
+//					material = new THREE.MeshNormalMaterial();
 
-			mesh.material = new THREE.MeshNormalMaterial();
+//					mesh.material = new THREE.MeshNormalMaterial();
 
-			mesh.geometry.verticesNeedUpdate = true;
+					mesh.geometry.verticesNeedUpdate = true;
 
-			mesh.geometry.normalsNeedUpdate = true;
-			mesh.geometry.computeFaceNormals();
-			mesh.geometry.computeVertexNormals();
-	//		mesh.geometry.computeTangents();
-	//		mesh.geometry.computeMorphNormals();
-			mesh.geometry.buffersNeedUpdate = true;
-			mesh.geometry.uvsNeedUpdate = true;
-			mesh.material.needsUpdate = true;
+					mesh.geometry.normalsNeedUpdate = true;
+					mesh.geometry.computeFaceNormals();
+					mesh.geometry.computeVertexNormals();
+			//		mesh.geometry.computeTangents();
+			//		mesh.geometry.computeMorphNormals();
+					mesh.geometry.buffersNeedUpdate = true;
+					mesh.geometry.uvsNeedUpdate = true;
+					mesh.material.needsUpdate = true;
 
-			scene.add( mesh );
-			scene.select = mesh; 
-			JAFO.updateObject ( mesh, bundle );
-			JAFO.targetList.push( mesh );
 
-			JATH.zoomExtents();
+					scene.add( mesh );
+					scene.select = mesh; 
+					JAFO.updateObject ( mesh, bundle );
+					JAFO.targetList.push( mesh );
+
+					JATH.zoomExtents();
+console.log( mesh );
+/*
+				}, false );
+
+				if ( reader.readAsBinaryString !== undefined ) {
+		//console.log( 'reader.readAsBinaryString', reader.readAsBinaryString );
+
+					reader.readAsBinaryString( that.files[0] );
+
+				} else {
+
+					reader.readAsText( that.files[0] );
+				}
+*/
+
+			} else if ( that ) {
+
+				reader.addEventListener( 'load', function ( event ) {
+console.log( 'got here', that.files[0] );
+					var contents = event.target.result;
+					geometry = new THREE.STLLoader().parse( contents );
+					material = new THREE.MeshPhongMaterial();
+
+					mesh = new THREE.Mesh( geometry, material );
+//					material = new THREE.MeshNormalMaterial();
+
+//					mesh.material = new THREE.MeshNormalMaterial();
+
+					mesh.geometry.verticesNeedUpdate = true;
+
+					mesh.geometry.normalsNeedUpdate = true;
+					mesh.geometry.computeFaceNormals();
+					mesh.geometry.computeVertexNormals();
+			//		mesh.geometry.computeTangents();
+			//		mesh.geometry.computeMorphNormals();
+					mesh.geometry.buffersNeedUpdate = true;
+					mesh.geometry.uvsNeedUpdate = true;
+					mesh.material.needsUpdate = true;
+
+
+					scene.add( mesh );
+					scene.select = mesh; 
+					JAFO.updateObject ( mesh, bundle );
+					JAFO.targetList.push( mesh );
+
+					JATH.zoomExtents();
+console.log( mesh );
+
+				}, false );
+
+				if ( reader.readAsBinaryString !== undefined ) {
+		//console.log( 'reader.readAsBinaryString', reader.readAsBinaryString );
+
+					reader.readAsBinaryString( that.files[0] );
+
+				} else {
+
+					reader.readAsText( that.files[0] );
+				}
+
+
+
+			} else {
+				var loader = new THREE.STLLoader();
+				loader.addEventListener( 'load', function ( event ) {
+
+					
+					var geometry = event.content;
+					var mesh = new THREE.Mesh( geometry, material );
+
+					mesh.rotation.set( - Math.PI / 2, 0, 0 );
+
+					scene.add( mesh );
+					scene.select = mesh; 
+					JAFO.updateObject ( mesh, bundle );
+					JAFO.targetList.push( mesh );
+
+					JATH.zoomExtents();
+
+				} );
+				loader.load( bundle.src );
+			}
+
+
 		};
 		script.src = JAFO.loadersBase + 'js/loaders/STLLoader.js';
 
 	};
 
 	JAFO.loadVTK = function ( bundle, contents ) {
+console.log( 'JAFO.loadVTK', bundle );
 
 		contents = contents ? contents : JAFO.requestFile( bundle.src );
 
@@ -591,11 +765,13 @@ console.log( 'worker did some work!', src );
 			contents.metadata.version = contents.metadata.formatVersion;
 		}
 		if ( contents.metadata.type.toLowerCase() === 'geometry' ) {
-console.log( 'found geometry' );
+// console.log( 'found geometry' );
+
 
 /*
+//3DS Version
+// 
 
-3DS Try
 			loader = new THREE.ObjectLoader();
 			loader.load( 'file:///C:/Users/theo/Dropbox/Public/git-repos/va3c.github.io/json/3dsmax/TransamericaPyramid2.js', function( result ){
 				scene = result;
@@ -603,13 +779,17 @@ console.log( 'found geometry' );
 			} );
 */
 
+// JSONLoader loads all revs of geometry...
+			var texturePath = bundle.src.substr(0, 1 + bundle.src.lastIndexOf('/') )
+
 			loader = new THREE.JSONLoader();
-			contents = loader.parse( contents );
+			contents = loader.parse( contents, texturePath );
 
 			geometry = contents.geometry;
 
+
 			if ( contents.materials !== undefined ) {
-//console.log( 'found geometry', contents.materials );
+console.log( 'found geometry', contents.materials );
 				if ( contents.materials.length > 1 ) {
 					material = new THREE.MeshFaceMaterial( contents.materials );
 				} else {
@@ -621,9 +801,6 @@ console.log( 'found geometry' );
 				material = JAMA.materials.NormalSmooth.set();
 			}
 
-//			material = JAMA.materials[ bundle.mat ].set();
-
-			geometry.sourceType = "ascii";
 			geometry.sourceFile = bundle.src;
 
 			var mesh = new THREE.Mesh( geometry, material );
@@ -633,6 +810,7 @@ console.log( 'found geometry' );
 			scene.add( mesh );
 			scene.select = mesh;
 			JAFO.targetList.push( mesh );
+
 
 		} else if ( contents.metadata.type.toLowerCase() === 'object' ) {
 
@@ -647,14 +825,15 @@ console.log( 'found scene' );
 			} else {
 console.log( 'found object', contents );
 
-//				scene.add( contents );
-		scene = contents;
+				scene.add( contents );
+//				scene = contents;
 				scene.select = contents;
 				JAFO.updateObject ( contents, bundle );
 				JAFO.targetList.push( contents );
 
 			}
 		} else if ( contents.metadata.type.toLowerCase() === 'scene' ) {
+
 console.log( 'found deprecated');
 
 // DEPRECATED
@@ -662,13 +841,16 @@ console.log( 'found deprecated');
 			loader.load( bundle.src, function ( contents ) {
 				JAFO.updateScene( bundle, contents );
 			}, '' );
+
 		} else {
+
 console.log( 'found a whoopsie');
+
 		}
 	};
 
 	JAFO.updateScene = function( bundle, contents ) {
-console.log( 'updateScene', bundle, 'scale', scale );
+console.log( 'updateScene', bundle );
 
 		scene = contents;
 		JAFO.targetList = scene.children;
@@ -682,15 +864,14 @@ console.log( 'updateScene', bundle, 'scale', scale );
 
 		JALI.checkLights();
 
-
 // where is scale coming from?
 		for (var i = 0, len = contents.children.length; i < len; i++) {
 			if ( contents.children[i].geometry ) {
-				contents.children[i].geometry.applyMatrix( new THREE.Matrix4().multiplyScalar( scale) );
+				contents.children[i].geometry.applyMatrix( new THREE.Matrix4().multiplyScalar( bundle.scl ) );
 			}
 			for (var j = 0, lenJ = contents.children[i].length; j < lenJ; j++) {
 				if ( contents.children[i].children[j] && contents.children[i].children[j].geometry ) {
-					contents.children[i].children[j].geometry.applyMatrix( new THREE.Matrix4().multiplyScalar( scale) );
+					contents.children[i].children[j].geometry.applyMatrix( new THREE.Matrix4().multiplyScalar( bundle.scl ) );
 				}
 			}
 		}
@@ -715,16 +896,17 @@ console.log( 'updateScene', bundle, 'scale', scale );
 
 		obj.position.set( bundle.posx, bundle.posy, bundle.posz );
 		obj.rotation.set( bundle.rotx, bundle.roty, bundle.rotz );
-		obj.scale.set( bundle.sclx, bundle.scly, bundle.sclz );
+		obj.scale.set( bundle.sclx * bundle.scl, bundle.scly * bundle.scl, bundle.sclz * bundle.scl);
 		obj.name = bundle.name;
 		obj.scale = bundle.scl;
 		obj.src = bundle.src;
 
-		obj.material = JAMA.materials[ bundle.mat ].set();
+//		obj.material = JAMA.materials[ bundle.mat ].set();
 		obj.materialKey = bundle.mat;
 
 		obj.castShadow = true;
 		obj.receiveShadow = true;
+
 	};
 
 	JAFO.updateTargetList = function( src ) {
@@ -740,8 +922,9 @@ console.log( 'updateScene', bundle, 'scale', scale );
 		} else {
 			JAFO.targetList = scene.children;
 		}
-
 // console.log( 'updateTargetList', JAFO.targetList );
+
+			JATH.zoomExtents();
 	};
 
 	JAFO.requestFile = function( fname ) {
@@ -751,3 +934,24 @@ console.log( 'updateScene', bundle, 'scale', scale );
 		xmlhttp.send( null );
 		return xmlhttp.responseText;
 	};
+
+	var xmlhttp;
+	JAFO.requestFileBinary = function( bundle ) {
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.bundle = bundle;
+		xmlhttp.crossOrigin = "Anonymous";
+		xmlhttp.responseType = "arraybuffer";
+		xmlhttp.open( 'GET', bundle.src, true );
+		xmlhttp.onreadystatechange = callbackFile;
+		xmlhttp.send( null );
+	};
+
+	function callbackFile() {
+		if ( xmlhttp.readyState == 4  ) {
+			JAFO.switchType( xmlhttp.bundle, xmlhttp.response  );
+		} else {
+console.log('waiting...');
+		}
+
+	}
+

@@ -56,9 +56,7 @@
 	};
 
 	JALI.initLights = function () {
-console.log( 'checkLights count', scene.__lights, scene.__lights.length );
-
-
+//console.log( 'checkLights count', scene.__lights, scene.__lights.length );
 
 		chkLightAmbient.checked = true;
 		JALI.toggleLightAmbient();
@@ -78,8 +76,7 @@ console.log( 'checkLights count', scene.__lights, scene.__lights.length );
 	};
 
 	JALI.checkLights = function () {
-console.log( 'checkLights count', scene.__lights, scene.__lights.length );
-
+//console.log( 'checkLights count', scene.__lights, scene.__lights.length );
 
 		chkLightAmbient.checked = true;
 		JALI.toggleLightAmbient();
@@ -111,7 +108,8 @@ console.log( 'checkLights count', scene.__lights, scene.__lights.length );
 	JALI.toggleLightCamera = function( d ) {
 		if ( chkLightCamera.checked === true ) {
 //console.log( 'toggleLightCamera' );
-   // to track light
+
+// to track light
 			JALI.lightCamera = new THREE.PointLight( 0xffffff, 0.5 );
 			JALI.lightCamera.name = 'lightCamera';
 			JALI.lightCamera.position = camera.position;
