@@ -15,13 +15,20 @@
 		librariesTab.onclick = function() { JA.toggleTab( libOpen ); JA.toggleTab( libClose ); JA.toggleDialogs( V3.libraries ); };
 
 		V3.librariesTab = JA.menu.appendChild( document.createElement( 'div' ) );
-		V3.librariesTab.style.cssText = 'cursor: auto; display: ; ' ;
+		V3.librariesTab.style.cssText = 'cursor: auto; display: ""; ' ;
 		V3.librariesTab.innerHTML =
 			'<p>' +
 				'A work in progress. Much broken. ' +
-				'Nonetheless <a href="http://va3c.github.io/viewer/va3c-viewer-html5/r5/va3c-viewer-html5-r5.html#autocrapdoodle" >some aspects</a> worth exploring. More goodies on the way...' +
+				'Nonetheless <b><i><a href="http://va3c.github.io/viewer/va3c-viewer-html5/r5/va3c-viewer-r5.html#autocrapdoodle" title="launches the \'autocrapdoodle\' feature">some aspects</a></i></b> worth exploring. ' +
 			'</p>' +
-			'<p><a href="http://va3c.github.io/viewer/va3c-viewer-html5/readme-reader.html" target="_blank">Read Me w/ Features, Issues, Road Map</a></p>' +
+			'<p>' +
+				'<b><a href="http://va3c.github.io/viewer/va3c-viewer-html5/readme-reader.html" title="lots of good stuff here..." target="_blank">Read Me w/ Features, Issues, Road Map</a></b>' +
+			'</p>' +
+			'<p>' +
+				'Click on the blue tabs below to access the file libraries.<br>[O] = Open in new scene<br>' +
+			'</p><p>' +
+				'Best to keep the <b><a href="http://webmasters.stackexchange.com/questions/8525/how-to-open-the-javascript-console-in-different-browsers" title="Watch the bugs appear..." target="_blank">JavaScript console</a></b> open.' +
+			'</p>' +
 		'';
 
 	};
@@ -86,6 +93,8 @@
 		name = V3MH.files[ item ][ 1 ];
 		V3PL.buildBundle( src, 1, name );
 
+		V3PL.bundles[ 1 ].mat = 'PhongRandom';
+		V3PL.bundles[ 1 ].override = true;
 		JAFO.openBundles( V3PL.bundles );
 	};
 

@@ -73,7 +73,10 @@
 
 		if ( !controls ) return;
 //		controls = new THREE.TrackballControls( camera, renderer.domElement );
-		var d = JAPL.defaultScene;
+
+// need more standard way to handle default scene...
+ 
+		var d = V3PL.defaultScene;
 		controls.target.set( d.tarx, d.tary, d.tarz );
 
 		if ( !camera ) return;

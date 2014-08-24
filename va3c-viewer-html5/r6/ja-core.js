@@ -9,7 +9,7 @@
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
 			'h1 { margin: 0; }' +
-			'a { text-decoration: none; opacity: 0.8; }' +
+			'a { opacity: 1; text-decoration: none; }' +
 			'#closerIcon p { margin: 0; opacity: 0.8; }' +
 			'#movable { background-color: #ccc; opacity: 0.8; cursor: move; left: 20px; max-width: 400px; ' +
 				'max-height: ' + (window.innerHeight - 100) + 'px; min-width: 325px;' +

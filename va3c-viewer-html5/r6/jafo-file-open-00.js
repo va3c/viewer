@@ -15,7 +15,7 @@
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Open a file';
 		tab.innerHTML =
-			'<a id=tabFileOpen title="Select a file to load or start a new file" ><p class=buttonFile >' +
+			'<a id=tabFileOpen ><p class=buttonFile >' +
 				'<i class="fa fa-files-o"></i> File Open...' +
 			'</p></a>';
 		tabFileOpen.onclick = function() { JA.toggleTab( JAFO.FileOpenTab ); };
@@ -23,11 +23,11 @@
 		JAFO.FileOpenTab = tab.appendChild( document.createElement( 'div' ) );
 		JAFO.FileOpenTab.style.cssText = 'cursor: auto; display: none; ' ;
 		JAFO.FileOpenTab.innerHTML =
+			'<p>Select a file to load</p>' +
 			'Scale: <input type=number id=inpScale value=1.000 max=1000 min=0.001 step=1 /><br>' +
-			'<p>Open & overwrite current scene: <input type=file id=inpOpenFile ></p>' +
-			'<p>Insert into current scene: <input type=file id=inpAppendFile ></p>' +
-			'<p><a href=JavaScript:JAFO.openUrl("template-basic.html"); >Create new scene</a></p>' +
-			'<p>Notes: files that are scenes overwrite the current scene. ' +
+			'<p>Open & overwrite current view: <input type=file id=inpOpenFile ></p>' +
+			'<p>Append to current view: <input type=file id=inpAppendFile ></p>' +
+			'<p>Notes: files that are scenes overwrite the current view. ' +
 				'Local files cannot be used to create permalinks. Best to reload page between opens.' +
 			'</p>' +
 		'';
@@ -213,6 +213,7 @@ console.log( 'reader.readAsBinaryString', reader.readAsBinaryString );
 
 	JAFO.openDragAndDrop = function( inpFile ) {
 
+
 		var name = inpFile.files[0].name;
 		var scale = inpScale.value;
 		var bundle = V3PL.buildBundle( name, scale );
@@ -247,6 +248,7 @@ console.log( 'openDragAndDrop', inpFile,'name:', inpFile.files[0].name );
 //		}
 	}
 
+
 	JAFO.openUrl = function ( src, scale ) {
 		var contents;
 		var scl = scale  ? scale : 1;
@@ -269,7 +271,7 @@ console.log( 'openDragAndDrop', inpFile,'name:', inpFile.files[0].name );
 			JAFO.ifr.onload = function() {
 
 				JAFO.updateIframe( V3PL.bundles );
-				JAFO.switchType( bundle, null, null );
+				JAFO.switchType( bundle );
 
 			};
 			JAFO.ifr.src = JAFO.template;
@@ -439,8 +441,6 @@ Each of the following functions should be enhanced to take advatage of the speci
 
 	};
 
-// look into getDataUrl...
-
 	JAFO.openFileParseDAE = function ( bundle, file ) {
 
 		var reader = new FileReader();
@@ -457,7 +457,7 @@ Each of the following functions should be enhanced to take advatage of the speci
 				loader = new THREE.ColladaLoader();
 				loader.options.convertUpAxis = true;
 				loader.parse( xml, function ( collada ) {
-console.log( 'openFileDAE', collada.scene );
+//	console.log( 'openFileDAE', collada.scene );
 //					JAFO.updateObject ( scene.select, bundle );
 //					JAFO.updateTargetList( bundle.src );
 					scene.add( collada.scene );
@@ -482,6 +482,7 @@ console.log( 'openFileLoadDAE', bundle );
 			reader.addEventListener( 'load', function ( event ) {
 				var contents = event.target.result;
 
+
 				var loader = new THREE.ColladaLoader();
 				loader.load( bundle.src, function ( collada ) {
 
@@ -493,6 +494,7 @@ console.log( 'openFileLoadDAE', bundle );
 					scene.select = collada.scene;
 
 				} );
+
 
 			}, false );
 
@@ -584,13 +586,14 @@ console.log( 'worker did some work!', src );
 
 	JAFO.loadSTL = function ( bundle, inpFile, contents ) {
 
+
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.src = JAFO.loadersBase + 'js/wip/TypedGeometry.js';
 
 		var reader = new FileReader();
 		script = document.body.appendChild( document.createElement( 'script' ) );
 		script.onload = function() {
-console.log( 'loadSTL', bundle,  inpFile, contents );
+console.log( 'loadSTL', bundle,  inpFile );
 			if ( contents  ) {
 
 //				reader.addEventListener( 'load', function ( event ) {
@@ -685,12 +688,11 @@ console.log( mesh );
 
 
 			} else {
-console.log( 'loadStl loader' );
 				var loader = new THREE.STLLoader();
 				loader.addEventListener( 'load', function ( event ) {
 
-					geometry = event.content;
-					material = new THREE.MeshPhongMaterial();
+					
+					var geometry = event.content;
 					var mesh = new THREE.Mesh( geometry, material );
 
 					mesh.rotation.set( - Math.PI / 2, 0, 0 );
@@ -784,8 +786,7 @@ console.log( 'JAFO.loadVTK', bundle );
 */
 
 // JSONLoader loads all revs of geometry...
-			var texturePath = bundle.src.substr( 0, 1 + bundle.src.lastIndexOf('/') )
-console.log( texturePath );
+			var texturePath = bundle.src.substr(0, 1 + bundle.src.lastIndexOf('/') )
 
 			loader = new THREE.JSONLoader();
 			contents = loader.parse( contents, texturePath );
@@ -797,14 +798,6 @@ console.log( texturePath );
 console.log( 'found geometry', contents.materials );
 				if ( contents.materials.length > 1 ) {
 					material = new THREE.MeshFaceMaterial( contents.materials );
-
-					for (var i = 0, len = contents.materials.length; i < len; i++) {
-						contents.materials[i].side = 2;
-						contents.materials[i].needsUpdate = true;
-					}
-
-
-
 				} else {
 					material = contents.materials[ 0 ];
 				}
@@ -902,6 +895,7 @@ console.log( 'updateScene', bundle );
 
 		JATH.zoomExtents();
 
+
 	};
 
 	JAFO.updateObject = function ( obj, bundle ) {
@@ -913,9 +907,7 @@ console.log( 'updateScene', bundle );
 		obj.scale = bundle.scl;
 		obj.src = bundle.src;
 
-		if ( bundle.override ) {
-			obj.material = JAMA.materials[ bundle.mat ].set();
-		}
+//		obj.material = JAMA.materials[ bundle.mat ].set();
 		obj.materialKey = bundle.mat;
 
 		obj.castShadow = true;

@@ -25,8 +25,10 @@
 			file = V3VJ.files[ i ][0];
 			scale = V3VJ.files[ i ][1];
 			title = V3VJ.files[ i ][2] ? V3VJ.files[ i ][2] : '';
-			fileList += '<a href=JavaScript:' +
-				'JAFO.appendUrl("' + V3VJ.basepath + file + '",' + scale + '); title="' + title + '" >' + file + '</a><br>';
+			fileList += 
+				'<a href=JavaScript:JAFO.openUrl("' + V3VJ.basepath + file + '",' + scale + '); >[O]</a> ' +
+				'<a href=JavaScript:' +
+				'JAFO.appendUrl("' + V3VJ.basepath + file + '",' + scale + '); title="' + title + '" >' + file.split('/').pop() + '</a><br>';
 		}
 
 		V3VJ.Va3cJsonTab.innerHTML =
@@ -62,7 +64,7 @@
 		['archive/Project2.rvt.js', 0.01, 'Revit model' ],
 		['archive/sample.js', 1, 'Blender export - broken' ],
 		['archive/scene.Monkey.js', 10, 'Blender export' ],
-		['archive/test.js', 1, 'Blender export' ],
+		['archive/test.js', 10, 'Blender export' ],
 		['archive/Wall.rvt - Copy.js', 0.01, 'Revit model - broken' ],
 		['archive/Wall.rvt.js', 0.01, 'Revit model - broken' ],
 		['BH first working sample/jsonTester.json', 1, 'broken' ],

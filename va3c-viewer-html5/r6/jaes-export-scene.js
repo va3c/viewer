@@ -112,6 +112,7 @@
 	};
 
 	JAES.exportScene = function() {
+
 		if ( !THREE.ObjectExporter ) { 
 			JAES.callback = JAES.exportScene; 
 			JAES.loadScripts( ); 

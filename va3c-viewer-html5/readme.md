@@ -41,7 +41,7 @@ The scripts here are updates to the competition entry and winner of the second p
 * Follow Mr.doobs' maxim: 'to create a lightweight 3D library with a very low level of complexity — in other words, for dummies'
 	* Code is designed to be very fast to read
 		* Encourages engineers, architects and designers and non-professional programmers to add features
-		* Encouages designers to improve the design over improving the code
+		* Allows designers to concentrate on improving the design rather than fixing the code
 		* No need to know jQuery, Backbone, Angular. Get going if you only know a tiny bit of JavaScript
 
 
@@ -64,7 +64,7 @@ The scripts here are updates to the competition entry and winner of the second p
 		* Opens .wrl files but have issues with materials
 		* Fails to open .dae files. See lines 342... of jafo-file-open.js for temporary partial fix
 	* Open files via the text in the address bar using location.hash
-		* often called permalinks
+		* Often called permalinks
 		* See below
 	* Open files via drag and drop
 		* Starting with r6
@@ -296,6 +296,13 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+2014-08-23 ~ Theo
+
+* Continue tweaking opening files 
+* See <https://docs.google.com/spreadsheets/d/1pGRTFDm0RPjWJTilqxk9NgnezEsaxKmMRtsG_IdbBAY/edit#gid=0>
+* Add [O] = = open file to all the suitable samples
+ 
 
 2014-08-21 ~ Theo
 

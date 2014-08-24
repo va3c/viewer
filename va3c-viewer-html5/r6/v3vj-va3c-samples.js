@@ -35,7 +35,11 @@
 				title = 
 				scale = file[1];
 				title = file[2] ? file[2] : '';
-				fileList += '<a href=JavaScript:' +
+				fileList += 
+				'<a href=JavaScript:' +
+				'JAFO.openUrl("' + file[0] + '",' + scale + '); title="' + title + '" >[O]</a> ' +
+
+				'<a href=JavaScript:' +
 				'JAFO.appendUrl("' + file[0] + '",' + scale + '); title="' + title + '" >' + file[0].substr( 1 + file[0].lastIndexOf( '/' ) ) + '</a><br>';
 			}
 
@@ -57,11 +61,11 @@
 	V3SA.files = [
 
 		[ 'Title','<a href=https://github.com/va3c/3d-warehouse-samples >3D Warehouse Samples - Three.js JSON 3.1</a>'],
-		[ V3SA.warehouse3DBasePath + 'robie-house/untitled/robie-house.js', 1, '1909 - slow but worth it'],
-		[ V3SA.warehouse3DBasePath + 'schroder-house/untitled/schroder-house.js', 1, '1909'],
-		[ V3SA.warehouse3DBasePath + 'villa-savoye/images/villa-savoye.js', 1, '1929'],
-		[ V3SA.warehouse3DBasePath + 'barcelona-pavilion/untitled/barcelona-pavilion.js', 1, '1930'],
-		[ V3SA.warehouse3DBasePath + 'glass-house/untitled/glass-house.js', 1, '1949'],
+		[ V3SA.warehouse3DBasePath + 'robie-house/untitled/robie-house.js', 50, '1909 - slow but worth it'],
+		[ V3SA.warehouse3DBasePath + 'schroder-house/untitled/schroder-house.js', 10, '1909'],
+		[ V3SA.warehouse3DBasePath + 'villa-savoye/images/villa-savoye.js', 10, '1929'],
+		[ V3SA.warehouse3DBasePath + 'barcelona-pavilion/untitled/barcelona-pavilion.js', 5, '1930'],
+		[ V3SA.warehouse3DBasePath + 'glass-house/untitled/glass-house.js', 5, '1949'],
 
 		[ 'Title','<a href=https://github.com/va3c/3d-warehouse-samples >3D Warehouse Samples - Collada</a>'],
 		[ V3SA.warehouse3DBasePath + 'monkey.dae', 1, 'Suzanne - zoom extents issues'],
@@ -73,10 +77,10 @@
 
 
 		['Title','Programming 3D Applications - Three.js JSON' ],
-		[ V3SA.programming3DApplicationsBasePath + 'ball_chair/ball_chair.js', 1, '' ],
-//		[ V3SA.programming3DApplicationsBasePath + 'duck/duck.json', 1, '' ],
-		[ V3SA.programming3DApplicationsBasePath + 'egg_chair/eggchair.js', 1, '' ],
-		[ V3SA.programming3DApplicationsBasePath + 'flashdrive/flashdrive.Plane.js', 1, '' ],
+		[ V3SA.programming3DApplicationsBasePath + 'ball_chair/ball_chair.js', 10, '' ],
+//		[ V3SA.programming3DApplicationsBasePath + 'duck/duck.json', 1, '' ], // binary
+		[ V3SA.programming3DApplicationsBasePath + 'egg_chair/eggchair.js', 5, '' ],
+		[ V3SA.programming3DApplicationsBasePath + 'flashdrive/flashdrive.Plane.js', 10, '' ],
 //		[ V3SA.programming3DApplicationsBasePath + 'futurgo_mobile/futurgo_mobile.json', 1, '' ],  // binary
 
 		['Title','Programming 3D Applications - Collada' ],

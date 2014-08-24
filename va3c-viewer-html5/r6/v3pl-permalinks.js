@@ -70,6 +70,10 @@
 
 	};
 
+
+// The word 'crapdoodle' almost exists: https://www.wordnik.com/words/Crapdoodle
+// http://www.sparkpeople.com/myspark/team_messageboard_thread.asp?board=0x33873x37834164x102
+
 	V3PL.getAutoCrapdoodle = function () {
 		var items, item, index;
 		var mats = [
@@ -221,7 +225,7 @@
 
 /*
 
-// Create a sparse set of hashes
+// To create a sparse set of hashes, use the following...
 
 				if ( obj.materialKey !== d.mat ) txt += '#mat=' + obj.materialKey;
 
@@ -272,7 +276,9 @@ console.log( 'setPermalinks', txt );
 	};
 
 	V3PL.clearPermalink = function () {
+
 		window.history.pushState( '', '', window.location.pathname);
+
 	};
 
 
