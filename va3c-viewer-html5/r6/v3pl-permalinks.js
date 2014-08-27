@@ -32,7 +32,7 @@
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a id=tabPermalinks ><p class=buttonFile >' +
+			'<a id=tabPermalinks title="Save and re-open the current scene using URLs" ><p class=buttonFile >' +
 				'<i class="fa fa-link"></i> Permalinks...' +
 			'</p></a>';
 		tabPermalinks.onclick = function() { V3PL.updatePermalinksTab(); JA.toggleTab( V3PL.permalinksTab ); };
@@ -50,7 +50,9 @@
 			'<p><small><i><a href="http://en.wikipedia.org/wiki/Permalink" target="_blank">Permalinks</a> ' +
 			'enable you to save a scene you have created and send it as a link you can share...</i></small></p>' +
 
-			'<p><a href=JavaScript:V3PL.setPermalinks(); title="Send current display parameters to the address bar" >Create Permalinks</a></p>' +
+			'<details><summary>Notes</summary>Not yet creating permalinks to binary files.</details>' +
+
+			'<p><a href=JavaScript:V3PL.createPermalinks(); title="Send current scene parameters to the address bar" >Create Permalinks</a></p>' +
 
 			'<p><a href=JavaScript:V3.init(); title="Read data from the address bar and display the results" >Parse Permalinks</a></p>' +
 
@@ -96,8 +98,9 @@
 		items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
 		item = items[ Math.floor( items.length * Math.random() ) ];
 		var fileTitle = V3MH.files[ item ][ 1 ];
-		var basepath = V3MH.basepath + V3MH.files[ item ][ 0 ] + '/';
+		var meierBasePath = V3MH.basepath + V3MH.files[ item ][ 0 ] + '/';
 		var meierFile = V3MH.files[ item ][ 0 ] + '.html';
+console.log( 'meier', meierBasePath + meierFile );
 
 // vA3C Objects
 		items = ['DrMajentaKlein.json','Hex_01.json','TypTower.json'];
@@ -124,7 +127,7 @@
 		var txt = '' +
 			'#camx=' + cx + '#camy=' + cy + '#camz=' + cz +
 			'#tarx=0#tary=0#tarz=0' +
-			'#name=' + basepath + meierFile +
+			'#name=' + meierBasePath + meierFile +
 		'&' +
 
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
@@ -159,13 +162,12 @@
 		location.hash = txt;
 //		V3PL.parsePermalinks();
 
-
-
 //console.log( 'getAutoCrapdoodle', txt );
 		V3.getPermalinkBundles();
 	};
 
-	V3PL.setPermalinks = function () {
+
+	V3PL.createPermalinks = function () {
 		var c = camera.position;
 		var t = controls && controls.target ? controls.target : { x: 0, y: 9, z: 0 } ;
 		var d = V3PL.defaultObject;
@@ -203,7 +205,9 @@
 		for (var i = 0, len = scene.children.length; i < len; i++) {
 			var obj = scene.children[i];
 			if ( obj.geometry || obj.src ) {
-				obj.src = obj.src ? obj.src : V3PL.bundles[1].src ;
+				if ( obj.name == 'basic template mesh' ) { continue; }
+
+				obj.src = obj.src ? obj.src : V3PL.bundles[i].src ;
 				txt += '#src=' + obj.src;
 
 				if ( obj.materialKey && obj.materialKey !== 'undefines' ) {
@@ -211,6 +215,10 @@
 				} else {
 					txt += '#mat=' + d.mat;
 				}
+
+				obj.name = obj.name ? obj.name : V3PL.bundles[i].name ;
+				txt += '#name=' + obj.name;
+
 				txt += '#posx=' + obj.position.x;
 				txt += '#posy=' + obj.position.y;
 				txt += '#posz=' + obj.position.z;
@@ -247,7 +255,7 @@
 		}
 
 		window.location.hash = txt.slice( 0, -1 );
-console.log( 'setPermalinks', txt );
+console.log( 'createPermalinks', txt );
 
 	};
 
@@ -277,7 +285,7 @@ console.log( 'setPermalinks', txt );
 
 	V3PL.clearPermalink = function () {
 
-		window.history.pushState( '', '', window.location.pathname);
+		window.history.pushState( '', '', window.location.pathname );
 
 	};
 

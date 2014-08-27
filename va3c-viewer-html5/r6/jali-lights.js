@@ -3,10 +3,11 @@
 	JALI.addLightsTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a id=tabLight style=cursor:pointer; ><p class=button >' +
+			'<a id=tabLight title="Add some sunshine to your work..." ><p class=button >' +
 				'<i class="fa fa-lightbulb-o"></i> Lights...' +
 			'</p></a>'; 
 		tabLight.onclick = function() { JA.toggleTab( JALI.lightsTab ); }; 
+		tabLight.style.cssText = 'cursor: pointer; ' ;
 
 		JALI.lightsTab = tab.appendChild( document.createElement( 'div' ) );
 		JALI.lightsTab.style.cssText = 'cursor: auto; display: none; ' ;

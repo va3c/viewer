@@ -44,10 +44,13 @@
 		camera.add( light );
 */
 
-// Seems happier when there's something here...
+// The process seems happier when there's something here...
+// So put somthing in,, but make it nearly invisible
+// todo: test also with mesh.visible = false
 		geometry = new THREE.BoxGeometry( 10, 10, 10 );
 		material = new THREE.MeshLambertMaterial( { ambient: 0x333333, color: 0x888888, opacity: 0.000001, transparent: true } );
 		mesh = new THREE.Mesh( geometry, material );
+		mesh.name = 'basic template mesh';
 		scene.add( mesh );
 
 	}

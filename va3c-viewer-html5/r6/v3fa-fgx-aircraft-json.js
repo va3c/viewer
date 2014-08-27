@@ -4,7 +4,7 @@
 	if ( window.location.origin.substr(0,7) === 'http://' ) {
 		V3FA.basepath = 'http://va3c.github.io/fgx-aircraft/data/';
 	} else {
-		V3FA.basepath = '../../../../fgx-repos/fgx-aircraft/data/';
+		V3FA.basepath = JAFO.basePath + '../fgx-repos/fgx-aircraft/data/';
 	}
 
 	V3FA.addFgxAircraftTab = function() {
@@ -23,13 +23,15 @@
 		for ( var i = 0, len = V3FA.files.length; i < len; i++ ) {
 			file = V3FA.files[ i ][0];
 			scale = V3FA.files[ i ][1]; 
-			fileList += '<a href=JavaScript:' +
-				'JAFO.appendUrl("' + V3FA.basepath + file + '",' + scale + '); >' + file + '</a><br>';
+
+			fileList += 
+				'<a href=JavaScript:JAFO.openUrl("' + V3FA.basepath + file + '",' + scale + '); >[O]</a> ' +
+				'<a href=JavaScript:JAFO.appendUrl("' + V3FA.basepath + file + '",' + scale + '); >' + file + '</a><br>';
 		}
 
 		V3FA.FgxAircraftTab.innerHTML =
 			'<p>' +
-				'Sourced from <a href="http://fgx.github.io/fgx-aircraft-overview/r4/aircraft-overview.html" target="_blank"></a>FGx Aircraft<br><br>' +
+				'Sourced from <a href="http://fgx.github.io/fgx-aircraft-overview/r4/aircraft-overview.html" target="_blank">FGx Aircraft</a><br><br>' +
 				'Currently supplies over 400 unfinished aircraft<br>' +
 			'</p>' +
 			'<div >' + fileList + '</div>' +

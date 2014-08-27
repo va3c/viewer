@@ -3,7 +3,7 @@
 
 	var V3VJ = {} || V3VJ;
 
-	V3VJ.basepath = '../../../json/';
+	V3VJ.basePath = JAFO.basePath + 'json/';
 
 	V3VJ.addVa3cJsonTab = function() {
 		var tab = V3.librariesTab.appendChild( document.createElement( 'div' ) );
@@ -26,17 +26,19 @@
 			scale = V3VJ.files[ i ][1];
 			title = V3VJ.files[ i ][2] ? V3VJ.files[ i ][2] : '';
 			fileList += 
-				'<a href=JavaScript:JAFO.openUrl("' + V3VJ.basepath + file + '",' + scale + '); >[O]</a> ' +
+				'<a href=JavaScript:JAFO.openUrl("' + V3VJ.basePath + file + '",' + scale + '); >[O]</a> ' +
 				'<a href=JavaScript:' +
-				'JAFO.appendUrl("' + V3VJ.basepath + file + '",' + scale + '); title="' + title + '" >' + file.split('/').pop() + '</a><br>';
+				'JAFO.appendUrl("' + V3VJ.basePath + file + '",' + scale + '); title="' + title + '" >' + file.split('/').pop() + '</a><br>';
 		}
 
 		V3VJ.Va3cJsonTab.innerHTML =
 			'<p title="Data brought in from Revit and Grasshopper" >' +
 				'The files below are sourced from the<br><a href="https://github.com/va3c/json" target="_blank">vA3C JSON repository</a>.<br><br>' +
-				'These files were produced during the AEC Hackathon. Not all files load. ' +
+				'These files - mostly Three.js JSON 4.3 - were produced during the AEC Hackathon. ' +
 				'Be careful: most files are Three.js scenes and overwrite the current scene.' +
 			'</p>' +
+			'<details><summary>Not all files load. </summary>Move the cursor over the links. ' +
+				'Pop-up tooltips tell you if a file is broken or provide further info.</details>' +
 			'<div >' + fileList + '</div>' +
 			'<p style=text-align:right; >' +
 				'<a class=button href=JavaScript:JA.toggleTab(V3VJ.Va3cJsonTab); ); >Close</a> ' +
@@ -49,15 +51,15 @@
 		['DrCyanKlein.json', 0.005, 'Revit model' ],
 //'DrCyanKlein.json', {'sclx':'0.01','scly':'0.01','sclz':'0.01} ],
 
-		['DrMajentaKlein.json', 0.01, 'Revit model'],
-		['Hex_01.js', 0.0075, 'Grasshopper model' ],
-		['MissSpacyEyes.json',0.03, 'Grasshopper model' ],
-		['TTX.json', 0.02, 'Grasshopper model' ],
-		['TypTower.json', 0.02, 'Grasshopper model' ],
-//		['US_Capitol_Building.dae', 1, ''],
-		['Vase_01.js', 0.02, 'Grasshopper model' ],
-		['3dsmax/test_3dsmax.js', 0.01, '3D Studio model - broken'],
-		['3dsmax/TransamericaPyramid2.js', 0.01, '3D Stdio model - broken' ],
+		['DrMajentaKlein.json', 0.01, 'Revit model - scene'],
+		['Hex_01.js', 0.0075, 'Grasshopper model - scene' ],
+		['MissSpacyEyes.json',0.03, 'Grasshopper model - scene' ],
+		['TTX.json', 0.02, 'Grasshopper model scene' ],
+		['TypTower.json', 0.02, 'Grasshopper model - scene' ],
+		['US_Capitol_Building.dae', 1, 'for testing? No textures'],
+		['Vase_01.js', 0.02, 'Grasshopper model - scene' ],
+		['3dsmax/test_3dsmax.js', 0.01, '3D Studio model - broken - works in cookbook example'],
+		['3dsmax/TransamericaPyramid2.js', 0.01, '3D Studio model - broken - works in cookbook example' ],
 		['aeron/hey-ron.js', 100, '3D Studio model' ],
 		['archive/box-light.js', 1, 'Blender export - broken'],
 		['archive/Project1.rvt.js', 0.01, 'Revit model - broken' ],
@@ -70,9 +72,9 @@
 		['BH first working sample/jsonTester.json', 1, 'broken' ],
 		['lounge/scrounge.js', 100, '3D Studio model'],
 		['noguchi/no-gucci.js', 1000, '3D Studio model' ],
-		['revit/Project1.rvt.js', 0.01, 'Revit model'],
-		['revit/Project2.rvt.js', 0.01, 'Revit model' ],
-		['revit/rac_basic_sample_project.rvt.js', 0.01, 'Revit model - 41 MB - takes a while to load, worth the wait' ],
-		['revit/Wall.rvt.js', 0.01, 'Revit model' ],
-		['revit/WallWindow.rvt.js', 0.01, 'Revit model' ]
+		['revit/Project1.rvt.js', 0.01, 'Revit model - scene'],
+		['revit/Project2.rvt.js', 0.01, 'Revit model scene' ],
+		['revit/rac_basic_sample_project.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
+		['revit/Wall.rvt.js', 0.01, 'Revit model - scene' ],
+		['revit/WallWindow.rvt.js', 0.01, 'Revit model - scene' ]
 	]

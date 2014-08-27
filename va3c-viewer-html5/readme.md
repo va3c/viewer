@@ -196,7 +196,7 @@ The scripts here are updates to the competition entry and winner of the second p
 * Divide menu into multiple, scrollable panels
 * Add UI themes including fixed position side bar menus
 * Bring in all append files as 3DObjects
-* Add boilerplate/default file choices to preferences tab
+* Add boilerplate/default file choices to preferences tab - bring in Callum Prentice's template maker
 * Add default light, shading settings to lights tab
 * Add 3D project management tab
 * Add people dancing in the streets tab
@@ -223,7 +223,7 @@ A fix should not be difficult ad can be done as and when needed
   
 * R6 ~ 2014-08-21 ~ zoom extents 
 	* Not taking into account the global scale of an appended object at insert time, yet doing so when called manually
-	* Not handliing THREE.TypedGeometry - as found in impoted .stl files
+	* Not handliing THREE.TypedGeometry - as found in imported .stl files
 
 
 * R2: Difficult to know which controller you are using currently
@@ -297,9 +297,22 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 ## Change Log
 
+2014-08-26 ~ 
+
+* Revives source and basepath links
+* Add links to source and tool tips to parametric equations
+
+2014-08-24 ~ Theo
+
+* Add open or append binary JSON files via URL
+* Add open links to FGX aircraft
+* More tootips, file scales and file info
+* Add open * append URL Three.js JSON 4+ links to test samples
+* loding Collada files with textures - not perfect - but much improved
+
 2014-08-23 ~ Theo
 
-* Continue tweaking opening files 
+* Continue tweaking opening files ~ especially STL files
 * See <https://docs.google.com/spreadsheets/d/1pGRTFDm0RPjWJTilqxk9NgnezEsaxKmMRtsG_IdbBAY/edit#gid=0>
 * Add [O] = = open file to all the suitable samples
  

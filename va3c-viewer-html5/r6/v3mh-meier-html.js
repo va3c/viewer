@@ -5,7 +5,7 @@
 	var V3MH = {} || V3MH;
 
 	if ( window.location.origin.substr(0,7) != 'http://' ) {
-		V3MH.basepath = '../../../../jaanga.github.io/projects/algesurf/parametric-equations/equation-files/';
+		V3MH.basepath = JAFO.basePath + '../jaanga.github.io/projects/algesurf/parametric-equations/equation-files/';
 	} else {
 		V3MH.basepath = 'http://va3c.github.io/algesurf/parametric-equations/equation-files/';
 	}
@@ -23,15 +23,19 @@
 		V3MH.JurgenMeier.style.cssText = 'cursor: auto; display: none; ';
 
 		var fileList = '';
-		var file;
+		var fileTitle, fname, basepath, link, title;
 		for ( var i = 0, len = V3MH.files.length; i < len; i++ ) {
 			fileTitle = V3MH.files[ i ][ 1 ];
-			basepath = V3MH.basepath + '/' + V3MH.files[ i ][ 0 ] + '/';
 			fname = V3MH.files[ i ][ 0 ];
+			basepath = V3MH.basepath + fname + '/';
+			link = V3MH.files[ i ][ 2 ];
+			title = V3MH.files[ i ][ 3 ];
 
 			fileList += '<a href=JavaScript:' +
-//				'V3LI.updateIframe(V3MH.files,' + i + ',"' + basepath + '","' + fname + '.html"); >' + fileTitle + '</a><br>';
-				'JAFO.openUrl("' + basepath + fname + '.html"); >' + fileTitle + '</a><br>';
+//				'V3LI.updateIframe(V3MH.files,' + i + ',"' + basepath + '","' + fname + '.html");  >' + fileTitle + '</a><br>';
+				'JAFO.openUrl("' + basepath + fname + '.html"); title="' + title + '" >' + fileTitle + '</a> ' +
+				'<a href="' + link + '" target="_blank">[Source]</a>' +
+				'<br>';
 		}
 
 		V3MH.JurgenMeier.innerHTML = 

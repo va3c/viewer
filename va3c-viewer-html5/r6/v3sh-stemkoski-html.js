@@ -6,7 +6,7 @@
 	V3SH.addStemkoskiHTMLTab = function() {
 		var tab = V3.librariesTab.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a id=tabStemkoskiHTML ><p class=buttonLibrary >' +
+			'<a id=tabStemkoskiHTML title="prof Stekoski\'s excellent Three.js demos" ><p class=buttonLibrary >' +
 				'<i class="fa fa-file-image-o"></i> Stemkoski HTML...' +
 			'</p></a>';
 		tabStemkoskiHTML.onclick = function() { JA.toggleDialogs( V3SH.StemkoskiHTMLTab ); };

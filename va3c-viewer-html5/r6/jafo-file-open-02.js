@@ -9,11 +9,12 @@
 
 	}
 
+
 	JAFO.basePath = window.location.href.substr( 0, window.location.href.indexOf( 'viewer') );
 
-// console.log( 'JAFO.basePath', JAFO.basePath );
+console.log( 'bP', JAFO.basePath );
 
-	JAFO.template = JAFO.basePath + 'viewer/va3c-viewer-html5/r6/template-basic.html';
+	JAFO.template = 'viewer/va3c-viewer-html5/r6/template-basic.html';
 
 	JAFO.addFileOpenTab = function() {
 
@@ -32,7 +33,7 @@
 			'<p>Open & overwrite current scene: <input type=file id=inpOpenFile ></p>' +
 			'<p title="WIP: combine with regular Open command" >Open binary JSON file: <input type=file id=inpOpenBinaryFile ></p>' +
 			'<p>Insert into current scene: <input type=file id=inpAppendFile ></p>' +
-			'<p><a href=JavaScript:JAFO.openUrl(JAFO.template); >Create new empty scene</a></p>' +
+			'<p><a href=JavaScript:JAFO.openUrl(JAFO.template); >Create new scene</a></p>' +
 			'<p>Notes: files that are scenes overwrite the current scene. ' +
 				'Local files cannot be used to create permalinks. Best to reload page between opens.' +
 			'</p>' +
@@ -54,8 +55,6 @@
 		JAFO.ifr.onload = function() {
 
 			JAFO.updateIframe( bundles );
-
-
 
 			for ( var i = 1, len = V3PL.bundles.length; i < len; i++ ) {
 
@@ -148,7 +147,7 @@
 				JAFO.loadSTL( bundle, null, inpFile );
 
 			};
-			JAFO.ifr.src = JAFO.template;
+			JAFO.ifr.src = JAFO.basePath + JAFO.template;
 
 		} else {
 
@@ -160,7 +159,7 @@
 
 			};
 
-			JAFO.ifr.src = JAFO.template;
+			JAFO.ifr.src = JAFO.basePath + JAFO.template;
 
 		}
 
@@ -251,27 +250,25 @@ console.log( 'openDragAndDrop', inpFile,'name:', inpFile.files[0].name );
 //		}
 	}
 
-	JAFO.openUrl = function ( source, scale ) {
-console.log( 'openUrl', source );
+	JAFO.openUrl = function ( src, scale ) {
 		var contents;
 		var scl = scale  ? scale : 1;
 
 		V3PL.bundles = [];
 		V3PL.bundles.push( V3PL.setDefaults( V3PL.defaultScene ) );
-		var bundle = V3PL.buildBundle( source, scale );
+		var bundle = V3PL.buildBundle( JAFO.basePath + src, scale );
 
-		var extension = source.split( '.' ).pop().toLowerCase();
+		var extension = src.split( '.' ).pop().toLowerCase();
 
 		if ( extension === 'html' ) {
+//console.log( 'open src HTML ', V3PL.bundles );
 
-//console.log( 'open source HTML ', V3PL.bundles );
 			JAFO.ifr.onload = function() {
 				JAFO.updateIframe( V3PL.bundles );
 
-				JAFO.loadHtml = ( bundle );
+//				JAFO.loadHtml = ( bundle );
 			};
-
-			JAFO.ifr.src = source;
+			JAFO.ifr.src = JAFO.basePath + src;
 
 		} else if ( extension === 'dae' ) {
 
@@ -281,7 +278,7 @@ console.log( 'openUrl', source );
 				JAFO.loadDAE( bundle );
 
 			};
-			JAFO.ifr.src = JAFO.template;
+			JAFO.ifr.src = JAFO.basePath + JAFO.template;
 
 		} else if ( extension === 'stl' ) {
 
@@ -291,29 +288,29 @@ console.log( 'openUrl', source );
 				JAFO.switchType( bundle, null, null );
 
 			};
-			JAFO.ifr.src = JAFO.template;
+			JAFO.ifr.src = JAFO.basePath + JAFO.template;
 
 		} else {
 			JAFO.ifr.onload = function() {
 
 				JAFO.updateIframe( V3PL.bundles );
 				contents = JAFO.requestFile( bundle.src );
-				JAFO.switchType( bundle, contents, scale );
+				JAFO.switchType( bundle, contents );
 
 			};
-			JAFO.ifr.src = JAFO.template;
+			JAFO.ifr.src = JAFO.basePath + JAFO.template;
 		}
 
 	};
 
-	JAFO.openUrlBinary = function ( source, scale ) {
-console.log( 'openUrlBinary', source, scale );
+	JAFO.openUrlBinary = function ( src, scale ) {
+console.log( 'openUrlBinary', src, scale );
 
 		V3PL.bundles = [];
 		V3PL.bundles.push( V3PL.setDefaults( V3PL.defaultScene ) );
 
 		var scl = scale ? scale : 1;
-		var bundle = V3PL.buildBundle( source, scale );
+		var bundle = V3PL.buildBundle( JAFO.basePath + src, scale );
 
 		JAFO.ifr.onload = function() {
 
@@ -328,16 +325,14 @@ console.log( 'openFile Object', bundle );
 
 	};
 
-	JAFO.appendUrl = function ( source, scale ) {
-
-console.log( 'appendUrl', source );
+	JAFO.appendUrl = function ( src, scale ) {
 		var contents;
 		var scl = scale ? scale : 1 ;
 
-		var bundle = V3PL.buildBundle( source, scl );
+		var bundle = V3PL.buildBundle( JAFO.basePath + src, scl );
 
-//console.log( 'appendUrl', source, scale, bundle);
-		var extension = source.split( '.' ).pop().toLowerCase();
+//console.log( 'appendUrl', src, scale, bundle);
+		var extension = src.split( '.' ).pop().toLowerCase();
 
 		if ( extension === 'stl' ) {
 			JAFO.switchType( bundle );
@@ -347,11 +342,11 @@ console.log( 'appendUrl', source );
 		}
 	};
 
-	JAFO.appendUrlBinary = function ( source, scale ) {
+	JAFO.appendUrlBinary = function ( src, scale ) {
 
 		var scl = scale ? scale : 1 ;
 
-		var bundle = V3PL.buildBundle( source, scl );
+		var bundle = V3PL.buildBundle( JAFO.basePath + src, scl );
 
 		JAFO.loadBinaryFile( bundle );
 
@@ -440,9 +435,8 @@ console.log( 'appendUrl', source );
 			case '3obj':
 			case '3scn':
 
+				JAFO.loadJSON( bundle, contents );
 // console.log('switchType json', bundle );
-//				JAFO.loadJSON( bundle, contents );
-				JAFO.handleJSON( bundle, contents );
 
 				break;
 
@@ -453,7 +447,6 @@ console.log( 'appendUrl', source );
 				break;
 
 			case 'stl':
-
 //console.log('switchType stl', bundle );
 				JAFO.loadSTL( bundle, contents, null );
 
@@ -524,6 +517,7 @@ console.log( 'loader.load' );
 		JAFO.updateObject ( scene.select, bundle );
 
 		JAFO.updateTargetList( bundle.src );
+
 
 	};
 
@@ -644,14 +638,13 @@ console.log( 'loadDAE', bundle );
 	};
 
 	JAFO.loadJSON = function ( bundle, contents ) {
-console.log( 'loadJSON', contents );
 
 		contents = contents ? contents : JAFO.requestFile( bundle.src );
 
 // the following code is from the Three.js Editor
 // Not everybody understands it. Leave it out if you wish...
 
-		if ( contents && contents.indexOf( 'postMessage' ) !== -1 ) {
+		if ( contents.indexOf( 'postMessage' ) !== -1 ) {
 console.log( 'worker did some work!', src );
 			var blob = new Blob( [ contents ], { type: 'text/javascript' } );
 			var src = URL.createObjectURL( blob );
@@ -852,18 +845,13 @@ console.log( 'JAFO.loadVTK', bundle );
 	};
 
 	JAFO.handleJSON = function ( bundle, contents ) {
+//console.log( 'handleJSON', bundle );
 
-		contents = JSON.parse( contents );
-
-console.log( 'handleJSON', bundle, contents );
-
-		var loader;
-		var mesh;
+		var loader, contents;
 
 		if ( contents.metadata === undefined ) { // 2.0
 			contents.metadata = { type: 'Geometry' };
 		}
-
 		if ( contents.metadata.type === undefined ) { // 3.0
 			contents.metadata.type = 'Geometry';
 		}
@@ -872,6 +860,7 @@ console.log( 'handleJSON', bundle, contents );
 		}
 		if ( contents.metadata.type.toLowerCase() === 'geometry' ) {
 // console.log( 'found geometry' );
+
 
 /*
 //3DS Version
@@ -890,7 +879,7 @@ console.log( 'handleJSON', bundle, contents );
 			loader = new THREE.JSONLoader();
 			contents = loader.parse( contents, texturePath );
 
-			var geometry = contents.geometry;
+			geometry = contents.geometry;
 
 			if ( contents.materials !== undefined ) {
 //console.log( 'found geometry', contents.materials );
@@ -913,13 +902,13 @@ console.log( 'handleJSON', bundle, contents );
 
 			geometry.sourceFile = bundle.src;
 
-			mesh = new THREE.Mesh( geometry, material );
+			var mesh = new THREE.Mesh( geometry, material );
 
 			JAFO.updateObject ( mesh, bundle );
 
 			scene.add( mesh );
 			scene.select = mesh;
-//			JAFO.targetList.push( mesh );
+			JAFO.targetList.push( mesh );
 
 
 		} else if ( contents.metadata.type.toLowerCase() === 'object' ) {
@@ -939,7 +928,7 @@ console.log( 'found object', contents );
 //				scene = contents;
 				scene.select = contents;
 				JAFO.updateObject ( contents, bundle );
-//				JAFO.targetList.push( contents );
+				JAFO.targetList.push( contents );
 
 			}
 		} else if ( contents.metadata.type.toLowerCase() === 'scene' ) {
@@ -963,7 +952,7 @@ console.log( 'found a whoopsie');
 console.log( 'updateScene', bundle );
 
 		scene = contents;
-//		JAFO.targetList = scene.children;
+		JAFO.targetList = scene.children;
 
 // Update controller and camera
 		V3PL.bundles[0].src = JAFO.template;
@@ -1021,7 +1010,7 @@ console.log( 'updateScene', bundle );
 
 	JAFO.updateTargetList = function( src ) {
 
-		if ( src.indexOf( '.rvt.js' ) > -1 ) {
+		if ( src.indexOf( '.rvt.js' ) > 0 ) {
 			JAFO.targetList = [];
 			for ( var i = 0; i < scene.children.length; i++ ){
 				for ( var k = 0; k < scene.children[i].children.length; k++){
