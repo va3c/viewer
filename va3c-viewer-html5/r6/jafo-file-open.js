@@ -56,7 +56,6 @@
 			JAFO.updateIframe( bundles );
 
 
-
 			for ( var i = 1, len = V3PL.bundles.length; i < len; i++ ) {
 
 //JAFO.appendBundle( V3PL.bundles[i] );
