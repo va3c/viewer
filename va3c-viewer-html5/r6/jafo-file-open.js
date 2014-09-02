@@ -47,14 +47,13 @@
 // Bundles are collections of permalinks
 
 	JAFO.openBundles = function ( bundles ) {
-//console.log( 'openBundles', bundles )
+//console.log( 'openBundles', bundles[1].src );
 
 		JAFO.initIframe();
 
 		JAFO.ifr.onload = function() {
 
 			JAFO.updateIframe( bundles );
-
 
 			for ( var i = 1, len = V3PL.bundles.length; i < len; i++ ) {
 
@@ -137,7 +136,7 @@
 					'Currently .dae files are best viewed using URLs and permalinks.' +
 			'');
 
-			JAFO.openFileParseDAE(  bundle, inpFile );
+			JAFO.openFileParseDAE( bundle, inpFile );
 
 		} else if ( extension === 'stl' ) {
 
@@ -177,7 +176,11 @@
 		var bundle = V3PL.buildBundle( inpFile.files[0].name, scale );
 		var extension = inpFile.files[0].name.split( '.' ).pop().toLowerCase();
 
-		if ( extension === 'stl' ) {
+		if ( extension === 'dae' ) {
+
+			JAFO.openFileParseDAE( bundle, inpFile );
+
+		} else if ( extension === 'stl' ) {
 
 			JAFO.loadSTL( bundle, null, inpFile );
 
@@ -251,7 +254,7 @@ console.log( 'openDragAndDrop', inpFile,'name:', inpFile.files[0].name );
 	}
 
 	JAFO.openUrl = function ( source, scale ) {
-console.log( 'openUrl', source );
+// console.log( 'openUrl', source );
 		var contents;
 		var scl = scale  ? scale : 1;
 
@@ -376,6 +379,9 @@ console.log( 'appendUrl', source );
 
 // Update controls and camera
 // should be in JATH...
+
+
+/*
 		if ( !JAFO.ifr.contentWindow.controls ) {
 
 			var script = document.body.appendChild( document.createElement( 'script' ) );
@@ -395,6 +401,8 @@ console.log( 'appendUrl', source );
 			camera.position.set( bundle.camx, bundle.camy, bundle.camz );
 			camera.up = new THREE.Vector3( 0, 1, 0 );
 		}
+*/
+//		JATH.resetCamera( bundle );
 
 		JALI.initLights();
 
@@ -407,6 +415,7 @@ console.log( 'appendUrl', source );
 		JAPR.setRandomGradient();
 
 		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = bundle.name;
+
 		divMsg1.innerHTML = 'Base: ' + bundle.name + '<br>';
 
 	};
@@ -518,11 +527,14 @@ console.log( 'loader.load' );
 	JAFO.loadHTML = function ( bundle ) {
 //console.log( 'load HTML', bundle );
 
+
 		scene.select = scene.children[0];
 
 		JAFO.updateObject ( scene.select, bundle );
 
 		JAFO.updateTargetList( bundle.src );
+
+		JATH.resetCamera( V3PL.bundles[0] );
 
 	};
 
@@ -809,7 +821,7 @@ console.log( 'worker did some work!', src );
 	};
 
 	JAFO.loadVTK = function ( bundle, contents ) {
-console.log( 'JAFO.loadVTK', bundle );
+//console.log( 'JAFO.loadVTK', bundle );
 
 		contents = contents ? contents : JAFO.requestFile( bundle.src );
 
@@ -852,10 +864,11 @@ console.log( 'JAFO.loadVTK', bundle );
 
 	JAFO.handleJSON = function ( bundle, contents ) {
 
+
+		contents = contents ? contents : JAFO.requestFile( bundle.src );
+
 		contents = JSON.parse( contents );
-
-console.log( 'handleJSON', bundle, contents );
-
+//console.log( 'handleJSON', bundle, contents );
 		var loader;
 		var mesh;
 
@@ -927,12 +940,12 @@ console.log( 'handleJSON', bundle, contents );
 			contents = loader.parse( contents );
 
 			if ( contents instanceof THREE.Scene ) {
-console.log( 'found scene' );
+//console.log( 'found scene' );
 
 				JAFO.loadScene( bundle, contents );
 
 			} else {
-console.log( 'found object', contents );
+//console.log( 'found object', contents );
 
 				scene.add( contents );
 //				scene = contents;
@@ -984,6 +997,9 @@ console.log( 'updateScene', bundle );
 			}
 		}
 
+		JATH.resetCamera( V3PL.bundles[0] );
+//		JATH.zoomExtents();
+
 		scene.select = contents.children[0];
 		scene.name = scene.select.name = bundle.name;
 		scene.scr = scene.select.src = bundle.src;
@@ -995,7 +1011,7 @@ console.log( 'updateScene', bundle );
 		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = bundle.name + '<br>';
 		divMsg1.innerHTML = 'Base: ' + bundle.name;
 
-		JATH.zoomExtents();
+
 
 	};
 

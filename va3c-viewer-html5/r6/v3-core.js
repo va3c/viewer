@@ -59,7 +59,6 @@
 
 	};
 
-
 	V3.init = function () {
 //console.log( 'parseHref' );
 
@@ -94,7 +93,7 @@
 		V3PL.buildBundle( src, 1, name );
 
 		V3PL.bundles[ 1 ].mat = 'PhongRandom';
-		V3PL.bundles[ 1 ].override = true;
+		V3PL.bundles[ 1 ].override = true; // see JAFO.updateObject
 		JAFO.openBundles( V3PL.bundles );
 	};
 
@@ -115,9 +114,16 @@
 
 		V3PL.bundles = [];
 		V3PL.bundles.push( V3PL.setDefaults( V3PL.defaultScene ) );
-console.log( 'getPermalinkBundles', hashes );
+//console.log( 'getPermalinkBundles', hashes );
 
-		for ( var i = 1; i < hashes.length; i++ ) {
+		var bundle = V3PL.bundles[0];
+		items = hashes[0].slice(1).split( '#' );
+		for (var i = 0, len = items.length; i < len; i++) {
+			item = items[i].split( '=' );
+			bundle[ item[0] ] = parseFloat( item[1] );
+		}
+
+		for ( i = 1; i < hashes.length; i++ ) {
 			defaults = V3PL.setDefaults( V3PL.defaultObject );
 			items = hashes[i].slice(1).split( '#' );
 			for ( var j = 0; j < items.length; j++ ) {

@@ -1,4 +1,4 @@
-vA3C Viewer HTML5 Read Me
+vA3C Viewer Read Me
 ===
 [Web page version]( http://va3c.github.io/viewer/va3c-viewer-html5/ )
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5 )

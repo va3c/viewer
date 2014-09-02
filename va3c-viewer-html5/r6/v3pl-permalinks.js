@@ -205,18 +205,18 @@ console.log( 'meier', meierBasePath + meierFile );
 		for (var i = 0, len = scene.children.length; i < len; i++) {
 			var obj = scene.children[i];
 			if ( obj.geometry || obj.src ) {
-				if ( obj.name == 'basic template mesh' ) { continue; }
+//				if ( obj.name == 'basic template mesh' ) { continue; }
 
-				obj.src = obj.src ? obj.src : V3PL.bundles[i].src ;
+				obj.src = obj.src ? obj.src : d.src ;
 				txt += '#src=' + obj.src;
-
+//console.log( 'createPermalinks1', obj.src );
 				if ( obj.materialKey && obj.materialKey !== 'undefines' ) {
 					txt += '#mat=' + obj.materialKey;
 				} else {
 					txt += '#mat=' + d.mat;
 				}
 
-				obj.name = obj.name ? obj.name : V3PL.bundles[i].name ;
+				obj.name = obj.name ? obj.name : d.name ;
 				txt += '#name=' + obj.name;
 
 				txt += '#posx=' + obj.position.x;
@@ -255,7 +255,7 @@ console.log( 'meier', meierBasePath + meierFile );
 		}
 
 		window.location.hash = txt.slice( 0, -1 );
-console.log( 'createPermalinks', txt );
+//console.log( 'createPermalinks', txt );
 
 	};
 

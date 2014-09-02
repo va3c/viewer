@@ -20,7 +20,7 @@
 		tab.style.cssText = 'cursor: auto;';
 		tab.innerHTML =
 			'<h2>' +
-				'<a id=iconHome href=JavaScript:JATH.resetCamera(); title="Reset camera position" ><i class="fa fa-home"></i></a> ' +
+				'<a id=iconHome href=JavaScript:JATH.resetCamera(V3PL.defaultScene); title="Reset camera position" ><i class="fa fa-home"></i></a> ' +
 				'<a id=iconHome href=JavaScript:JATH.zoomExtents(); title="Zoom Extents"><i class="fa fa-arrows-alt"></i></a> ' +
 			'</h2>'; 
 		iconHome.title = "Reset to default view";
@@ -68,20 +68,38 @@
 
 // Manipulate the view
 
-	JATH.resetCamera = function () {
-//console.log( 'reset camera event' );
+	JATH.resetCamera = function ( camaraParameters ) {
 
-		if ( !controls ) return;
+
+//		if ( !controls ) return;
+
+		if ( !JAFO.ifr.contentWindow.controls ) {
+
+			var script = document.body.appendChild( document.createElement( 'script' ) );
+			script.onload = function() {
+				JAFO.ifr.contentWindow.controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+				JAFO.ifr.contentWindow.animate2 = function() {
+					requestAnimationFrame( JAFO.ifr.contentWindow.animate2 );
+					JAFO.ifr.contentWindow.controls.update();
+				};
+				controls = JAFO.ifr.contentWindow.controls;
+			};
+			script.src = 'http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js';
+		}
+
 //		controls = new THREE.TrackballControls( camera, renderer.domElement );
 
 // need more standard way to handle default scene...
  
-		var d = V3PL.defaultScene;
-		controls.target.set( d.tarx, d.tary, d.tarz );
+		var p = camaraParameters;
+		controls.target.set( p.tarx, p.tary, p.tarz );
 
 		if ( !camera ) return;
-		camera.position.set( d.camx, d.camy, d.camz );
+		camera.position.set( p.camx, p.camy, p.camz );
 		camera.up = v( 0, 1, 0 );
+
+//console.log( 'resetCamera', camera.position, controls.target );
 
 	};
 

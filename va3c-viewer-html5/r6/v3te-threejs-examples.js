@@ -71,7 +71,7 @@
 	};
 
 	V3TM.files = [
-		['animated/elderlyWalk.js', 1, 'ok' ],
+		['animated/elderlyWalk.js', 30, 'ok' ],
 		['animated/flamingo.js', 1, 'ok' ],
 		['animated/horse.js', 1, 'ok' ],
 		['animated/parrot.js', 1, 'ok' ],
