@@ -14,7 +14,7 @@ The scripts here are updates to the competition entry and winner of the second p
 
 ### Blog Posts
 
-2014-08-22 ~ [Three.js AEC Viewer Progress on Two Fronts]( http://thebuildingcoder.typepad.com/blog/2014/08/threejs-aec-viewer-progress-on-two-fronts.html )
+2014-08-22 ~ [Three.js AEC Viewer Progress on Two Fronts]( http://thebuildingcoder.typepad.com/blog/2014/08/threejs-aec-viewer-progress-on-two-fronts.html )  
 2014-08-03 ~ [vAEC Viewer R4: Permalinks Provide Fast Easy Free Ways To Source and Save Data Online]( http://www.jaanga.com/2014/08/vaec-viewer-r4-permalinks-provide-fast.html )  
 2014-07-27 ~ [vA3C Viewer R3 Update ~ 2014-07-27 ~ No More Russian Dolls ( scenes inside scenes inside scenes )]( http://www.jaanga.com/2014/07/va3c-viewer-r3-update-2014-07-27-no.html )  
 2014-07-25 ~ <http://www.jaanga.com/2014/07/va3c-viewer-r3-update-now-with-save-and.html>  
@@ -204,9 +204,8 @@ The scripts here are updates to the competition entry and winner of the second p
 * Add Jaanga Terrain Viewer tab
 * Open files via URL
 * Open files via Drag and Drop
-
 * Add rotate view after a period of inactivity
-* Add choice of camera controllers 
+* Add choice of camera controllers
 * Add tree view of meshes, materials and attributes
 * Add ability to toggle visibility of any mesh. Layers?
 * Add ability to add texture to material of selected objects
@@ -298,7 +297,7 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 ## Change Log
 
-2014-08-26 ~ 
+2014-08-26 ~ Theo
 
 * Revise source and basepath links
 * Add links to source and tool tips to parametric equations

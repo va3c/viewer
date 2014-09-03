@@ -332,7 +332,7 @@ console.log( 'openFile Object', bundle );
 
 	JAFO.appendUrl = function ( source, scale ) {
 
-console.log( 'appendUrl', source );
+//console.log( 'appendUrl', source );
 		var contents;
 		var scl = scale ? scale : 1 ;
 
