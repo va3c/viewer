@@ -75,7 +75,7 @@
 		['revit/rac_basic_sample_project.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
 		['revit/rac_basic_sample_project_obj.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
 		['revit/Wall.rvt.js', 0.01, 'Revit model - scene' ],
-		['revit/Wall_2015.rvt.js', 0.01, 'Revit model - scene' ],
-		['revit/Wall_brick.rvt.js', 0.01, 'Revit model - scene' ],
+		['revit/wall_2015.rvt.js', 0.01, 'Revit model - scene' ],
+		['revit/wall_brick.rvt.js', 0.01, 'Revit model - scene' ],
 		['revit/WallWindow.rvt.js', 0.01, 'Revit model - scene' ]
 	]
