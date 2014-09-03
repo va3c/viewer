@@ -13,7 +13,7 @@
 	<a href=JavaScript:displayPage("#va3c-viewer-html5/readme.md#rm5"); >vA3C Viewer HTML5 Read Me</a>
 </p>
 
-<i class="fa fa-external-link"></i> [Live Demo vA3C Viewer Latest]( http://va3c.github.io/viewer/va3c-viewer-html5/index.html ) 
+<i class="fa fa-external-link"></i> [Live Demo vA3C Viewer Latest]( http://va3c.github.io/viewer/va3c-viewer-html5/latest/index.html ) 
 
 <p id=ed >
 	<a href=JavaScript:displayPage("#./va3c-editor/readme.md#ed"); >vA3C Editor Read Me</a>

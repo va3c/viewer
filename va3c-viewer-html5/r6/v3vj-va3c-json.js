@@ -49,8 +49,6 @@
 	V3VJ.files = [
 
 		['DrCyanKlein.json', 0.005, 'Revit model' ],
-//'DrCyanKlein.json', {'sclx':'0.01','scly':'0.01','sclz':'0.01} ],
-
 		['DrMajentaKlein.json', 0.01, 'Revit model - scene'],
 		['Hex_01.js', 0.0075, 'Grasshopper model - scene' ],
 		['MissSpacyEyes.json',0.03, 'Grasshopper model - scene' ],
@@ -75,6 +73,9 @@
 		['revit/Project1.rvt.js', 0.01, 'Revit model - scene'],
 		['revit/Project2.rvt.js', 0.01, 'Revit model scene' ],
 		['revit/rac_basic_sample_project.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
+		['revit/rac_basic_sample_project_obj.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
 		['revit/Wall.rvt.js', 0.01, 'Revit model - scene' ],
+		['revit/Wall_2015.rvt.js', 0.01, 'Revit model - scene' ],
+		['revit/Wall_brick.rvt.js', 0.01, 'Revit model - scene' ],
 		['revit/WallWindow.rvt.js', 0.01, 'Revit model - scene' ]
 	]
