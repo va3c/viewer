@@ -10,6 +10,9 @@
 	if ( window.location.origin === 'http://' ) {
 		JAFO.loadersBase = '../../../three.js/examples/';
 	} else {
+
+// If you are working locally, you will probably need to change this path setting... 
+
 		JAFO.loadersBase = '../../../../three.js/examples/';
 
 	}
