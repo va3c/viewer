@@ -1,10 +1,5 @@
 // all code here derived from https://github.com/mrdoob/three.js/blob/master/editor/js/Loader.js
 
-// see the file opening matrix here: https://docs.google.com/spreadsheets/d/1pGRTFDm0RPjWJTilqxk9NgnezEsaxKmMRtsG_IdbBAY/edit#gid=0
-
-
-// 2014-09-03 ~ this file is still very messy and unnecessarily complex. Slimming and simplifying it down is a current WIP
-
 	var JAFO = {} || JAFO;
 
 	if ( window.location.origin === 'http://' ) {
@@ -69,7 +64,7 @@
 				JAFO.ifr.contentWindow.animate3 = function () {
 					var cnt = 0;
 					var camRadius = 250;
-					JAFO.ifr.contentWindow.requestAnimationFrame( JAFO.ifr.contentWindow.animate3 );
+					requestAnimationFrame( JAFO.ifr.contentWindow.animate3 );
 					for (var i = 0, len = scene.children.length; i < len; i++) {
 						if ( scene.children[i].geometry ) {
 							scene.children[i].rotation.y += 0.001;
@@ -122,13 +117,11 @@
 
 			var reader = new FileReader();
 			reader.addEventListener( 'load', function ( event ) {
-
 				var contents = reader.result;
 				JAFO.ifr.onload = function() {
 					JAFO.updateIframe( V3PL.bundles );
 				};
 				JAFO.ifr.srcdoc = contents;
-
 			}, false );
 
 			reader.readAsText( inpFile.files[0] );
@@ -176,7 +169,7 @@
 	JAFO.appendFile = function ( inpFile ) { // good
 		if ( !inpFile.files ) return;
 
-		var scale = inpScale.value;  // in FileOpen tab
+		var scale = inpScale.value;
 		var bundle = V3PL.buildBundle( inpFile.files[0].name, scale );
 		var extension = inpFile.files[0].name.split( '.' ).pop().toLowerCase();
 
@@ -184,9 +177,9 @@
 
 			JAFO.openFileParseDAE( bundle, inpFile );
 
-//		} else if ( extension === 'stl' ) {
+		} else if ( extension === 'stl' ) {
 
-//			JAFO.loadSTL( bundle, null, inpFile );
+			JAFO.loadSTL( bundle, null, inpFile );
 
 		} else {
 
@@ -195,7 +188,32 @@
 		}
 	};
 
-/*
+	JAFO.getFileReaderContents = function ( bundle, inpFile ) {
+
+		var reader = new FileReader();
+		reader.addEventListener( 'load', function ( event ) {
+
+			var contents = reader.result;
+//console.log( 'getFileReaderContents', contents );
+
+			JAFO.switchType( bundle, contents );
+
+		}, false );
+
+
+		if ( reader.readAsBinaryString !== undefined ) {
+//console.log( 'reader.readAsBinaryString', reader.readAsBinaryString );
+
+			reader.readAsBinaryString( inpFile.files[0] );
+
+		} else {
+
+			reader.readAsText( inpFile.files[0] );
+
+		}
+
+	};
+
 	JAFO.openDragAndDrop = function( inpFile ) {
 
 		var name = inpFile.files[0].name;
@@ -203,16 +221,13 @@
 		var bundle = V3PL.buildBundle( name, scale );
 
 		var extension = inpFile.files[0].name.split( '.' ).pop().toLowerCase();
-
-		JAFO.getFileReaderContents( bundle, inpFile );
-
-
+/*
 		if ( extension === 'stl' ) {
 console.log( 'openDragAndDrop', inpFile,'name:', inpFile.files[0].name );
 			JAFO.loadSTL( bundle, null, inpFile );
 
 		} else {
-
+*/
 			var reader = new FileReader();
 			reader.addEventListener( 'load', function ( event ) {
 
@@ -233,33 +248,6 @@ console.log( 'openDragAndDrop', inpFile,'name:', inpFile.files[0].name );
 
 			}
 //		}
-
-	};
-*/
-
-	JAFO.getFileReaderContents = function ( bundle, inpFile ) {
-
-		var reader = new FileReader();
-		reader.addEventListener( 'load', function ( event ) {
-
-			var contents = reader.result;
-//console.log( 'getFileReaderContents', contents );
-
-			JAFO.switchType( bundle, contents );
-
-		}, false );
-
-		if ( reader.readAsBinaryString !== undefined ) {
-//console.log( 'reader.readAsBinaryString', reader.readAsBinaryString );
-
-			reader.readAsBinaryString( inpFile.files[0] );
-
-		} else {
-
-			reader.readAsText( inpFile.files[0] );
-
-		}
-
 	};
 
 	JAFO.openUrl = function ( source, scale ) {
@@ -386,6 +374,33 @@ console.log( 'openFile Object', bundle );
 		controls = app.controls;
 		material = app.material;
 
+// Update controls and camera
+// should be in JATH...
+
+
+/*
+		if ( !JAFO.ifr.contentWindow.controls ) {
+
+			var script = document.body.appendChild( document.createElement( 'script' ) );
+			script.onload = function() {
+				JAFO.ifr.contentWindow.controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+				JAFO.ifr.contentWindow.animate2 = function() {
+					requestAnimationFrame( JAFO.ifr.contentWindow.animate2 );
+					JAFO.ifr.contentWindow.controls.update();
+				};
+			};
+			script.src = 'http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js';
+		}
+
+		if ( controls && controls.target ) {
+			controls.target.set( bundle.tarx, bundle.tary, bundle.tarz );
+			camera.position.set( bundle.camx, bundle.camy, bundle.camz );
+			camera.up = new THREE.Vector3( 0, 1, 0 );
+		}
+*/
+//		JATH.resetCamera( bundle );
+
 		JALI.initLights();
 
 // Add scene things
@@ -409,6 +424,7 @@ console.log( 'openFile Object', bundle );
 		switch ( extension ) {
 
 			case 'html':
+
 
 				JAFO.loadHTML( bundle, contents );
 //console.log('switchType html', bundle );
@@ -507,6 +523,7 @@ console.log( 'loader.load' );
 
 	JAFO.loadHTML = function ( bundle ) {
 //console.log( 'load HTML', bundle );
+
 
 		scene.select = scene.children[0];
 
@@ -825,7 +842,6 @@ console.log( 'worker did some work!', src );
 	JAFO.loadVRML = function ( bundle, contents ) {
 
 		contents = contents ? contents : JAFO.requestFile( bundle.src );
-
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.onload = function() {
 
@@ -885,7 +901,7 @@ console.log( 'worker did some work!', src );
 			var geometry = contents.geometry;
 
 			if ( contents.materials !== undefined ) {
-console.log( 'found geometry', contents.materials );
+//console.log( 'found geometry', contents.materials );
 				if ( contents.materials.length > 1 ) {
 					material = new THREE.MeshFaceMaterial( contents.materials );
 
@@ -911,6 +927,8 @@ console.log( 'found geometry', contents.materials );
 
 			scene.add( mesh );
 			scene.select = mesh;
+//			JAFO.targetList.push( mesh );
+
 
 		} else if ( contents.metadata.type.toLowerCase() === 'object' ) {
 
@@ -918,12 +936,12 @@ console.log( 'found geometry', contents.materials );
 			contents = loader.parse( contents );
 
 			if ( contents instanceof THREE.Scene ) {
-console.log( 'found scene' );
+//console.log( 'found scene' );
 
 				JAFO.loadScene( bundle, contents );
 
 			} else {
-console.log( 'found object', contents );
+//console.log( 'found object', contents );
 
 				scene.add( contents );
 //				scene = contents;
@@ -989,6 +1007,8 @@ console.log( 'updateScene', bundle );
 		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = bundle.name + '<br>';
 		divMsg1.innerHTML = 'Base: ' + bundle.name;
 
+
+
 	};
 
 	JAFO.updateObject = function ( obj, bundle ) {
@@ -1000,7 +1020,7 @@ console.log( 'updateScene', bundle );
 		obj.scale = bundle.scl;
 		obj.src = bundle.src;
 
-		if ( bundle.mat ) {
+		if ( bundle.override ) {
 			obj.material = JAMA.materials[ bundle.mat ].set();
 		}
 		obj.materialKey = bundle.mat;
@@ -1026,7 +1046,6 @@ console.log( 'updateScene', bundle );
 // console.log( 'updateTargetList', JAFO.targetList );
 
 			JATH.zoomExtents();
-
 	};
 
 	JAFO.requestFile = function( fname ) {
@@ -1038,7 +1057,6 @@ console.log( 'updateScene', bundle );
 	};
 
 	var xmlhttp;
-
 	JAFO.requestFileBinary = function( bundle ) {
 		xmlhttp = new XMLHttpRequest();
 		xmlhttp.bundle = bundle;

@@ -103,13 +103,9 @@
 console.log( 'meier', meierBasePath + meierFile );
 
 // vA3C Objects
-		items = [
-			'../../../json-r2/DrMajentaKlein.json',
-			'../../../nasa-samples/stl/Stardust_35.stl',
-			'../../../nasa-samples/stl/cassini.stl'
-		];
+		items = ['DrMajentaKlein.json','Hex_01.json','TypTower.json'];
 		item = items[ Math.floor( items.length * Math.random() ) ];
-		var va3cFile = item;
+		var va3cFile = '../../../json-r2/' + item;
 
 // FGx Aircraft  V3FA.files
 		item = V3FA.files[ Math.floor( V3FA.files.length * Math.random() ) ];
@@ -131,53 +127,42 @@ console.log( 'meier', meierBasePath + meierFile );
 		var txt = '' +
 			'#camx=' + cx + '#camy=' + cy + '#camz=' + cz +
 			'#tarx=0#tary=0#tarz=0' +
-			'#name=' + fileTitle + // meierBasePath + meierFile +
-
+			'#name=' + meierBasePath + meierFile +
 		'&' +
-			'#posx=0#posy=0#posz=0' +
-			'#rotx=0#roty=0#rotz=0' +
+
+			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
+			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=1#scly=1#sclz=1#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
-			'#src=' + meierBasePath + meierFile +
-
+			'#src=' + va3cFile +
 		'&' +
+
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
 			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=' + threeModelScale + '#scly=' + threeModelScale + '#sclz=' + threeModelScale + '#mat=' + mats[ Math.floor( mats.length * Math.random() ) ]  +
 			'#src=' + threeModelFile +
-
-/*
 		'&' +
+
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
 			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=1#scly=1#sclz=1#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
 			'#src=../../../../three.js/examples/models/animated/flamingo.js' +
-*/
-
 		'&' +
+
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
 			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=3#scly=3#sclz=3#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
 			'#src=../../../../three.js/examples/models/animated/ratamahatta/ratamahatta.js' +
-
 		'&' +
 			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
 			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
 			'#sclx=' + aircraftScale + '#scly=' + aircraftScale + '#sclz=' + aircraftScale + '#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
 			'#src=' + aircraftFile +
-
-		'&' +
-			'#posx=' + ( d1 * Math.random() - dim2 ) + '#posy=' +( d1 * Math.random() - dim2 ) + '#posz=' + ( d1 * Math.random() - dim2 ) +
-			'#rotx=' + ( 6 * Math.random()) + '#roty=' + ( 6 * Math.random()) + '#rotz=' + ( 6 * Math.random()) +
-			'#sclx=1#scly=1#sclz=1#mat=' + mats[ Math.floor( mats.length * Math.random() ) ] +
-			'#src=' + va3cFile +
-
 		'';
 
 		location.hash = txt;
 //		V3PL.parsePermalinks();
 
-console.log( 'getAutoCrapdoodle', txt );
-
+//console.log( 'getAutoCrapdoodle', txt );
 		V3.getPermalinkBundles();
 	};
 

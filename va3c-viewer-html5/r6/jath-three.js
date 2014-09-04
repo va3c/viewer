@@ -59,7 +59,9 @@
 
 			event.preventDefault();
 
-			JAFO.openDragAndDrop( event.dataTransfer );
+//			JAFO.openDragAndDrop( event.dataTransfer );
+
+			JAFO.appendFile( event.dataTransfer );
 
 		}, false );
 

@@ -60,7 +60,7 @@
 	};
 
 	V3.init = function () {
-//console.log( 'parseHref' );
+//console.log( 'init' );
 
 		if ( !location.hash ) { 
 
@@ -79,6 +79,7 @@
 	};
 
 	V3.getSplashScreen = function () { // Call a Meier parametric equation
+
 		var items, item, basepath, fileName;
 
 		V3PL.bundles = [];
@@ -114,6 +115,7 @@
 
 		V3PL.bundles = [];
 		V3PL.bundles.push( V3PL.setDefaults( V3PL.defaultScene ) );
+
 //console.log( 'getPermalinkBundles', hashes );
 
 		var bundle = V3PL.bundles[0];
