@@ -181,8 +181,8 @@
 		['utf8/dds/MJeans1TEX_Lores.dds', 1, 'not yet' ],
 		['utf8/dds/MTshirt3TEX_Lores.dds', 1, 'not yet' ],
 		['utf8/dds/Nail_Hand_01_Lores.dds', 1, 'not yet' ],
-		['vrml/house.wrl', 1, 'ok' ],
-		['vrml/simple.wrl', 1, 'ok' ],
+		['vrml/house.wrl', 10, 'ok' ],
+		['vrml/simple.wrl', 10, 'ok' ],
 		['vtk/bunny.vtk', 300, 'ok' ]
 	];
 
