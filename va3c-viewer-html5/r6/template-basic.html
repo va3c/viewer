@@ -51,6 +51,7 @@
 		material = new THREE.MeshLambertMaterial( { ambient: 0x333333, color: 0x888888, opacity: 0.000001, transparent: true } );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.name = 'basic template mesh';
+		mesh.visible = false;
 		scene.add( mesh );
 
 	}
