@@ -82,8 +82,8 @@
 
 		var items, item, basepath, fileName;
 
-		V3PL.bundles = [];
-		V3PL.bundles.push( V3PL.setDefaults( V3PL.defaultScene ) );
+		V3PL.permalinks = [];
+		V3PL.permalinks.push( V3PL.setDefaults( V3PL.defaultScene ) );
 
 		items = [ 1, 11, 12, 14, 33, 42, 54, 58, 62, 131, 151, 155 ];
 		item = items[ Math.floor( items.length * Math.random() ) ];
@@ -91,11 +91,11 @@
 		fileName = V3MH.files[ item ][ 0 ] + '.html';
 		src = basepath + fileName;
 		name = V3MH.files[ item ][ 1 ];
-		V3PL.buildBundle( src, 1, name );
+		V3PL.buildPermalink( src, 1, name );
 
-		V3PL.bundles[ 1 ].mat = 'PhongRandom';
-		V3PL.bundles[ 1 ].override = true; // see JAFO.updateObject
-		JAFO.openBundles( V3PL.bundles );
+		V3PL.permalinks[ 1 ].mat = 'PhongRandom';
+		V3PL.permalinks[ 1 ].override = true; // see JAFO.updateObject
+		JAFO.openPermalinks( V3PL.permalinks );
 	};
 
 	V3.getAutoCrapdoodle = function () {
@@ -113,16 +113,16 @@
 		hashes = decodeURIComponent( location.hash );  // because goo.gl encodes hashes
 		hashes = hashes.split('&');
 
-		V3PL.bundles = [];
-		V3PL.bundles.push( V3PL.setDefaults( V3PL.defaultScene ) );
+		V3PL.permalinks = [];
+		V3PL.permalinks.push( V3PL.setDefaults( V3PL.defaultScene ) );
 
 //console.log( 'getPermalinkBundles', hashes );
 
-		var bundle = V3PL.bundles[0];
+		var permalink = V3PL.permalinks[0];
 		items = hashes[0].slice(1).split( '#' );
 		for (var i = 0, len = items.length; i < len; i++) {
 			item = items[i].split( '=' );
-			bundle[ item[0] ] = parseFloat( item[1] );
+			permalink[ item[0] ] = parseFloat( item[1] );
 		}
 
 		for ( i = 1; i < hashes.length; i++ ) {
@@ -136,10 +136,10 @@
 					defaults[ item[0] ] = parseFloat( item[1] );
 				}
 			}
-			V3PL.bundles.push( defaults );
+			V3PL.permalinks.push( defaults );
 		}
 
-//console.log( 'getPermalinkBundles', V3PL.bundles );
-		JAFO.openBundles( V3PL.bundles );
+//console.log( 'getPermalinkBundles', V3PL.permalinks );
+		JAFO.openPermalinks( V3PL.permalinks );
 
 	}

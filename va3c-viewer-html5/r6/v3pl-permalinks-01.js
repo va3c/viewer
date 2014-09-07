@@ -212,8 +212,8 @@ console.log( 'getAutoCrapdoodle', txt );
 		txt += '#tary=' + parseInt( t.y, 10 );
 		txt += '#tarz=' + parseInt( t.z, 10 );
 
-		if ( V3PL.permalinks[0].name ) {
-			txt += '#name=' + V3PL.permalinks[0].name;
+		if ( V3PL.bundles[0].name ) {
+			txt += '#name=' + V3PL.bundles[0].name;
 		}
 		txt += '&';
 
@@ -284,17 +284,17 @@ console.log( 'getAutoCrapdoodle', txt );
 
 	};
 
-	V3PL.buildPermalink = function ( src, scale, name ) {
+	V3PL.buildBundle = function ( src, scale, name ) {
 
-		var permalink = V3PL.setDefaults( V3PL.defaultObject );
-		permalink.name = src.split('/').pop();
-		permalink.scl =  scale ? scale : 1;
-		permalink.src = src;
+		var bundle = V3PL.setDefaults( V3PL.defaultObject );
+		bundle.name = src.split('/').pop();
+		bundle.scl =  scale ? scale : 1;
+		bundle.src = src;
 
-		V3PL.permalinks.push( permalink );
-//console.log( 'buildPermalink', permalink );
+		V3PL.bundles.push( bundle );
+//console.log( 'buildBundle', bundle );
 
-		return permalink;
+		return bundle;
 
 	};
 

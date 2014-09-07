@@ -4,6 +4,7 @@
 	var V3VJ = {} || V3VJ;
 
 	V3VJ.basePath = JAFO.basePath + 'json/';
+	V3VJ.basePathRevit = JAFO.basePath + 'RvtVa3c/models/';
 
 	V3VJ.addVa3cJsonTab = function() {
 		var tab = V3.librariesTab.appendChild( document.createElement( 'div' ) );
@@ -19,6 +20,7 @@
 	};
 
 	V3VJ.updateVa3cJSONTab = function() {
+/*
 		var fileList = '<br>';
 		var file, boilerplate, fname;
 		for ( var i = 0, len = V3VJ.files.length; i < len; i++ ) {
@@ -30,6 +32,30 @@
 				'<a href=JavaScript:' +
 				'JAFO.appendUrl("' + V3VJ.basePath + file + '",' + scale + '); title="' + title + '" >' + file.split('/').pop() + '</a><br>';
 		}
+*/
+
+		var fileList = '<b>';
+		var file, boilerplate, fname;
+		for ( var i = 0, len = V3VJ.files.length; i < len; i++ ) {
+			file = V3VJ.files[ i ];
+
+			if ( file[0] === 'Title' ) {
+				fileList += '<h3 style=margin-bottom:0; >' + file[1] + '</h3>';
+			} else {
+
+				title = 
+				scale = file[1];
+				title = file[2] ? file[2] : '';
+
+				fileList += 
+				'<a href=JavaScript:JAFO.openUrl("' + file[0] + '",' + scale + '); title="' + title + '" >[O]</a> ' +
+				'<a href=JavaScript:' +
+				'JAFO.appendUrl("' + file[0] + '",' + scale + '); title="' + title + '" >' + file[0].substr( 1 + file[0].lastIndexOf( '/' ) ) + '</a><br>';
+			}
+
+		}
+
+
 
 		V3VJ.Va3cJsonTab.innerHTML =
 			'<p title="Data brought in from Revit and Grasshopper" >' +
@@ -48,34 +74,40 @@
 
 	V3VJ.files = [
 
-		['DrCyanKlein.json', 0.005, 'Revit model' ],
-		['DrMajentaKlein.json', 0.01, 'Revit model - scene'],
-		['Hex_01.js', 0.0075, 'Grasshopper model - scene' ],
-		['MissSpacyEyes.json',0.03, 'Grasshopper model - scene' ],
-		['TTX.json', 0.02, 'Grasshopper model scene' ],
-		['TypTower.json', 0.02, 'Grasshopper model - scene' ],
-		['US_Capitol_Building.dae', 1, 'for testing? No textures'],
-		['Vase_01.js', 0.02, 'Grasshopper model - scene' ],
-		['3dsmax/test_3dsmax.js', 0.01, '3D Studio model - broken - works in cookbook example'],
-		['3dsmax/TransamericaPyramid2.js', 0.01, '3D Studio model - broken - works in cookbook example' ],
-		['aeron/hey-ron.js', 100, '3D Studio model' ],
-		['archive/box-light.js', 1, 'Blender export - broken'],
-		['archive/Project1.rvt.js', 0.01, 'Revit model - broken' ],
-		['archive/Project2.rvt.js', 0.01, 'Revit model' ],
-		['archive/sample.js', 1, 'Blender export - broken' ],
-		['archive/scene.Monkey.js', 10, 'Blender export' ],
-		['archive/test.js', 10, 'Blender export' ],
-		['archive/Wall.rvt - Copy.js', 0.01, 'Revit model - broken' ],
-		['archive/Wall.rvt.js', 0.01, 'Revit model - broken' ],
-		['BH first working sample/jsonTester.json', 1, 'broken' ],
-		['lounge/scrounge.js', 100, '3D Studio model'],
-		['noguchi/no-gucci.js', 1000, '3D Studio model' ],
-		['revit/Project1.rvt.js', 0.01, 'Revit model - scene'],
-		['revit/Project2.rvt.js', 0.01, 'Revit model scene' ],
-		['revit/rac_basic_sample_project.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
-		['revit/rac_basic_sample_project_obj.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
-		['revit/Wall.rvt.js', 0.01, 'Revit model - scene' ],
-		['revit/wall_2015.rvt.js', 0.01, 'Revit model - scene' ],
-		['revit/wall_brick.rvt.js', 0.01, 'Revit model - scene' ],
-		['revit/WallWindow.rvt.js', 0.01, 'Revit model - scene' ]
+		[ 'Title','<a href=https://github.com/va3c/3d-warehouse-samples >Hackathon files</a>'],
+		[ V3VJ.basePath + 'DrCyanKlein.json', 0.005, 'Revit model' ],
+		[ V3VJ.basePath + 'DrMajentaKlein.json', 0.01, 'Revit model - scene'],
+		[ V3VJ.basePath + 'Hex_01.js', 0.0075, 'Grasshopper model - scene' ],
+		[ V3VJ.basePath + 'MissSpacyEyes.json',0.03, 'Grasshopper model - scene' ],
+		[ V3VJ.basePath + 'TTX.json', 0.02, 'Grasshopper model scene' ],
+		[ V3VJ.basePath + 'TypTower.json', 0.02, 'Grasshopper model - scene' ],
+		[ V3VJ.basePath + 'US_Capitol_Building.dae', 1, 'for testing? No textures'],
+		[ V3VJ.basePath + 'Vase_01.js', 0.02, 'Grasshopper model - scene' ],
+		[ V3VJ.basePath + '3dsmax/test_3dsmax.js', 0.01, '3D Studio model - broken - works in cookbook example'],
+		[ V3VJ.basePath + '3dsmax/TransamericaPyramid2.js', 0.01, '3D Studio model - broken - works in cookbook example' ],
+		[ V3VJ.basePath + 'aeron/hey-ron.js', 100, '3D Studio model' ],
+		[ V3VJ.basePath + 'archive/box-light.js', 1, 'Blender export - broken'],
+		[ V3VJ.basePath + 'archive/Project1.rvt.js', 0.01, 'Revit model - broken' ],
+		[ V3VJ.basePath + 'archive/Project2.rvt.js', 0.01, 'Revit model' ],
+		[ V3VJ.basePath + 'archive/sample.js', 1, 'Blender export - broken' ],
+		[ V3VJ.basePath + 'archive/scene.Monkey.js', 10, 'Blender export' ],
+		[ V3VJ.basePath + 'archive/test.js', 10, 'Blender export' ],
+		[ V3VJ.basePath + 'archive/Wall.rvt - Copy.js', 0.01, 'Revit model - broken' ],
+		[ V3VJ.basePath + 'archive/Wall.rvt.js', 0.01, 'Revit model - broken' ],
+		[ V3VJ.basePath + 'BH first working sample/jsonTester.json', 1, 'broken' ],
+		[ V3VJ.basePath + 'lounge/scrounge.js', 100, '3D Studio model'],
+		[ V3VJ.basePath + 'noguchi/no-gucci.js', 1000, '3D Studio model' ],
+		[ V3VJ.basePath + 'revit/Project1.rvt.js', 0.01, 'Revit model - scene'],
+		[ V3VJ.basePath + 'revit/Project2.rvt.js', 0.01, 'Revit model scene' ],
+		[ V3VJ.basePath + 'revit/rac_basic_sample_project.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
+
+		[ V3VJ.basePath + 'revit/Wall.rvt.js', 0.01, 'Revit model - scene' ],
+
+		[ V3VJ.basePath + 'revit/WallWindow.rvt.js', 0.01, 'Revit model - scene' ],
+
+		[ 'Title','<a href=https://github.com/va3c/3d-warehouse-samples >Post-Hackathon Updates</a>'],
+		[ V3VJ.basePathRevit + 'rac_basic_sample_project_obj.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
+		[ V3VJ.basePathRevit + 'rac_basic_sample_project_site.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
+		[ V3VJ.basePathRevit + 'wall_2015.rvt.js', 0.01, 'Revit model - scene' ],
+		[ V3VJ.basePathRevit + 'wall_brick.rvt.js', 0.01, 'Revit model - scene' ],
 	]

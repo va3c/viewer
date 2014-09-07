@@ -76,18 +76,22 @@
 
 			}
 
-// if autocrapdoodle, set up rotations animation
+// if autocrapdeedle, set up rotations animation for autocrapdoodle
 
 			if ( location.hash.toLowerCase().indexOf('auto') >  0 ){  
 
 				JAFO.ifr.contentWindow.animate3 = function () {
+					var cnt = 0;
+					var camRadius = 250;
 					JAFO.ifr.contentWindow.requestAnimationFrame( JAFO.ifr.contentWindow.animate3 );
-					scene.traverse( function ( child ) {
-						if ( child.rotation ) {
-							child.rotation.y += 0.001;
-							child.rotation.z += 0.001;
+					for (var i = 0, len = scene.children.length; i < len; i++) {
+						if ( scene.children[i].geometry ) {
+							scene.children[i].rotation.y += 0.001;
+							scene.children[i].rotation.z += 0.001;
 						}
-					} );
+					}
+					cnt += 0.001;
+					camera.position.set( Math.sin( cnt * 0.7 ) * camRadius, Math.cos( cnt * 0.3 ) * camRadius,  Math.sin( cnt * 0.2 ) * camRadius );
 				};
 
 				JAFO.ifr.contentWindow.animate3();
@@ -287,8 +291,7 @@ A URL to the source file has been provided
 	};
 
 	JAFO.openUrlBinary = function ( source, scale ) {
-
-//console.log( 'openUrlBinary', source, scale );
+console.log( 'openUrlBinary', source, scale );
 
 		V3PL.permalinks = [];
 		V3PL.permalinks.push( V3PL.setDefaults( V3PL.defaultScene ) );
@@ -298,7 +301,7 @@ A URL to the source file has been provided
 
 		JAFO.ifr.onload = function() {
 
-//console.log( 'openFile Object', permalink );
+console.log( 'openFile Object', permalink );
 			JAFO.loadBinaryFile( permalink );
 
 		};
@@ -407,7 +410,7 @@ The exception is binary files.
 			case 'stl':
 
 //console.log('switchType stl', permalink );
-				JAFO.loadSTL( permalink, contents );
+				JAFO.loadSTL( permalink, contents, null );
 
 				break;
 
@@ -441,14 +444,14 @@ File types are in alphabetical order
 	JAFO.loadBinaryFile = function ( permalink ) {
 
 		var script = document.body.appendChild( document.createElement( 'script' ) );
-
 		script.onload = function() {
 
 			loader = new THREE.BinaryLoader( true );
 			loader.load( permalink.src, function ( geometry, materials ) {
 
-				if ( materials ) {
+console.log( 'loadBinaryFile' );
 
+				if ( materials ) {
 					material =  new THREE.MeshFaceMaterial( materials );
 
 					for (var i = 0, len = material.materials.length; i < len; i++) {
@@ -457,42 +460,37 @@ File types are in alphabetical order
 					}
 
 				} else {
-
-					material = new THREE.MeshPhongMaterial();
-
+					material = new THREE.MeshPhongMaterial( { color: 0x888888, shading: THREE.SmoothShading, side: 2 } );
 				}
-
-console.log( 'loadBinaryFile', permalink, material );
 
 				mesh = new THREE.Mesh( geometry, material );
 
 				scene.add( mesh );
 
-				JAFO.updateObject ( permalink, mesh );
+//				scene.select = mesh;
+				JAFO.updateObject ( mesh, permalink );
 				JAFO.targetList.push( mesh );
+//				JATH.zoomExtents();
 
 			} );
 		};
-
 		script.src = JAFO.loadersBase + 'js/loaders/BinaryLoader.js';
-
 	};
 
 
 	JAFO.loadHTML = function ( permalink ) {
 //console.log( 'load HTML', permalink );
 
-		JAFO.updateObject ( permalink, scene.children[0] );
+//		scene.select = scene.children[0];
+		JAFO.updateObject ( scene.children[0], permalink );
 		JAFO.updateTargetList( permalink.src );
-
-// add controller if none is present
 //		JATH.resetCamera( V3PL.permalinks[0] );
 
 	};
 
 // look into getDataUrl...
 
-	JAFO.openFileParseDAE = function ( permalink, inpFile ) {
+	JAFO.openFileParseDAE = function ( permalink, file ) {
 
 		var reader = new FileReader();
 
@@ -500,7 +498,6 @@ console.log( 'loadBinaryFile', permalink, material );
 		script.onload = function() {
 
 			reader.addEventListener( 'load', function ( event ) {
-
 				var contents = event.target.result;
 
 				var parser = new DOMParser();
@@ -509,9 +506,6 @@ console.log( 'loadBinaryFile', permalink, material );
 				loader = new THREE.ColladaLoader();
 				loader.options.convertUpAxis = true;
 				loader.parse( xml, function ( collada ) {
-
-
-// can't yet handle MeshFaceMaterial...
 
 					collada.scene.traverse( function ( child ) {
 
@@ -525,33 +519,36 @@ console.log( 'loadBinaryFile', permalink, material );
 console.log( 'openFileDAE', permalink );
 					scene.add( collada.scene );
 
-					JAFO.updateObject ( permalink, collada.scene );
+//					scene.select = collada.scene;
+					JAFO.updateObject ( scene.select, permalink );
 					JAFO.updateTargetList( permalink.src );
+//					JATH.zoomExtents();
 
 				}, permalink.src );
 
 			}, false );
 
-			reader.readAsText( inpFileile.files[0] );
-
+			reader.readAsText( file.files[0] );
 		};
-
 		script.src = JAFO.loadersBase + 'js/loaders/ColladaLoader.js';
-
 	};
 
-	JAFO.loadDAE = function ( permalink, contents ) {
+//var coll;
 
-//console.log( 'loadDAE', permalink );
+	JAFO.loadDAE = function ( permalink, contents ) {
+console.log( 'loadDAE', permalink );
 
 		var script = document.body.appendChild( document.createElement( 'script' ) );
-
 		script.onload = function() {
 
 			var loader = new THREE.ColladaLoader();
-
+//			loader.options.centerGeometry = true;  // does this work?
 			loader.options.convertUpAxis = true;
 			loader.load( permalink.src, function colladaReady( collada ) {
+
+//coll = collada;
+//console.log( collada.dae.materials );
+//console.log( collada );
 
 				collada.scene.traverse( function ( child ) {
 
@@ -563,132 +560,49 @@ console.log( 'openFileDAE', permalink );
 				} );
 
 				scene.add( collada.scene );
+//				scene = collada.scene;  // does not compute
 
-				JAFO.updateObject ( permalink, collada.scene );
+//				scene.select = collada.scene;
+				JAFO.updateObject ( scene.select, permalink );
 				JAFO.updateTargetList( permalink.src );
+//				JATH.zoomExtents();
 
 			} );
 		};
-
 		script.src ='http://mrdoob.github.io/three.js/examples/js/loaders/ColladaLoader.js' ;
 
 	};
 
-	JAFO.loadJSON = function ( permalink, contents ) {
-
-		var loader;
-		var mesh;
+	JAFO.handleSON = function ( permalink, contents ) {
+console.log( 'loadJSON', contents );
 
 		contents = contents ? contents : JAFO.requestFile( permalink.src );
-		contents = JSON.parse( contents );
 
-//console.log( 'handleJSON', permalink, contents );
+// the following code is from the Three.js Editor
+// Not everybody understands it. Leave it out if you wish...
 
-		if ( contents.metadata === undefined ) { // 2.0
-			contents.metadata = { type: 'Geometry' };
+		if ( contents && contents.indexOf( 'postMessage' ) !== -1 ) {
+console.log( 'worker did some work!', src );
+			var blob = new Blob( [ contents ], { type: 'text/javascript' } );
+			var src = URL.createObjectURL( blob );
+			var worker = new Worker( src );
+			worker.onmessage = function ( event ) {
+				event.data.metadata = { version: 2 };
+				JAFO.handleJSON( event.data, src, scale );
+			};
+			worker.postMessage( Date.now() );
+			return;
 		}
 
-		if ( contents.metadata.type === undefined ) { // 3.0
-			contents.metadata.type = 'Geometry';
+		// >= 3.0
+		try {
+			contents = JSON.parse( contents );
+		} catch ( error ) {
+			alert( error );
+			return;
 		}
+		JAFO.handleJSON( permalink, contents );
 
-		if ( contents.metadata.version === undefined ) {
-			contents.metadata.version = contents.metadata.formatVersion;
-		}
-
-		if ( contents.metadata.type.toLowerCase() === 'geometry' ) {
-
-// console.log( 'found geometry' );
-
-/*
-//3DS Version
-
-			loader = new THREE.ObjectLoader();
-			loader.load( 'file:///C:/Users/theo/Dropbox/Public/git-repos/va3c.github.io/json/3dsmax/TransamericaPyramid2.js', function( result ){
-				scene = result;
-				JAFO.updateScene( permalink, result );
-			} );
-*/
-
-// JSONLoader loads all revs of geometry...
-
-			var texturePath = permalink.src.substr( 0, 1 + permalink.src.lastIndexOf('/') );
-
-			loader = new THREE.JSONLoader();
-			contents = loader.parse( contents, texturePath );
-
-			var geometry = contents.geometry;
-
-			if ( contents.materials !== undefined ) {
-
-//console.log( 'found geometry', contents.materials );
-				if ( contents.materials.length > 1 ) {
-
-					material = new THREE.MeshFaceMaterial( contents.materials );
-
-					for (var i = 0, len = contents.materials.length; i < len; i++) {
-
-						contents.materials[i].side = 2;
-						contents.materials[i].needsUpdate = true;
-
-					}
-
-				} else {
-					material = contents.materials[ 0 ];
-				}
-			} else if ( permalink ){
-
-				material = JAMA.materials[ permalink.mat ].set();
-
-			} else {
-
-				material = JAMA.materials.NormalSmooth.set();
-
-			}
-
-			geometry.sourceFile = permalink.src;
-
-			mesh = new THREE.Mesh( geometry, material );
-			scene.add( mesh );
-
-			JAFO.updateObject ( permalink, mesh );
-
-		} else if ( contents.metadata.type.toLowerCase() === 'object' ) {
-
-			loader = new THREE.ObjectLoader();
-			contents = loader.parse( contents );
-
-			if ( contents instanceof THREE.Scene ) {
-
-//console.log( 'found scene' );
-				JAFO.loadScene( permalink, contents );
-
-			} else {
-
-//console.log( 'found object', contents );
-				scene.add( contents );
-
-				JAFO.updateObject ( permalink, contents );
-				JAFO.targetList.push( contents );
-
-			}
-		} else if ( contents.metadata.type.toLowerCase() === 'scene' ) {
-
-console.log( 'found deprecated');
-
-// DEPRECATED
-			loader = new THREE.SceneLoader();
-			loader.load( permalink.src, function ( contents ) {
-
-				JAFO.loadScene( permalink, contents );
-
-			}, '' );
-
-		} else {
-
-console.log( 'found a whoopsie');
-
-		}
 	};
 
 	JAFO.loadOBJ = function ( permalink, contents ) {
@@ -696,7 +610,6 @@ console.log( 'found a whoopsie');
 		contents = contents ? contents : JAFO.requestFile( permalink.src );
 
 		var script = document.body.appendChild( document.createElement( 'script' ) );
-
 		script.onload = function() {
 
 			var object = new THREE.OBJLoader().parse( contents );
@@ -705,16 +618,16 @@ console.log( 'found a whoopsie');
 
 			scene.add( mesh );
 
-			JAFO.updateObject ( permalink, mesh );
+//			scene.select = mesh;
+			JAFO.updateObject ( mesh, permalink );
 			JAFO.targetList.push( mesh );
 
 		};
-
 		script.src = JAFO.loadersBase + 'js/loaders/OBJLoader.js';
 
 	};
 
-	JAFO.loadSTL = function ( permalink, contents ) {
+	JAFO.loadSTL = function ( permalink, contents, inpFile ) {
 
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 		script.src = JAFO.loadersBase + 'js/wip/TypedGeometry.js';
@@ -722,42 +635,103 @@ console.log( 'found a whoopsie');
 		var reader = new FileReader();
 		script = document.body.appendChild( document.createElement( 'script' ) );
 		script.onload = function() {
+//console.log( 'loadSTL', permalink,  inpFile, contents );
 			if ( contents  ) {
 
-				geometry = new THREE.STLLoader().parse( contents );
-				geometry.computeFaceNormals();
-				geometry.computeVertexNormals();
+//				reader.addEventListener( 'load', function ( event ) {
+//console.log( 'got here' );
+//					var contents = event.target.result;
+					geometry = new THREE.STLLoader().parse( contents );
+					material = new THREE.MeshPhongMaterial();
 
-//console.log( 'loadSTL - contents', geometry );
-				material = new THREE.MeshPhongMaterial();
+					mesh = new THREE.Mesh( geometry, material );
+//					material = new THREE.MeshNormalMaterial();
 
-				mesh = new THREE.Mesh( geometry, material );
+//					mesh.material = new THREE.MeshNormalMaterial();
 
-				scene.add( mesh );
+					mesh.geometry.verticesNeedUpdate = true;
 
-				JAFO.updateObject ( permalink, mesh );
-				JAFO.targetList.push( mesh );
+					mesh.geometry.normalsNeedUpdate = true;
+					mesh.geometry.computeFaceNormals();
+					mesh.geometry.computeVertexNormals();
+			//		mesh.geometry.computeTangents();
+			//		mesh.geometry.computeMorphNormals();
+					mesh.geometry.buffersNeedUpdate = true;
+					mesh.geometry.uvsNeedUpdate = true;
+					mesh.material.needsUpdate = true;
+
+					scene.add( mesh );
+
+//					scene.select = mesh;
+					JAFO.updateObject ( mesh, permalink );
+					JAFO.targetList.push( mesh );
+
+//					JATH.zoomExtents();
+//console.log( mesh );
+
+			} else if ( inpFile ) {
+
+				reader.addEventListener( 'load', function ( event ) {
+//console.log( 'got here', inpFile.files[0] );
+					var contents = event.target.result;
+					geometry = new THREE.STLLoader().parse( contents );
+					material = new THREE.MeshPhongMaterial();
+
+					mesh = new THREE.Mesh( geometry, material );
+//					material = new THREE.MeshNormalMaterial();
+
+//					mesh.material = new THREE.MeshNormalMaterial();
+
+					mesh.geometry.verticesNeedUpdate = true;
+
+					mesh.geometry.normalsNeedUpdate = true;
+					mesh.geometry.computeFaceNormals();
+					mesh.geometry.computeVertexNormals();
+			//		mesh.geometry.computeTangents();
+			//		mesh.geometry.computeMorphNormals();
+					mesh.geometry.buffersNeedUpdate = true;
+					mesh.geometry.uvsNeedUpdate = true;
+					mesh.material.needsUpdate = true;
+
+					scene.add( mesh );
+
+//					scene.select = mesh;
+					JAFO.updateObject ( mesh, permalink );
+					JAFO.targetList.push( mesh );
+
+//					JATH.zoomExtents();
+//console.log( mesh );
+
+				}, false );
+
+				if ( reader.readAsBinaryString !== undefined ) {
+//console.log( 'reader.readAsBinaryString', reader.readAsBinaryString );
+
+					reader.readAsBinaryString( inpFile.files[0] );
+
+				} else {
+
+					reader.readAsText( inpFile.files[0] );
+				}
 
 			} else {
 
-
+//console.log( 'loadStl loader' );
 				var loader = new THREE.STLLoader();
 				loader.addEventListener( 'load', function ( event ) {
 
 					geometry = event.content;
-
-//console.log( 'loadStl loader', geometry );
-					geometry.computeFaceNormals();
-					geometry.computeVertexNormals();
-
 					material = new THREE.MeshPhongMaterial();
-					mesh = new THREE.Mesh( geometry, material );
+					var mesh = new THREE.Mesh( geometry, material );
 
 					mesh.rotation.set( - Math.PI / 2, 0, 0 );
 					scene.add( mesh );
 
-					JAFO.updateObject ( permalink, mesh );
+//					scene.select = mesh;
+					JAFO.updateObject ( mesh, permalink );
 					JAFO.targetList.push( mesh );
+
+//					JATH.zoomExtents();
 
 				} );
 				loader.load( permalink.src );
@@ -783,13 +757,12 @@ console.log( 'found a whoopsie');
 
 			scene.add( mesh );
 
-			JAFO.updateObject ( permalink, mesh );
+//			scene.select = mesh;
+			JAFO.updateObject ( mesh, permalink );
 			JAFO.targetList.push( mesh );
 
 		};
-
 		script.src = JAFO.loadersBase + 'js/loaders/VTKLoader.js';
-
 	};
 
 	JAFO.loadVRML = function ( permalink, contents ) {
@@ -801,16 +774,125 @@ console.log( 'found a whoopsie');
 
 			object = new THREE.VRMLLoader().parse( contents );
 
+// needs work...
 			mesh = object.children[0];
 			scene.add( object );
 
-			JAFO.updateObject ( permalink, mesh );
+//			scene.select = mesh;
+			JAFO.updateObject ( mesh, permalink );
 			JAFO.targetList.push( mesh );
 
 		};
 		script.src = JAFO.loadersBase + 'js/loaders/VRMLLoader.js';
 	};
 
+	JAFO.loadJSON = function ( permalink, contents ) {
+
+		var loader;
+		var mesh;
+
+		contents = contents ? contents : JAFO.requestFile( permalink.src );
+
+		contents = JSON.parse( contents );
+
+//console.log( 'handleJSON', permalink, contents );
+
+
+		if ( contents.metadata === undefined ) { // 2.0
+			contents.metadata = { type: 'Geometry' };
+		}
+		if ( contents.metadata.type === undefined ) { // 3.0
+			contents.metadata.type = 'Geometry';
+		}
+		if ( contents.metadata.version === undefined ) {
+			contents.metadata.version = contents.metadata.formatVersion;
+		}
+		if ( contents.metadata.type.toLowerCase() === 'geometry' ) {
+// console.log( 'found geometry' );
+
+/*
+//3DS Version
+
+			loader = new THREE.ObjectLoader();
+			loader.load( 'file:///C:/Users/theo/Dropbox/Public/git-repos/va3c.github.io/json/3dsmax/TransamericaPyramid2.js', function( result ){
+				scene = result;
+				JAFO.updateScene( permalink, result );
+			} );
+*/
+
+// JSONLoader loads all revs of geometry...
+
+			var texturePath = permalink.src.substr( 0, 1 + permalink.src.lastIndexOf('/') );
+
+			loader = new THREE.JSONLoader();
+			contents = loader.parse( contents, texturePath );
+
+			var geometry = contents.geometry;
+
+			if ( contents.materials !== undefined ) {
+//console.log( 'found geometry', contents.materials );
+				if ( contents.materials.length > 1 ) {
+					material = new THREE.MeshFaceMaterial( contents.materials );
+
+					for (var i = 0, len = contents.materials.length; i < len; i++) {
+						contents.materials[i].side = 2;
+						contents.materials[i].needsUpdate = true;
+					}
+
+				} else {
+					material = contents.materials[ 0 ];
+				}
+			} else if ( permalink ){
+				material = JAMA.materials[ permalink.mat ].set();
+			} else {
+				material = JAMA.materials.NormalSmooth.set();
+			}
+
+			geometry.sourceFile = permalink.src;
+
+			mesh = new THREE.Mesh( geometry, material );
+			scene.add( mesh );
+
+//			scene.select = mesh;
+			JAFO.updateObject ( mesh, permalink );
+
+		} else if ( contents.metadata.type.toLowerCase() === 'object' ) {
+
+			loader = new THREE.ObjectLoader();
+			contents = loader.parse( contents );
+
+			if ( contents instanceof THREE.Scene ) {
+//console.log( 'found scene' );
+
+				JAFO.loadScene( permalink, contents );
+
+			} else {
+//console.log( 'found object', contents );
+
+				scene.add( contents );
+//				scene = contents;
+
+//				scene.select = contents;
+				JAFO.updateObject ( contents, permalink );
+//				JAFO.targetList.push( contents );
+
+			}
+		} else if ( contents.metadata.type.toLowerCase() === 'scene' ) {
+
+console.log( 'found deprecated');
+
+// DEPRECATED
+			loader = new THREE.SceneLoader();
+			loader.load( permalink.src, function ( contents ) {
+				JAFO.loadScene( permalink, contents );
+			}, '' );
+
+		} else {
+
+console.log( 'found a whoopsie');
+
+		}
+	};
 
 	JAFO.loadScene = function( permalink, contents ) {
 console.log( 'updateScene', permalink );
@@ -821,6 +903,18 @@ console.log( 'updateScene', permalink );
 		app.scene = scene;
 
 		JALI.checkLights();
+
+// where is scale coming from?
+		for (var i = 0, len = contents.children.length; i < len; i++) {
+			if ( contents.children[i].geometry ) {
+				contents.children[i].geometry.applyMatrix( new THREE.Matrix4().multiplyScalar( permalink.scl ) );
+			}
+			for (var j = 0, lenJ = contents.children[i].length; j < lenJ; j++) {
+				if ( contents.children[i].children[j] && contents.children[i].children[j].geometry ) {
+					contents.children[i].children[j].geometry.applyMatrix( new THREE.Matrix4().multiplyScalar( permalink.scl ) );
+				}
+			}
+		}
 
 		JATH.resetCamera( V3PL.permalinks[0] );
 
@@ -837,7 +931,7 @@ console.log( 'updateScene', permalink );
 
 	};
 
-	JAFO.updateObject = function ( permalink, obj ) {
+	JAFO.updateObject = function ( obj, permalink ) {
 		
 		scene.select = obj;
 
@@ -849,11 +943,8 @@ console.log( 'updateScene', permalink );
 		obj.src = permalink.src;
 
 		if ( permalink.mat ) {
-
 			obj.material = JAMA.materials[ permalink.mat ].set();
-
 		}
-
 		obj.materialKey = permalink.mat;
 
 		obj.castShadow = true;
@@ -864,7 +955,6 @@ console.log( 'updateScene', permalink );
 	JAFO.updateTargetList = function( src ) {
 
 		if ( src.indexOf( '.rvt.js' ) > -1 ) {
-
 			JAFO.targetList = [];
 			for ( var i = 0; i < scene.children.length; i++ ){
 				for ( var k = 0; k < scene.children[i].children.length; k++){
@@ -872,14 +962,11 @@ console.log( 'updateScene', permalink );
 						scene.children[i].children[k].userData = scene.children[i].userData;
 				}
 			}
-
 		} else {
-
 			JAFO.targetList = scene.children;
-
 		}
-
 // console.log( 'updateTargetList', JAFO.targetList );
+
 			JATH.zoomExtents();
 
 	};
