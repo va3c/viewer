@@ -300,6 +300,7 @@ A URL to the source file has been provided
 		JAFO.ifr.onload = function() {
 
 //console.log( 'openFile Object', permalink );
+			JAFO.updateIframe( V3PL.permalinks );
 			JAFO.loadBinaryFile( permalink );
 
 		};
