@@ -801,13 +801,16 @@ console.log( 'found a whoopsie');
 		script.onload = function() {
 
 			object = new THREE.VRMLLoader().parse( contents );
-
+			
+			JAFO.loadScene = function( permalink, object )
+/*
 			mesh = object.children[0];
 			scene.add( object );
 
 			JAFO.updateObject ( permalink, mesh );
 			JAFO.targetList.push( mesh );
 
+*/
 		};
 		script.src = JAFO.loadersBase + 'js/loaders/VRMLLoader.js';
 	};
