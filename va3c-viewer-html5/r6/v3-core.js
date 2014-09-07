@@ -122,7 +122,7 @@
 		items = hashes[0].slice(1).split( '#' );
 		for (var i = 0, len = items.length; i < len; i++) {
 			item = items[i].split( '=' );
-			if ( isNan( item[1] ) ) {
+			if ( isNaN( item[1] ) ) {
 				permalink[ item[0] ] = item[1];
 			} else {
 				permalink[ item[0] ] = parseFloat( item[1] );
