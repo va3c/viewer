@@ -252,7 +252,7 @@ console.log( 'getAutoCrapdoodle', txt );
 		for (var i = 0, len = scene.children.length; i < len; i++) {
 			var obj = scene.children[i];
 			if ( obj.geometry || obj.src ) {
-				if ( obj.name === 'basic template mesh' ) { continue; }
+//				if ( obj.name === 'basic template mesh' ) { continue; }
 
 				obj.src = obj.src ? obj.src : d.src ;
 				txt += '#src=' + obj.src;
