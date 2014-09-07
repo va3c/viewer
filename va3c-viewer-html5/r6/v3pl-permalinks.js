@@ -44,6 +44,27 @@
 
 	V3PL.updatePermalinksTab = function () {
 
+		var fileList = '<br>';
+		var file, boilerplate, fname;
+		for ( var i = 0, len = V3PL.files.length; i < len; i++ ) {
+			file = V3PL.files[ i ];
+
+			if ( file[0] === 'Title' ) {
+				fileList += '<h3 style=margin-bottom:0; >' + file[1] + '</h3>';
+			} else {
+
+				title = 
+				scale = file[1];
+				title = file[2] ? file[2] : '';
+
+				fileList += 
+				'<a href="' + file[0] + '" title="' + title + '" >' + title + '</a><br>' ;
+//				'<a href=JavaScript:' +
+//				'JAFO.appendUrl("' + file[0] + '",' + scale + '); title="' + title + '" >' + file[0].substr( 1 + file[0].lastIndexOf( '/' ) ) + '</a><br>';
+			}
+
+		}
+
 		var txt =
 		'<div>' +
 
@@ -62,6 +83,8 @@
 
 			'<p><a href="http://goo.gl/" target="_blank">Google URL Shortener</a></p>' +
 
+			'<div >' + fileList + '</div>' +
+
 			'<p style=text-align:right; >' +
 				'<a class=button href=JavaScript:JA.toggleTab(V3PL.permalinksTab); >Close</a> ' +
 			'</p>' +
@@ -71,6 +94,15 @@
 		V3PL.permalinksTab.innerHTML = txt;
 
 	};
+
+	V3PL.files = [
+
+		[ 'Title','Permalink Samples'],
+		['http://va3c.github.io/viewer/va3c-viewer-html5/r6/va3c-viewer-r6.html#camx=101#camy=133#camz=538#tarx=5#tary=0#tarz=0#name=Klein Bottle *&#src=http://va3c.github.io/algesurf/parametric-equations/equation-files/klein-bottle/klein-bottle.html#mat=PhongRandom#name=klein-bottle.html#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&#src=http://va3c.github.io/3d-warehouse-samples/schroder-house/untitled/schroder-house.js#mat=PhongRandom#name=schroder-house.js#posx=150#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=10#scly=10#sclz=10',1,'trefoil + schroder'],
+		['http://va3c.github.io/viewer/va3c-viewer-html5/r6/va3c-viewer-r6.html#camx=398#camy=398#camz=327#tarx=0#tary=0#tarz=-71#name=Dini\'s Surface *&#src=http://va3c.github.io/algesurf/parametric-equations/equation-files/dini-surface/dini-surface.html#mat=PhongRandom#name=dini-surface.html#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&#src=http://va3c.github.io/three.js/examples/models/animated/stork.js#mat=PhongRandom#name=stork.js#posx=100#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&#src=http://va3c.github.io/three.js/examples/models/animated/parrot.js#mat=PhongRandom#name=parrot.js#posx=0#posy=64#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1',1,'dino + parrot + stork'],
+		['http://va3c.github.io/viewer/va3c-viewer-html5/r6/va3c-viewer-r6.html#camx=2000#camy=2000#camz=2000#tarx=0#tary=0#tarz=0#name=Template - Basic&#src=template-basic.html#mat=PhongRandom#name=basic template mesh#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=1#scly=1#sclz=1&#src=http://va3c.github.io/RvtVa3c/models/rac_basic_sample_project_obj.rvt.js#mat=PhongRandom#name=rac_basic_sample_project_obj.rvt.js#posx=0#posy=0#posz=0#rotx=0#roty=0#rotz=0#sclx=0.01#scly=0.01#sclz=0.01&#src=http://va3c.github.io/fgx-aircraft/data/as332/as332.js#mat=PhongRandom#name=as332.js#posx=24#posy=80#posz=-100#rotx=0.1#roty=1#rotz=0#sclx=10#scly=10#sclz=10', 1, ' Revit Hose + AS232 helicopter']
+
+	]
 
 
 // The word 'crapdoodle' almost exists: https://www.wordnik.com/words/Crapdoodle

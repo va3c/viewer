@@ -94,6 +94,7 @@
 
 			}
 
+			JATH.resetCamera( V3PL.permalinks[0] );
 		};
 
 		JAFO.ifr.src = permalinks[1].src;

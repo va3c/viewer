@@ -11,7 +11,7 @@
 	V3SA.addVa3cSamplesTab = function() {
 		var tab = V3.librariesTab.appendChild( document.createElement( 'div' ) );
 		tab.innerHTML =
-			'<a id=tabVa3cSamples title="Sample files fron interesting sources" ><p class=buttonLibrary >' +
+			'<a id=tabVa3cSamples title="Sample files from interesting sources" ><p class=buttonLibrary >' +
 				'<i class="fa fa-file-image-o"></i> vA3C Samples...' +
 			'</p></a>';
 		tabVa3cSamples.onclick = function() { V3SA.updateVa3cSamplesTab(); JA.toggleDialogs(V3SA.Va3cSamplesTab); };

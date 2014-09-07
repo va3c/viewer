@@ -20,21 +20,8 @@
 	};
 
 	V3VJ.updateVa3cJSONTab = function() {
-/*
-		var fileList = '<br>';
-		var file, boilerplate, fname;
-		for ( var i = 0, len = V3VJ.files.length; i < len; i++ ) {
-			file = V3VJ.files[ i ][0];
-			scale = V3VJ.files[ i ][1];
-			title = V3VJ.files[ i ][2] ? V3VJ.files[ i ][2] : '';
-			fileList += 
-				'<a href=JavaScript:JAFO.openUrl("' + V3VJ.basePath + file + '",' + scale + '); >[O]</a> ' +
-				'<a href=JavaScript:' +
-				'JAFO.appendUrl("' + V3VJ.basePath + file + '",' + scale + '); title="' + title + '" >' + file.split('/').pop() + '</a><br>';
-		}
-*/
 
-		var fileList = '<b>';
+		var fileList = '<br>';
 		var file, boilerplate, fname;
 		for ( var i = 0, len = V3VJ.files.length; i < len; i++ ) {
 			file = V3VJ.files[ i ];
@@ -55,8 +42,6 @@
 
 		}
 
-
-
 		V3VJ.Va3cJsonTab.innerHTML =
 			'<p title="Data brought in from Revit and Grasshopper" >' +
 				'The files below are sourced from the<br><a href="https://github.com/va3c/json" target="_blank">vA3C JSON repository</a>.<br><br>' +
@@ -74,7 +59,7 @@
 
 	V3VJ.files = [
 
-		[ 'Title','<a href=https://github.com/va3c/3d-warehouse-samples >Hackathon files</a>'],
+		[ 'Title','<a href=https://github.com/va3c/json/ >Hackathon files</a>'],
 		[ V3VJ.basePath + 'DrCyanKlein.json', 0.005, 'Revit model' ],
 		[ V3VJ.basePath + 'DrMajentaKlein.json', 0.01, 'Revit model - scene'],
 		[ V3VJ.basePath + 'Hex_01.js', 0.0075, 'Grasshopper model - scene' ],

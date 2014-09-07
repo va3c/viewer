@@ -47,5 +47,5 @@
 		divCamera.innerHTML = txt;
 
 //camera.onchange = function(){ console.log( camera.position ); };
-// camera.addEventListener("onmousemove", function(){ console.log( camera.position ); }, false);
+//camera.addEventListener("onmousemove", function(){ console.log( camera.position ); }, false);
 	};
