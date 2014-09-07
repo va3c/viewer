@@ -802,7 +802,7 @@ console.log( 'found a whoopsie');
 
 			object = new THREE.VRMLLoader().parse( contents );
 			
-			JAFO.loadScene = function( permalink, object )
+			JAFO.loadScene(permalink, object )
 /*
 			mesh = object.children[0];
 			scene.add( object );
