@@ -252,7 +252,7 @@ console.log( 'getAutoCrapdoodle', txt );
 		for (var i = 0, len = scene.children.length; i < len; i++) {
 			var obj = scene.children[i];
 			if ( obj.geometry || obj.src ) {
-//				if ( obj.name == 'basic template mesh' ) { continue; }
+				if ( obj.name === 'basic template mesh' ) { continue; }
 
 				obj.src = obj.src ? obj.src : d.src ;
 				txt += '#src=' + obj.src;
@@ -319,7 +319,8 @@ console.log( 'getAutoCrapdoodle', txt );
 	V3PL.buildPermalink = function ( src, scale, name ) {
 
 		var permalink = V3PL.setDefaults( V3PL.defaultObject );
-		permalink.name = src.split('/').pop();
+		permalink.name = name ? name : src.split('/').pop(); 
+//		permalink.name = src.split('/').pop();
 		permalink.scl =  scale ? scale : 1;
 		permalink.src = src;
 
