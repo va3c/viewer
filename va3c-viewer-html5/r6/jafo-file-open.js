@@ -458,6 +458,8 @@ File types are in alphabetical order
 						material.materials[i].needsUpdate = true;
 					}
 
+					permalink.mat = '';
+
 				} else {
 
 					material = new THREE.MeshPhongMaterial();
@@ -534,7 +536,7 @@ console.log( 'openFileDAE', permalink );
 
 			}, false );
 
-			reader.readAsText( inpFileile.files[0] );
+			reader.readAsText( inpFile.files[0] );
 
 		};
 
@@ -635,8 +637,13 @@ console.log( 'openFileDAE', permalink );
 
 					}
 
+					permalink.mat = '';
+
 				} else {
+
 					material = contents.materials[ 0 ];
+					permalink.mat = '';
+
 				}
 			} else if ( permalink ){
 
@@ -678,7 +685,8 @@ console.log( 'openFileDAE', permalink );
 
 console.log( 'found deprecated');
 
-// DEPRECATED
+// DEPRECATED / broken - need to load SceneLoader
+
 			loader = new THREE.SceneLoader();
 			loader.load( permalink.src, function ( contents ) {
 
@@ -742,7 +750,6 @@ console.log( 'found a whoopsie');
 
 			} else {
 
-
 				var loader = new THREE.STLLoader();
 				loader.addEventListener( 'load', function ( event ) {
 
@@ -805,8 +812,9 @@ console.log( 'found a whoopsie');
 			
 			JAFO.loadScene( permalink, object );
 /*
-			mesh = object.children[0];
+
 			scene.add( object );
+			mesh = object.children[0];
 
 			JAFO.updateObject ( permalink, mesh );
 			JAFO.targetList.push( mesh );
@@ -853,7 +861,7 @@ console.log( 'updateScene', permalink );
 		obj.scale = permalink.scl;
 		obj.src = permalink.src;
 
-		if ( permalink.mat ) {
+		if ( permalink.override ) {
 
 			obj.material = JAMA.materials[ permalink.mat ].set();
 

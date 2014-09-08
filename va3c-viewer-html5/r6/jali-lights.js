@@ -97,7 +97,7 @@
 	JALI.toggleLightAmbient = function () {
 
 		if ( chkLightAmbient.checked === true ) {
-			JALI.lightAmbient = new THREE.AmbientLight( 0x333333 );
+			JALI.lightAmbient = new THREE.AmbientLight( 0x555555 );
 			JALI.lightAmbient.name = 'lightAmbient';
 			scene.add( JALI.lightAmbient );
 			JALI.updateMaterials( scene.children );
@@ -151,7 +151,7 @@ http://mrdoob.github.io/three.js/docs/#Reference/Lights/DirectionalLight
 
 // can help stop appearance of gridlines in objects with opacity < 1
 			JALI.lightPosition.shadowBias = -0.002; // default 0 ~ distance fron corners?
-			JALI.lightPosition.shadowDarkness = 0.2; // default 0.5
+			JALI.lightPosition.shadowDarkness = 0.3; // default 0.5
 			JALI.lightPosition.shadowMapWidth = 2048;  // default 512
 			JALI.lightPosition.shadowMapHeight = 2048;
 //			JALI.lightPosition.shadowCameraVisible;
