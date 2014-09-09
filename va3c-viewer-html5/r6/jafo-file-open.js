@@ -674,7 +674,7 @@ console.log( 'openFileDAE', permalink );
 
 			} else {
 
-//console.log( 'found object', contents );
+console.log( 'found object', contents );
 				scene.add( contents );
 
 				JAFO.updateObject ( permalink, contents );
