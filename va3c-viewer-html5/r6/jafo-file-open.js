@@ -602,7 +602,7 @@ console.log( 'handleJSON', permalink, contents );
 
 		if ( contents.metadata.type.toLowerCase() === 'geometry' ) {
 
-console.log( 'found geometry' );
+// console.log( 'found geometry' );
 
 /*
 //3DS Version
@@ -674,7 +674,7 @@ console.log( 'found geometry' );
 
 			} else {
 
-console.log( 'found object', contents );
+//console.log( 'found object', contents );
 				scene.add( contents );
 
 				JAFO.updateObject ( permalink, contents );

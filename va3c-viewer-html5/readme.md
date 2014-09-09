@@ -193,6 +193,8 @@ The scripts here are updates to the competition entry and winner of the second p
 
 ## Road Map
 
+* Add userData reader/editor + embed JavaScript functions
+* Add links to all content sources
 * Google Cardboard support
 * Divide menu into multiple, scrollable panels
 * Add UI themes including fixed position side bar menus

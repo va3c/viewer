@@ -134,7 +134,7 @@
 			items = hashes[i].slice(1).split( '#' );
 			for ( var j = 0; j < items.length; j++ ) {
 				item = items[j].split( '=' );
-				if ( item[0] === 'mat' || item[0] === 'name' || item[0] === 'tmpl' || item[0] === 'src' ) {
+				if ( item[0] === 'mat' || item[0] === 'name' || item[0] === 'override' || item[0] === 'src' ) {
 					defaults[ item[0] ] = item[1];
 				} else {
 					defaults[ item[0] ] = parseFloat( item[1] );
