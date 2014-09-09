@@ -602,7 +602,7 @@ console.log( 'handleJSON', permalink, contents );
 
 		if ( contents.metadata.type.toLowerCase() === 'geometry' ) {
 
-// console.log( 'found geometry' );
+console.log( 'found geometry' );
 
 /*
 //3DS Version
