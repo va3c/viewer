@@ -637,12 +637,9 @@ console.log( 'handleJSON', permalink, contents );
 
 					}
 
-					permalink.mat = '';
-
 				} else {
 
 					material = contents.materials[ 0 ];
-					permalink.mat = '';
 
 				}
 			} else if ( permalink ){
