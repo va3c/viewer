@@ -586,7 +586,7 @@ console.log( 'openFileDAE', permalink );
 		contents = contents ? contents : JAFO.requestFile( permalink.src );
 		contents = JSON.parse( contents );
 
-console.log( 'handleJSON', permalink, contents );
+//console.log( 'handleJSON', permalink, contents );
 
 		if ( contents.metadata === undefined ) { // 2.0
 			contents.metadata = { type: 'Geometry' };

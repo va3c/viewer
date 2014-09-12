@@ -1,6 +1,13 @@
 Dev Notes
 ===
 
+2014-09-12
+
+R4 Exporters do not seem to take textures into account.
+ 
+.userData
+An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.
+;-(
 
 2014-08-23 ~ Theo
 

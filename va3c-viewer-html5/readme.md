@@ -195,6 +195,7 @@ The scripts here are updates to the competition entry and winner of the second p
 
 * Add userData reader/editor + embed JavaScript functions
 * Add links to all content sources
+	* by embedding data in the model's user data
 * Google Cardboard support
 * Divide menu into multiple, scrollable panels
 * Add UI themes including fixed position side bar menus
