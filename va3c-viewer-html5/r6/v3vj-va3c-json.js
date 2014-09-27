@@ -91,6 +91,7 @@
 		[ V3VJ.basePath + 'revit/WallWindow.rvt.js', 0.01, 'Revit model - scene' ],
 
 		[ 'Title','<a href=https://github.com/va3c/3d-warehouse-samples >Post-Hackathon Updates</a>'],
+		[ V3VJ.basePathRevit + 'little_house.rvt.js', 0.01, 'Revit model - scene' ],
 		[ V3VJ.basePathRevit + 'rac_basic_sample_project_obj.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
 		[ V3VJ.basePathRevit + 'rac_basic_sample_project_site.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
 		[ V3VJ.basePathRevit + 'wall_2015.rvt.js', 0.01, 'Revit model - scene' ],

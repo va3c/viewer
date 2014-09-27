@@ -52,23 +52,22 @@
 		chkLightAmbient.checked = true;
 		chkLightAmbient.onchange = JALI.toggleLightAmbient;
 
-//		colLightAmbient.onchange = function() { JALI.lightAmbient.color.setHex( colLightAmbient.value.replace("#", "0x") ); outLightAmbient.value=this.value; };
-		colLightAmbient.onchange = function() { JALI.toggleLightAmbient(); outLightAmbient.value=colLightAmbient.value; };
+		colLightAmbient.onchange = function() { JALI.lightAmbient.color.setHex( this.value.replace("#", "0x") ); outLightAmbient.value=this.value; };
 
 		chkLightCamera.checked = true;
 		chkLightCamera.onchange = JALI.toggleLightCamera;
 
-		colLightCamera.onchange = function() { JALI.toggleLightCamera(); outLightCamera.value=this.value; };
+		colLightCamera.onchange = function() { JALI.lightCamera.color.setHex( this.value.replace("#", "0x") ); outLightCamera.value=this.value; };
 		numLightCameraIntensity.onclick = function() { JALI.lightCamera.intensity = this.value; };
 
 		chkLightPosition.checked = true;
 		chkLightPosition.onchange = JALI.toggleLightPosition;
 
-		colLightPosition.onchange = function() { JALI.toggleLightPosition(); outLightPosition.value=this.value; };
+		colLightPosition.onchange = function() { JALI.lightPosition.color.setHex( this.value.replace("#", "0x") ); outLightPosition.value=this.value; };
 		numLightPositionIntensity.onclick = function() { JALI.lightPosition.intensity = this.value; };
 
 		rngLightLat.onmousemove = function() { outpLightLat.value=this.value; JALI.updateLightPosition( rngLightLat.value, rngLightLon.value ); };
-		rngLightLon.onmousemove = function() { outpLightLon.value=this.value; JALI.updateLightPosition( rngLightLat.value, rngLightLon.value ); };
+		rngLightLon.onmousemove = function() { outpLightLon.value=this.value;  JALI.updateLightPosition( rngLightLat.value, rngLightLon.value ); };
 
 		chkLightPositionHelper.onchange = function() { JALI.lightPosition.shadowCameraVisible = chkLightPositionHelper.checked === true ? true : false; };
 
@@ -79,12 +78,51 @@
 	JALI.initLights = function () {
 //console.log( 'checkLights count', scene.__lights, scene.__lights.length );
 
+/*
+		chkLightAmbient.checked = true;
+
+		if ( !JALI.lightAmbient ) {
+		//scene.remove( JALI.lightAmbient );
+		//JALI.lightAmbient = '';
+
+			JALI.toggleLightAmbient();
+		}
+
+		chkLightCamera.checked = true;
+		if ( !JALI.lightCamera ) {
+		//camera.remove( JALI.lightCamera );
+		//scene.remove( JALI.lightCamera );
+		//JALI.lightCamera = '';
+
+			JALI.toggleLightCamera();
+		}
+		chkLightPosition.checked = true;
+
+		if ( ! JALI.lightPosition ) {
+		//scene.remove( JALI.lightPosition );
+		//JALI.lightPosition = '';
+
+		JALI.toggleLightPosition();
+		}
+*/
+
 		JALI.updateLightsTab();
 
 		renderer.shadowMapEnabled = true;
 		renderer.shadowMapSoft = true;
 
 		scene.add( camera );
+
+		JALI.checkLights();
+
+console.log( 'initLights count', scene.__lights.length );
+
+	};
+
+	JALI.checkLights = function () {
+//console.log( 'checkLights count', scene.__lights, scene.__lights.length );
+
+//JALI.updateLightsTab();
 
 		chkLightAmbient.checked = true;
 		JALI.toggleLightAmbient();
@@ -95,35 +133,34 @@
 		chkLightPosition.checked = true;
 		JALI.toggleLightPosition();
 
-console.log( 'initLights count', scene.__lights.length );
+/*
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
 
-	};
+		scene.add( camera );
+*/
+
+	}
 
 	JALI.toggleLightAmbient = function () {
 
 		if ( chkLightAmbient.checked === true ) {
-
 			if ( !JALI.lightAmbient ) {
-
 				JALI.lightAmbient = new THREE.AmbientLight( JALI.defaultAmbient );
 				JALI.lightAmbient.name = 'lightAmbient';
 				scene.add( JALI.lightAmbient );
-
 			}
-
-			JALI.lightAmbient.color.setHex( colLightAmbient.value.replace("#", "0x") );
-
+			JALI.updateMaterials( scene.children );
 		} else {
 
 			scene.remove( JALI.lightAmbient );
+
 			JALI.lightAmbient = '';
 
+//				scene.add( JALI.lightAmbient );
 		}
 
-		JALI.updateMaterials( scene.children );
-
-//console.log( 'toggleLightAmbient', JALI.lightAmbient, chkLightAmbient.checked );
-
+console.log( 'toggleLightAmbient', JALI.lightAmbient, chkLightAmbient.checked );
 	};
 
 
@@ -133,18 +170,16 @@ console.log( 'initLights count', scene.__lights.length );
 
 			if ( !JALI.lightCamera ) {
 
-				JALI.lightCamera = new THREE.PointLight( JALI.defaultCamera );
+				JALI.lightCamera = new THREE.PointLight( JALI.defaultCamera, 0.5 );
 				JALI.lightCamera.name = 'lightCamera';
+				JALI.lightCamera.position = camera.position;
 				camera.add( JALI.lightCamera );
 	// to track light
 				scene.add( camera );
+//console.log( 'toggleLightCamera', JALI.lightCamera );
 
 			}
-
-			JALI.lightCamera.color.setHex( colLightCamera.value.replace( "#", "0x" ) );
-			JALI.lightCamera.intensity = numLightCameraIntensity.value;
-			JALI.lightCamera.position = camera.position;
-
+			
 
 
 		} else {
@@ -152,26 +187,25 @@ console.log( 'initLights count', scene.__lights.length );
 			camera.remove( JALI.lightCamera );
 			scene.remove( JALI.lightCamera );
 
+//				camera.add( JALI.lightCamera );
+	// to track light
+//				scene.add( camera );
 			JALI.lightCamera = '';
 
 		}
-
-		JALI.updateMaterials( scene.children );
-
-console.log( 'toggleLightCamera', JALI.lightCamera );
-
+			JALI.updateMaterials( scene.children );
 	};
 
 	JALI.toggleLightPosition = function( d ) {
-
 		if ( chkLightPosition.checked === true  ) {
 			if ( !JALI.lightPosition ) {
 
 				JALI.lightPosition = new THREE.DirectionalLight( JALI.defaultPosition, 0.25 );  // 0xffffff 1.0
 				JALI.lightPosition.name = 'lightPosition';
-				scene.add( JALI.lightPosition );
-				JALI.lightPosition.castShadow = true;
 
+				JALI.updateLightPosition( rngLightLat.value, rngLightLon.value );
+
+				JALI.lightPosition.castShadow = true;
 				d = d ? d : 100;
 				JALI.lightPosition.shadowCameraLeft = -d;
 				JALI.lightPosition.shadowCameraRight = d;
@@ -186,26 +220,21 @@ console.log( 'toggleLightCamera', JALI.lightCamera );
 				JALI.lightPosition.shadowDarkness = 0.3; // default 0.5
 				JALI.lightPosition.shadowMapWidth = 2048;  // default 512
 				JALI.lightPosition.shadowMapHeight = 2048;
-			}
-
-				JALI.lightPosition.color.setHex( colLightPosition.value.replace( "#", "0x" ) );
-				JALI.lightPosition.intensity = numLightPositionIntensity.value;
-
-				JALI.updateLightPosition( rngLightLat.value, rngLightLon.value );
 
 				if ( chkPrefsZoom.checked ) { JALI.lightPosition.shadowCameraVisible = true; }
 
+				scene.add( JALI.lightPosition );
+			}
+//			JALI.updateMaterials( scene.children );
 		} else {
-
 			scene.remove( JALI.lightPosition );
 			JALI.lightPosition = '';
 
+//			scene.add( JALI.lightPosition );
 // leaving behind zombie object and camera. need to figure out how to deal with these...
 
 		}
-
 		JALI.updateMaterials( scene.children );
-
 	};
 
 
@@ -218,7 +247,6 @@ console.log( 'toggleLightCamera', JALI.lightCamera );
 	};
 
 	JALI.updateLightPosition = function ( lat, lon ) {
-		if ( !JALI.lightPosition ) { return; }
 
 		var pi = Math.PI, pi05 = pi * 0.5, pi2 = pi + pi;
 		var d2r = pi / 180, r2d = 180 / pi;  // degrees / radians

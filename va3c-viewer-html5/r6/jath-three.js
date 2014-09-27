@@ -150,34 +150,6 @@ console.log( 'geo', geo);
 //console.log( 'camera.near', camera.near.toFixed( 3 ), 'camera.far', camera.far );
 
 	}
-/*
-	function updateShadows( cen, rad, test ) {
-
-		lightDirectional = new THREE.DirectionalLight( 0xffffff, 1 );
-
-		lightDirectional.castShadow = true;
-		lightDirectional.shadowMapWidth = 2048;
-		lightDirectional.shadowMapHeight = 2048;
-
-		cenObj = new THREE.Object3D();
-		cenObj.position.set( cen.x, cen.y, cen.z )
-		lightDirectional.position.set( -rad + cen.x, rad + cen.y, rad + cen.z );
-		lightDirectional.target = cenObj;
-
-		lightDirectional.shadowCameraLeft = -rad;
-		lightDirectional.shadowCameraRight = rad;
-		lightDirectional.shadowCameraTop = rad;
-		lightDirectional.shadowCameraBottom = -rad;
-
-		lightDirectional.shadowCameraNear = 0;
-		lightDirectional.shadowCameraFar = 3 * rad;
-//		lightDirectional.updateMatrix();
-//		lightDirectional.updateMatrixWorld();  
-
-		if ( test ) { lightDirectional.shadowCameraVisible = true; }
-		scene.add( lightDirectional );
-	}
-*/
 
 // handle events
 

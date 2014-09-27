@@ -333,12 +333,12 @@ A URL to the source file has been provided
 		controls = app.controls;
 		material = app.material;
 
-// Add or reset scene things
-		JALI.initLights();
-
 		JATH.addObjectClickEvent();
 
 		JAFO.targetList = [];
+
+// Add or reset scene things
+		JALI.initLights();
 
 // update parent screen
 		JAPR.setRandomGradient();
@@ -823,14 +823,12 @@ console.log( 'found a whoopsie');
 
 
 	JAFO.loadScene = function( permalink, contents ) {
-console.log( 'updateScene', permalink );
+//console.log( 'loadScene', permalink );
 
 		scene = contents;
 
 // Update Three.js
 		app.scene = scene;
-
-		JALI.checkLights();
 
 		JATH.resetCamera( V3PL.permalinks[0] );
 
@@ -841,6 +839,7 @@ console.log( 'updateScene', permalink );
 
 		JAFO.updateTargetList( permalink.src );
 
+//		JALI.checkLights();
 // Update parent
 		JATH.attributesDiv.innerHTML = geoMsg.innerHTML = permalink.name + '<br>';
 		divMsg1.innerHTML = 'Base: ' + permalink.name;
