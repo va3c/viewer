@@ -1,8 +1,10 @@
 	var JALI = [] || JALI;
 
-	JALI.defaultAmbient = '#333333';
-	JALI.defaultCamera = '#555555';
-	JALI.defaultPosition = '#333333';
+	JALI.defaultAmbient = '#888888';
+	JALI.defaultCamera = '#888888';
+	JALI.defaultCameraIntensity = 1.0;
+	JALI.defaultPosition = '#888888';
+	JALI.defaultPositionIntensity = 1.0;
 
 	JALI.addLightsTab = function() {
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
@@ -28,12 +30,12 @@
 			'<p>' +
 				'<input type=checkbox id=chkLightCamera onclick=JALI.toggleLightCamera(); /> Light at camera position<br>' +
 				'<input type=color id=colLightCamera value=' + JALI.defaultCamera + ' /> <output id=outLightCamera >' + JALI.defaultCamera + '</output> ' +
-				'Intensity <input type=number id=numLightCameraIntensity min=0 step=0.1 value=0.5 style=width:40px; /><br>' +
+				'Intensity <input type=number id=numLightCameraIntensity min=0 step=0.1 value=' + JALI.defaultCameraIntensity + ' style=width:40px; /><br>' +
 			'</p>' +
 			'<p>' +
 				'<input type=checkbox id=chkLightPosition onclick=JALI.toggleLightPosition(110); /> Directional Light<br>' +
 				'<input type=color id=colLightPosition value=' + JALI.defaultPosition + ' /> <output id=outLightPosition >' + JALI.defaultPosition + '</output> ' +
-				'Intensity <input type=number id=numLightPositionIntensity min=0 step=0.1 value=0.5 style=width:40px; /><br>' +
+				'Intensity <input type=number id=numLightPositionIntensity min=0 step=0.1 value=' + JALI.defaultPositionIntensity + ' style=width:40px; /><br>' +
 
 			'</p>' +
 			'<p>' +
@@ -53,19 +55,19 @@
 		chkLightAmbient.onchange = JALI.toggleLightAmbient;
 
 //		colLightAmbient.onchange = function() { JALI.lightAmbient.color.setHex( colLightAmbient.value.replace("#", "0x") ); outLightAmbient.value=this.value; };
-		colLightAmbient.onchange = function() { JALI.toggleLightAmbient(); outLightAmbient.value=colLightAmbient.value; };
+		colLightAmbient.onchange = function() { JALI.toggleLightAmbient(); outLightAmbient.value=parseFloat(colLightAmbient.value); };
 
 		chkLightCamera.checked = true;
 		chkLightCamera.onchange = JALI.toggleLightCamera;
 
 		colLightCamera.onchange = function() { JALI.toggleLightCamera(); outLightCamera.value=this.value; };
-		numLightCameraIntensity.onclick = function() { JALI.lightCamera.intensity = this.value; };
+		numLightCameraIntensity.onclick = function() { JALI.lightCamera.intensity = parseFloat(this.value); };
 
 		chkLightPosition.checked = true;
 		chkLightPosition.onchange = JALI.toggleLightPosition;
 
 		colLightPosition.onchange = function() { JALI.toggleLightPosition(); outLightPosition.value=this.value; };
-		numLightPositionIntensity.onclick = function() { JALI.lightPosition.intensity = this.value; };
+		numLightPositionIntensity.onclick = function() { JALI.lightPosition.intensity = parseFloat(this.value); };
 
 		rngLightLat.onmousemove = function() { outpLightLat.value=this.value; JALI.updateLightPosition( rngLightLat.value, rngLightLon.value ); };
 		rngLightLon.onmousemove = function() { outpLightLon.value=this.value; JALI.updateLightPosition( rngLightLat.value, rngLightLon.value ); };
@@ -87,15 +89,18 @@
 		scene.add( camera );
 
 		chkLightAmbient.checked = true;
+		JALI.lightAmbient = '';
 		JALI.toggleLightAmbient();
 
 		chkLightCamera.checked = true;
+		JALI.lightCamera = '';
 		JALI.toggleLightCamera();
 
 		chkLightPosition.checked = true;
+		JALI.lightPosition = '';
 		JALI.toggleLightPosition();
 
-console.log( 'initLights count', scene.__lights.length );
+//console.log( 'initLights count', scene.__lights.length );
 
 	};
 
@@ -142,7 +147,7 @@ console.log( 'initLights count', scene.__lights.length );
 			}
 
 			JALI.lightCamera.color.setHex( colLightCamera.value.replace( "#", "0x" ) );
-			JALI.lightCamera.intensity = numLightCameraIntensity.value;
+			JALI.lightCamera.intensity = parseFloat(numLightCameraIntensity.value);
 			JALI.lightCamera.position = camera.position;
 
 
@@ -158,7 +163,7 @@ console.log( 'initLights count', scene.__lights.length );
 
 		JALI.updateMaterials( scene.children );
 
-console.log( 'toggleLightCamera', JALI.lightCamera );
+//console.log( 'toggleLightCamera', JALI.lightCamera );
 
 	};
 
@@ -189,7 +194,7 @@ console.log( 'toggleLightCamera', JALI.lightCamera );
 			}
 
 				JALI.lightPosition.color.setHex( colLightPosition.value.replace( "#", "0x" ) );
-				JALI.lightPosition.intensity = numLightPositionIntensity.value;
+				JALI.lightPosition.intensity = parseFloat(numLightPositionIntensity.value);
 
 				JALI.updateLightPosition( rngLightLat.value, rngLightLon.value );
 

@@ -1,6 +1,21 @@
 Dev Notes
 ===
 
+2014-10-09 ~ Theo
+
+The app really needs some YouTube videos that shows what it can do.
+
+The standard way would be to use Camtasia and and a human doing voiceovers. 
+That would be cool but takes buyong and installing Camtasia. 
+[The FOSS solutions are not as good by a long shot. ]
+And learning ir. And the making lots of trial and error voice recordings.
+
+So, instead, can we eat out own dog food?
+
+Can we use text-to-speech in Javascript? Can we use event creators and the vA3C API to build self-running demos.
+Then using one of the FOSS tools create YouTube videos? 
+
+
 2014-09-12
 
 R4 Exporters do not seem to take textures into account.

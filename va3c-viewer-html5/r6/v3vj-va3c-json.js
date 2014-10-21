@@ -59,7 +59,7 @@
 
 	V3VJ.files = [
 
-		[ 'Title','<a href=https://github.com/va3c/json/ >Hackathon files</a>'],
+		[ 'Title','<a href=https://github.com/va3c/json/ >Hackathon files</a><br>Almost all the Hackathon files have issues. Please avoid unless you are testing for errors.'],
 		[ V3VJ.basePath + 'DrCyanKlein.json', 0.005, 'Revit model' ],
 		[ V3VJ.basePath + 'DrMajentaKlein.json', 0.01, 'Revit model - scene'],
 		[ V3VJ.basePath + 'Hex_01.js', 0.0075, 'Grasshopper model - scene' ],
@@ -90,7 +90,7 @@
 
 		[ V3VJ.basePath + 'revit/WallWindow.rvt.js', 0.01, 'Revit model - scene' ],
 
-		[ 'Title','<a href=https://github.com/va3c/3d-warehouse-samples >Post-Hackathon Updates</a>'],
+		[ 'Title','<a href=https://github.com/va3c/3d-warehouse-samples >Post-Hackathon Updates</a>Thee files seem to be OK.'],
 		[ V3VJ.basePathRevit + 'little_house.rvt.js', 0.01, 'Revit model - scene' ],
 		[ V3VJ.basePathRevit + 'rac_basic_sample_project_obj.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
 		[ V3VJ.basePathRevit + 'rac_basic_sample_project_site.rvt.js', 0.01, 'Revit model - scene - 41 MB - takes a while to load, worth the wait!' ],
