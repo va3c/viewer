@@ -1,7 +1,7 @@
 vA3C Viewer Read Me
 ===
-[Web page view]( http://va3c.github.io/viewer/va3c-viewer-html5/ )
-[Source code view]( https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5 )
+[Web page view]( http://va3c.github.io/viewer/va3c-viewer-html5/ "View files with docBrowser" )
+[Source code view]( https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5 "View files with GitHub")
 
 ### Live Demo
 
