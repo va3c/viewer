@@ -50,7 +50,8 @@
 			file = V3PL.files[ i ];
 
 			if ( file[0] === 'Title' ) {
-				fileList += '<h3 style=margin-bottom:0; >' + file[1] + '</h3>';
+				fileList += '<h3 style=margin-bottom:0; >' + file[1] + '</h3>' +
+				'<p><small>Click link below then reload web page</small></p>';
 			} else {
 
 				title = 
@@ -77,7 +78,7 @@
 
 			'<p><a href=JavaScript:V3.init(); title="Read data from the address bar and display the results" >Parse Permalinks</a></p>' +
 
-			'<p><a href=JavaScript:location.hash="autocrapdoodle";V3.init(); title="Each reload brings randomly generated data files" >Get AUTOcrapdoodle</a></p>' +
+			'<p><a href=JavaScript:location.hash="autocrapdoodle";V3.init(); title="Each reload brings randomly generated data files" >Generate AUTOcrapdoodle</a></p>' +
 
 			'<p><a href=JavaScript:V3PL.clearPermalink(); title="Reset address bar to the default URL" >Clear Permalink</a></p>' +
 

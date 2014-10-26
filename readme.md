@@ -6,7 +6,7 @@ vA3C Viewer
 
 ## Veritable Hackathon Work Product
 
-Full Screen Live Demo (R1): [vA3C Viewer]( va3c.github.io/viewer/index.html )
+Full Screen Live Demo (R1): [vA3C Viewer]( http://va3c.github.io/viewer/index.html )
 
 ### Single File Viewers
 

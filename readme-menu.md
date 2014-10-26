@@ -1,27 +1,28 @@
 [vA3C](../index.html ) &raquo;<br>[Viewer]( ./readme-reader.html )
 ===
+<br>
 
-<p id=rm >
-	<a href=JavaScript:displayPage("#readme.md#rm"); >Read Me</a>
-</p>
+<div id=rm >
+	<a href=JavaScript:displayMD("#readme.md#rm"); >Read Me</a>
+</div>
 
 <i class="fa fa-external-link"></i> [Live Demo vA3C Viewer (R1)]( http://va3c.github.io/viewer/index.html ) 
 
 <br>
 
-<p id=rm5 >
-	<a href=JavaScript:displayPage("#va3c-viewer-html5/readme.md#rm5"); >vA3C Viewer HTML5 Read Me</a>
-</p>
+<div id=rm5 >
+	<a href=JavaScript:displayMD("#va3c-viewer-html5/readme.md#rm5"); >vA3C Viewer HTML5 Read Me</a>
+</div>
 
 <i class="fa fa-external-link"></i> [Live Demo vA3C Viewer Latest]( http://va3c.github.io/viewer/va3c-viewer-html5/latest/index.html ) 
 
-<p id=ed >
-	<a href=JavaScript:displayPage("#./va3c-editor/readme.md#ed"); >vA3C Editor Read Me</a>
-</p>
+<div id=ed >
+	<a href=JavaScript:displayMD("#./va3c-editor/readme.md#ed"); >vA3C Editor Read Me</a>
+</div>
 
-<p id=cb >
-	<a href=JavaScript:displayPage("#./cookbook/readme.md#cd"); >vA3C Cookbook Read Me</a>
-</p>
+<div id=cb >
+	<a href=JavaScript:displayMD("#./cookbook/readme.md#cd"); >vA3C Cookbook Read Me</a>
+</div>
 
 <br>
 
