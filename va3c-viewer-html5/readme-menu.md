@@ -11,6 +11,8 @@
 
 Watch the progress...
 
+<i class="fa fa-external-link"></i> [Live Demo R6]( http://va3c.github.io/viewer/va3c-viewer-html5/r7/va3c-viewer-r7.html ) 
+
 <i class="fa fa-external-link"></i> [Live Demo R6]( http://va3c.github.io/viewer/va3c-viewer-html5/r6/va3c-viewer-r6.html ) 
 
 <i class="fa fa-external-link"></i> [Live Demo R5]( http://va3c.github.io/viewer/va3c-viewer-html5/r5/va3c-viewer-r5.html ) 
