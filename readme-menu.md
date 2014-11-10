@@ -9,13 +9,22 @@
 <i class="fa fa-external-link"></i> [Live Demo vA3C Viewer (R1)]( http://va3c.github.io/viewer/index.html ) 
 
 <br>
+  
+[vA3C Viewer HTML5 Read Me]( ./va3c-viewer-html5/index.html )  
 
+<!--
 <div id=rm5 >
 	<a href=JavaScript:displayMD("#va3c-viewer-html5/readme.md#rm5"); >vA3C Viewer HTML5 Read Me</a>
 </div>
+-->
 
 <i class="fa fa-external-link"></i> [Live Demo vA3C Viewer Latest]( http://va3c.github.io/viewer/va3c-viewer-html5/latest/index.html ) 
 
+[vA3C Editor Read Me]( ./va3c-editor/index.html )
+
+[vA3C Cookbook Read Me]( ./cookbook/index.html )
+
+<!--
 <div id=ed >
 	<a href=JavaScript:displayMD("#./va3c-editor/readme.md#ed"); >vA3C Editor Read Me</a>
 </div>
@@ -23,6 +32,8 @@
 <div id=cb >
 	<a href=JavaScript:displayMD("#./cookbook/readme.md#cd"); >vA3C Cookbook Read Me</a>
 </div>
+-->
+
 
 <br>
 

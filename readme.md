@@ -3,6 +3,9 @@ vA3C Viewer
 [Web page version]( http://va3c.github.io/viewer/readme-reader.html )
 [Source code version]( https://github.com/va3c/viewer/ )
 
+_This read me provides an overview of the several vA3C Viewer projects._
+
+_Currently, most effort is being put on [vA3C Viewer HTML5]( ./va3c-viewer-html5/index.html )_
 
 ## Veritable Hackathon Work Product
 
@@ -31,14 +34,15 @@ Work in Progress: WordPress Plugin: 3D Model viewer based off of the va3c model 
 
 ### vA3C Viewer HTML5
 
-This version is built using simply Three.js and HTML5
+This version is built simply using Three.js and HTML5.
+
+The name 'vA3C Viewer HTML5' leaves open the possibility that there might be a 'vA3C Viewer Dat.gui' and other spin-off projects.
 
 Live demo: <http://va3c.github.io/viewer/va3c-viewer-html5/latest/>  
 Read Me: <http://va3c.github.io/viewer/va3c-viewer-html5/>  
 GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5>  
 
 Features include:
-
 
 * Mouse-over attribute display
 * Open files locally or by URL
@@ -76,4 +80,8 @@ GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/cookbook>
 
 ### Sample Files
 
-A WIP
+[3D Warehouse Samples]( ../3d-warehouse-samples/index.html )  
+[NASA Samples]( ../nasa-samples/index.html )  
+
+
+

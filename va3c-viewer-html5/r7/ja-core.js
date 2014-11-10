@@ -68,7 +68,7 @@
 				'copyright &copy; 2014 Jaanga authors ~ MIT license' +
 			'</small><br><br>' +
 			'<p style=text-align:right; >' +
-				'<a class=button href=JavaScript:JA.toggleDialogs(JA.about); >Close</a> ' +
+				'<a class=button href=JavaScript:JA.toggleDialogs(JA.aboutDialog); >Close</a> ' +
 			'</p>' +
 		'';
 
