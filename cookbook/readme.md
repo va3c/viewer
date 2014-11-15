@@ -102,7 +102,7 @@ Folders include:
 
 ## Vertex Colors
 
-[Live Demo]( http://va3c.github.io/viewer/cookbook/vertex-colors/r1/vertex-colors-r1.html ) - 
+[Live Demo]( http://va3c.github.io/viewer/cookbook/vertex-colors/r2/vertex-colors-r2.html ) - 
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/vertex-colors/r1/ )
 
 * Creats Three.js Models where every every vertex of every face in a mesh has its own colors
