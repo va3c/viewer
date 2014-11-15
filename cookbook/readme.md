@@ -33,7 +33,7 @@ Folders include:
 
 * Basic introduction to reading in JSON data into an HTML web page
 
-## Export Data JAON
+## Export Data JSON
 
 [Export Data JSON](  http://va3c.github.io/viewer/cookbook/export-data-json )  
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/json-reader )
