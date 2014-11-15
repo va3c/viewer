@@ -26,10 +26,14 @@ the web or locally for easy viewing and collaboration in your browser - all usin
 
 Folders include:
 
+## JSON Reader
+
 [JSON Reader]( http://va3c.github.io/viewer/cookbook/json-reader/ )   
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/export-data-json )
 
 * Basic introduction to reading in JSON data into an HTML web page
+
+## Export Data JAON
 
 [Export Data JSON](  http://va3c.github.io/viewer/cookbook/export-data-json )  
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/json-reader )
@@ -90,24 +94,26 @@ Folders include:
 
 ## Drag and Drop Demo
 
-[Web page version]( http://va3c.github.io/viewer/cookbook/drag-and-drop/r1/drag-and-drop-r1.html ) - 
+[Live Demo]( http://va3c.github.io/viewer/cookbook/drag-and-drop/r1/drag-and-drop-r1.html ) - 
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/drag-and-drop/ )
 
 * JSON only for the moment
+* Added 2014-09-29
 
+## Vertex Colors
+
+[Live Demo]( http://va3c.github.io/viewer/cookbook/vertex-colors/r1/vertex-colors-r1.html ) - 
+[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/vertex-colors/r1/ )
+
+* Creats Three.js Models where every every vertex of every face in a mesh has its own colors
+* Demo includes colors generated randomly and by algorithm 
+* Added 2014-11-14
 
 
 ## Project Links
 vA3C is a [GitHub]( http://github.com) [organization account]( https://help.github.com/articles/what-s-the-difference-between-user-and-organization-accounts ) and has multiple owners and admins. 
 All vA3EC scripts are [FOSS]( https://en.wikipedia.org/wiki/Free_and_open-source_software ).
 Scripts are hosted on GitHub and are viewable as web pages, as described in the 'Read Me' files and as source code.
-
-The three ways of looking at the vA3C scripts:
-
-1. [Live Demo]( http://va3c.github.io/viewer/cookbook/r1/json-build-export-object.html )  
-2. [Read Me]( http://va3c.github.io/viewer/cookbook "view the files as apps." ) <input value="<< You are now probably here." size=28 style="font:bold 12pt monospace;border-width:0;" >   
-3. [Source Code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook "View the files as source code." ) <scan style=display:none ><< You are now probably here.</scan>  
-
 
 ## System Requirements
 
@@ -131,6 +137,11 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+2014-11-14 ~ Theo
+
+* Added vertex-colors
+* Update readme
 
 2014-08-09 ~ Added Revit JSON Import via XMLHttpRequest
 

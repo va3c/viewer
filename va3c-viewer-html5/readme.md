@@ -14,6 +14,7 @@ The scripts here are updates to the competition entry and winner of the second p
 
 ### Blog Posts
 
+2014-10-29 ~ [Berlin Hackathon Results, 3D Viewer and Web News]( http://thebuildingcoder.typepad.com/blog/2014/10/berlin-hackathon-results-3d-viewer-and-web-news.html ) 
 2014-08-22 ~ [Three.js AEC Viewer Progress on Two Fronts]( http://thebuildingcoder.typepad.com/blog/2014/08/threejs-aec-viewer-progress-on-two-fronts.html )  
 2014-08-03 ~ [vAEC Viewer R4: Permalinks Provide Fast Easy Free Ways To Source and Save Data Online]( http://www.jaanga.com/2014/08/vaec-viewer-r4-permalinks-provide-fast.html )  
 2014-07-27 ~ [vA3C Viewer R3 Update ~ 2014-07-27 ~ No More Russian Dolls ( scenes inside scenes inside scenes )]( http://www.jaanga.com/2014/07/va3c-viewer-r3-update-2014-07-27-no.html )  
