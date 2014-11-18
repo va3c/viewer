@@ -21,7 +21,7 @@
 	var startTime;
 	var file, oldFile;
 
-	var info, renderer, scene, camera, light, controls, stats;
+	var info, renderer, scene, camera, light, controls, stats, loader;
 
 	init();
 	animate();
@@ -107,6 +107,8 @@
 	}
 
 	function loadJSON( fileName ) {
+		loader = new THREE.JSONLoader();
+
 		if ( updatingObject ) { 
 			updatingObject.geometry.dispose();
 			scene.remove( updatingObject ); 
