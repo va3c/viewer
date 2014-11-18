@@ -103,12 +103,20 @@ Folders include:
 ## Vertex Colors
 
 [Live Demo]( http://va3c.github.io/viewer/cookbook/vertex-colors/r2/vertex-colors-r2.html ) - 
-[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/vertex-colors/r1/ )
+[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/vertex-colors/ )
 
-* Creats Three.js Models where every every vertex of every face in a mesh has its own colors
+* Exports data JSON files.
+* Creates Three.js Models where every every vertex of every face in a mesh has its own colors
 * Demo includes colors generated randomly and by algorithm 
 * Added 2014-11-14
 
+## Update Tracker
+
+[Live Demo]( http://va3c.github.io/viewer/cookbook/update-tracker/r1/update-tracker-r1.html ) - 
+[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/update-tracker/ )
+
+* Track changes in 3D to JSON files being edited locally on a computer
+* Added 2014-11-17
 
 ## Project Links
 vA3C is a [GitHub]( http://github.com) [organization account]( https://help.github.com/articles/what-s-the-difference-between-user-and-organization-accounts ) and has multiple owners and admins. 
