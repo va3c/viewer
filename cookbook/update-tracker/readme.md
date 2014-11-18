@@ -8,12 +8,16 @@ For the impetus for this example, see: <https://github.com/va3c/GHvA3C/issues/12
 
 <http://va3c.github.io/viewer/cookbook/update-tracker/r1/update-tracker-r1.html>
 
-<http://va3c.github.io/viewer/cookbook/update-tracker/r1/update-last-modified-read-file-iframe.html>
-
 Sample file to edit: <https://github.com/va3c/viewer/tree/gh-pages/cookbook/update-tracker/WaltHeadLo.js>
 
 * Edit WaltHeadLo.js - for example change the scale from 100 to 200 and then change it back.
 * Watch the changes auto-magically appear in Update Tacker
+
+<http://va3c.github.io/viewer/cookbook/update-tracker/r1/update-last-modified-read-file-iframe.html>
+
+* attempting to make something that overcomes Three.js Loader.load caching.
+* Not yet successful
+
 
 ## Notes
 
