@@ -16,7 +16,7 @@
 
 	var updatingObject;
 	var startTime;
-	var file, oldfile;
+	var file, oldFile;
 
 	var info, renderer, scene, camera, light, controls, stats;
 
@@ -139,7 +139,7 @@
 
 	function requestFile( fname ) {
 		var xmlhttp = new XMLHttpRequest(); 
-		xmlhttp.open( 'GET', fname + '?' + (new Date()).getTime(), false );
+		xmlhttp.open( 'GET', fname + ((/\?/).test( fname ) ? "&" : "?") + (new Date()).getTime(), false );
 		xmlhttp.send( null );
 		return xmlhttp.responseText;
 	}
