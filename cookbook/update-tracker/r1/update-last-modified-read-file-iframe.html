@@ -4,6 +4,7 @@
 <title>update auto lastmodified</title>
 <meta charset=utf-8 />
 <meta name=author content='Theo Armour' />
+<meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
 </head>
 <body>
 <script>
@@ -37,7 +38,7 @@
 
 	function requestFile( fname ) {
 		var xmlhttp = new XMLHttpRequest(); 
-		xmlhttp.open( 'GET', fname, false );
+		xmlhttp.open( 'GET', fname + ((/\?/).test( fname ) ? "&" : "?") + (new Date()).getTime(), false );
 		xmlhttp.send( null );
 		return xmlhttp.responseText;
 	}
