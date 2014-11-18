@@ -107,7 +107,10 @@
 	}
 
 	function loadJSON( fileName ) {
-		if ( updatingObject ) { scene.remove( updatingObject ); }
+		if ( updatingObject ) { 
+			updatingObject.geometry.dispose();
+			scene.remove( updatingObject ); 
+		}
 
 		loader.load( fileName, function ( geometry ) {
 			material = new THREE.MeshPhongMaterial( { color: 0x888888, shading: THREE.SmoothShading } );
@@ -116,7 +119,6 @@
 			updatingObject.castShadow = true;
 			updatingObject.receiveShadow = true;
 			scene.add( updatingObject );
-
 
 		} );
 
@@ -144,7 +146,7 @@
 		var xmlhttp = new XMLHttpRequest(); 
 		xmlhttp.crossOrigin = "Anonymous"; 
 		xmlhttp.open( 'GET', fname + ((/\?/).test( fname ) ? "&" : "?") + (new Date()).getTime(), false );
-console.log( fname + ((/\?/).test( fname ) ? "&" : "?") + (new Date()).getTime() );
+//console.log( fname + ((/\?/).test( fname ) ? "&" : "?") + (new Date()).getTime() );
 		xmlhttp.send( null );
 		return xmlhttp.responseText;
 	}
