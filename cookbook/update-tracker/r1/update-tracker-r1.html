@@ -100,7 +100,7 @@
 		loadJSON( fileName );
 
 		msg.innerHTML = startTime = new Date();
-		oldfile = file = requestFile( fileName );
+		oldFile = file = requestFile( fileName );
 	}
 
 	function loadJSON( fileName ) {
@@ -124,12 +124,13 @@
 		controls.update();
 		stats.update();
 
-		if ( new Date() - startTime > 3000 ) {
+		if ( new Date() - startTime > updateInterval ) {
 			msg.innerHTML = startTime;
 			file = requestFile( fileName );
-			if ( file !== oldfile ) {
+			if ( file !== oldFile ) {
 				loadJSON( fileName );
 				msg.innerHTML += ' ~ changed!';
+				oldFile = file;
 			}
 			startTime = new Date();
 		}
@@ -138,7 +139,7 @@
 
 	function requestFile( fname ) {
 		var xmlhttp = new XMLHttpRequest(); 
-		xmlhttp.open( 'GET', fname, false );
+		xmlhttp.open( 'GET', fname + '?' + (new Date()).getTime(), false );
 		xmlhttp.send( null );
 		return xmlhttp.responseText;
 	}
