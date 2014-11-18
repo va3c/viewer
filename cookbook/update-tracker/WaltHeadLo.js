@@ -2,7 +2,7 @@
 
     "metadata": { "formatVersion" : 3, "generatedBy": "Blender 2.58 Exporter" },
 
-    "scale" : 100.000000,
+    "scale" : 300.000000,
 
     "materials": [],
 
