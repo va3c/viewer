@@ -4,7 +4,8 @@
 <title>update tracker</title>
 <meta charset=utf-8 >
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
-<meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
 </head>
 <body>
 <script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
@@ -15,7 +16,7 @@
 	var fileName = '../WaltHeadLo.js';
 //var fileName = 'https://raw.githubusercontent.com/va3c/viewer/gh-pages/cookbook/update-tracker/WaltHeadLo.js';
 
-	var updateInterval = 3000; // milleseconds
+	var updateInterval = 3000; // milliseconds
 
 	var updatingObject;
 	var startTime;
@@ -28,9 +29,6 @@
 
 	function init() {
 		var geometry, material, mesh;
-
-//		var css = document.body.appendChild( document.createElement('style') );
-//		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }';
 
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
@@ -115,6 +113,7 @@
 		}
 
 		loader.load( fileName, function ( geometry ) {
+
 			material = new THREE.MeshPhongMaterial( { color: 0x888888, shading: THREE.SmoothShading } );
 			updatingObject = new THREE.Mesh( geometry, material );
 			updatingObject.position.set( 0, 50, 0 );
@@ -131,7 +130,7 @@
 		controls.update();
 		stats.update();
 
-		if ( new Date() - startTime > updateInterval ) {
+		if ( Date.now() - startTime > updateInterval ) {
 			msg.innerHTML = startTime;
 			file = requestFile( fileName );
 			if ( file !== oldFile ) {
@@ -139,16 +138,15 @@
 				msg.innerHTML += ' ~ changed!';
 				oldFile = file;
 			}
-			startTime = new Date();
+			startTime = Date.now();
 		}
 		requestAnimationFrame( animate );
 	}
 
 	function requestFile( fname ) {
 		var xmlhttp = new XMLHttpRequest(); 
-		xmlhttp.crossOrigin = "Anonymous"; 
-		xmlhttp.open( 'GET', fname + ((/\?/).test( fname ) ? "&" : "?") + (new Date()).getTime(), false );
-//console.log( fname + ((/\?/).test( fname ) ? "&" : "?") + (new Date()).getTime() );
+		xmlhttp.open( 'GET', fname, false );
+//		xmlhttp.open( 'GET', fname + ((/\?/).test( fname ) ? "&" : "?") + (new Date()).getTime(), false );
 		xmlhttp.send( null );
 		return xmlhttp.responseText;
 	}

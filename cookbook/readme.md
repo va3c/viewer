@@ -112,7 +112,7 @@ Folders include:
 
 ## Update Tracker
 
-[Live Demo]( http://va3c.github.io/viewer/cookbook/update-tracker/r1/update-tracker-r1.html ) - 
+[Client-side Demo]( http://va3c.github.io/viewer/cookbook/update-tracker/client-side-r1/update-tracker-r1.html ) - 
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/update-tracker/ )
 
 * Track changes in 3D to JSON files being edited locally on a computer
