@@ -9,6 +9,7 @@
 	var update = function() {};
 	var updateStartTime;
 
+
 	demoAeronauticalArchitectural( location.hash );
 
 	function demoAeronauticalArchitectural( parameters ) {
