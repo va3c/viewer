@@ -17,7 +17,7 @@
  
 		if ( parameters.indexOf( 'demo' ) < 0 ) {
 
-			location.hash = '#load-file-html.js#../templates/template-lights-shadows.html';
+			location.hash = '#load-file-html.js#../templates/template-skybox.html';
 
 			callbackIframe = function() {
 
@@ -190,7 +190,7 @@
 
 		duration = 5000;
 
-		text = 'Was this demo started in the wright fashion?';
+		text = 'Was this demo not started in the Wright fashion?';
 		speak( text );
 
 		location.hash = '#tween-camera-and-target.js#150#10#30#-50#5#0#' + duration;

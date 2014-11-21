@@ -26,6 +26,8 @@
 
 		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
 		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
 		document.body.appendChild( renderer.domElement );
 		scene = new THREE.Scene();
 
@@ -33,11 +35,53 @@
 		camera.position.set( 100, 100, 100 );
 		controls = new THREE.OrbitControls( camera, renderer.domElement );
 
+// Lights
+		light = new THREE.AmbientLight( 0xffffff );
+		scene.add( light );
+
+		light = new THREE.DirectionalLight( 0xffffff );
+		light.position.set( -200, 200, 200 );
+
+		var d = 200;
+		light.shadowCameraLeft = -d;
+		light.shadowCameraRight = d;
+		light.shadowCameraTop = d;
+		light.shadowCameraBottom = -d;
+
+		light.shadowCameraNear = 100;
+		light.shadowCameraFar = 500;
+
+// can help stop appearance of gridlines in objects with opacity < 1
+		light.shadowBias = -0.002; // default 0 ~ distance from corners?
+		light.shadowDarkness = 0.3; // default 0.5
+
+		light.shadowMapWidth = 2048;  // default 512
+		light.shadowMapHeight = 2048;
+
+		light.castShadow = true;
+		light.shadowCameraVisible = true;
+		scene.add( light );
+
+		light = new THREE.PointLight( 0xf0f0f0, 0.5 );  // color intensity distance 0 = infinity
+		camera.add( light );
+
+
 // ground box
 		geometry = new THREE.BoxGeometry( 200, 1, 100 );
-		material = new THREE.MeshNormalMaterial();
+
+//		material = new THREE.MeshNormalMaterial();
+		material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random(),
+			shininess: 50,
+			side: THREE.DoubleSide
+		} );
+
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( 0, -10, 0 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
 		scene.add( mesh );
 
 // Sky box
@@ -47,7 +91,7 @@
 			materials.push( new THREE.MeshBasicMaterial( { map: image, side: THREE.BackSide } ) ); 
 		}
 
-		geometry = new THREE.BoxGeometry( 300, 300, 300 )
+		geometry = new THREE.BoxGeometry( 800, 800, 800 )
 		material =  new THREE.MeshFaceMaterial( materials );
 		mesh = new THREE.Mesh( geometry, material );
 

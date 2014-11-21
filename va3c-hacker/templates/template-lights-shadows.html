@@ -48,7 +48,7 @@
 		light = new THREE.DirectionalLight( 0xffffff );
 		light.position.set( -200, 200, 200 );
 
-		var d = 150;
+		var d = 200;
 		light.shadowCameraLeft = -d;
 		light.shadowCameraRight = d;
 		light.shadowCameraTop = d;
@@ -68,7 +68,7 @@
 		light.shadowCameraVisible = true;
 		scene.add( light );
 
-		light = new THREE.PointLight( 0xf0f0f0, 0.5, 0 );  // color intensity distance 0 = infinity
+		light = new THREE.PointLight( 0xf0f0f0, 0.5 );  // color intensity distance 0 = infinity
 		camera.add( light );
 
 // Ground Plane
