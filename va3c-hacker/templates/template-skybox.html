@@ -42,7 +42,7 @@
 		light = new THREE.DirectionalLight( 0xffffff );
 		light.position.set( -200, 200, 200 );
 
-		var d = 200;
+		var d = 300;
 		light.shadowCameraLeft = -d;
 		light.shadowCameraRight = d;
 		light.shadowCameraTop = d;
@@ -101,9 +101,9 @@
 
 	function animate() {
 
-		renderer.render( scene, camera );
 		controls.update();
 		stats.update();
+		renderer.render( scene, camera );
 		requestAnimationFrame( animate );
 
 	}

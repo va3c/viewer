@@ -79,6 +79,7 @@
 
 			mesh.castShadow = true;
 			mesh.receiveShadow = true;
+			mesh.frustumCulled = false;
 
 			scene.add( mesh );
 

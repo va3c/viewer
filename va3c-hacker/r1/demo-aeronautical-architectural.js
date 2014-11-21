@@ -136,11 +136,10 @@
 	function slide4() {
 		duration = 4000;
 
-		wrightFlyer = scene.getObjectByName('wright');
+		text = 'It was designed by Frank Lloyd Wright and built in 1909';
+		speak( text );
 
-		wrightFlyer.material.materials[0].ambient = 0xff0000;
-		wrightFlyer.material.materials[0].color.setRGB( 1, 0, 0 );
-		wrightFlyer.material.materials[0].needsUpdate = true;
+		location.hash = '#tween-camera-and-target.js#-180#15#100#0#5#0#' + duration;
 
 		spline = new THREE.ClosedSplineCurve3([
 			v( -100, 20,  200),
@@ -155,12 +154,12 @@
 
 		pt = v( 0, 0, 0 );
 
-		text = 'It was designed by Frank Lloyd Wright and built in 1909';
-		speak( text );
+		wrightFlyer = scene.getObjectByName('wright');
 
-		location.hash = '#tween-camera-and-target.js#-180#15#100#0#5#0#' + duration;
+		wrightFlyer.material.materials[0].ambient = 0xff0000;
+		wrightFlyer.material.materials[0].color.setRGB( 1, 0, 0 );
+		wrightFlyer.material.materials[0].needsUpdate = true;
 
-		update = update4;
 		slide = slide5;
 	}
 
@@ -171,6 +170,8 @@
 		speak( text );
 
 		location.hash = '#tween-camera-and-target.js#-200#35#-100#1#5#-20#' + duration;
+
+		update = update4;
 
 		slide = slide6;
 	}
@@ -196,17 +197,16 @@
 		location.hash = '#tween-camera-and-target.js#150#10#30#-50#5#0#' + duration;
 
 		slide = slide8;
-
 	}
 
 	function slide8() {
 
-		duration = 3000;
+		duration = 4000;
 
 		text = 'Now we are adding Schroder House';
 		speak( text );
 
-		location.hash = '#load-file-json3.js#../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js#px=0#sx=5#sy=5#sz=5@#na=schroder' ;
+		location.hash = '#load-file-json3.js#../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js#px=0#sx=5#sy=5#sz=5@#na=schroder';
 
 		slide = slide9;
 
@@ -216,12 +216,12 @@
 
 		duration = 3000;
 
+		text = 'And taking away Robie House.';
+		speak( text );
+
 		schroderHouse = scene.getObjectByName('schroder');
 
 		location.hash = '#tween-camera-and-target.js#5#25#90#-20#5#-15#' + duration;
-
-		text = 'And taking away Robie House.';
-		speak( text );
 
 		scene.remove( robieHouse );
 
@@ -229,14 +229,16 @@
 
 	}
 
+
+
 	function slide10() {
 
 		duration = 5000;
 
-		location.hash = '#tween-camera-and-target.js#100#10#-10#-50#5#0#' + duration;
-
 		text = 'Built in 1919 in Utrecht and designed by Gerrit Rietveld';
 		speak( text );
+
+		location.hash = '#tween-camera-and-target.js#100#10#-10#-50#5#0#' + duration;
 
 		scene.remove( wrightFlyer );
 
@@ -248,11 +250,11 @@
 
 		duration = 5000;
 
-		location.hash = '#load-file-json3.js#../../../fgx-aircraft/data/fkdr1/dr1.js#px=0#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
-//		location.hash = '#load-file-json3.js#../../../../fgx-repos/fgx-aircraft/data/fkdr1/dr1.js#px=50#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
-
 		text = 'Doesn\'t it look like it was built yesterday?';
 		speak( text );
+
+//		location.hash = '#load-file-json3.js#../../../fgx-aircraft/data/fkdr1/dr1.js#px=50#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
+		location.hash = '#load-file-json3.js#../../../../fgx-repos/fgx-aircraft/data/fkdr1/dr1.js#px=50#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
 
 		slide = slide12;
 
@@ -296,11 +298,14 @@
 		fokkerDR1 = scene.getObjectByName('fokker');
 
 		fokkerDR1.geometry.applyMatrix( new THREE.Matrix4().makeRotationY( -0.5 * Math.PI ) );
+		fokkerDR1.geometry.buffersNeedUpdate = true;
+		fokkerDR1.geometry.uvsNeedUpdate = true;
+
 		fokkerDR1.material.materials[0].ambient = 0xffff00;
 		fokkerDR1.material.materials[0].color.setRGB( 1, 1, 0 );
 		fokkerDR1.material.materials[0].needsUpdate = true;
 
-		update = update12;
+//		slide = function() {};
 		slide = slide13;
 
 	}
@@ -309,11 +314,12 @@
 
 		duration = 3000;
 
-		location.hash = '#tween-camera-and-target.js#120#80#-10#-50#15#0#' + duration;
-
 		text = 'Doesn\'t it look like really really old school?';
 		speak( text );
 
+		location.hash = '#tween-camera-and-target.js#120#80#-10#-50#15#0#' + duration;
+
+		update = update12;
 		slide = slideFinal;
 
 	}
