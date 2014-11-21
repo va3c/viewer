@@ -1,4 +1,4 @@
-Aeronautical and Architectural Tour
+Aeronautical and Architectural Adventure
 ===
 
 Click the button to start the audio and visual tour.
@@ -11,5 +11,5 @@ Click the button to start the audio and visual tour.
 <button onclick=slidesPause(); >pause</button>
 <button onclick=slidesStart(); >start</button>
 
-The tour will only run on recent versions of browsers. Only r=tes on Chrome on Windows.
+The tour will only run on recent versions of browsers. Only tested on Chrome on Windows.
 
