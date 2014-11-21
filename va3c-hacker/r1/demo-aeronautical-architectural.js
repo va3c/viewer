@@ -246,7 +246,7 @@
 
 	function slide11() {
 
-		duration = 4000;
+		duration = 5000;
 
 		location.hash = '#load-file-json3.js#../../../fgx-aircraft/data/fkdr1/dr1.js#px=0#py=50#pz=80#sx=8#sy=8#sz=8' ;
 //		location.hash = '#load-file-json3.js#../../../../fgx-repos/fgx-aircraft/data/fkdr1/dr1.js#px=50#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
@@ -275,13 +275,6 @@
 
 		duration = 4000;
 
-		fokkerDR1 = scene.getObjectByName('fokker');
-
-		fokkerDR1.geometry.applyMatrix( new THREE.Matrix4().makeRotationY( -0.5 * Math.PI ) );
-		fokkerDR1.material.materials[0].ambient = 0xffff00;
-		fokkerDR1.material.materials[0].color.setRGB( 1, 1, 0 );
-		fokkerDR1.material.materials[0].needsUpdate = true;
-
 		spline = new THREE.ClosedSplineCurve3([
 			v( -100, 20,  200),
 			v(  100, 80,  200),
@@ -299,6 +292,13 @@
 
 		text = 'Now flying is the Fokker D3 from 1915';
 		speak( text );
+
+		fokkerDR1 = scene.getObjectByName('fokker');
+
+		fokkerDR1.geometry.applyMatrix( new THREE.Matrix4().makeRotationY( -0.5 * Math.PI ) );
+		fokkerDR1.material.materials[0].ambient = 0xffff00;
+		fokkerDR1.material.materials[0].color.setRGB( 1, 1, 0 );
+		fokkerDR1.material.materials[0].needsUpdate = true;
 
 		update = update12;
 		slide = slide13;
