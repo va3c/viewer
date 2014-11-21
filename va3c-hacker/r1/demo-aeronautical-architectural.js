@@ -248,8 +248,8 @@
 
 		duration = 4000;
 
-//		location.hash = '#load-file-json3.js#http://va3c.github.io/fgx-aircraft/data/fkdr1/dr1.js#px=0#py=50#pz=80#sx=8#sy=8#sz=8' ;
-		location.hash = '#load-file-json3.js#../../../../fgx-repos/fgx-aircraft/data/fkdr1/dr1.js#px=50#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
+		location.hash = '#load-file-json3.js#../../../fgx-aircraft/data/fkdr1/dr1.js#px=0#py=50#pz=80#sx=8#sy=8#sz=8' ;
+//		location.hash = '#load-file-json3.js#../../../../fgx-repos/fgx-aircraft/data/fkdr1/dr1.js#px=50#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
 
 		text = 'Doesn\'t it look like it was built yesterday?';
 		speak( text );
