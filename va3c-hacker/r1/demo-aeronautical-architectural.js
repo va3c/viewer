@@ -203,7 +203,7 @@
 
 		duration = 3000;
 
-		text = 'Now we are adding Schoder House';
+		text = 'Now we are adding Schroder House';
 		speak( text );
 
 		location.hash = '#load-file-json3.js#../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js#px=0#sx=5#sy=5#sz=5@#na=schroder' ;
@@ -231,11 +231,11 @@
 
 	function slide10() {
 
-		duration = 4000;
+		duration = 5000;
 
 		location.hash = '#tween-camera-and-target.js#100#10#-10#-50#5#0#' + duration;
 
-		text = 'Built in 1919 and designed by Gerhard Richter';
+		text = 'Built in 1919 in Utrecht and designed by Gerrit Rietveld';
 		speak( text );
 
 		scene.remove( wrightFlyer );
