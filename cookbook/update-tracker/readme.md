@@ -6,7 +6,17 @@ Track changes in 3D to JSON files being edited locally on a computer
 
 For the impetus for this example, see: <https://github.com/va3c/GHvA3C/issues/12>
 
-## Client Side
+## Client Side JSON 4 R2
+
+<http://va3c.github.io/viewer/cookbook/update-tracker/client-side-r2/update-tracker-client-side-json4-r2.html>
+
+Sample file to edit: <https://github.com/va3c/viewer/tree/gh-pages/cookbook/samples/object.json>
+
+* Edit the first vertex. For example, change x from 9 to 100. Save. See the diff. Then change back. See the diff.
+
+
+
+## Client Side JSON 3 R1
 
 <http://va3c.github.io/viewer/cookbook/update-tracker/client-side-r1/update-tracker-r1.html>
 
@@ -21,6 +31,7 @@ This app works using a brute force method out of necessity.
 It actually loads the entire JSON file into memory every few seconds and see if it is equal to the previous version.
 There should be meta-information, but because JavaScript loads client-side files quite quickly the meta-data is quickly discarded because the file is already in memory.
 With an interval set at ten seconds or so, a file of ninety megabytes has been seen to update as anticipated. 
+
 
 ## Server Side
 

@@ -11,6 +11,7 @@
 
 		location.hash = '';
 
+/*
 // move following to separate function & make it delete everything
 		if ( parameters.indexOf( 'open' ) > -1 ) {
 
@@ -25,6 +26,7 @@
 
 		}
 //
+*/
 
 		contents = requestFile( fileName );
 		contents = JSON.parse( contents );

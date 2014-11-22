@@ -5,7 +5,7 @@
 
 		if ( !parameters ) return;
 
-		parameters = location.hash.split('#');
+		parameters = parameters.split('#');
 
 		fileName = parameters[2];
 

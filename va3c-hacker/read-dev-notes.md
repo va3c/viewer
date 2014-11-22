@@ -1,6 +1,15 @@
 Dev Notes
 ===
 
+2014-11-22 ~ Theo
+
+It would be great to be able to add geometry. But do we really want to build a full geometry editor?
+Especially when there are some great editors out there already?
+Why not just read their JSON output in near-real-time?
+
+Stand on the shoulders of giants: or at least: use their apps.
+ 
+
 2014-11-21 ~ Theo
 
 * Preparing to publish R1
@@ -8,8 +17,8 @@ Dev Notes
 * rename some items from 'view' to 'browse' - where 'browse indicates you can use the file, whereas 'view' is more read only
 * Add read Readme
 * Code clean-up
-* Three.js Inspector
-* Add JSON 4
+* Add Three.js Inspector
+* Add JSON 4 loader
 
 
 2014-11-20 ~ Theo
