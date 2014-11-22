@@ -9,7 +9,7 @@
 
 		}
 
-		displayMarkdown ( 'view-3dwarehouse-json-files.md', info );
+		displayMarkdown ( 'browse-3dwarehouse-json-files.md', info );
 
 //console.log( 'view3dWarehouseJsonFiles:' );
 

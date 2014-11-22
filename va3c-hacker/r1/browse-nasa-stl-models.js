@@ -3,7 +3,7 @@
 
 	function viewNasaStlModels () {
 
-			displayMarkdown ( 'view-nasa-stl-models.md', info );
+			displayMarkdown ( 'browse-nasa-stl-models.md', info );
 
 		if ( !THREE ) { 
 
@@ -11,9 +11,10 @@
 
 			callbackIframe = function() {
 
+				VH.loadScript( 'http://mrdoob.github.io/three.js/examples/js/loaders/STLLoader.js', callbackLoadSTL() );
+
 console.log( 'callbackIframe NASA:' );
 
-				VH.loadScript( 'http://mrdoob.github.io/three.js/examples/js/loaders/STLLoader.js', callbackLoadSTL() );
 			}
 
 		} else {

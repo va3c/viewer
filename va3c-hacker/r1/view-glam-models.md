@@ -3,7 +3,7 @@ Glam Models
 
 [Tony Parisi]( https://twitter.com/auradeluxe 'aurafully cool dude' ), [Brendon Smith]( https://plus.google.com/+BrendonSmith/posts 'https://github.com/seacloud9' ) and others are developing the notion that you can smarten up the DOM so it's much more 3D-enabled.
 
-[Glam]( http://tparisi.github.io/glam/ ) (GL A nd M arkup) is a declarative language for creating 3D web content. 
+[Glam]( http://glamjs.org ) (GL A nd M arkup) is a declarative language for creating 3D web content. 
 It is an important step toward enabling today's web developers to add 3D content to their web sites in a fast effective manner.
 
 The following are the demos and example files that are on [GitHub]( https://github.com/tparisi/glam ).

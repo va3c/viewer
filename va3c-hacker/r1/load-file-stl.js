@@ -16,6 +16,7 @@
 
 		fileName = parameters[2];
 
+// move following to separate function & make it delete everything
 		if ( parameters.indexOf( 'open' ) > -1 ) {
 
 			scene.traverse( function ( child ) {
@@ -27,9 +28,8 @@
 
 			} );
 
-//console.log( parameters, fileName );
-
 		}
+//
 
 		var loader = new THREE.STLLoader();
 		loader.addEventListener( 'load', function ( event ) {
@@ -48,6 +48,7 @@
 				mesh.rotation.set( Math.PI * Math.random(), Math.PI * Math.random(), 0 );
 
 			} else {
+
 				for ( var i = 3, len = parameters.length; i < len; i++) {
 
 					parameter = parameters[i].substr( 0, 2 );
@@ -65,6 +66,8 @@
 					if ( parameter === 'sy' ) mesh.scale.y = value;
 					if ( parameter === 'sz' ) mesh.scale.z = value;
 
+					if ( parameter === 'na' ) mesh.name = parameters[i].substr( 3 );
+
 				}
 			}
 
@@ -81,5 +84,8 @@
 		} );
 
 		loader.load( fileName );
+
+//console.log( 'callbackSTL', parameters, fileName );
+
 	}
 	

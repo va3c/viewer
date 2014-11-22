@@ -1,6 +1,22 @@
 Dev Notes
 ===
 
+2014-11-21 ~ Theo
+
+* Preparing to publish R1
+	* Arching files
+* rename some items from 'view' to 'browse' - where 'browse indicates you can use the file, whereas 'view' is more read only
+* Add read Readme
+* Code clean-up
+* Three.js Inspector
+* Add JSON 4
+
+
+2014-11-20 ~ Theo
+
+* Continue building AA Adventure
+* Looking into adding Three.js Inspector
+
 2014-11-18 ~ Theo
 
 * Fiddling with location hash and parameters
@@ -11,7 +27,7 @@ Dev Notes
 2014-11-16 ~ Theo
 
 * code clean-up. renaming files. put files in archive
-* battling with location.hash and callbackss but three load files turned into one file
+* battling with location.hash and callbacks but three load files turned into one file
 
 
 ## 2014-11-15 ~ Theo

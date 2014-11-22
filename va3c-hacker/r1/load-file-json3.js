@@ -9,8 +9,7 @@
 
 		fileName = parameters[2];
 
-//console.log( parameters );
-
+// move following to separate function & make it delete everything
 		if ( parameters.indexOf( 'open' ) > -1 ) {
 
 			scene.traverse( function ( child ) {
@@ -23,10 +22,13 @@
 			} );
 
 		}
+//
 
 		loader = new THREE.JSONLoader();
 
 		loader.load( fileName, function ( geometry, materials ) {
+
+			var mesh, material;
 
 			location.hash = '';
 
@@ -46,7 +48,7 @@
 
 			}
 
-			var mesh = new THREE.Mesh( geometry, material );
+			mesh = new THREE.Mesh( geometry, material );
 
 			if ( parameters.indexOf( 'random' ) > -1 ) {
 
@@ -84,5 +86,7 @@
 			scene.add( mesh );
 
 		} );
+
+//console.log( 'loadFileJson3', parameters );
 
 	}

@@ -10,7 +10,6 @@
 	var scene
 	var camera;
 	var controls;
-	var material;
 
 	init();
 
@@ -27,7 +26,7 @@
 			container = document.body.appendChild( document.createElement( 'div' ) );
 
 			menu = container.appendChild( document.createElement( 'div' ) );
-			menu.style.cssText = 'background-color: #ccc; opacity: 0.9; overflow: auto; padding: 10px; ' +
+			menu.style.cssText = 'background-color: #ccc; max-height: ' + ( window.innerHeight - 60 ) + 'px ; opacity: 0.9; overflow: auto; padding: 10px; ' +
 				' position: absolute; right: 20px; top: 20px; width: 400px; '
 			'';
 

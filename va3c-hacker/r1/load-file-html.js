@@ -7,16 +7,14 @@
 
 		parameters = parameters.split('#');
 
-
-
 		fileName = parameters[2] || '../templates/template-basic.html';
-
-//console.log( 'loadFileHTML', parameters, fileName );
 
 		var iframes = document.getElementsByTagName( 'iframe' ) ;
 
 		for ( var i = 0, len = iframes.length; i < len; i++ ) {
+
 			iframes[0].parentNode.removeChild( iframes[ 0 ] );
+
 		}
 
 		var ifr = document.body.appendChild( document.createElement( 'iframe' ) );
@@ -47,5 +45,7 @@
 		}
 
 		ifr.src = fileName;
+
+//console.log( 'loadFileHTML', parameters, fileName );
 
 	}
