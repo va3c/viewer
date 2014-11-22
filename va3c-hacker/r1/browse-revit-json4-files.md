@@ -27,7 +27,7 @@ Stay up to date on progress at Jeremy's web site: [The Building Coder]( http://t
 [Wall Window]( #load-file-json4.js#../../../RvtVa3c/models/WallWindow.rvt.js#px=50#py=-10#pz=80#ry=0.08#sx=0.01#sy=0.01#sz=0.01 )
 
 [[o]( #load-file-json4.js#../../../RvtVa3c/models/rac_basic_sample_project_scene.rvt.js#open#sx=1#sy=1#sz=1 )] 
-[RAC Basic Sample Project Site]( #load-file-json4.js#../../../RvtVa3c/models/rac_basic_sample_project_scene.rvt.js#px=1#sx=1#sy=1#sz=1 ) - Worth a visit!
+[RAC Basic Sample Project Site]( #load-file-json4.js#../../../RvtVa3c/models/rac_basic_sample_project_scene.rvt.js#sx=0.01#sy=0.01#sz=0.01 ) - Takes a while to load but worth the wait!
 
  [Load a fresh model space with skybox?]( #load-file-html.js#../templates/template-skybox.html )
 
