@@ -17,6 +17,8 @@
 
 		if ( !container ) {
 
+			var tooltip = 'Helping you to stand on the shoulders of giants';
+
 			css = document.body.appendChild( document.createElement('style') );
 			css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
 				'h1 { margin: 0; }' +
@@ -33,9 +35,9 @@
 			menu.id = 'movable';
 			menu.title = 'Move this menu panel around the screen or iconize it';
 			menu.addEventListener( 'mousedown', mouseMove, false );
-			menu.header = '<h1><a id=closerIcon href=JavaScript:toggleMenu(menu); >&#9776;</a><h1>' +
+			menu.header = '<h1><a id=closerIcon href=JavaScript:toggleMenu(menu); title="' + tooltip + '" >&#9776;</a><h1>' +
 				'<h1>' +
-					'<a href="" >' + document.title + '</a> ' +
+					'<a href="" title="' + tooltip + '" >' + document.title + '</a> ' +
 				'</h1>' +
 				'<hr>' +
 			'';

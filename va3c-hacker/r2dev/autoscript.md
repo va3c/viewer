@@ -22,6 +22,8 @@ Edit everything with the <a href="javascript:(function(){var script=document.cre
 
 [Enable drag and drop for JSON files]( #drag-and-drop-json-files.js )
 
+[Enable draggable objects]( #draggable-objects.js )
+
 [Go on a short aeronautical and architectural adventure?]( #demo-aeronautical-architectural.js "Makes heavy use of resources." ) 
 
 [Read the Read Me file?]( #readme.js "You can view Hacker inside the Readme inside Hacker" ) 

@@ -11,6 +11,7 @@ Stand on the shoulders of giants: or at least: use their apps.
  
 * Add R2 dev
 * Add JSON drag and drop capability
+* Working on draggable objects with limited success
 
 2014-11-21 ~ Theo
 
