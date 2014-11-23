@@ -11,7 +11,7 @@ What would you like vA3C to do now?
 
 [Browse some NASA STL files?]( #browse-nasa-stl-models.js ) [source]( http://github.com/va3c/viewer/va3c-hacker/r1/view-nasa-stl-models.js )
 
-[Have a glimpse at Tony Parisi's new <GLAM></GLAM> declarative language examples?]( #view-glam-models.js "make your style sheets 3D smarter" )  
+[Have a glimpse at Tony Parisi's new &lt;GLAM> declarative language examples?]( #view-glam-models.js "make your style sheets 3D smarter" )  
 - load a new template after to continue
 
 [Browse some files from the 3D Warehouse?]( #browse-3dwarehouse-json-files.js "Collada files converted to JSON 3" )
