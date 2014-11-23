@@ -17,7 +17,7 @@
 
 		}
 
-		var ifr = document.body.appendChild( document.createElement( 'iframe' ) );
+		ifr = document.body.appendChild( document.createElement( 'iframe' ) );
 		ifr.height = window.innerHeight;
 		ifr.width = window.innerWidth;
 		ifr.style.cssText = 'border-width: 0; position: absolute; z-index: -10; ';

@@ -9,6 +9,8 @@ Why not just read their JSON output in near-real-time?
 
 Stand on the shoulders of giants: or at least: use their apps.
  
+* Add R2 dev
+* Add JSON drag and drop capability
 
 2014-11-21 ~ Theo
 
