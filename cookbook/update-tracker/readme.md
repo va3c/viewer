@@ -6,6 +6,8 @@ Track changes in 3D to JSON files being edited locally on a computer
 
 For the impetus for this example, see: <https://github.com/va3c/GHvA3C/issues/12>
 
+_2014-11-23 ~ Versions here to be deprecated. See [vA3C Hacker]( http://va3c.github.io/viewer/va3c-hacker/latest/ ) for latest efforts._
+
 ## Client Side JSON 4 R2
 
 <http://va3c.github.io/viewer/cookbook/update-tracker/client-side-r2/update-tracker-client-side-json4-r2.html>

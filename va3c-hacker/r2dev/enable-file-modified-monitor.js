@@ -1,4 +1,4 @@
-// 2014-11-23 ~ Theo Armour MIT License
+// 2014-11-23 ~ Theo Armour ~ MIT License
 
 	var updateStartTime = 0;
 

@@ -97,6 +97,9 @@ Folders include:
 [Live Demo]( http://va3c.github.io/viewer/cookbook/drag-and-drop/r1/drag-and-drop-r1.html ) - 
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/drag-and-drop/ )
 
+_2014-11-23 ~ Versions here to be deprecated. See [vA3C Hacker]( http://va3c.github.io/viewer/va3c-hacker/latest/ ) for latest efforts._
+
+
 * JSON only for the moment
 * Added 2014-09-29
 
@@ -112,8 +115,10 @@ Folders include:
 
 ## Update Tracker
 
-[Client-side Demo]( http://va3c.github.io/viewer/cookbook/update-tracker/client-side-r1/update-tracker-r1.html ) - 
+[Client-side Demo]( http://va3c.github.io/viewer/cookbook/update-tracker/client-side-r2/update-tracker-client-side-json4-r2.html ) - 
 [Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/update-tracker/ )
+
+_2014-11-23 ~ Versions here to be deprecated. See [vA3C Hacker]( http://va3c.github.io/viewer/va3c-hacker/latest/ ) for latest efforts._
 
 * Track changes in 3D to JSON files being edited locally on a computer
 * Added 2014-11-17
