@@ -30,7 +30,7 @@ console.log( 'callbackIframe DAD' );
 
 		callbackIframe = callbackIframeDefault;
 
-console.log( 'callbackLoadSTL' );
+console.log( 'callbackDAD' );
 
 	}
 
@@ -54,45 +54,6 @@ console.log( 'event' );
 		}, false );
 
 	}
-
-/*
-	dragAndDropJSONFiles()
-
-	function dragAndDropJSONFiles() {
-
-		location.hash = '';
-
-		if ( !THREE ) { 
-
-			location.hash = '#load-file-html.js#../templates/template-lights-shadows.html#displayInfo';
-
-		}
-
-		renderer.domElement.addEventListener( 'dragover', function ( event ) {
-
-			event.preventDefault();
-
-			event.dataTransfer.dropEffect = 'copy';
-
-		}, false );
-
-
-		renderer.domElement.addEventListener( 'drop', function ( event ) {
-console.log( 'event' );
-			event.preventDefault();
-
-			readFile( event.dataTransfer );
-
-		}, false );
-
-console.log( 'dragAndDropJSONFiles' );
-
-		displayMarkdown( 'drag-and-drop-json-files.md', info );
-
-	}
-
-*/
-
 
 	function readFile( that ) {
 thing = that;
@@ -140,14 +101,19 @@ console.log( 'found geometry' );
 			geometry = contents.geometry, material;
 
 			if ( contents.materials !== undefined ) {
-// console.log( 'found materials', contents.materials );
+
 				if ( contents.materials.length > 1 ) {
 					material = new THREE.MeshFaceMaterial( contents.materials );
 				} else {
 					material = contents.materials[ 0 ];
 				}
+
+// console.log( 'found materials', contents.materials );
+
 			} else {
+
 				material = new THREE.MeshPhongMaterial();
+
 			}
 
 			var mesh = new THREE.Mesh( geometry, material );
@@ -160,18 +126,19 @@ console.log( 'found geometry' );
 			contents = loader.parse( data );
 
 			if ( contents instanceof THREE.Scene ) {
+
+				scene.add( contents );
+
 console.log( 'found scene' );
 
-				scene.add( contents );
-
 			} else {
-console.log( 'found object', contents );
 
 				scene.add( contents );
+
+console.log( 'found object', contents );
 
 			}
 		} else if ( data.metadata.type.toLowerCase() === 'scene' ) {
-console.log( 'found a deprecated scene');
 
 			var loader = new THREE.SceneLoader();
 			loader.load( data, function ( contents ) {
@@ -179,6 +146,8 @@ console.log( 'found a deprecated scene');
 				scene.add( contents );
 
 			} );
+
+console.log( 'found a deprecated scene');
 
 		} else {
 

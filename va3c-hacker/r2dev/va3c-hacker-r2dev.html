@@ -12,7 +12,7 @@
 
 	VH.loadScript = function ( fileName, callback ) {
 
-//		var callback = function( ) { console.log( 'VH.loadScript:' + fileName ); } || callback();
+//		var callback = function() { console.log( 'VH.loadScript:' + fileName ); } || callback();
 		var callback = function () {} || callback ();
 
 		js = document.body.appendChild ( document.createElement( 'script' ) );
@@ -23,12 +23,12 @@
 	};
 
 	VH.init = function () {
-
-		parameters = location.hash.split ('#');
+ 
+		parameters = location.hash.split ( '#' );
 
 		if ( parameters.length > 1 ) {
 
-			VH.loadScript ( parameters[1] );
+			VH.loadScript ( parameters[ 1 ] );
 
 		} else {
 

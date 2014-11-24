@@ -6,3 +6,5 @@ Temporary stand-in for the [current fail of draggable objects]( https://github.c
 Code is based on Three.js example [WebGL Interactive Draggable Cubes]( https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_draggablecubes.html )
 
 After you load new objects, click the link again to add the new items to the list of draggable objects. Very much a work in progress.
+
+Has issues with some of the Revit files.

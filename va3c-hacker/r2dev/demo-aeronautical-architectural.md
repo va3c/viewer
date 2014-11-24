@@ -11,5 +11,7 @@ Click the button to start the audio and visual tour.
 <button onclick=slidesPause(); >pause</button>
 <button onclick=slidesStart(); >start</button>
 
-The tour will only run on recent versions of browsers. Only tested on Chrome on Windows.
+The tour will only run on recent versions of browsers. Only tested on Chrome on Windows. Might run on recent Safari.
+
+Demo fails on both Firefox and Internet Explorer because of lack of speechSynthesis functionality. Must fix.
 

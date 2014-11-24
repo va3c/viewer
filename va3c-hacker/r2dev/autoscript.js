@@ -11,9 +11,9 @@
 	var camera;
 	var controls;
 
-	init();
+	autoScript();
 
-	function init () {
+	function autoScript () {
 
 		if ( !container ) {
 
@@ -29,7 +29,7 @@
 
 			menu = container.appendChild( document.createElement( 'div' ) );
 			menu.style.cssText = 'background-color: #ccc; max-height: ' + ( window.innerHeight - 60 ) + 'px ; opacity: 0.9; overflow: auto; padding: 10px; ' +
-				' position: absolute; right: 20px; top: 20px; width: 400px; '
+				' position: absolute; right: 20px; top: 20px; width: 400px;  z-index: 20;' +
 			'';
 
 			menu.id = 'movable';
@@ -46,7 +46,7 @@
 
 			info = container.appendChild( document.createElement( 'div' ) );
 			info.style.cssText = 'background-color: #ccc; display: none; left: 20px; max-height: ' + ( window.innerHeight - 150 ) + 'px ; opacity: 0.9; overflow: auto; ' +
-				'padding: 10px; position: absolute; top: 80px; width: 450px; z-index=10;' +
+				'padding: 10px; position: absolute; top: 80px; width: 450px; z-index: 20;' +
 			'';
 			info.id = 'movable';
 			info.title = 'Move this menu panel around the screen or iconize it';
@@ -56,7 +56,7 @@
 			'';
 
 			inworld = document.body.appendChild( document.createElement( 'div' ) );
-			inworld.style.cssText = 'padding: 10px; position: absolute; width: 450px; z-index=10;';
+			inworld.style.cssText = 'padding: 10px; position: absolute; width: 450px; z-index: 10;';
 			inworld.innerHTML = //'<a href="" ><h1>' + document.title + '</h1></a>' +
 				'<div id=msg ></div>' +
 				'<div id=msg1 ></div>' +

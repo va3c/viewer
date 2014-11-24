@@ -35,9 +35,13 @@
 			material = app.material;
 
 			if ( parameters.indexOf( 'displayInfo' ) > -1 ) { 
+
 				info.style.display = ''; 
+
 			 } else {
+
 				info.style.display = 'none'; 
+
 			}
 
 			callbackIframe();
@@ -49,3 +53,5 @@
 //console.log( 'loadFileHTML', parameters, fileName );
 
 	}
+
+	
