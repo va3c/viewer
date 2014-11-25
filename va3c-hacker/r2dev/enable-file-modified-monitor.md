@@ -12,7 +12,7 @@ Tested by changing vertex coordinates in a JSON 4 file using a text editor.
 
 Tested by repeatedly exporting JSON 4 data from Blender 2.72 using Satori99's [blender-three-object-export]( https://github.com/satori99/blender-three-object-export ).
 
-Feature dedicated to Ben Howe.
+Feature dedicated to Ben Howes.
 
 
 

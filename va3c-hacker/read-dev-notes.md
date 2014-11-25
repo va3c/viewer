@@ -1,6 +1,19 @@
 Dev Notes
 ===
 
+2014-11-23 ~ Theo
+
+* Add open JSON 4 files using file dialog
+* Add monitor file modifications 
+
+The monitor part took longer than expected, but produced the file open by file dialog function as well as a nice start to 
+hack the request animation frame functionality. And the monitoring seems to work a treat.
+
+Looked at [ThreeFab]( http://blackjk3.github.io/threefab/ ) and [ThreeNode]( http://idflood.github.io/ThreeNodes.js/public/index.html ).
+Both nice and would be great geometry editors but both appear to be currently broken.
+
+http://va3c.github.io/viewer/va3c-hacker/r2dev/va3c-hacker-r2dev.html#enable-file-modified-monitor.js
+
 2014-11-22 ~ Theo
 
 It would be great to be able to add geometry. But do we really want to build a full geometry editor?
