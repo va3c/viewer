@@ -5,13 +5,11 @@ vA3C Hacker Read Me
 
 ### Live Demo
 
-<iframe src="./latest/index.html" width=100% height=500px class='overview' >
-There is an `iframe` here. It is not visible when viewed on github.com/va3c/viewer. To view, please see 'Project Links' below.
+<iframe src="../latest/index.html" width=100% height=500px class='overview' >
+There is an `iframe` here. It is not visible when viewed via github.com. To view, please click 'Web page view' above.
 </iframe>
-_vA3C Hacker - latest revision_ / [Full Screen (latest)]( ./latest/index.html )
+_vA3C Hacker - latest revision_ / [Full Screen (latest revision)]( http://va3c.github.io/viewer/va3c-hacker/latest/index.html )
 
-
-### Blog Posts
 
 ## Concept
 
@@ -28,14 +26,6 @@ _vA3C Hacker - latest revision_ / [Full Screen (latest)]( ./latest/index.html )
 <!-- and benefits -->
 
 
-
-##Team Members
-
-Benjamin Howes, Jonatan Schumacher, Jeremy Tammik, Matt Mason, Kevin Vandecar, Charlie Portelli, Josh Wentz, Femi King, Zach Flanders & Theo Armour
-
-### Supporters 
-
-Mostapha Roudsari, Ashley Reed, Anne Waelkens, Jim Quanci, Elcin Ertugrul, Amir Tasbihi and many more. Others?
 
 
 ## Project Links
@@ -59,12 +49,12 @@ Bugs on browsers other than Chrome need not be reported until such time as the w
 ## Copyright and License
 
 copyright &copy; 2014 vA3C authors ~ 
-All work herein is under the [MIT License]( http://jaanga.github.io/libs/jaanga-copyright-and-mit-license.md )
+All work herein is under the [MIT License]( https://github.com/va3c/va3c.github.io/blob/master/LICENSE )
 
 This repository contains files that are at an early and volatile stage. Not all licensing requirements may have been fully met let alone identified. It is the intension of the authors to play fair and all such requirements will either be met or the feature in question will turned off.
 
 
 ## Change Log
 
-
+See [Developer Notes]( read-dev-notes.md )
 

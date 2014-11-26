@@ -1,6 +1,17 @@
 Dev Notes
 ===
 
+2014-11-26 ~ Theo
+
+* Edit light setting in the three templates
+* Add text to the tell you the time demo
+* Add FAQ
+* Rename fies to follow the current naming convention. See FAQ
+
+Working on this thing is enthralling. Adding features, content and abilities is all just so easy that it becomes a lot of fun.
+And you can move from, say, adding content to editing code so easily. It's like a [parkour]( http://en.wikipedia.org/wiki/Parkour ) or [freerunning]( http://en.wikipedia.org/wiki/Freerunning ) for coding
+Or perhaps that German word I never remember which describes a run where sometimes you jog and sometimes you sprint just depending on how you feel at the moment. 
+
 2014-11-25 ~ Theo
 
 * Add browse templates page
@@ -15,6 +26,11 @@ So still with Eli Grey's FileSaver.js.
 Yesterday spent a lot of time on what I am calling the pre-processor. This is when you can get the content of a file and modify it using regex before adding it as an iframe.
 
 Using this capability, makes it possible to add 'preserveDrawingBuffer: true' to the renderer before it loads
+
+Hacker is shaping up to be some short of content delivery mechanism. Willgive you access to, say, maps, aircraft, stl files, equations and more
+The user interface will guide you as to what is possible because text is so easy to add and edit.
+Because the app is just a simple messaging system, code seems to be very easy to add. 
+It will be fun to see if the code can grow to many thousands of like and still be so easy to augment
 
 
 2014-11-23 ~ Theo

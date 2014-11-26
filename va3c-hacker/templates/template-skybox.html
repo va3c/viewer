@@ -2,8 +2,8 @@
 <html lang=en >
 <head>
 <title>Template Skybox</title>
-<meta charset=utf-8 >
-<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
+<meta charset=utf-8 />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 </head>
 <body>
 <script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
@@ -39,10 +39,10 @@
 		light = new THREE.AmbientLight( 0xffffff );
 		scene.add( light );
 
-		light = new THREE.DirectionalLight( 0xffffff );
+		light = new THREE.DirectionalLight( 0xffffff, 1 );
 		light.position.set( -200, 200, 200 );
 
-		var d = 300;
+		var d = 200;
 		light.shadowCameraLeft = -d;
 		light.shadowCameraRight = d;
 		light.shadowCameraTop = d;
@@ -62,12 +62,13 @@
 		light.shadowCameraVisible = true;
 		scene.add( light );
 
-		light = new THREE.PointLight( 0xf0f0f0, 0.5 );  // color intensity distance 0 = infinity
+		light = new THREE.PointLight( 0xffffff, 1);  // color intensity distance 0 = infinity
+		light.position = camera.position;
 		camera.add( light );
 
 
 // ground box
-		geometry = new THREE.BoxGeometry( 200, 1, 100 );
+		geometry = new THREE.CylinderGeometry( 100, 100, 2, 50 );
 
 //		material = new THREE.MeshNormalMaterial();
 		material = new THREE.MeshPhongMaterial( {
@@ -79,7 +80,7 @@
 		} );
 
 		mesh = new THREE.Mesh( geometry, material );
-		mesh.position.set( 0, -10, 0 );
+		mesh.position.set( 0, -1, 0 );
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 		scene.add( mesh );

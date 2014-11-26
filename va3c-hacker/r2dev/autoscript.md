@@ -10,7 +10,7 @@ What would you like vA3C to do now?
   &nbsp;  [Load a template with skybox of clouds?]( #load-file-html.js#../templates/template-skybox.html )  
 [[Browse even more templates]( #browse-templates.js )]  
 
-[Browse some NASA STL files?]( #browse-nasa-stl-models.js ) [source]( http://github.com/va3c/viewer/va3c-hacker/r1/view-nasa-stl-models.js )
+[Browse some NASA STL files?]( #browse-nasa-stl-models.js ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )
 
 [Have a glimpse at Tony Parisi's new &lt;GLAM> declarative language examples?]( #view-glam-models.js "make your style sheets 3D smarter" )  
 - load a new template after to continue
@@ -26,14 +26,14 @@ Or with <a href="javascript:(function(){var s=document.createElement('script');s
 Both are bookmarklets you may use on most any Three.js file.
 
 
-[Enable drag and drop for JSON files?]( #drag-and-drop-json-files.js )
+[Enable drag and drop for JSON files?]( #enable-drag-and-drop-json-files.js )
 
-[Enable draggable objects?]( #draggable-objects.js )
+[Enable draggable objects?]( #enable-draggable-objects.js )
 
 [Enable file modified monitor?]( #enable-file-modified-monitor.js "Thanks to Ben Howe" )
 
 [Go on a short aeronautical and architectural adventure?]( #demo-aeronautical-architectural.js "Makes heavy use of resources." ) 
 
-[Read the Read Me file?]( #readme.js "You can view Hacker inside the Readme inside Hacker" ) [Road map?]( #road-map.js )
+[Read the Read Me file?]( #read-readme.js "You can view Hacker inside the Readme inside Hacker" ) [Road map?]( #read-road-map.js ) [FAQ?]( #read-faq.js )
 
-[Read the developers notes?]( #read-dev-notes.js "Developer? ROFL!") 
+[Read the developers notes?]( #read-dev-notes.js "Developer? ROFL!") [source]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker )

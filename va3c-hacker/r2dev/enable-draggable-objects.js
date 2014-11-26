@@ -24,7 +24,7 @@
 
 		}
 
-		displayMarkdown( 'draggable-objects.md', info );
+		displayMarkdown( 'enable-draggable-objects.md', info );
 
 		objects = [];
 

@@ -1,9 +1,11 @@
 vA3C Hacker Road Map
 ===
 
+* 2014-11-26 ~ Start to add some character animations
+
 * 2014-11-26 ~ Open Three.js files that are inside ZIP files
 
-2014-11-26 ~ Ditto 3D Warehouse / Collada files
+* 2014-11-26 ~ Ditto 3D Warehouse / Collada files
 
 * 2014-11-23 ~ function to clear all objects out of a scene leaving just lights and camera and/or just reloading current template file,,
 

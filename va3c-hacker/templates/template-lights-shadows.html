@@ -45,7 +45,7 @@
 		light = new THREE.AmbientLight( 0xffffff );
 		scene.add( light );
 
-		light = new THREE.DirectionalLight( 0xffffff );
+		light = new THREE.DirectionalLight( 0xffffff, 1 );
 		light.position.set( -200, 200, 200 );
 
 		var d = 200;
@@ -68,7 +68,8 @@
 //		light.shadowCameraVisible = true;
 		scene.add( light );
 
-		light = new THREE.PointLight( 0xf0f0f0, 0.5 );  // color intensity distance 0 = infinity
+		light = new THREE.PointLight( 0xffffff, 1 );  // color intensity distance 0 = infinity
+		light.position = camera.position;
 		camera.add( light );
 
 // Ground Plane
@@ -85,10 +86,11 @@
 		} );
 
 		mesh = new THREE.Mesh( geometry, material );
-		mesh.position.set( 0, -10, 0 );
-		mesh.castShadow = true;
+		mesh.position.set( 0, -2.5, 0 );
+//		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 		scene.add( mesh );
+
 		scene.add( new THREE.BoxHelper( mesh ) );
 
 	}
