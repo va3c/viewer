@@ -5,10 +5,10 @@ vA3C Hacker Read Me
 
 ### Live Demo
 
-<iframe src="http://va3c.github.io/viewer/va3c-hacker/latest/index.html" width=100% height=500px class='overview' >
+<iframe src="./latest/index.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com/va3c/viewer. To view, please see 'Project Links' below.
 </iframe>
-_vA3C Hacker - latest revision_ / [Full Screen (latest)]( http://va3c.github.io/viewer/va3c-hacker/latest/index.html )
+_vA3C Hacker - latest revision_ / [Full Screen (latest)]( ./latest/index.html )
 
 
 ### Blog Posts

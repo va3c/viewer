@@ -7,7 +7,8 @@ What would you like vA3C to do now?
 
 [Load a new basic template?]( #load-file-html.js#../templates/template-basic.html "You can add files to this space..." )  
   &nbsp;  [Load a template with lights & shadows?]( #load-file-html.js#../templates/template-lights-shadows.html )  
-  &nbsp;  [Load a template with skybox of clouds?]( #load-file-html.js#../templates/template-skybox.html )
+  &nbsp;  [Load a template with skybox of clouds?]( #load-file-html.js#../templates/template-skybox.html )  
+[[Browse even more templates]( #browse-templates.js )]  
 
 [Browse some NASA STL files?]( #browse-nasa-stl-models.js ) [source]( http://github.com/va3c/viewer/va3c-hacker/r1/view-nasa-stl-models.js )
 
@@ -21,6 +22,9 @@ What would you like vA3C to do now?
 [Browse for JSON 4 files using your file dialog?]( #browse-using-file-dialog-json4.js "" )
 
 Edit everything with the <a href="javascript:(function(){var script=document.createElement('script');script.type='text/javascript';script.src='https://rawgit.com/zz85/zz85-bookmarklets/master/js/ThreeInspector.js';document.body.appendChild(script);})()" title="Why invent your own when you can stand on the shoulders of giants?" >Three.js Inspector</a>?
+Or with <a href="javascript:(function(){var s=document.createElement('script');s.src='http://callum.com/apps/amui/amui.js';document.body.appendChild(s);})();" "title=Hats off to Callum" >AMUI</a>. 
+Both are bookmarklets you may use on most any Three.js file.
+
 
 [Enable drag and drop for JSON files?]( #drag-and-drop-json-files.js )
 

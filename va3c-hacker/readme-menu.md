@@ -5,7 +5,7 @@
 	<a href=JavaScript:displayPage("#readme.md#rm"); >Read Me</a>
 </p>
 
-<i class="fa fa-external-link"></i> [Live Demo (latest)]( http://va3c.github.io/viewer/va3c-hacker/latest/index.html ) 
+<i class="fa fa-external-link"></i> [Live Demo (latest)]( ./latest/index.html ) 
 
 <hr>
 

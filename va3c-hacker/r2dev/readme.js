@@ -3,7 +3,9 @@
 
 	function readReadme () {
 
-		displayMarkdown( '../readme.md', info );
 		location.hash = '';
+
+		displayMarkdown( '../readme.md', info );
+
 
 	}

@@ -1,6 +1,22 @@
 Dev Notes
 ===
 
+2014-11-25 ~ Theo
+
+* Add browse templates page
+* Add open HTML file by content
+* Add browse templates with your file dialog box.
+* Add Callum Prentice's AMUI editor & link to his template builder
+* Add Screen Grabber template - and it works on first try. But still much to do.
+
+All going very well. Spent quite a bit of time on the file saving part of the screnn grabber. Hoped to use the simple anchoe download trick, but no go. 
+So still with Eli Grey's FileSaver.js.
+
+Yesterday spent a lot of time on what I am calling the pre-processor. This is when you can get the content of a file and modify it using regex before adding it as an iframe.
+
+Using this capability, makes it possible to add 'preserveDrawingBuffer: true' to the renderer before it loads
+
+
 2014-11-23 ~ Theo
 
 * Add open JSON 4 files using file dialog
@@ -12,7 +28,7 @@ hack the request animation frame functionality. And the monitoring seems to work
 Looked at [ThreeFab]( http://blackjk3.github.io/threefab/ ) and [ThreeNode]( http://idflood.github.io/ThreeNodes.js/public/index.html ).
 Both nice and would be great geometry editors but both appear to be currently broken.
 
-http://va3c.github.io/viewer/va3c-hacker/r2dev/va3c-hacker-r2dev.html#enable-file-modified-monitor.js
+<http://va3c.github.io/viewer/va3c-hacker/r2dev/va3c-hacker-r2dev.html#enable-file-modified-monitor.js>
 
 2014-11-22 ~ Theo
 
