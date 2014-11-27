@@ -1,4 +1,4 @@
-
+// 2014-11-26 ~ vA3C authors ~ MIT License
 
 	tellYouTheTime( location.hash );
 
@@ -8,7 +8,7 @@
 
 		displayMarkdown ( 'demo-tell-you-the-time.md', info );
 
-		parameters = location.hash.split ('#');
+		var parameters = location.hash.split ('#');
 
 		source = info.innerHTML;
 		var text = parameters[2] || 'The current date and time in your part of the world is ' + new Date();
@@ -20,8 +20,6 @@
 
 		var talk = new SpeechSynthesisUtterance( text );
 		talk.onend = function( event ) { console.log('Finished in ' + event.elapsedTime + ' seconds.', event ); };
-//		window.speechSynthesis.speak( talk );
-
-
+		window.speechSynthesis.speak( talk );
 
 	}
