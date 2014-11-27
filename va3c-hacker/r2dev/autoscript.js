@@ -19,7 +19,7 @@
 
 			var tooltip = 'Helping you to stand on the shoulders of giants';
 
-			css = document.body.appendChild( document.createElement('style') );
+			var css = document.body.appendChild( document.createElement('style') );
 			css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
 				'h1 { margin: 0; }' +
 				'h1 a {text-decoration: none; }' +
@@ -46,7 +46,7 @@
 
 			info = container.appendChild( document.createElement( 'div' ) );
 			info.style.cssText = 'background-color: #ccc; display: none; left: 20px; max-height: ' + ( window.innerHeight - 150 ) + 'px ; opacity: 0.9; overflow: auto; ' +
-				'padding: 10px; position: absolute; top: 80px; width: 450px; z-index: 20;' +
+				'padding: 10px; position: absolute; resize: both; top: 80px; width: 450px; z-index: 20;' +
 			'';
 			info.id = 'movable';
 			info.title = 'Move this menu panel around the screen or iconize it';
@@ -56,13 +56,14 @@
 			'';
 
 			inworld = document.body.appendChild( document.createElement( 'div' ) );
-			inworld.style.cssText = 'padding: 10px; position: absolute; width: 450px; z-index: 10;';
-			inworld.innerHTML = //'<a href="" ><h1>' + document.title + '</h1></a>' +
+			inworld.style.cssText = 'padding: 10px; position: absolute; max-width: 450px; z-index: 10;';
+			inworld.header = //'<a href="" ><h1>' + document.title + '</h1></a>' +
 				'<div id=msg ></div>' +
 				'<div id=msg1 ></div>' +
 				'<div id=msg2 ></div>' +
 				'<div id=msg3 ></div>' +
 			'';
+			inworld.innerHTML = inworld.header;
 
 			displayMarkdown( 'autoscript.md', menu );
 
@@ -123,3 +124,48 @@
 
 	};
 
+	VH.updateObjectGometryByHashParameters = function( object, parameters ) {
+
+		if ( parameters.indexOf( 'random' ) > -1 ) {
+
+			object.position.set ( 50 * Math.random() - 25, 50 * Math.random(), 50 * Math.random() - 25 );
+			object.rotation.set( Math.PI * Math.random(), Math.PI * Math.random(), 0 );
+
+		} else {
+
+			for ( var i = 3, len = parameters.length; i < len; i++) {
+
+				parameter = parameters[i].substr( 0, 2 );
+				value = parseFloat( parameters[i].substr( 3 ) );
+
+				if ( parameter === 'px' ) object.position.x = value;
+				if ( parameter === 'py' ) object.position.y = value;
+				if ( parameter === 'pz' ) object.position.z = value;
+
+				if ( parameter === 'rx' ) object.rotation.x = value;
+				if ( parameter === 'ry' ) object.rotation.y = value;
+				if ( parameter === 'rz' ) object.rotation.z = value;
+
+				if ( parameter === 'sx' ) object.scale.x = value;
+				if ( parameter === 'sy' ) object.scale.y = value;
+				if ( parameter === 'sz' ) object.scale.z = value;
+
+				if ( parameter === 'na' ) object.name = parameters[i].substr( 3 );
+
+			}
+		}
+	}
+
+	VH.addShadowsToMeshesInScene = function( scene ) {
+
+		scene.traverse( function ( child ) {
+
+			if ( child instanceof THREE.Mesh ) {
+
+				child.castShadow = true;
+				child.receiveShadow = true;
+				child.frustumCulled = false;
+			}
+
+		} );
+	}

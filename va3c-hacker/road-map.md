@@ -5,7 +5,7 @@ vA3C Hacker Road Map
 
 * 2014-11-26 ~ Open Three.js files that are inside ZIP files
 
-* 2014-11-26 ~ Ditto 3D Warehouse / Collada files
+* 2014-11-26 ~ Open 3D Warehouse / Collada files directly
 
 * 2014-11-23 ~ function to clear all objects out of a scene leaving just lights and camera and/or just reloading current template file,,
 
@@ -40,3 +40,13 @@ vA3C Hacker Road Map
 
 * 2014-11-23 ~ Materials selector and editor
 
+## Contents
+
+### NASA STL Files
+
+* 2014-11-26 ~ Add all links to MD file
+* 2014-11-26 ~ Add links to NASA images
+* 2014-11-26 ~ Add links to  source NASA page for each file
+* 2014-11-26 ~ Find away of assembling the several multipart NASA files - will need multiple permalinks
+* 2014-11-26 ~ Build handsome GitHub presesence and inform NASA/GitHub
+  

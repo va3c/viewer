@@ -1,59 +1,51 @@
 
-	function loadFileJSON4Contents( contents, parameters ) {
+	function loadFileJSON4Contents( data, parameters ) {
 
 		var parameters = parameters || 'nothing';
 
 		parameters = parameters.split('#');
 
-		contents = JSON.parse( contents );
-		loader = new THREE.ObjectLoader();
-		contents = loader.parse( contents );
+		data = JSON.parse( data );
 
-		var block = new THREE.Object3D();
+		var loader = new THREE.ObjectLoader();
 
-		if ( parameters.indexOf( 'random' ) > -1 ) {
+		var result = loader.parse( data );
 
-			block.position.set ( 50 * Math.random() - 25, 50 * Math.random(), 50 * Math.random() - 25 );
-			block.rotation.set( Math.PI * Math.random(), Math.PI * Math.random(), 0 );
+
+		if ( result instanceof THREE.Scene ) {
+
+			app.scene = result;
+
+			animate() ;
+
 
 		} else {
 
-			for ( var i = 0, len = parameters.length; i < len; i++) {
+//				scene.addObject( result );
+//				scene.select( result );
 
-				parameter = parameters[i].substr( 0, 2 );
-				value = parseFloat( parameters[i].substr( 3 ) );
+			var block = new THREE.Object3D();
 
-				if ( parameter === 'px' ) block.position.x = value;
-				if ( parameter === 'py' ) block.position.y = value;
-				if ( parameter === 'pz' ) block.position.z = value;
+			VH.updateObjectGometryByHashParameters( block, parameters );
 
-				if ( parameter === 'rx' ) block.rotation.x = value;
-				if ( parameter === 'ry' ) block.rotation.y = value;
-				if ( parameter === 'rz' ) block.rotation.z = value;
+			block.add( result );
 
-				if ( parameter === 'sx' ) block.scale.x = value;
-				if ( parameter === 'sy' ) block.scale.y = value;
-				if ( parameter === 'sz' ) block.scale.z = value;
+			scene.add( block );
 
-				if ( parameter === 'na' ) block.name = parameters[i].substr( 3 );
+			VH.addShadowsToMeshesInScene( scene );
 
-			}
 		}
 
-		contents.traverse( function ( child ) {
-
-			if ( child instanceof THREE.Mesh ) {
-
-				child.castShadow = true;
-				child.receiveShadow = true;
-				child.frustumCulled = false;
-			}
-
-		} );
-
-		block.add( contents );
-		scene.add( block );
-
 //console.log( 'loadFileJSON4Contents', contents, parameters );
+
+	}
+
+
+
+	function animate() {
+
+		renderer.render( scene, camera );
+		controls.update();
+		requestAnimationFrame( animate );
 
 	}

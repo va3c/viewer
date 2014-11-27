@@ -3,6 +3,7 @@
 <head>
 <title>VA3C Hacker R2dev</title>
 <meta charset=utf-8 />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 </head>
 <body>
 <script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
@@ -12,19 +13,19 @@
 
 	VH.loadScript = function ( fileName, callback ) {
 
-//		var callback = function() { console.log( 'VH.loadScript:' + fileName ); } || callback();
 		var callback = function () {} || callback ();
 
-		js = document.body.appendChild ( document.createElement( 'script' ) );
+		var js = document.body.appendChild ( document.createElement( 'script' ) );
 
-		js.onload = callback ();
+		js.onload = callback();
+
 		js.setAttribute ( 'src', fileName );
 
 	};
 
 	VH.init = function () {
  
-		parameters = location.hash.split ( '#' );
+		var parameters = location.hash.split ( '#' );
 
 		if ( parameters.length > 1 ) {
 

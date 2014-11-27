@@ -1,8 +1,10 @@
 
 
 	var image, imageSize, imageHeight, imageWidth;
-	var imageSizes = ['1024 x 1024','1024 x 768','1024 x 512','800 x 600','640 x 480','600 x 600','512 x 512','512 x 256',
-		'480 x 480','480 x 320','384 x 384','320 x 240','256 x 256', '128 x 128', '64 x 64'];
+	var imageSizes = [
+		'1024 x 1024','1024 x 768','1024 x 512','800 x 600','640 x 480','600 x 600','512 x 512','512 x 256',
+		'480 x 480','480 x 320','384 x 384','320 x 240','256 x 256', '128 x 128', '64 x 64'
+	];
 	var contents;
 	var canvas;
 
@@ -24,15 +26,15 @@
 
 	function init() {
 
-		info.innerHTML +=
-			'<p><input type=file id=inpFile onchange=openFile() ></p>' +
-			'<p>Select a size <select id=selSize onchange=updateSize() ></select></p>' +
-			'<p>width: <input type=number id=sizeWidth style=width:50px; min=1 /> ' +
-				'height: <input type=number id=sizeHeight style=width:50px; min=1 /></p>' +
-			'<p><a href=JavaScript:grabIt(); >Grab It</a> ~ ' +
-				'<a href=JavaScript:saveIt(); >Save it</a>' +
-			'</p>' +
-		'';
+		inworld.style.cssText += 'padding-top: 0px; max-width:100%; ';
+		inworld.innerHTML = '<p>' +
+			'1. <input type=file id=inpFile onchange=openFile() > ' +
+			'2. Select a size <select id=selSize onchange=updateSize() ></select> ~ ' +
+				'width: <input type=number id=sizeWidth style=width:50px; min=1 /> ' +
+				'height: <input type=number id=sizeHeight style=width:50px; min=1 /> ~ ' +
+			'3. <a href=JavaScript:grabIt(); >Grab It</a> ~ ' +
+			'4. <a href=JavaScript:saveIt(); >Save it</a>' +
+		'</p>';
 
 		for ( var i = 0, len = imageSizes.length; i < len; i++ ) {
 
@@ -62,7 +64,7 @@
 
 	}
 
-	function addIframe( contents ) {
+	function addIframe( contents, parameters ) {
 
 		var iframes = document.getElementsByTagName( 'iframe' ) ;
 		var canvases = document.getElementsByTagName( 'canvas' ) ;
@@ -75,7 +77,7 @@
 		}
 
 		ifr = document.body.appendChild( document.createElement( 'iframe' ) );
-		ifr.style.borderWidth = '1px';
+		ifr.style.cssText = 'border-width: 1px; margin-left: 19px; margin-top: 50px;';
 		ifr.width = sizeWidth.value; // window.innerWidth;
 		ifr.height = sizeHeight.value; //window.innerHeight;
 
@@ -91,7 +93,7 @@
 			controls = app.controls;
 			material = app.material;
 
-			if ( parameters.indexOf( 'displayInfo' ) > -1 ) { 
+			if ( parameters && parameters.indexOf( 'displayInfo' ) > -1 ) { 
 
 				info.style.display = ''; 
 
@@ -127,7 +129,7 @@
 
 			re = /antialias: true/gi;
 			mat = contents.match( re );
-console.log( mat );
+//console.log( mat );
 			str = 'antialias: true, preserveDrawingBuffer: true' ;
 
 			contents = contents.replace( re, str );

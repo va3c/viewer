@@ -5,12 +5,24 @@ Dev Notes
 
 * Edit light setting in the three templates
 * Add text to the tell you the time demo
-* Add FAQ
+* Add FAQ 
+* Add link to source and other fixes to read me.
 * Rename fies to follow the current naming convention. See FAQ
+* Lots of fixes and notes to Screen Grabber. Ready for using?
+* Add VH.updateObjectGometryByHashParameters( mesh, parameters );
+* Add VH.addShadowsToMeshesInScene( scene );
+* Add export to JSON file
+* JSON import distinguishes between objects and scenes
+* Exported scenes make the round trip 
 
 Working on this thing is enthralling. Adding features, content and abilities is all just so easy that it becomes a lot of fun.
 And you can move from, say, adding content to editing code so easily. It's like a [parkour]( http://en.wikipedia.org/wiki/Parkour ) or [freerunning]( http://en.wikipedia.org/wiki/Freerunning ) for coding
 Or perhaps that German word I never remember which describes a run where sometimes you jog and sometimes you sprint just depending on how you feel at the moment. 
+
+21:32 ~  Exported data makes the round trip. Was extremely lucky. JSON data was coming in but controls did not work / display was not updating/frozen. 
+Happened to click 'Enable file modified monitor' and display awoke. Turns out that you need to create a new animate function. 
+Would not have found that by myself.  ;-) 
+
 
 2014-11-25 ~ Theo
 

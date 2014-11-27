@@ -1,7 +1,7 @@
 Demo: Tell You the Time
 ===
 
-### _<span style="color:red">[text-to-speak-shows-here]</span>_
+### _<span style="color:red;" >[text-to-speak-shows-here]</span>_
 
 ***
 
