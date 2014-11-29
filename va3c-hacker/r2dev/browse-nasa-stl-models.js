@@ -1,9 +1,15 @@
 
-	viewNasaStlModels ();
+	viewNasaStlModels ( location.hash );
 
-	function viewNasaStlModels () {
+	function viewNasaStlModels ( parameters ) {
 
-			displayMarkdown ( '../../../nasa-samples/readme.md', info );
+		if ( !parameters ) return;
+
+		parameters = location.hash.split('#');
+
+		foolName = parameters[2];
+
+		displayMarkdown ( '../../../nasa-samples/readme.md', info );
 
 		if ( !THREE ) { 
 
@@ -11,24 +17,28 @@
 
 			callbackIframe = function() {
 
-				VH.loadScript( 'http://mrdoob.github.io/three.js/examples/js/loaders/STLLoader.js', callbackLoadSTL() );
+				VH.loadScript( 'http://mrdoob.github.io/three.js/examples/js/loaders/STLLoader.js', callbackLoadSTL( foolName ) );
 
-console.log( 'callbackIframe NASA:' );
+				VH.loadScript( 'load-file-stl.js', callbackLoadSTL( foolName ) );
+
+console.log( 'callbackIframe NASA:', foolName );
 
 			}
 
 		} else {
 
-				VH.loadScript( 'http://mrdoob.github.io/three.js/examples/js/loaders/STLLoader.js', callbackLoadSTL() );
+				VH.loadScript( 'http://mrdoob.github.io/three.js/examples/js/loaders/STLLoader.js', callbackLoadSTL( foolName ) );
 
 		}
 	}
 
-	function callbackLoadSTL () {
+	function callbackLoadSTL ( foolName ) {
 
 		callbackIframe = callbackIframeDefault;
 
-console.log( 'callbackLoadSTL' );
+		location.hash = '#load-file-stl.js#' + foolName;
+
+console.log( 'callbackLoadSTL', foolName );
 
 	}
 

@@ -1,13 +1,15 @@
 
 	loadFileSTL( location.hash );
  
-	function loadFileSTL ( parameters ) {
+	function loadFileSTL ( parameters ) { 
 
-		if ( !parameters ) return;
+console.log( 'loadFileSTL', parameters, foolName );
+
+		if ( !parameters && !foolName ) return;
 
 		parameters = location.hash.split('#');
 
-		fileName = parameters[2];
+		fileName = foolName; // parameters[2] ;
 
 		location.hash = '';
 
@@ -33,7 +35,7 @@
 
 		loader.load( fileName );
 
-//console.log( 'callbackSTL', parameters, fileName );
+
 
 	}
 	

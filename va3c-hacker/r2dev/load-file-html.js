@@ -44,13 +44,11 @@
 
 			}
 
-			callbackIframe();
+			msg.innerHTML = 'Template:' + fileName;
 
 		}
 
 		ifr.src = fileName;
-
-//console.log( 'loadFileHTML', parameters, fileName );
 
 	}
 
