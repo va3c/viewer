@@ -3,13 +3,15 @@
  
 	function loadFileSTL ( parameters ) { 
 
-console.log( 'loadFileSTL', parameters, foolName );
+console.log( 'loadFileSTL', parameters );
 
-		if ( !parameters && !foolName ) return;
+		if ( !parameters ) return;
 
-		parameters = location.hash.split('#');
+		parameters = parameters.split( '#' );
 
-		fileName = foolName; // parameters[2] ;
+		if ( !parameters[ 2 ] ) { return; }
+
+		fileName = parameters[ 2 ];
 
 		location.hash = '';
 
