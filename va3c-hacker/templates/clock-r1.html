@@ -232,8 +232,6 @@
 
 
 // Hours
-
-// Minutes
 		geometry = new THREE.BoxGeometry( 2, 1, 20  );
 		angle = time.getHours() * Math.PI / 30;
 		material = new THREE.MeshPhongMaterial( {
@@ -264,9 +262,10 @@
 		handMinutes.position.set( -25 * Math.cos( angle ), 18, -25 * Math.sin( angle ) );
 		handMinutes.rotation.y = ( Math.PI / 2 ) + Math.PI - angle;
 
-		angle = time.getHours() * Math.PI / 30;
-		handHours.position.set( -15 * Math.cos( angle), 17, 15 * Math.sin( angle ) );
-		handHours.rotation.y =  angle -  Math.PI / 2 ;
+		angle = time.getHours() * Math.PI / 6;
+//msg.innerHTML = angle;
+		handHours.position.set( -15 * Math.cos( angle), 17, -15 * Math.sin( angle ) );
+		handHours.rotation.y =  ( Math.PI / 2 ) + Math.PI - angle;
 
 	}
 

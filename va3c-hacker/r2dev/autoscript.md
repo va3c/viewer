@@ -10,9 +10,9 @@ What would you like vA3C to do now?
   &nbsp;  [Load a template with skybox of clouds?]( #load-file-html.js#../templates/template-skybox.html )  
 [[Browse even more templates]( #browse-templates.js )]  
 
-
+<!--
 [Browse some NASA STL files?]( #browse-nasa-stl-models.js ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )
-
+-->
 [Browse some NASA STL files?]( #load-file-html.js#../../../nasa-samples/va3c-hacker-r2-1dev.html# ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )
 
 [Have a glimpse at Tony Parisi's new &lt;GLAM> declarative language examples?]( #view-glam-models.js "make your style sheets 3D smarter" )  

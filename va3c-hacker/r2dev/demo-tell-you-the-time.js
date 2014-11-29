@@ -9,8 +9,8 @@
 
 			location.hash = '#load-file-html.js#../templates/clock-r1.html#displayInfo';
 
-
 		}
+
 		displayMarkdown ( 'demo-tell-you-the-time.md', info );
 
 		var parameters = parameters.split ('#');
@@ -30,10 +30,9 @@
 
 		window.speechSynthesis.speak( talk );
 
-
-
 	}
 
+/*
 	function buildClock() {
 
 		geometry = new THREE.CylinderGeometry( 50, 50, 10, 50 );
@@ -120,8 +119,6 @@
 
 
 // Hours
-
-// Minutes
 		geometry = new THREE.BoxGeometry( 2, 1, 20  );
 		angle = time.getHours() * Math.PI / 30;
 		material = new THREE.MeshPhongMaterial( {
@@ -142,8 +139,9 @@
 		scene.add( handHours );
 
 	}
+
 	function updateHands() {
-		var time = new Date();
+		time = new Date();
 		angle = time.getSeconds() * Math.PI / 30;
 		handSeconds.position.set( -25 * Math.cos( angle ), 19, -25 * Math.sin( angle ) );
 		handSeconds.rotation.y = ( Math.PI / 2 ) - angle;
@@ -152,9 +150,10 @@
 		handMinutes.position.set( -25 * Math.cos( angle ), 18, -25 * Math.sin( angle ) );
 		handMinutes.rotation.y = ( Math.PI / 2 ) + Math.PI - angle;
 
-		angle = time.getHours() * Math.PI / 30;
-		handHours.position.set( -15 * Math.cos( angle), 17, 15 * Math.sin( angle ) );
-		handHours.rotation.y =  angle -  Math.PI / 2 ;
+		angle = time.getHours() * Math.PI / 12;
+msg.innerHTML = angle ;
+		handHours.position.set(   15 * Math.cos( angle ), 17, 15 * Math.sin( angle ) );
+		handHours.rotation.y =  angle;
 
 	}
 
@@ -166,3 +165,5 @@
 		requestAnimationFrame( animate );
 
 	}
+
+*/

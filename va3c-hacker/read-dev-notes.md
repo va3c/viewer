@@ -1,13 +1,26 @@
 Dev Notes
 ===
 
+2014-11-29 ~ Theo
+
+* Add clock to tell you the time
+* Many updates to NASA files
+
+Things got very complicated and very broken for a while. Many callback and RESTfull issues. Then they just seemed to go away.
+
+This was caused by the NASA files. 
+The read me file should work well inside vA3C viewer and also to look great as the read me for its GitHub repository.
+This is all part of the 'You don't go to it. It comes to you.' idea.
+In the end, there was a bit of a 'doh', just treat it as another app - the same as vA3C Viewer is handled.
+This means build it and test things completely separately and bring it in as an independent iframe.
+
 2014-11-26 ~ Theo
 
 * Edit light setting in the three templates
 * Add text to the tell you the time demo
 * Add FAQ 
 * Add link to source and other fixes to read me.
-* Rename fies to follow the current naming convention. See FAQ
+* Rename files to follow the current naming convention. See FAQ
 * Lots of fixes and notes to Screen Grabber. Ready for using?
 * Add VH.updateObjectGometryByHashParameters( mesh, parameters );
 * Add VH.addShadowsToMeshesInScene( scene );
