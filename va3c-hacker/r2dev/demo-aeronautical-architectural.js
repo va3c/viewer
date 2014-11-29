@@ -15,6 +15,8 @@
 	function demoAeronauticalArchitectural( parameters ) {
 
 		parameters = parameters.split('#');
+
+// Why not if ( !THREE...
  
 		if ( parameters.indexOf( 'demo' ) < 0 ) {
 

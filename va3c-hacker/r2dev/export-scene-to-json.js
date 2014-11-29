@@ -7,7 +7,17 @@
 
 		displayMarkdown( './export-scene-to-json.md', info );
 
-		VH.loadScript( 'http://mrdoob.github.io/three.js/examples/js/exporters/SceneExporter.js', callbackLoadSTL() );
+		if ( !scene ) {
+
+			alert( 'Please load something to export first' );
+
+			info.style.display = 'none'; 
+
+			return;
+
+		}
+
+		VH.loadScript( 'http://mrdoob.github.io/three.js/examples/js/exporters/SceneExporter.js', function() { console.log( 'SceneExporter loaded'); } );
 
 	}
 
@@ -21,9 +31,8 @@
 
 		var a = document.createElement( 'a' );
 		a.href = window.URL.createObjectURL( blob );
-		a.download = 'wonder.json';
+		a.download = 'wonderful.json';
 		a.click();
 		delete a;
-
 
 	}

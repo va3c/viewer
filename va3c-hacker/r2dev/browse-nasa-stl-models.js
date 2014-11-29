@@ -3,7 +3,7 @@
 
 	function viewNasaStlModels () {
 
-			displayMarkdown ( 'browse-nasa-stl-models.md', info );
+			displayMarkdown ( '../../../nasa-samples/readme.md', info );
 
 		if ( !THREE ) { 
 

@@ -23,6 +23,18 @@ Or perhaps that German word I never remember which describes a run where sometim
 Happened to click 'Enable file modified monitor' and display awoke. Turns out that you need to create a new animate function. 
 Would not have found that by myself.  ;-) 
 
+2014-11-26 ~ The current trend for apps is to do one thing well. Hacker seems to be different. Hacker does many things badly. Is that its motto? 
+"If it's worth doing, it's worth doing badly."
+
+I hope that vA3C Hacker has
+
+* As much content as a store or wiki or library
+* Many thousands of lines of useful, usable code
+* An appearance for every need and desire
+
+ 
+
+
 
 2014-11-25 ~ Theo
 

@@ -69,7 +69,9 @@ console.log( objects );
 		if ( selected ) {
 
 			var intersects = raycaster.intersectObject( plane );
+
 			selected.position.copy( intersects[ 0 ].point.sub( offset ) );
+
 			return;
 
 		}

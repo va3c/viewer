@@ -1,4 +1,5 @@
-
+	var VH = 
+VH || {};
 	var container, menu, info, inworld;
 //	var callbackIframeDefault = function () { console.log( 'callbackIframeDefault' ); };
 	var callbackIframeDefault = function () {};
@@ -42,8 +43,6 @@
 				'<hr>' +
 			'';
 
-			window.addEventListener( 'mouseup', mouseUp, false);
-
 			info = container.appendChild( document.createElement( 'div' ) );
 			info.style.cssText = 'background-color: #ccc; display: none; left: 20px; max-height: ' + ( window.innerHeight - 150 ) + 'px ; opacity: 0.9; overflow: auto; ' +
 				'padding: 10px; position: absolute; resize: both; top: 80px; width: 450px; z-index: 20;' +
@@ -65,6 +64,8 @@
 			'';
 			inworld.innerHTML = inworld.header;
 
+			window.addEventListener( 'mouseup', mouseUp, false);
+
 			displayMarkdown( 'autoscript.md', menu );
 
 		}
@@ -76,19 +77,11 @@
 		var converter = new Showdown.converter();
 
 		panel.innerHTML = panel.header + converter.makeHtml( requestFile( fname ) );
+
 		panel.style.display = '';
 
 	}
  
-	function requestFile ( fileName ){
-
-		var xmlHttp = new XMLHttpRequest ();
-		xmlHttp.open( 'GET', fileName, false );
-		xmlHttp.send( null );
-		return xmlHttp.responseText;
-
-	}
-
 	function mouseUp() {
 
 		window.removeEventListener('mousemove', divMove, true);
@@ -98,12 +91,14 @@
 	 function mouseMove( event ){
 
 		if ( event.target.id === 'movable' ) {
+
 			event.preventDefault();
 
 			offsetX = event.clientX - event.target.offsetLeft;
 			offsetY = event.clientY - event.target.offsetTop;
 
 			window.addEventListener('mousemove', divMove, true);
+
 		}
 
 	};
@@ -123,6 +118,15 @@
 		}
 
 	};
+
+	function requestFile ( fileName ){
+
+		var xmlHttp = new XMLHttpRequest ();
+		xmlHttp.open( 'GET', fileName, false );
+		xmlHttp.send( null );
+		return xmlHttp.responseText;
+
+	}
 
 	VH.updateObjectGometryByHashParameters = function( object, parameters ) {
 

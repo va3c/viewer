@@ -7,13 +7,12 @@
 </head>
 <body>
 <script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
+<script src=autoscript.js ></script>
 <script>
-
-	var VH = VH || {};
 
 	VH.loadScript = function ( fileName, callback ) {
 
-		var callback = function () {} || callback ();
+		var callback = callback ? callback : function () {} ;
 
 		var js = document.body.appendChild ( document.createElement( 'script' ) );
 
@@ -42,6 +41,16 @@
 	}
 
 	VH.init();
+
+	function displayMarkdown ( fname, panel ) {
+
+		var converter = new Showdown.converter();
+
+		panel.innerHTML = panel.header + converter.makeHtml( requestFile( fname ) );
+
+		panel.style.display = '';
+
+	}
 
 </script>
 </body>

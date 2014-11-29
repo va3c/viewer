@@ -2,14 +2,13 @@ NASA STL Files
 ===
 The following files are available and downloadable thanks to [NASA 3D Resources (Beta)]( http://nasa3d.arc.nasa.gov/models/printable ).
 
-Clicking on the image or link, inserts the STL file into the current model. Clicking the [o], opens the file in a new model.
-
-2014-11-12 ~ Until the ability to move and edit models, files are added with random positions, rotations and colors.
+2014-11-12 ~ files are added with random positions, rotations and colors.
 
 ### Block Island 08152013
 [![Block Island 08152013]( http://nasa3d.arc.nasa.gov/shared_assets/models/block-island/block-island-428x321.png )]( #load-file-stl.js#../../../nasa-samples/stl/Block_Island_08152013.stl#random "NASA model" )  
 
-[Block Island 08152013]( #load-file-stl.js#../../../nasa-samples/stl/Block_Island_08152013.stl#random "NASA model" )  
+[Block Island 08152013]( #load-file-stl.js#../../../nasa-samples/stl/Block_Island_08152013.stl#random "NASA model" ) 
+[NASA Page]( http://nasa3d.arc.nasa.gov/detail/block-island ) 
 
 ### Cassini
 [![Cassini]( http://nasa3d.arc.nasa.gov/shared_assets/models/jpl-vtad-cassini/jpl-vtad-cassini-428-321.jpg)]( #load-file-stl.js#../../../nasa-samples/stl/cassini.stl#random "NASA model" )   
@@ -40,5 +39,7 @@ Clicking on the image or link, inserts the STL file into the current model. Clic
 [![Stardust 35]( http://nasa3d.arc.nasa.gov/shared_assets/models/jpl-vtad-stardust/jpl-vtad-stardust-428-321.jpg )]( #load-file-stl.js#../../../nasa-samples/stl/Stardust_35.stl#random "NASA model" )  
 
 [Stardust 35]( #load-file-stl.js#../../../nasa-samples/stl/Stardust_35.stl#random "NASA model" )  
+
+
 
 <style>img { width: 400px; } /* yup, this works */</style>
