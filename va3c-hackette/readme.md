@@ -1,7 +1,7 @@
 [vA3C Hackette R2dev]( ./va3c-hackette-r2dev.html )
 ===
 
-[vA3C Hackette web page view]( http://va3c.github.io/viewer/va3c-hacker/ "Browse through files with vA3C Hackette" )
+[vA3C Hackette web page view]( http://va3c.github.io/viewer/va3c-hackette/ "Browse through files with vA3C Hackette" )
 [GitHub Source code view]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hackette "View and edit files with GitHub")
 
 vA3C Hackette is single HTML file that you may add to any directory or foder. vA3C Hackette provides:
