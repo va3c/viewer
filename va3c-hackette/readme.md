@@ -28,32 +28,32 @@ The following links enable you to browse some sample files from the [vA3C Cookbo
 
 [pr2_head_pan.stl]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/pr2_head_pan.stl#py=15#sx=100#sy=100#sz=100# )
 
-[scene.json]( #../../cookbook/samples/scene.json# )
+[scene.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/scene.json# )
 
-[schroder-house-r4.js.json]( #../../cookbook/samples/schroder-house-r4.js.json# ) - no materials
+[schroder-house-r4.js.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/schroder-house-r4.js.json# ) - no materials
 
-[SimpleModel.json]( #../../cookbook/samples/SimpleModel.json# )
+[SimpleModel.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/SimpleModel.json# )
 
-[Stardust_35.stl]( #../../cookbook/samples/Stardust_35.stl#new=true )
+[Stardust_35.stl]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/Stardust_35.stl#new=true )
 
-[three-boxes.json]( #../../cookbook/samples/three-boxes.json# )
+[three-boxes.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/three-boxes.json# )
 
-[three-shapes.json]( #../../cookbook/samples/three-shapes.json# )
+[three-shapes.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/three-shapes.json# )
 
-[WaltHeadLo.js]( #../../cookbook/samples/WaltHeadLo.js#py=50# )
+[WaltHeadLo.js]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/WaltHeadLo.js#py=50# )
 
-[WaltHead.obj]( #../../cookbook/samples/WaltHead.obj#py=50# )
+[WaltHead.obj]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/WaltHead.obj#py=50# )
 
-[WrightFlyer-pb-jw.js]( #../../cookbook/samples/WrightFlyer-pb-jw.js#py=20#sx=20#sy=20#sz=20 )
+[WrightFlyer-pb-jw.js]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/WrightFlyer-pb-jw.js#py=20#sx=20#sy=20#sz=20 )
 
-[Wave Sphere]( #../../cookbook/samples/wave-sphere.html# )
+[Wave Sphere]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/wave-sphere.html# )
 
 Files from other vA3C locations
 
-[Skybox]( #../../va3c-hacker/templates/template-skybox.html# )
+[Skybox]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../va3c-hacker/templates/template-skybox.html# )
 
-[Schroder House / JSON 3]( #../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js#sx=5#sy=5#sz=5 ) 1919 
+[Schroder House / JSON 3]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js#sx=5#sy=5#sz=5 ) 1919 
 
-[Revit: Little House / JSON 4]( #../../../RvtVa3c/models/little_house.rvt.js#py=2#ry=3#sx=0.01#sy=0.01#sz=0.01# )
+[Revit: Little House / JSON 4]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../../RvtVa3c/models/little_house.rvt.js#py=2#ry=3#sx=0.01#sy=0.01#sz=0.01# )
 
 
