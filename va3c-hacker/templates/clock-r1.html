@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>Simple Lights Shadows</title>
+<title>Clock R1</title>
 <meta charset=utf-8 />
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 </head>
@@ -26,8 +26,10 @@
 
 		info = document.body.appendChild( document.createElement( 'div' ) );
 		info.style.cssText = 'left: 20px; position: absolute; top: 0px; width: 100% ';
-		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
-			'<div id=msg></div>';
+		info.innerHTML = 
+// '<a href="" ><h1>' + document.title + '</h1></a>' +
+			'<div id=msg></div>'
+		'';
 
 		stats = new Stats();
 		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
@@ -51,10 +53,10 @@
 		controls.maxDistance = 1000;
 
 // Lights
-		light = new THREE.AmbientLight( 0xffffff );
+		light = new THREE.AmbientLight( 0x888888 );
 		scene.add( light );
 
-		light = new THREE.DirectionalLight( 0xffffff, 1 );
+		light = new THREE.DirectionalLight( 0x888888, 0.75 );
 		light.position.set( -200, 200, 200 );
 
 		var d = 100;
@@ -76,7 +78,7 @@
 		light.shadowCameraVisible = true;
 		scene.add( light );
 
-		light = new THREE.PointLight( 0x888888, 1 );
+		light = new THREE.PointLight( 0x888888, 0.75);
 		light.position = camera.position;
 		camera.add( light );
 
@@ -109,17 +111,12 @@
 		var axis = new THREE.AxisHelper( 50 );
 		scene.add( axis );
 
-// Sphere
-		geometry = new THREE.SphereGeometry( 25, 50, 50 );
-
-//		material = new THREE.MeshNormalMaterial();
-//		material = new THREE.MeshBasicMaterial( { color: 0x888888, opacity: 0.7, side: THREE.DoubleSide, transparent: true });
-//		material = new THREE.MeshLambertMaterial( { ambient: 0xffffff, color: 0xffffff * Math.random() } );
-//		material = new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.FlatShading } )
+// Perisphere
+		geometry = new THREE.SphereGeometry( 25, 50, 25, 0, Math.PI * 2, 5.25  );
 		material = new THREE.MeshPhongMaterial( {
 			color: 0xffffff * Math.random(), 
 			ambient: 0xffffff * Math.random(),
-			specular: 0xffffff * Math.random()
+			specular: 0xaaaaaa * Math.random()
 //			shading: THREE.FlatShading,
 //			shininess: 0.001
 		} );
@@ -129,6 +126,7 @@
 		mesh.receiveShadow = true;
 		scene.add( mesh );
 
+// Trylon
 		geometry = new THREE.CylinderGeometry( 0, 8, 80, 3 );
 		material = new THREE.MeshPhongMaterial( {
 			color: 0xffffff * Math.random(), 
@@ -142,6 +140,8 @@
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 		scene.add( mesh );
+
+
 
 		buildClock();
 
@@ -162,7 +162,7 @@
 		mesh.receiveShadow = true;
 		scene.add( mesh );
 
-// Cubes
+// Dial
 		geometry = new THREE.BoxGeometry( 2, 1, 10  );
 		var angle = Math.PI / 6;
 		for (var i = 0; i < 12; i++) {
@@ -192,7 +192,6 @@
 
 // Seconds
 		geometry = new THREE.BoxGeometry( 2, 1, 40  );
-		angle = time.getSeconds() * Math.PI / 30;
 		material = new THREE.MeshPhongMaterial( {
 			color: 0xffffff * Math.random(), 
 			ambient: 0xffffff * Math.random(),
@@ -204,15 +203,12 @@
 		} );
 
 		handSeconds = new THREE.Mesh( geometry, material );
-		handSeconds.position.set( 25 * Math.cos( angle ), 19, 25 * Math.sin( angle ) );
-		handSeconds.rotation.y = ( Math.PI / 2 ) - angle;
 		handSeconds.castShadow = true;
 		handSeconds.receiveShadow = true;
 		scene.add( handSeconds );
 
 // Minutes
 		geometry = new THREE.BoxGeometry( 2, 1, 30  );
-		angle = time.getMinutes() * Math.PI / 30;
 		material = new THREE.MeshPhongMaterial( {
 			color: 0xffffff * Math.random(), 
 			ambient: 0xffffff * Math.random(),
@@ -224,8 +220,6 @@
 		} );
 
 		handMinutes = new THREE.Mesh( geometry, material );
-		handMinutes.position.set( 15 * Math.cos( angle ), 19, 15 * Math.sin( angle ) );
-		handMinutes.rotation.y = ( Math.PI / 2 ) - angle;
 		handMinutes.castShadow = true;
 		handMinutes.receiveShadow = true;
 		scene.add( handMinutes );
@@ -233,7 +227,6 @@
 
 // Hours
 		geometry = new THREE.BoxGeometry( 2, 1, 20  );
-		angle = time.getHours() * Math.PI / 30;
 		material = new THREE.MeshPhongMaterial( {
 			color: 0xffffff * Math.random(), 
 			ambient: 0xffffff * Math.random(),
@@ -245,25 +238,24 @@
 		} );
 
 		handHours = new THREE.Mesh( geometry, material );
-//		handHours.position.set( 10 * Math.cos( angle ), 18, 10 * Math.sin( angle ) );
-//		handHours.rotation.y = ( Math.PI / 2 ) - angle;
 		handHours.castShadow = true;
 		handHours.receiveShadow = true;
 		scene.add( handHours );
 
 	}
 	function updateHands() {
+
 		var time = new Date();
 		angle = time.getSeconds() * Math.PI / 30;
 		handSeconds.position.set( -25 * Math.cos( angle ), 19, -25 * Math.sin( angle ) );
 		handSeconds.rotation.y = ( Math.PI / 2 ) - angle;
 
-		angle = time.getMinutes() * Math.PI / 30;
+		minutes = time.getMinutes();
+		angle = minutes * Math.PI / 30;
 		handMinutes.position.set( -25 * Math.cos( angle ), 18, -25 * Math.sin( angle ) );
 		handMinutes.rotation.y = ( Math.PI / 2 ) + Math.PI - angle;
 
-		angle = time.getHours() * Math.PI / 6;
-//msg.innerHTML = angle;
+		angle = time.getHours() * Math.PI / 6 + minutes * Math.PI / ( 60 * 6 );
 		handHours.position.set( -15 * Math.cos( angle), 17, -15 * Math.sin( angle ) );
 		handHours.rotation.y =  ( Math.PI / 2 ) + Math.PI - angle;
 

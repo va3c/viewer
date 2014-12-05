@@ -3,6 +3,8 @@
 
 	function browseRevitJson4Files () {
 
+displayMenuLeft === true;
+
 		if ( !THREE ) { 
 
 			location.hash = '#load-file-html.js#../templates/template-skybox.html#displayInfo';

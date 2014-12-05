@@ -1,6 +1,31 @@
 Dev Notes
 ===
 
+2014-12-01 ~ Theo
+
+* Clock hour hand displays correctly
+* NASA STL files loading more 'generically'
+* Ditto JSON files - but still issues 
+
+13:15 ~  Had an issue with updating the leftMenu with clock text. 
+It turns out that using displayMarkdown first then modifying the texr works better than _vice versa_.
+
+
+2014-11-30 ~ Theo
+
+* working on 2.2dev
+* Now all namespaced
+* Building 3D Warehouse Hacker
+* Browse for STL or JSON 3 or 4 files
+
+This thing of building a new hacker for each GitHub folder of 3D models is teaching me a lot.
+
+2.3dev working well. Faster, smaller, simpler. The main is that you can load stl or json3 or json4 files from a single call.
+A 'dispatcher' looks at the file type and sends the file to the appropriate place.
+
+All moving well. Probably time for a code clean-up and taking some screen shots.
+
+
 2014-11-29 ~ Theo
 
 * Add clock to tell you the time
@@ -24,7 +49,7 @@ This means build it and test things completely separately and bring it in as an 
 * Lots of fixes and notes to Screen Grabber. Ready for using?
 * Add VH.updateObjectGometryByHashParameters( mesh, parameters );
 * Add VH.addShadowsToMeshesInScene( scene );
-* Add export to JSON file
+* Add export scene to JSON file
 * JSON import distinguishes between objects and scenes
 * Exported scenes make the round trip 
 
