@@ -1,7 +1,22 @@
-[vA3C Hackette R1]( ./va3c-hackette-r1dev.html )
+[vA3C Hackette R2dev]( ./va3c-hackette-r2dev.html )
 ===
 
-Some sample files from the cookbook.
+[vA3C Hackette web page view]( http://va3c.github.io/viewer/va3c-hacker/ "Browse through files with vA3C Hackette" )
+[GitHub Source code view]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hackette "View and edit files with GitHub")
+
+vA3C Hackette is single HTML file that you may add to any directory or foder. vA3C Hackette provides:
+
+* A dual view 3D document browsing system
+* The first view reads the 'readme' or any Markdown file and turns it into HTML.
+* The second view displays HTML files and 3D models
+* The first view is a pop-up movable/closable window
+* The second view is full-screen
+
+vA3C Hacker uses a subset of [vA3C Hacker]( http://va3c.github.io/viewer/va3c-hacker/latest ) features.
+
+What you see here is a actual vA3C Hackette 'dog food'. The initial view is selected randomly from the list below.
+
+The following links enable you to browse some sample files from the [vA3C Cookbook]( http://va3c.github.io/viewer/cookbook/readme-reader.html ).
 
 [acesjustforroomshow.obj]( #../../cookbook/samples/acesjustforroomshow.obj#pz=80#ry=3#sx=20#sy=20#sz=20# )
 
@@ -29,10 +44,11 @@ Some sample files from the cookbook.
 
 [WaltHead.obj]( #../../cookbook/samples/WaltHead.obj#py=50# )
 
-[WrightFlyer-pb-jw.js]( #../../cookbook/samples/WrightFlyer-pb-jw.js# )
+[WrightFlyer-pb-jw.js]( #../../cookbook/samples/WrightFlyer-pb-jw.js#py=20#sx=20#sy=20#sz=20 )
 
 [Wave Sphere]( #../../cookbook/samples/wave-sphere.html# )
 
+Files from other vA3C locations
 
 [Skybox]( #../../va3c-hacker/templates/template-skybox.html# )
 

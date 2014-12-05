@@ -1,60 +1,51 @@
-vA3C Hacker Read Me
-===
-[Web page view]( http://va3c.github.io/viewer/va3c-hacker/ "View files with docBrowser" )
-[Source code view]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View files with GitHub")
 
-### Live Demo
+What would you like vA3C to do now?
 
-<iframe src="../latest/index.html" width=100% height=500px class='overview' >
-There is an `iframe` here. It is not visible when viewed via github.com. To view, please click 'Web page view' above.
-</iframe>
-_vA3C Hacker - latest revision_ / [Full Screen (latest revision)]( http://va3c.github.io/viewer/va3c-hacker/latest/index.html )
+[Tell you the time?]( #demo-tell-you-the-time.js "listen carefully..." )
 
+[Show you what an old-school viewer looks like?]( #dispatch-file-by-hash.js#../../va3c-viewer-html5/r8dev/va3c-viewer-r8dev.html#autocrapdoodle#noBackground#noGrid#noAxis#noGround "Hacker is faster, cheaper, smarter" )
 
-## Concept
+[Load a new basic template?]( #dispatch-file-by-hash.js#../templates/template-basic.html "You can add files to this space..." )  
+  &nbsp;  [Load a template with lights & shadows?]( #dispatch-file-by-hash.js#../templates/template-lights-shadows.html )  
+  &nbsp;  [Load a template with skybox of clouds?]( #dispatch-file-by-hash.js#../templates/template-skybox.html )  
+[[Browse even more templates]( #browse-templates.js )]  
 
-### Mission  
-<!-- a statement of a rationale, applicable now as well as in the future -->
-* View, mash-up, edit and save 3D data files with any web browser.
+<!--
+[Browse some NASA STL files?]( #read-markdown.js#../../../nasa-samples/readme.md# ) 
+-->
 
+[Browse some NASA STL files?]( #dispatch-file-by-hash.js#../../../nasa-samples/browse-nasa-stl-models.html#displayInfo ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )
 
-### Vision  
-<!--  a descriptive picture of a desired future state -->
+[Have a glimpse at Tony Parisi's new &lt;GLAM> declarative language examples?]( #view-glam-models.js "make your style sheets 3D smarter" )  
+- load a new template after to continue
 
+<!--
+[Browse some files from the 3D Warehouse?]( #browse-3dwarehouse-json-files.js "Collada files converted to JSON 3" )
+-->
+[Browse some files from the 3D Warehouse?]( #dispatch-file-by-hash.js#../../../3d-warehouse-samples/va3c-hacker-r2-3dev.html#displayInfo "Collada files converted to JSON 3" )
 
-## Hacker Features
-<!-- and benefits -->
+[Browse Revit files & BIM data converted to JSON 4?]( #browse-revit-json4-files.js "Thanks Jeremy!" )
 
-
-
-
-## Project Links
-vA3C is a [GitHub]( http://github.com) [organization account]( https://help.github.com/articles/what-s-the-difference-between-user-and-organization-accounts ) and has multiple owners and admins. 
-All vA3EC scripts are [FOSS]( https://en.wikipedia.org/wiki/Free_and_open-source_software ).
-Scripts are hosted on GitHub and are viewable as web pages, as described in the 'Read Me' files and as source code.
-
-## System Requirements
-
-In order to run the script you will need a device and browser that provides good support for [WebGL](http://get.webgl.org/)
-WebGL is the JavaScript API for rendering interactive 3D graphics and 2D graphics within any compatible web browser without the use of plug-ins. 
-
-Generally this means a computer with an Intel Core i5 processor or better with an external GPU such as one made by Nvidia. 
-Successful use of the script on a phone or tablet is highly unlikely. 
-A mouse or other pointing device with a scroll wheel is also highly recommended so that you can zoom, pant and rotate in 3D.
- 
-The script is currently being built and tested with the Google Chrome browser. 
-Bugs on browsers other than Chrome need not be reported until such time as the work settles down and an effort to support more browsers is initiated.
+[Browse for files using your file dialog?]( #browse-using-file-dialog.js "" )
 
 
-## Copyright and License
-
-copyright &copy; 2014 vA3C authors ~ 
-All work herein is under the [MIT License]( https://github.com/va3c/va3c.github.io/blob/master/LICENSE )
-
-This repository contains files that are at an early and volatile stage. Not all licensing requirements may have been fully met let alone identified. It is the intension of the authors to play fair and all such requirements will either be met or the feature in question will turned off.
+Edit everything with the <a href="javascript:(function(){var script=document.createElement('script');script.type='text/javascript';script.src='https://rawgit.com/zz85/zz85-bookmarklets/master/js/ThreeInspector.js';document.body.appendChild(script);})()" title="Why invent your own when you can stand on the shoulders of giants?" >Three.js Inspector</a>?
+Or with <a href="javascript:(function(){var s=document.createElement('script');s.src='http://callum.com/apps/amui/amui.js';document.body.appendChild(s);})();" "title=Hats off to Callum" >AMUI</a>. 
+Both are bookmarklets you may use on most any Three.js file.
 
 
-## Change Log
+[Enable drag and drop for JSON files?]( #enable-drag-and-drop-json-files.js )
 
-See [Developer Notes]( read-dev-notes.md )
+[Enable draggable objects?]( #enable-draggable-objects.js )
+
+[Enable file modified monitor?]( #enable-file-modified-monitor.js "Thanks to Ben Howe" )
+
+[Export scene to JSON?]( #export-scene-to-json.js )
+
+
+[Go on a short aeronautical and architectural adventure?]( #demo-aeronautical-architectural.js "Makes heavy use of resources." ) 
+
+[Read the Read Me file?]( #read-markdown.js#../readme.md "You can view Hacker inside the Readme inside Hacker" ) [Road map?]( #read-markdown.js#../road-map.md ) [FAQ?]( #read-markdown.js#../faq.md )
+
+[Read the developers notes?]( #read-markdown.js#../dev-notes.md "Developer? ROFL!") [source]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker )
 
