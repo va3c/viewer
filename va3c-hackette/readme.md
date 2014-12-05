@@ -20,16 +20,13 @@ The following links enable you to browse some sample files from the [vA3C Cookbo
 
 [acesjustforroomshow.obj]( #../../cookbook/samples/acesjustforroomshow.obj#pz=80#ry=3#sx=20#sy=20#sz=20# )
 
-[geometry.json]( sender.html#../../cookbook/samples/geometry.json# )  
+[geometry.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/geometry.json# )  
 
-[sender]( sender.html )
+[object.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/object.json# )
 
+[pentagon-as-planes.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/pentagon-as-planes.json# )
 
-[object.json]( #../../cookbook/samples/object.json# )
-
-[pentagon-as-planes.json]( #../../cookbook/samples/pentagon-as-planes.json# )
-
-[pr2_head_pan.stl]( #../../cookbook/samples/pr2_head_pan.stl#py=15#sx=100#sy=100#sz=100# )
+[pr2_head_pan.stl]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/pr2_head_pan.stl#py=15#sx=100#sy=100#sz=100# )
 
 [scene.json]( #../../cookbook/samples/scene.json# )
 
