@@ -45,6 +45,8 @@ Both are bookmarklets you may use on most any Three.js file.
 
 [Go on a short aeronautical and architectural adventure?]( #demo-aeronautical-architectural.js "Makes heavy use of resources." ) 
 
+[Play with our baby sister, vA3C Hackette?[( http://va3c.github.io/viewer/va3c-hackette/latest/ )
+
 [Read the Read Me file?]( #read-markdown.js#../readme.md "You can view Hacker inside the Readme inside Hacker" ) [Road map?]( #read-markdown.js#../road-map.md ) [FAQ?]( #read-markdown.js#../faq.md )
 
 [Read the developers notes?]( #read-markdown.js#../dev-notes.md "Developer? ROFL!") [source]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker )

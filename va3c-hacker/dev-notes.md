@@ -1,6 +1,12 @@
 Dev Notes
 ===
 
+2014-12-05 ~ Theo
+
+* Many techie fixes over the last few days. Bringing Hacker up to the level of Viewer.
+* The screen grabber is now beginning to work with JSON and STL files not just HTML files
+
+
 2014-12-01 ~ Theo
 
 * Clock hour hand displays correctly

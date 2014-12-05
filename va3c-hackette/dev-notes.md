@@ -1,6 +1,14 @@
 Dev Notes
 ===
 
+2014-12-05 ~ Theo
+
+* Now at R2
+* Add to the read me.
+
+Most of the Hackette work has been going on in actual olders. 
+For example see the [NASA 3D Models]( http://va3c.github.io/nasa-samples/browse-nasa-stl-models.html 'Thank you NASA' )
+
 2014-12-02 ~ Theo
 
 * First pass
@@ -9,7 +17,7 @@ Yet another strange day. Started all over again. Even simpler than before.
 
 vA3C Hackette
 
-* an index.html for GitHub repository gh-pages
+* An index.html for GitHub repository gh-pages
 * Converts markdown to HTML
 * Provides a very simple technique for displaying Three.js HTML files as well as JSON, STL, OBJ and other file types
 
