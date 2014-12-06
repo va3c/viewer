@@ -18,11 +18,11 @@ What you see here is a actual vA3C Hackette 'dog food'. The initial view is sele
 
 The following links enable you to browse some sample files from the [vA3C Cookbook]( http://va3c.github.io/viewer/cookbook/readme-reader.html ).
 
-[acesjustforroomshow.obj]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#</span>../../cookbook/samples/acesjustforroomshow.obj#pz=80#ry=3#sx=20#sy=20#sz=20# )
+[acesjustforroomshow.obj]( http://va3c.github.io/viewer/va3c-hackette/#</span>../../cookbook/samples/acesjustforroomshow.obj#pz=80#ry=3#sx=20#sy=20#sz=20# )
 
-[geometry.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/geometry.json# )  
+[geometry.json]( http://va3c.github.io/viewer/va3c-hackette/#../../cookbook/samples/geometry.json# )  
 
-[object.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/object.json# )
+[object.json]( http://va3c.github.io/viewer/va3c-hackette/#../../cookbook/samples/object.json# )
 
 [pentagon-as-planes.json]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../cookbook/samples/pentagon-as-planes.json# )
 
@@ -56,7 +56,7 @@ Files from other vA3C locations
 
 [Revit: Little House / JSON 4]( http://va3c.github.io/viewer/va3c-hackette/r2dev/va3c-hackette-r2dev.html#../../../RvtVa3c/models/little_house.rvt.js#py=2#ry=3#sx=0.01#sy=0.01#sz=0.01# )
 
-
+<!--
 <style>
 .it::before {content: 'http://google.com'; }
 
