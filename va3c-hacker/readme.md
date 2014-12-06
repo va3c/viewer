@@ -3,7 +3,7 @@ What would you like vA3C to do now?
 
 [Show vA3C Hacker web page view?]( http://va3c.github.io/viewer/va3c-hacker/latest/ "browse files with vA3C Hacker" )  
 [Show the GitHub source code view?]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View or edit code with GitHub")  
-- Two ways to view the same read me file
+- Two ways to view the same read me file <small>text here</small>
 
 [Tell you the time?]( #demo-tell-you-the-time.js "listen carefully..." )
 
