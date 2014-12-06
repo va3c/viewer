@@ -1,16 +1,16 @@
 
 What would you like vA3C to do now?
 
-[Show vA3C Hacker web page view?]( http://va3c.github.io/viewer/va3c-hacker/latest/ "browse files with vA3C Hacker" ) <center>You are here</center>  
+[Show vA3C Hacker web page view?]( http://va3c.github.io/viewer/va3c-hacker/latest/ "browse files with vA3C Hacker" ) <div>You are here</div>  
 [Show the GitHub source code view?]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View or edit code with GitHub") <span style=display:none; >You are here</span>  
 - Two ways to view the same read me file
 
 
-<small>
-Gor the moment the following links do nothing when you are viewing this file on the GitHub source code page.
+<span style=display:none; >
+For the moment the following links do nothing when you are viewing this file on the GitHub source code page.
 This is because we are having an internal argument about keeping the link process as simple as possible.
 So fir the moment, kindly exploe the possibilities using the [vA3V Hacker]( http://va3c.github.io/viewer/va3c-hacker/latest/ ) view.
-</small>
+</span>
 
 [Tell you the time?]( #demo-tell-you-the-time.js "listen carefully..." )
 
