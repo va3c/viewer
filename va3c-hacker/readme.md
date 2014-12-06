@@ -1,8 +1,8 @@
 
 What would you like vA3C to do now?
 
-[Show vA3C Hacker web page view?]( http://va3c.github.io/viewer/va3c-hacker/latest/ "browse files with vA3C Hacker" ) <small>You are here</small>  
-[Show the GitHub source code view?]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View or edit code with GitHub") <span style:display:none; >You are here</span>  
+[Show vA3C Hacker web page view?]( http://va3c.github.io/viewer/va3c-hacker/latest/ "browse files with vA3C Hacker" ) <center>You are here</center>  
+[Show the GitHub source code view?]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View or edit code with GitHub") <span style=display:none; >You are here</span>  
 - Two ways to view the same read me file
 
 
