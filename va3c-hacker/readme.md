@@ -5,6 +5,7 @@ What would you like vA3C to do now?
 [Show the GitHub source code view?]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View or edit code with GitHub") <span style:display:none; >You are here</span>  
 - Two ways to view the same read me file
 
+
 <small>
 Gor the moment the following links do nothing when you are viewing this file on the GitHub source code page.
 This is because we are having an internal argument about keeping the link process as simple as possible.
