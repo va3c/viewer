@@ -1,6 +1,10 @@
 
 What would you like vA3C to do now?
 
+[Show vA3C Hacker web page view?]( http://va3c.github.io/viewer/va3c-hacker/latest/ "browse files with vA3C Hacker" )  
+[Show the GitHub source code view?]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View or edit code with GitHub")  
+- Two ways to view the same read me file
+
 [Tell you the time?]( #demo-tell-you-the-time.js "listen carefully..." )
 
 [Show you what an old-school viewer looks like?]( #dispatch-file-by-hash.js#../../va3c-viewer-html5/r8dev/va3c-viewer-r8dev.html#autocrapdoodle#noBackground#noGrid#noAxis#noGround "Hacker is faster, cheaper, smarter" )
@@ -50,4 +54,6 @@ Both are bookmarklets you may use on most any Three.js file.
 [Read the Read Me file?]( #read-markdown.js#../readme.md "You can view Hacker inside the Readme inside Hacker" ) [Road map?]( #read-markdown.js#../road-map.md ) [FAQ?]( #read-markdown.js#../faq.md )
 
 [Read the developers notes?]( #read-markdown.js#../dev-notes.md "Developer? ROFL!") [source]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker )
+
+
 
