@@ -26,7 +26,7 @@ So for the moment, kindly exploe the possibilities using the [vA3V Hacker]( http
 [Have a glimpse at Tony Parisi's new &lt;GLAM> declarative language examples?]( #read-markdown.js#browse-glam-models.md#displayInfo "make your style sheets 3D smarter" )  
 - load a new template after to continue
 
-[Browse some files from the 3D Warehouse?]( #dispatch.js#../../../3d-warehouse-samples/va3c-hacker-r2-3dev.html "Collada files converted to JSON 3" )
+[Browse some files from the 3D Warehouse?]( #dispatch.js#../../../3d-warehouse-samples/index.html "Collada files converted to JSON 3" )
 
 [Browse Revit files & BIM data converted to JSON 4?]( #read-markdown.js#browse-revit-json4-files.md "Thanks Jeremy!" )
 
