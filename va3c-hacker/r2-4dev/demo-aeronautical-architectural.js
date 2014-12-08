@@ -14,31 +14,21 @@
 
 	function demoAeronauticalArchitectural( parameters ) {
 
-		parameters = parameters.split('#');
+		if ( !scene ) {
 
-// Why not if ( !THREE...
- 
-		if ( parameters.indexOf( 'demo' ) < 0 ) {
-
-			location.hash = '#load-file-html.js#../templates/template-skybox.html';
-
-			callbackIframe = function() {
-
-				callbackIframe = callbackIframeDefault;
-
-				location.hash = '';
-
-				displayMarkdown ( 'demo-aeronautical-architectural.md', info );
-
-			}
-
-		} else {
-
-			resetCounters();
+			VH.loadFileHTMLByURL( '../templates/template-skybox.html', [''], callback );
 
 		}
 
-//console.log( 'demoAeronauticalArchitectural:' , parameters );
+		function callback() {
+
+			VH.updateSceneVariables ();
+
+			VH.updateSceneElements();
+
+			VH.displayMarkdown ( 'demo-aeronautical-architectural.md', menuLeft );
+
+		}
 
 	}
 
@@ -79,14 +69,14 @@
 		'';
 		speak( text );
 
-		location.hash = '#load-file-json3.js#../../../3d-warehouse-samples/robie-house/untitled/robie-house.js#px=-100#sx=200#sy=200#sz=200#na=robie' ;
+		location.hash = '#dispatch.js#../../../3d-warehouse-samples/robie-house/untitled/robie-house.js#px=-100#sx=200#sy=200#sz=200#na=robie#add=true' ;
 
-		for (var i = 1; i < info.children.length; i++) {
-			info.children[i].style.display = 'none';
+		for (var i = 1; i < menuLeft.children.length; i++) {
+			menuLeft.children[i].style.display = 'none';
 		}
 
-		for (var i = 1; i < menu.children.length; i++) {
-			menu.children[i].style.display = 'none';
+		for ( i = 1; i < menuRight.children.length; i++) {
+			menuRight.children[i].style.display = 'none';
 		}
 
 		slide = slide2;
@@ -117,7 +107,7 @@
 		text ='A national historic landmark in Chicago.';
 		speak( text );
 
-		location.hash = '#load-file-json3.js#../../cookbook/samples/WrightFlyer-pb-jw.js#px=0#py=50#pz=80#sx=8#sy=8#sz=8#na=wright' ;
+		location.hash = '#dispatch.js#../../cookbook/samples/WrightFlyer-pb-jw.js#px=0#py=50#pz=80#ry=1.5#sx=8#sy=8#sz=8#na=wright#add=true' ;
 
 		slide = slide4;
 	}
@@ -137,7 +127,7 @@
 	}
 
 	function slide4() {
-		duration = 4000;
+		duration = 8000;
 
 		text = 'It was designed by Frank Lloyd Wright and built in 1909';
 		speak( text );
@@ -159,15 +149,34 @@
 
 		wrightFlyer = scene.getObjectByName('wright');
 
-		wrightFlyer.material.materials[0].ambient = 0xff0000;
-		wrightFlyer.material.materials[0].color.setRGB( 1, 0, 0 );
-		wrightFlyer.material.materials[0].needsUpdate = true;
+		wrightFlyer.geometry.applyMatrix( new THREE.Matrix4().makeRotationY( 1.5 * Math.PI ) );
+
+/*
+		wrightFlyer.geometry.dynamic = true;
+		wrightFlyer.geometry.verticesNeedUpdate = true;
+		wrightFlyer.geometry.normalsNeedUpdate = true;
+		wrightFlyer.geometry.computeFaceNormals();
+		wrightFlyer.geometry.computeVertexNormals();
+		wrightFlyer.geometry.computeTangents();
+		wrightFlyer.geometry.computeMorphNormals();
+		wrightFlyer.geometry.buffersNeedUpdate = true;
+		wrightFlyer.geometry.uvsNeedUpdate = true;
+*/
+
+//		wrightFlyer.material.materials[0].ambient = 0xff0000;
+//		wrightFlyer.material.materials[0].color.setRGB( 1, 0, 0 );
+//		wrightFlyer.material.materials[0].needsUpdate = true;
+
+		wrightFlyer.material.ambient = 0xff0000;
+		wrightFlyer.material.color.setRGB( 1, 0, 0 );
+		wrightFlyer.material.needsUpdate = true;
+
 
 		slide = slide5;
 	}
 
 	function slide5() {
-		duration = 4000;
+		duration = 8000;
 
 		text = 'Now flying over head is the Wright Flyer.';
 		speak( text );
@@ -194,7 +203,7 @@
 
 		duration = 5000;
 
-		text = 'Was this demo not started in the Wright fashion?';
+		text = 'Was this demo not started in a very Wright fashion?';
 		speak( text );
 
 		location.hash = '#tween-camera-and-target.js#150#10#30#-50#5#0#' + duration;
@@ -209,7 +218,7 @@
 		text = 'Now we are adding Schroder House';
 		speak( text );
 
-		location.hash = '#load-file-json3.js#../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js#px=0#sx=5#sy=5#sz=5@#na=schroder';
+		location.hash = '#dispatch.js#../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js#px=0#sx=5#sy=5#sz=5@#na=schroder#add=true';
 
 		slide = slide9;
 
@@ -256,8 +265,8 @@
 		text = 'Doesn\'t it look like it was built yesterday?';
 		speak( text );
 
-		location.hash = '#load-file-json3.js#../../../fgx-aircraft/data/fkdr1/dr1.js#px=50#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
-//		location.hash = '#load-file-json3.js#../../../../fgx-repos/fgx-aircraft/data/fkdr1/dr1.js#px=50#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
+		location.hash = '#dispatch.js#../../cookbook/samples/dr1.js#px=50#py=50#pz=80#ry=1.5#sx=8#sy=8#sz=8#na=fokker#add=true' ;
+//		location.hash = '#dispatch.js#../../../../fgx-repos/fgx-aircraft/data/fkdr1/dr1.js#px=50#py=50#pz=80#sx=8#sy=8#sz=8#na=fokker' ;
 
 		slide = slide12;
 
@@ -295,18 +304,22 @@
 
 		location.hash = '#tween-camera-and-target.js#100#10#-10#-50#5#0#' + duration;
 
-		text = 'Now flying is the Fokker D3 from 1915';
+		text = 'Now flying is the Fokker DR1 from 1918';
 		speak( text );
 
 		fokkerDR1 = scene.getObjectByName('fokker');
 
-		fokkerDR1.geometry.applyMatrix( new THREE.Matrix4().makeRotationY( -0.5 * Math.PI ) );
+		fokkerDR1.geometry.applyMatrix( new THREE.Matrix4().makeRotationY( 1.5 * Math.PI ) );
 		fokkerDR1.geometry.buffersNeedUpdate = true;
 		fokkerDR1.geometry.uvsNeedUpdate = true;
 
-		fokkerDR1.material.materials[0].ambient = 0xffff00;
-		fokkerDR1.material.materials[0].color.setRGB( 1, 1, 0 );
-		fokkerDR1.material.materials[0].needsUpdate = true;
+//		fokkerDR1.material.materials[0].ambient = 0xffff00;
+//		fokkerDR1.material.materials[0].color.setRGB( 1, 1, 0 );
+//		fokkerDR1.material.materials[0].needsUpdate = true;
+
+		fokkerDR1.material.ambient = 0xffff00;
+		fokkerDR1.material.color.setRGB( 1, 1, 0 );
+		fokkerDR1.material.needsUpdate = true;
 
 //		slide = function() {};
 		slide = slide13;
@@ -337,14 +350,15 @@
 //		slidesPause();
 		slide = function() {};
 
-		for (var i = 1; i < info.children.length; i++) {
-			info.children[i].style.display = '';
+		for (var i = 1; i < menuLeft.children.length; i++) {
+			menuLeft.children[i].style.display = '';
 		}
 
-		for (var i = 1; i < menu.children.length; i++) {
-			menu.children[i].style.display = '';
+		for (var i = 1; i < menuRight.children.length; i++) {
+			menuRight.children[i].style.display = '';
 		}
 
+		controls.autoRotate = true;
 	}
 
 	function slidesPause() {

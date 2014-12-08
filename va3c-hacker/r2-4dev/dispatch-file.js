@@ -11,7 +11,7 @@
 
 		var script;
 
-		var fileName = parameters[1].toLowerCase();
+		var fileName = parameters[ 1 ].toLowerCase();
 
 		var fileType = fileName.substr( fileName.lastIndexOf( '.' ) );
 
@@ -25,22 +25,20 @@
 
 			};
 
+			script.src = hackerPrefix + 'load-file-html.js';
+
+
 			function callbackloadFileHTMLByURL() {
 
 				if ( parameters.indexOf( 'noCors' ) === -1 ) { 
 
-					app = VH.ifr.contentWindow ;
-					THREE = app.THREE;
-					scene = app.scene;
-					renderer = app.scene
+					VH.updateSceneVariables();
 
 				}
 
 				VH.updateSceneElements( '', parameters );
 
 			}
-
-			script.src = hackerPrefix + 'load-file-html.js';
 
 
 // JSON
@@ -87,9 +85,7 @@
 
 				function callbackLoadJSONURL() {
 
-					app = VH.ifr.contentWindow ;
-					THREE = app.THREE;
-					scene = app.scene;
+					VH.updateSceneVariables();
 
 					VH.loadFileJSONbyURL( parameters, VH.updateSceneElements );
 
@@ -136,9 +132,7 @@
 
 			function callbackLoadOBJURL() {
 
-				app = VH.ifr.contentWindow ;
-				THREE = app.THREE;
-				scene = app.scene;
+				VH.updateSceneVariables();
 
 				VH.loadFileOBJByURL( parameters, VH.updateSceneElements );
 
@@ -183,9 +177,7 @@
 
 			function callbackLoadSTLURL() {
 
-				app = VH.ifr.contentWindow ;
-				THREE = app.THREE;
-				scene = app.scene;
+				VH.updateSceneVariables();
 
 				VH.loadFileSTLByURL( parameters, VH.updateSceneElements );
 
@@ -251,9 +243,7 @@
 
 			function callbackLoadFileHTMLByContents( object, parameters ) {
 
-				app = VH.ifr.contentWindow ;
-				THREE = app.THREE;
-				scene = app.scene;
+				VH.updateSceneVariables();
 
 				VH.updateSceneElements( object, parameters )
 
@@ -280,9 +270,7 @@
 
 			function prepareJSON(){
 
-				app = VH.ifr.contentWindow ;
-				THREE = app.THREE;
-				scene = app.scene;
+				VH.updateSceneVariables();
 
 				VH.loadFileJSONByContents( contents, parameters, VH.updateSceneElements );
 
@@ -306,9 +294,8 @@
 
 			function prepareOBJ() {
 
-				app = VH.ifr.contentWindow ;
-				THREE = app.THREE;
-				scene = app.scene;
+				VH.updateSceneVariables();
+
 				VH.loadFileOBJByContents( contents, parameters, VH.updateSceneElements );
 
 			}
@@ -330,9 +317,7 @@
 
 			function prepareSTL() {
 
-				app = VH.ifr.contentWindow ;
-				THREE = app.THREE;
-				scene = app.scene;
+				VH.updateSceneVariables();
 
 				VH.loadFileSTLByContents( contents, parameters, VH.updateSceneElements );
 
@@ -358,3 +343,15 @@
 		if ( app.callback ) { app.callback(); }
 
 	}
+
+	VH.updateSceneVariables = function() {
+
+		app = VH.ifr.contentWindow ;
+		THREE = app.THREE;
+		renderer = app.renderer;
+		scene = app.scene;
+		camera = app.camera;
+		controls = app.controls;
+
+	}
+

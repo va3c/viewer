@@ -21,7 +21,7 @@
 
 		VH.ifr.onload = function() {
 
-			callback( '', callback );
+			callback( '', parameters );
 
 		};
 
@@ -32,6 +32,8 @@
 	VH.loadFileHTMLByContents = function( contents, parameters, callback, width, height, css ) {
 
 		callback = callback ? callback : function () {} ;
+
+		parameters = parameters ? parameters : [] ;
 
 		var iframes = document.getElementsByTagName( 'iframe' ) ;
 

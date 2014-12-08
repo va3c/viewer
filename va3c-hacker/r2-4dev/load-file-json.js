@@ -15,7 +15,7 @@
 
 			data.metadata = { type: 'Geometry' };
 
-//			loadFileJSON3ByURL( parameters )
+//			loadFileJSON3ByURL( parameters, callback )
 
 //			return;
 
@@ -25,7 +25,7 @@
 
 			data.metadata.type = 'Geometry';
 
-//			loadFileJSON3ByURL( parameters )
+//			loadFileJSON3ByURL( parameters, callback )
 
 //			return;
 
@@ -73,6 +73,7 @@ console.log( 'found object', contents );
 			callback( contents, parameters );
 
 		}
+
 	}
 
 
@@ -81,7 +82,11 @@ console.log( 'found object', contents );
 
 //console.log( 'found geometry', contents, parameters );
 
-		var texturePath = parameters ? parameters[1].substr( 0, 1 + parameters[1].lastIndexOf('/') ) : '' ;
+// for windows, Use navigator platform to check
+
+		var texturePath = parameters ? parameters[1].substr( 0, 1 + parameters[1].lastIndexOf( '/' ) ) : '' ;
+
+//console.log( 'texturePath', texturePath );
 
 		loader = new THREE.JSONLoader();
 
@@ -131,7 +136,7 @@ console.log( 'found object', contents );
 
 		fileName = parameters[1];
 
-//console.log( 'loadFileJSON3ByURL', parameters, fileName );
+console.log( 'loadFileJSON3ByURL', parameters, fileName );
 
 		loader = new THREE.JSONLoader();
 
