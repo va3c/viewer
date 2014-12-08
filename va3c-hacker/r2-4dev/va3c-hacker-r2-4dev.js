@@ -1,9 +1,11 @@
 	var VH = VH || {};
 
+	VH.add = false;
+
 	var displayMenuLeft = false;
 
 	var container, menuLeft, menuRight, inworld;
-	var app;
+	var app = {};
 	var THREE;
 	var renderer;
 	var scene;
@@ -20,18 +22,6 @@
 		if ( parameters.length > 1 ) {
 
 			VH.loadScript ( parameters[ 1 ] );
-
-		}
-//console.log( parameters );
-		if ( displayMenuLeft === false || parameters.indexOf( 'displayInfo' ) === -1 ) {
-
-			menuLeft.style.display = 'none';
-
-			if ( VH.ifr && VH.ifr.contentWindow.menuLeft ) { VH.ifr.contentWindow.menuLeft.style.display = 'none'; }
-
-		} else {
-
-			menuLeft.style.display = '';
 
 		}
 
@@ -129,6 +119,10 @@
 
 		panel.innerHTML = panel.header + converter.makeHtml( VH.requestFile( fname ) );
 
+		menuLeft.style.display = 'none';
+
+		if ( app && app.menuLeft ) app.menuLeft.style.display = 'none';
+
 		panel.style.display = '';
 
 	};
@@ -195,6 +189,23 @@
 
 		parameters = parameters ? parameters : '';
 
+		if ( parameters.indexOf( 'noMenuLeft' ) > -1 ) {
+
+			menuLeft.style.display = 'none';
+
+			if ( app && app.menuLeft ) app.menuLeft.style.display = 'none';
+
+		}
+
+
+		if ( parameters.indexOf( 'displayMenuLeft' ) > -1 ) {
+
+			menuLeft.style.display = '';
+
+		}
+
+
+
 		if ( parameters.indexOf( 'noBackground' ) === -1 ) {
 
 			VH.setRandomGradient();
@@ -205,21 +216,21 @@
 
 		if ( parameters.indexOf( 'noGrid' ) === -1 ) {
 
-			var helper = new THREE.GridHelper( 100, 10 );
+			var helper = new THREE.GridHelper( 50, 10 );
 			scene.add( helper );
 
 		}
 
 		if ( parameters.indexOf( 'noAxis' ) === -1 ) {
 
-			var axis = new THREE.AxisHelper( 100 );
+			var axis = new THREE.AxisHelper( 50 );
 			scene.add( axis );
 
 		}
 
 		if ( parameters.indexOf( 'noGround' ) === -1 ) {
 
-			var geometry = new THREE.BoxGeometry( 200, 2, 200 );
+			var geometry = new THREE.BoxGeometry( 100, 2, 100 );
 			var material = new THREE.MeshPhongMaterial( {
 				color: 0xffffff * Math.random(), 
 				ambient: 0xffffff * Math.random(),
@@ -227,13 +238,13 @@
 				shininess: 5
 			} );
 
-			var mesh = new THREE.Mesh( geometry, material );
-			mesh.position.set( 0, -1, 0 );
-			mesh.castShadow = true;
-			mesh.receiveShadow = true;
-			scene.add( mesh );
+			groundPlane = new THREE.Mesh( geometry, material );
+			groundPlane.position.set( 0, -1, 0 );
+			groundPlane.castShadow = true;
+			groundPlane.receiveShadow = true;
+			scene.add( groundPlane );
 
-			var helper = new THREE.BoxHelper( mesh );
+			var helper = new THREE.BoxHelper( groundPlane );
 			helper.material.color.setRGB( 1, 0, 1 );
 			scene.add( helper );
 
@@ -241,6 +252,8 @@
 	} 
 
 	VH.updateObjectGeometryByHashParameters = function( object, parameters ) {
+
+		if ( !object ) { return; }
 
 		if ( parameters.indexOf( 'random' ) > -1 ) {
 
@@ -291,6 +304,8 @@
 	};
 
 	VH.setRandomGradient = function() {
+
+		if ( ! scene ) { return; }
 
 		VH.cssBackround = VH.ifr.contentDocument.body.appendChild( document.createElement('style') );
 		var col1 = "#" + Math.random().toString(16).slice(2, 8);

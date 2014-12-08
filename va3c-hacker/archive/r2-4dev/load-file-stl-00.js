@@ -1,6 +1,31 @@
 
 	VH.loadFileSTLByURL = function( parameters, callback ) {
 
+			VH.callbackSTLLoader ( parameters, callback );
+
+
+
+/*
+		if ( !scene || parameters.indexOf( 'add=true' ) === -1 ) {
+
+			VH.loadFileHTMLByURL( template, function() {
+
+				VH.callbackSTLLoader ( parameters, callback );
+
+			} );
+
+		} else {
+
+			VH.callbackSTLLoader ( parameters, callback );
+
+		}
+
+*/
+
+	};
+
+	VH.callbackSTLLoader = function( parameters, callback ) {
+
 		callback = callback ? callback : function () {} ;
 
 		fileName = parameters[ 1 ];
@@ -23,7 +48,7 @@
 
 				scene.add( mesh );
 
-				callback( mesh, parameters );
+				callback( mesh );
 
 			} );
 
@@ -35,7 +60,7 @@
 
 	};
 
-	VH.loadFileSTLByContents = function ( contents, parameters, callback  ) { 
+	VH.loadFileSTLByContents = function ( contents, callback  ) { 
 
 		var script = document.body.appendChild( document.createElement( 'script' ) );
 
@@ -51,7 +76,7 @@
 
 			scene.add( mesh );
 
-			callback( mesh, parameters );
+			callback( mesh );
 
 		}
 

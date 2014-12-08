@@ -1,5 +1,5 @@
 
-What would you like vA3C to do now?
+What would you like vA3C to do now???
 
 [Tell you the time?]( #demo-tell-you-the-time.js "listen carefully..." )
 
@@ -10,9 +10,9 @@ What would you like vA3C to do now?
   &nbsp;  [Load a template with skybox of clouds?]( #dispatch-file-by-hash.js#../templates/template-skybox.html )  
 [[Browse even more templates]( #browse-templates.js )]  
 
-<!--
-[Browse some NASA STL files?]( #read-markdown.js#../../../nasa-samples/readme.md# ) 
--->
+
+[Browse some NASA STL files?]( #read-markdown.js#../../../nasa-samples/readme.md# )  
+
 
 [Browse some NASA STL files?]( #dispatch-file-by-hash.js#../../../nasa-samples/browse-nasa-stl-models.html#displayInfo ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )
 

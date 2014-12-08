@@ -3,7 +3,7 @@
 
 	function viewGlamModels() {
 
-		location.hash = '';
+		var displayMenuLeft = true;
 
 		VH.displayMarkdown( 'view-glam-models.md', menuLeft );
 

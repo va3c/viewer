@@ -176,7 +176,12 @@
 
 		}
 
-		location.hash = '';
+//		location.hash = '';
+
+		menuLeft.style.display = 'none';
+
+		if ( app && app.menuLeft ) app.menuLeft.style.display = 'none';
+
 
 	}
 

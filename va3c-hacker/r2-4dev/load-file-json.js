@@ -1,35 +1,15 @@
 
-	VH.loadFileJSONbyURL = function( parameters ) {
-
-		if ( !scene || parameters.indexOf( 'add=true' ) === -1 ) {
-
-			VH.loadFileHTMLByURL( template, function() {
-
-				VH.callbackLoadFileJSONbyURL( parameters );
-
-				msg.innerHTML = 'Template:' + template + '<br>' + 'File: ' + parameters[1];
-
-			} );
-
-		} else {
-
-			VH.callbackLoadFileJSONbyURL( parameters );
-
-		}
-
-	};
-
-	VH.callbackLoadFileJSONbyURL = function( parameters ) {
+	VH.loadFileJSONbyURL = function( parameters, callback ) {
 
 		var data = VH.requestFile( parameters[1] );
 
-		data = JSON.parse( data );
-
-		VH.loadFileJSONByContents( data, parameters );
+		VH.loadFileJSONByContents( data, parameters, callback );
 
 	};
 
-	VH.loadFileJSONByContents = function( data, parameters ) {
+	VH.loadFileJSONByContents = function( data, parameters, callback ) {
+
+		data = JSON.parse( data );
 
 		if ( data.metadata === undefined ) { // 2.0
 
@@ -59,17 +39,19 @@
 
 		if ( data.metadata.type.toLowerCase() === 'geometry' ) {
 
-			loadFileJSONGeometry( data, parameters  );
+			loadFileJSONGeometry( data, parameters, callback  );
 
 		} else if ( data.metadata.type.toLowerCase() === 'object' ) {
 
-			loadFileJSONObject( data, parameters );
+			loadFileJSONObject( data, parameters, callback );
 
 		}
 
 	};
 
-	function loadFileJSONObject( contents, parameters ) {
+
+
+	function loadFileJSONObject( contents, parameters, callback ) {
 
 		loader = new THREE.ObjectLoader();
 		contents = loader.parse( contents );
@@ -80,20 +62,24 @@ console.log( 'found scene' );
 
 			scene.add( contents );
 
+			callback( contents, parameters );
+
 		} else {
 
 console.log( 'found object', contents );
 
-			VH.updateObjectGeometryByHashParameters( contents, parameters );
-
 			scene.add( contents );
+
+			callback( contents, parameters );
 
 		}
 	}
 
-	function loadFileJSONGeometry( contents, parameters ) {
 
-console.log( 'found geometry', contents, parameters );
+
+	function loadFileJSONGeometry( contents, parameters, callback ) {
+
+//console.log( 'found geometry', contents, parameters );
 
 		var texturePath = parameters ? parameters[1].substr( 0, 1 + parameters[1].lastIndexOf('/') ) : '' ;
 
@@ -131,24 +117,21 @@ console.log( 'found geometry', contents, parameters );
 
 			mesh = new THREE.Mesh( geometry, material );
 
-			VH.updateObjectGeometryByHashParameters( mesh, parameters );
-
-			VH.updateSceneByHashParameters( parameters );
-			VH.addShadowsToMeshesInScene( scene );
-
 			scene.add( mesh );
 
-			VH.addShadowsToMeshesInScene( scene );
+			callback( mesh, parameters );
 
 	}
 
-	function loadFileJSON3ByURL( parameters ) {
+
+
+	function loadFileJSON3ByURL( parameters, callback ) {
 
 //		if ( !parameters ) return;
 
 		fileName = parameters[1];
 
-console.log( parameters, fileName );
+//console.log( 'loadFileJSON3ByURL', parameters, fileName );
 
 		loader = new THREE.JSONLoader();
 
@@ -175,12 +158,10 @@ console.log( parameters, fileName );
 
 			mesh = new THREE.Mesh( geometry, material );
 
-			VH.updateObjectGeometryByHashParameters( mesh, parameters );
-
-			VH.updateSceneByHashParameters( parameters );
-			VH.addShadowsToMeshesInScene( scene );
-
 			scene.add( mesh );
+
+			callback( mesh, parameters );
+
 
 		} );
 

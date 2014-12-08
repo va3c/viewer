@@ -1,6 +1,15 @@
 Dev Notes
 ===
 
+2014-12-06 ~ Theo
+
+* Loading STL files well-streamlined
+* Exploring the issues of the iframe within an iframe. There are many
+
+Seem mostly to be able to open HTML, JSON, OBJ and STL files w=either by URL or by content from GitHub, Hacker or Hackette.
+It took too long to get here. And there's more simplificaion to be done.
+   
+
 2014-12-05 ~ Theo
 
 * Many techie fixes over the last few days. Bringing Hacker up to the level of Viewer.

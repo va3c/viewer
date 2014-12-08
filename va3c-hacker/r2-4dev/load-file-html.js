@@ -1,5 +1,5 @@
 
-	VH.loadFileHTMLByURL = function( url, callback, width, height, css, parameters ) {
+	VH.loadFileHTMLByURL = function( url, parameters, callback, width, height, css, parameters ) {
 
 		var callback = callback ? callback : function () {} ;
 
@@ -21,16 +21,7 @@
 
 		VH.ifr.onload = function() {
 
-			app = VH.ifr.contentWindow;
-
-			THREE = app.THREE;
-			renderer = app.renderer;
-			scene = app.scene;
-			camera = app.camera;
-			controls = app.controls;
-			material = app.material;
-
-			callback();
+			callback( '', callback );
 
 		};
 
@@ -38,7 +29,7 @@
 
 	};
 
-	VH.loadFileHTMLByContents = function( contents, callback, width, height, css ) {
+	VH.loadFileHTMLByContents = function( contents, parameters, callback, width, height, css ) {
 
 		callback = callback ? callback : function () {} ;
 
@@ -58,15 +49,7 @@
 
 		VH.ifr.onload= function() {
 
-			app = VH.ifr.contentWindow;
-			THREE = app.THREE;
-			renderer = app.renderer;
-			scene = app.scene;
-			camera = app.camera;
-			controls = app.controls;
-			material = app.material;
-
-			callback();
+			callback( '', parameters );
 
 		}
 

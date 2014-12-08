@@ -8,7 +8,7 @@
 
 		var fileName = parameters[2];
 
-		location.hash = '';
+//		location.hash = '';
 
 		VH.displayMarkdown( fileName, menuLeft );
 
