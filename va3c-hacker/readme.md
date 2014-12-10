@@ -9,7 +9,7 @@ What would you like vA3C to do now?
 <span style=display:none; >
 2014-12-05 ~ Currently the following links do nothing when you are viewing this file on the GitHub source code page.
 This is because we are having an internal argument about keeping the link process as simple as possible.
-So for the moment, kindly exploe the possibilities using the [vA3V Hacker]( http://va3c.github.io/viewer/va3c-hacker/latest/ ) view.
+So for the moment, kindly explroe the possibilities using the [vA3V Hacker]( http://va3c.github.io/viewer/va3c-hacker/latest/ ) view.
 </span>
 
 [Tell you the time?]( #demo-tell-you-the-time.js "listen carefully..." )
@@ -22,7 +22,6 @@ So for the moment, kindly exploe the possibilities using the [vA3V Hacker]( http
 [[Browse even more templates]( #read-markdown.js#browse-templates.md )]  
 
 [Browse some NASA STL files?]( #dispatch.js#../../../nasa-samples/browse-nasa-stl-models.html#add=true ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )  
-[Browse some NASA STL files?]( #read-markdown.js#../../../nasa-samples/readme.md )
 
 [Have a glimpse at Tony Parisi's new &lt;GLAM> declarative language examples?]( #read-markdown.js#browse-glam-models.md#displayInfo "make your style sheets 3D smarter" )  
 - load a new template after to continue
@@ -32,7 +31,9 @@ So for the moment, kindly exploe the possibilities using the [vA3V Hacker]( http
 [Browse Revit files & BIM data converted to JSON 4?]( #read-markdown.js#../content/revit/browse-revit-json4-files.md "Thanks Jeremy!" )
 
 [Snoop around the vA3C Hackette demo?]( #dispatch.js#../../va3c-hackette/index.html#add=true )  
+<!--
 [Snoop around the vA3C Hackette demo?]( #read-markdown.js#../../va3c-hackette/readme.md )
+-->
 
 [Browse for files using your file dialog?]( #read-markdown.js#browse-using-file-dialog.md "" )
 
