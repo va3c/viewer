@@ -21,16 +21,18 @@ So for the moment, kindly exploe the possibilities using the [vA3V Hacker]( http
   &nbsp;  [Load a template with skybox of clouds?]( #dispatch.js#../templates/template-skybox.html#noMenuLeft )  
 [[Browse even more templates]( #read-markdown.js#browse-templates.md )]  
 
-[Browse some NASA STL files?]( #dispatch.js#../../../nasa-samples/browse-nasa-stl-models.html#add=true ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )
+[Browse some NASA STL files?]( #dispatch.js#../../../nasa-samples/browse-nasa-stl-models.html#add=true ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )  
+[Browse some NASA STL files?]( #read-markdown.js#../../../nasa-samples/readme.md )
 
 [Have a glimpse at Tony Parisi's new &lt;GLAM> declarative language examples?]( #read-markdown.js#browse-glam-models.md#displayInfo "make your style sheets 3D smarter" )  
 - load a new template after to continue
 
-[Browse some files from the 3D Warehouse?]( #dispatch.js#../../../3d-warehouse-samples/index.html "Collada files converted to JSON 3" )
+[Browse some files from the 3D Warehouse?]( #dispatch.js#../../../3d-warehouse-samples/index.html#add=true "Collada files converted to JSON 3" )
 
-[Browse Revit files & BIM data converted to JSON 4?]( #read-markdown.js#browse-revit-json4-files.md "Thanks Jeremy!" )
+[Browse Revit files & BIM data converted to JSON 4?]( #read-markdown.js#../content/revit/browse-revit-json4-files.md "Thanks Jeremy!" )
 
-[Snoop around the vA3C Hackette demo?]( #dispatch.js#../../va3c-hackette/index.html )
+[Snoop around the vA3C Hackette demo?]( #dispatch.js#../../va3c-hackette/index.html#add=true )  
+[Snoop around the vA3C Hackette demo?]( #read-markdown.js#../../va3c-hackette/readme.md )
 
 [Browse for files using your file dialog?]( #read-markdown.js#browse-using-file-dialog.md "" )
 

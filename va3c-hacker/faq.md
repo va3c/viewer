@@ -35,3 +35,17 @@ So far we have
 * View - bring files that are somewhere on the Internet into view
 * Templates - files you can build upon.
 Because of cross-origin issues, there is usually not much possible interaction with the files beyond simple viewing
+
+### _Screen Grabber_
+
+_What files types are currently supported?_
+
+HTML, JSON, JS, OBJ, STL.
+
+_What are some of the issues?_
+The 'Choose file' option allows you to select files anywhere on your computer or available on your network.
+Opening files this way is a new feature and there are security issues.
+One such issue is that access to texture files is prohibited. Thus the models with textures appear as black blobs.
+
+When a model has such problems, a work-around is to use the more clumsy 'Paste link' option.
+

@@ -13,7 +13,9 @@ Screen capture is the usual way of creating the images, but it often takes a lot
 
 Solution: The Hacker Screen Grabber template allows you to open and load files, tweak them so they are just right, create an image and save it as a PNG file.  
 
-[Load Screen Grabber Template]( #export-screen-grabber.js#displayInfo# )
+<small>This menu disappears when you choose a file.</small>
+
+[Load Screen Grabber Template]( #export-screen-grabber.js#displayInfo# ) [FAQ]( #read-markdown.js#../faq.md#screen-grabber )
 
 ### Callum's Template Generator
 

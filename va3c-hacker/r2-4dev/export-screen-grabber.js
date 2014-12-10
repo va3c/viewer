@@ -12,15 +12,18 @@
 	var url;
 	var canvas;
 	var context;
-	var fileName
+	var fileName;
+
+	var parameters = [];
 
 	init();
 
 	function init() {
 
 		msg.innerHTML = '<p>' +
-			'<p>1a. Paste link <input type=text style=width:600px; onchange=openURL(this); /><p>' +
-			'1b. <input type=file id=inpFile onchange=openFile(this) > ' +
+			'<p>1a. Paste link <input type=text id=inpURL style=width:600px; onchange=openURL(); /> <button onclick=openURL() >Open</button> ' +
+			'1b. <input type=file id=inpFile onchange=openFile(this) >' +
+			'Scale: <input type=number id=inpScale step=1 value=5 style=width:3em; /><p>' +
 			'2. Select a template <select id=selTemplate onchange=updateTemplate() ></select> ' +
 			'3. Select a size <select id=selSize onchange=updateSize() ></select> ~ ' +
 				'width: <input type=number id=sizeWidth style=width:50px; min=1 /> ' +
@@ -61,7 +64,10 @@
 
 //		var name = fileName.substr( 1 + fileName.lastIndexOf( '/' ) );
 
-		var name = fileName.substr( 1 + fileName.lastIndexOf( '\\' ) );
+		var slash = navigator.platform === "Win32" ? '\\' : '/' ;
+
+		var name = fileName.substr( 1 + fileName.lastIndexOf( slash ) );
+
 console.log( fileName, name )
 
 		name = name.replace(/\.html|\.json|\.js|\.obj|\.stl/gi,'-') + imageSize.replace( / /gi,'' ) + '.png';
@@ -92,15 +98,13 @@ console.log( fileName, name )
 
 		callback = function(){};
 
-		parameters = [];
-
 		if ( contents ) {
 
-			VH.loadFileHTMLByContents( contents, parameters, callback, imageWidth, imageHeight, css );
+			openFile();
 
 		} else if ( url ) {
 
-			VH.loadFileHTMLByURL( url, parameters, callbackloadFileHTMLByURL, imageWidth, imageHeight, css  ); 
+			openURL();
 
 		} else {
 
@@ -124,22 +128,21 @@ console.log( fileName, name )
 
 	}
 
-	function openURL( that ) {
+	function openURL() {
 
-console.log( that, that.value );
+//console.log( inpURL, inpURL.value );
 
-thing = that;
-
-
-//		VH.dispatchFileByURL( parameters, , imageWidth, imageHeight, css );
+		VH.dispatchFileByURL( parameters );
 
 		template = '../../va3c-hacker/templates/' + templateItem[1];
 
 		callback = function() {}; //  template = currentTemplate; }
 		
-		fileName = url = that.value;
+		fileName = url = inpURL.value;
 
-		parameters = '#' + url + '#'
+		var scale = parseFloat( inpScale.value );
+
+		parameters = '#' + url + '#sx=' + scale + '#sy=' + scale + '#sz=' + scale;
 
 		parameters = parameters.split( '#' );
 
@@ -147,7 +150,7 @@ thing = that;
 
 		if ( fileType === '.html' || fileType === '.htm' ) {
 
-				contents = VH.requestFile( url );
+				var contents = VH.requestFile( url );
 
 				re = /antialias: true/gi;
 
@@ -183,11 +186,42 @@ thing = that;
 
 				}, imageWidth, imageHeight, css );
 
+			} else if ( fileType === '.obj' ) {
+
+				VH.loadFileHTMLByURL( template, parameters, function() {
+
+					VH.updateSceneVariables();
+
+					VH.loadFileOBJByURL( parameters, VH.updateSceneElements );
+
+					callback();
+
+				}, imageWidth, imageHeight, css );
+
+
+			} else if ( fileType === '.stl' ) {
+
+				VH.loadFileHTMLByURL( template, parameters, function() {
+
+					VH.updateSceneVariables();
+
+					VH.loadFileSTLByURL( parameters, VH.updateSceneElements );
+
+					callback();
+
+				}, imageWidth, imageHeight, css );
+
+
 			} else {
 
 				alert( fileType + ': as yet unhandled file type...' );
 
 			}
+
+		menuLeft.style.display = 'none';
+
+		if ( app && app.menuLeft ) app.menuLeft.style.display = 'none';
+
 
 	}
 
@@ -203,6 +237,12 @@ thing = that;
 		template = '../../va3c-hacker/templates/' + templateItem[1];
 
 		callback = function() {}; //  template = currentTemplate; }
+
+		var scale = parseFloat( inpScale.value );
+
+		parameters = '#' + fileName + '#sx=' + scale + '#sy=' + scale + '#sz=' + scale;
+
+		parameters = parameters.split( '#' );
 
 		var reader = new FileReader();
 

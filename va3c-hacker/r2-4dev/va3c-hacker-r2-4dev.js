@@ -31,6 +31,8 @@
 
 	VH.initHackette = function () {
 
+//console.log( 'initHackette', parameters );
+
 		VH.buildUserInterface();
 
 		var parameters = location.hash.split ( '#' );

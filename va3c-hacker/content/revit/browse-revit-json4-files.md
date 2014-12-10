@@ -5,7 +5,7 @@ Many thanks to Jeremy and Matt for these models converted from Revit to Three.js
 
 Stay up to date on progress at Jeremy's web site: [The Building Coder]( http://thebuildingcoder.typepad.com/ ) 
 
-
+![]( ../content/revit/little_house.rvt-640x480.png )
 [[O]]( #dispatch.js#../../../RvtVa3c/models/little_house.rvt.js#py=-10#ry=3#sx=0.01#sy=0.01#sz=0.01#displayMenuLeft )
 [Little House]( #dispatch.js#../../../RvtVa3c/models/little_house.rvt.js#py=-10#ry=3#sx=0.01#sy=0.01#sz=0.01#add=true#displayMenuLeft )
 
@@ -35,3 +35,6 @@ Stay up to date on progress at Jeremy's web site: [The Building Coder]( http://t
 [RAC Basic Sample Project Site]( #dispatch.js#../../../RvtVa3c/models/rac_basic_sample_project_scene.rvt.js#sx=0.01#sy=0.01#sz=0.01#add=true#noGround#displayMenuLeft  ) - Takes a while to load but worth the wait!
 
 [Load a fresh model space with skybox?]( #dispatch.js#../templates/template-skybox.html )
+
+
+<style>img { width: 375px; } /* yup, this works */</style>

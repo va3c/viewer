@@ -15,6 +15,7 @@ vA3C Hacker Road Map
 	* 2014-11-26 << may not be best way to go. Looks like better to load a fresh iframe each time
 
 * 2014-11-23 ~ homogenize all the ways of loading json files
+	* 2014-12-09 << looking good
 
 * 2014-11-23 ~ Load JSON 4 files using the file open dialog box 
 	* 2014-11-26 << added
@@ -24,9 +25,23 @@ vA3C Hacker Road Map
 
 * 2014-11-23 ~ Interpret multiple permalink calls separated by an &
 
-* 2014-11-23 ~ 'Picture taker' - open any file, compose the effect, save size-selected screen shot to file << 2014-11-26 ~ working ( with issues )
+### Screen Grabber
+
+* 2014-11-23 ~ Scren Grabber - 'Picture taker' - open any file, compose the effect, save size-selected screen shot to file << 2014-11-26 ~ working ( with issues )
 	* 2014-11-26 ~ << First pass complete
 	* 2014-11-26 ~ << adds 'preserveDrawingBuffer: true' to renderer using 'pre-processor
+	* 2014-12-09 ~ search and replace broken calls to three.min.js etc
+
+
+### Display Markdown
+
+* 2014-12-09 ~ Accept parameters instead of file name
+
+* 2014-12-09 ~ Scroll text to position indicated by a parametter
+
+* 2014-12-09 ~ special parameters allow for pr-processin the file, regex operations or interpreting embedded code
+	* Based on idea that this is a xmlhttprequest operation, so we can do what we want with the data
+
 
 ## Location.hash / Permalinks
 

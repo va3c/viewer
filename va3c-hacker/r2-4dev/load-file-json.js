@@ -84,9 +84,17 @@ console.log( 'found object', contents );
 
 // for windows, Use navigator platform to check
 
-		var texturePath = parameters ? parameters[1].substr( 0, 1 + parameters[1].lastIndexOf( '/' ) ) : '' ;
+		var slash = navigator.platform === "Win32" ? '\\' : '/' ;
+
+		var slash = '/';
+
+		var texturePath = parameters.length > 0 ? parameters[1].substr( 0, 1 + parameters[1].lastIndexOf( slash ) ) : '' ;
+
+		texturePath = '.' + texturePath;
 
 //console.log( 'texturePath', texturePath );
+
+
 
 		loader = new THREE.JSONLoader();
 
@@ -136,7 +144,7 @@ console.log( 'found object', contents );
 
 		fileName = parameters[1];
 
-console.log( 'loadFileJSON3ByURL', parameters, fileName );
+//console.log( 'loadFileJSON3ByURL', parameters, fileName );
 
 		loader = new THREE.JSONLoader();
 

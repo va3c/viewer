@@ -6,7 +6,8 @@ You may now drag and drop files into the model space.
 
 If you drop the file over the menu or this message, there will be a boo boo.
 
-Currently only Three.js JSON files are supported.
+Currently only Three.js JSON, OBJ and STL files are supported. You may load a Three.js HTML file. 
+It will instantly overwrite everything you have done,
 
 You may load any template you wish prior to the drag and drop.
 
