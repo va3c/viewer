@@ -26,6 +26,15 @@ the web or locally for easy viewing and collaboration in your browser - all usin
 
 Folders include:
 
+## Spline Editor
+
+
+[Spline Editor]( http://va3c.github.io/viewer/cookbook/spline-editor/ )  
+[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/spline-editor/ )  
+
+* Create, edit and export 3D Catmull Rom Splines
+
+
 ## JSON Reader
 
 [JSON Reader]( http://va3c.github.io/viewer/cookbook/json-reader/ )   
