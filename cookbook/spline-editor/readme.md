@@ -10,15 +10,19 @@ Spline Editor Read Me
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
 _[Spline Editor R6]( http://va3c.github.io/viewer/cookbook/spline-editor/latest/index.html )_  
-[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/spline-editor/ )
 
 
-* Loads Three.js JSON files using following technique:  
-	* Open file and read contents
-	* Run tests to determine version
-	* Use loader.parse file using JSONLoader or ObjectLoader as appropriate
-*  Loads geometry, materials and textures correctly 
-* This suggests: loader.<b><i>parse</i></b> is best current solution   
+The [Catmull Rom Spline](  http://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline ) passes through its control points.
+
+Original concept created by [zz85]( https://github.com/zz85/ThreeLabs/blob/master/spline3editor.html )
+
+* Create, edit and export 3D Catmull Rom Splines 
+	* Pan, rotate and zoom in real-time using your pointing device
+	* Control point entities highlight when you mouseover
+	* Update controls point positions in a fairly intuitive manner
+	* Increment and decrement the number of control points
+	* Toggle open and closed spline display
+	* Export spline data to JSON file
 
 
 ### Mission  
@@ -27,7 +31,7 @@ _[Spline Editor R6]( http://va3c.github.io/viewer/cookbook/spline-editor/latest/
 
 ### Vision  
 <!--  a descriptive picture of a desired future state -->
-When possible, I try to provide code that an engineer or designer could play with  
+
 
 ## Features
 <!-- and benefits -->
