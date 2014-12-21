@@ -49,3 +49,5 @@ One such issue is that access to texture files is prohibited. Thus the models wi
 
 When a model has such problems, a work-around is to use the more clumsy 'Paste link' option.
 
+### Load On Demand
+

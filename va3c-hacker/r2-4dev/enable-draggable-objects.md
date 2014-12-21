@@ -8,3 +8,7 @@ Code is based on Three.js example [WebGL Interactive Draggable Cubes]( https://g
 After you load new objects, click the link again to add the new items to the list of draggable objects. Very much a work in progress.
 
 Has issues with some of the Revit files.
+
+[Export object geometry]( #export-geometry-to-json.js#  )
+
+[Export object geometry + material]( #export-object-to-json.js#  )

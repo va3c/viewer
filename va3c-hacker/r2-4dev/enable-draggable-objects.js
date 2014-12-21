@@ -2,19 +2,20 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_draggablecubes.html
 // https://github.com/zz85/ThreeLabs/blob/master/DragControls.js
 
-//	var objects = [];
+	var objects = [];
+
 	var plane;
 
 	var mouse;
 	var offset;
 	var intersected;
 	var selected;
+	var selectedObjects;
+	var lastSelected;
 
-	draggableObjects()
+	var parameters = location.hash;
 
-	function draggableObjects () {
-
-//		location.hash = '';
+	VH.draggableObjects = function () {
 
 		if ( !scene ) {
 
@@ -28,14 +29,22 @@
 		controls = app.controls;
 		camera = app.camera;
 
-		VH.displayMarkdown( 'enable-draggable-objects.md', menuLeft );
+		if ( parameters.indexOf( 'displayMenuLeft' ) > -1 ) {
 
+			VH.displayMarkdown( 'enable-draggable-objects.md', menuLeft );
+
+		}
 
 //		objects = [];
 
 		mouse = new THREE.Vector2();
 		offset = new THREE.Vector3();
-/*
+
+		selectedObjects = objects ? objects : scene.children;
+
+//console.log( selectedObjects );
+
+
 		scene.traverse( function ( child ) {
 
 			if ( child instanceof THREE.Mesh ) {
@@ -45,10 +54,11 @@
 			}
 
 		} );
-*/
+
+selectedObjects = objects 
 
 		geometry = new THREE.PlaneBufferGeometry( 1000, 1000 );
-		material = new THREE.MeshBasicMaterial( )
+		material = new THREE.MeshBasicMaterial( );
 		plane = new THREE.Mesh( geometry, material );
 		plane.visible = false;
 		scene.add( plane );
@@ -82,9 +92,11 @@
 
 		}
 
-//console.log( objects, raycaster );
 
-		var intersects = raycaster.intersectObjects( scene.children );
+
+		var intersects = raycaster.intersectObjects( selectedObjects );
+
+//console.log( selectedObjects, raycaster );
 
 		if ( intersects.length > 0 ) {
 
@@ -133,7 +145,7 @@
 
 		var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 
-		var intersects = raycaster.intersectObjects( scene.children );
+		var intersects = raycaster.intersectObjects( selectedObjects );
 
 //console.log( intersects )
 
@@ -163,10 +175,14 @@
 
 			plane.position.copy( intersected.position );
 
-			selected = null;
+				lastSelected = selected
+
+				selected = null;
 
 		}
 
 		document.body.style.cursor = 'auto';
 
 	}
+
+	VH.draggableObjects();

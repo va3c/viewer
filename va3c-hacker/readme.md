@@ -31,6 +31,7 @@ So for the moment, kindly explroe the possibilities using the [vA3V Hacker]( htt
 [Browse Revit files & BIM data converted to JSON 4?]( #read-markdown.js#../content/revit/browse-revit-json4-files.md "Thanks Jeremy!" )
 
 [Snoop around the vA3C Hackette demo?]( #dispatch.js#../../va3c-hackette/index.html#add=true )  
+
 <!--
 [Snoop around the vA3C Hackette demo?]( #read-markdown.js#../../va3c-hackette/readme.md )
 -->
@@ -45,11 +46,13 @@ Both are bookmarklets you may use on most any Three.js file.
 
 [Enable drag and drop for JSON files?]( #enable-drag-and-drop-json-files.js )
 
-[Enable draggable objects?]( #enable-draggable-objects.js )
+[Enable draggable objects?]( #enable-draggable-objects.js#displayMenuLeft )
 
 [Enable file modified monitor?]( #enable-file-modified-monitor.js "Thanks to Ben Howe" )
 
-[Export scene to JSON?]( #export-scene-to-json.js )
+[Export scene to a Three.js JSON file?]( #export-scene-to-json.js )
+
+[Add an editable spline?]( #spline-maker.js#displayMenuLeft )
 
 
 [Go on a short aeronautical and architectural adventure?]( #demo-aeronautical-architectural.js "Makes heavy use of resources." ) 
