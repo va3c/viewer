@@ -16,6 +16,10 @@ The [Catmull Rom Spline](  http://en.wikipedia.org/wiki/Cubic_Hermite_spline#Cat
 
 Original concept created by [zz85]( https://github.com/zz85/ThreeLabs/blob/master/spline3editor.html )
 
+
+### Mission  
+<!-- a statement of a rationale, applicable now as well as in the future -->
+
 * Create, edit and export 3D Catmull Rom Splines 
 	* Pan, rotate and zoom in real-time using your pointing device
 	* Control point entities highlight when you mouseover
@@ -23,11 +27,7 @@ Original concept created by [zz85]( https://github.com/zz85/ThreeLabs/blob/maste
 	* Increment and decrement the number of control points
 	* Toggle open and closed spline display
 	* Export spline data to JSON file
-
-
-### Mission  
-<!-- a statement of a rationale, applicable now as well as in the future -->
-
+	* Direct overhead light creating shadows helps locate control point objects
 
 ### Vision  
 <!--  a descriptive picture of a desired future state -->
