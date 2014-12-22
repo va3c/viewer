@@ -2,6 +2,7 @@
 
 	VH.add = false;
 	var hackerPrefix = './';
+	var texturePathPrefix;
 	var displayMenuLeft = false;
 	var container, menuLeft, menuRight, inworld;
 	var app = {};
