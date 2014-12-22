@@ -58,7 +58,7 @@
 
 		if ( contents instanceof THREE.Scene ) {
 
-console.log( 'found scene' );
+//console.log( 'found scene' );
 
 			scene.add( contents );
 
@@ -66,7 +66,7 @@ console.log( 'found scene' );
 
 		} else {
 
-console.log( 'found object', contents );
+//console.log( 'found object', contents );
 
 			scene.add( contents );
 
@@ -100,7 +100,7 @@ console.log( 'found object', contents );
 
 		}
 
-console.log( 'texturePath', texturePath );
+//console.log( 'texturePath', texturePath );
 
 
 		loader = new THREE.JSONLoader();

@@ -32,9 +32,11 @@
 
 			var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 
+			var intersects;
+
 			if ( selected ) {
 
-				var intersects = raycaster.intersectObject( plane );
+				intersects = raycaster.intersectObject( plane );
 
 				selected.position.copy( intersects[ 0 ].point.sub( offset ) );
 
@@ -42,7 +44,7 @@
 
 			}
 
-			var intersects = raycaster.intersectObjects( objects );
+			intersects = raycaster.intersectObjects( objects );
 
 			if ( intersects.length > 0 ) {
 
@@ -90,7 +92,7 @@
 
 				selected = intersects[ 0 ].object;
 
-				var intersects = raycaster.intersectObject( plane );
+				intersects = raycaster.intersectObject( plane );
 
 				offset.copy( intersects[ 0 ].point ).sub( plane.position );
 
@@ -124,5 +126,5 @@
 
 		}
 
-	}
+	};
 

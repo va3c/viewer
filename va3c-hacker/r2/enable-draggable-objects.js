@@ -1,4 +1,4 @@
-	var JA = {};
+	var JA = JA || {};
 
 	JA.DragObjects = function( objects ) {
 
@@ -20,6 +20,7 @@
 		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
 		renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
 
+
 		function onDocumentMouseMove( event ) {
 
 			event.preventDefault();
@@ -27,14 +28,15 @@
 			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-			var vector = new THREE.Vector3( mouse.x, mouse.y, 0.5 )
-			vector.unproject( camera );
+			var vector = new THREE.Vector3( mouse.x, mouse.y, 0.5 ).unproject( camera );
 
 			var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 
+			var intersects;
+
 			if ( selected ) {
 
-				var intersects = raycaster.intersectObject( plane );
+				intersects = raycaster.intersectObject( plane );
 
 				selected.position.copy( intersects[ 0 ].point.sub( offset ) );
 
@@ -42,17 +44,31 @@
 
 			}
 
-			var intersects = raycaster.intersectObjects( objects );
+			intersects = raycaster.intersectObjects( objects );
 
 			if ( intersects.length > 0 ) {
 
 				if ( intersected != intersects[ 0 ].object ) {
 
-					if ( intersected ) intersected.material.emissive.setHex( intersected.currentHex );
+//					if ( intersected ) intersected.material.emissive.setHex( intersected.currentHex );
+
+					if ( intersected && intersected.material.emissive ) {
+
+						intersected.material.emissive.setHex( intersected.currentHex );
+
+					}
 
 					intersected = intersects[ 0 ].object;
-					intersected.currentHex = intersected.material.emissive.getHex();
-					intersected.material.emissive.setHex( 0xff0000 );
+//					intersected.currentHex = intersected.material.emissive.getHex();
+//					intersected.material.emissive.setHex( 0xff0000 );
+
+
+					if ( intersected.material.emissive ) {
+
+						intersected.currentHex = intersected.material.emissive.getHex();
+						intersected.material.emissive.setHex( 0xff0000 );
+
+					}
 
 					plane.position.copy( intersected.position );
 
@@ -64,7 +80,9 @@
 
 			} else {
 
-				if ( intersected ) intersected.material.emissive.setHex( intersected.currentHex );
+//				if ( intersected ) intersected.material.emissive.setHex( intersected.currentHex );
+
+				if ( intersected && intersected.material.emissive ) intersected.material.emissive.setHex( intersected.currentHex );
 
 				intersected = null;
 
@@ -78,8 +96,7 @@
 
 			event.preventDefault();
 
-			var vector = new THREE.Vector3( mouse.x, mouse.y, 0.5 )
-			vector.unproject( camera );
+			var vector = new THREE.Vector3( mouse.x, mouse.y, 0.5 ).unproject( camera );
 
 			var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 
@@ -91,7 +108,7 @@
 
 				selected = intersects[ 0 ].object;
 
-				var intersects = raycaster.intersectObject( plane );
+				intersects = raycaster.intersectObject( plane );
 
 				offset.copy( intersects[ 0 ].point ).sub( plane.position );
 
@@ -125,5 +142,40 @@
 
 		}
 
-	}
+	};
 
+	init();
+
+	function init() {
+
+
+		objectContainer = new THREE.Object3D();
+
+		scene.add( objectContainer );
+
+		var objects = [];
+
+		app.scene.traverse( function ( child ) {
+
+			if ( child instanceof THREE.Mesh ) {
+
+console.log( 'child', child );
+
+				objects.push( child );
+
+			}
+
+		} );
+
+		for ( obj in objects) {
+
+			objectContainer.add( objects[ obj ] );
+
+		}
+
+
+		var dragcontrols = new JA.DragObjects( scene.children );
+
+//		dragcontrols.onDragged = updateSplineOutline;
+
+	}
