@@ -9,7 +9,7 @@ Edit Spline Read Me
 <iframe src="http://va3c.github.io/viewer/cookbook/edit-spline/latest/index.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_[Spline Editor R6]( http://va3c.github.io/viewer/cookbook/edit-spline/latest/index.html )_  
+_[Spline Editor Latest]( http://va3c.github.io/viewer/cookbook/edit-spline/latest/index.html )_  
 
 
 The [Catmull Rom Spline](  http://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline ) passes through its control points.
