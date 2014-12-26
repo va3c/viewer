@@ -1,7 +1,7 @@
-Catmull-Rom Spline Maker
+Add an Editable Catmull-Rom Spline
 ===
 
-<button onclick=splineMakerRandomPoints() >Make Spline</button>
+<button onclick=splineMakerRandomPoints(5) >Make Spline</button>
 
 Number of Points: <input type=number id=inpPoints style="width:4em" />
 

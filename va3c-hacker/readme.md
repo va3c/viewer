@@ -52,9 +52,8 @@ Both are bookmarklets you may use on most any Three.js file.
 
 [Export scene to a Three.js JSON file?]( #export-scene-to-json.js )
 
-<!--
-[Add an editable spline?]( #spline-maker.js#displayMenuLeft )
--->
+[Add an editable spline?]( #edit-spline.js#displayMenuLeft )
+
 
 [Go on a short aeronautical and architectural adventure?]( #demo-aeronautical-architectural.js "Makes heavy use of resources." ) 
 

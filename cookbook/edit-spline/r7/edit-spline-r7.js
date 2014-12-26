@@ -17,7 +17,6 @@
 		splinePointsLength = parseInt( pointsCount, 10 );
 
 		splinePointsPositions = [];
-//		splinePointsPositions.length = 0;
 
 		for ( var i = 0; i < splinePointsLength; i++ ) {
 

@@ -1,43 +1,39 @@
-//	VH.loadScript( 'draggable-objects.js' );
+	VH.loadScript( 'enable-draggable-objects.js' );
 
+	var splinePointsLength;
+	var splinePointsContainer;
+	var splinePointsPositions;
 
-	var splinePointsLength = 4;
-	var splinePointsPositions = [];
-	var splineObjects = [];
 	var splineOutline;
 	var splineCurve;
-	var splineObject = new THREE.Object3D();
-
-// Uncomment this line if you wish to load from exports
-//	load();
 
 	parameters = location.hash;
 
 	if ( parameters.indexOf( 'displayMenuLeft' ) > -1 ) {
 
-		VH.displayMarkdown( 'spline-maker.md', menuLeft )
+		VH.displayMarkdown( 'edit-spline.md', menuLeft );
+
+
 
 	}
 
-	function splineMakerRandomPoints() {
+	function splineMakerRandomPoints( pointsCount ) {
 
-		if ( splineOutline ) scene.remove( splineOutline );
+		if ( splinePointsContainer ) { scene.remove( splinePointsContainer ); }
 
-		var len = splineObjects.length;
+		splinePointsContainer = new THREE.Object3D();
 
-		while ( len-- ) {
+		scene.add ( splinePointsContainer );
 
-			splinePointsPositions.pop();
+		splinePointsLength = parseInt( pointsCount, 10 );
 
-			scene.remove( splineObjects.pop() );
-
-		}
+		splinePointsPositions = [];
 
 		for ( var i = 0; i < splinePointsLength; i++ ) {
 
 			addSplineObject( splinePointsPositions[ i ] );
 
-			splinePointsPositions.push( splineObjects[ i ].position );
+			splinePointsPositions.push( splinePointsContainer.children[ i ].position );
 
 		}
 
@@ -51,17 +47,21 @@
 
 		}
 
+console.log( splinePointsPositions );
+
+
 		updateSplineOutline();
 
-		var dragcontrols = new JA.DragObjects( splineObjects );
 
-		dragcontrols.onDragged = updateSplineOutline;
+		VA.dragcontrols = new VA.DragObjects( splinePointsContainer.children );
+
+		VA.dragcontrols.onDragged = updateSplineOutline;
 
 	}
 
-	function points( offset ) {
+	function points( delta ) {
 
-		splinePointsLength += offset;
+		splinePointsLength += delta;
 
 		if ( splinePointsLength < 4 ) {
 
@@ -71,9 +71,9 @@
 
 		}
 
-		if ( offset > 0 ) {
+		if ( delta > 0 ) {
 
-			while ( offset-- ) {
+			while ( delta-- ) {
 
 				splinePointsPositions.push( addSplineObject().position );
 
@@ -81,13 +81,13 @@
 
 		} else {
 
-			offset = -offset;
+			delta = -delta;
 
-			while (offset--) {
+			while (delta--) {
 
 				splinePointsPositions.pop();
 
-				scene.remove( splineObjects.pop() );
+				scene.remove( splinePointsContainer.children[ splinePointsContainer.children.length - 1 ] );
 
 			}
 
@@ -122,10 +122,7 @@
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 
-		splineObject.add( mesh );
-		scene.add( splineObject );
-
-		splineObjects.push( mesh );
+		splinePointsContainer.add( mesh );
 
 		return mesh;
 
@@ -135,6 +132,16 @@
 
 		if ( splineOutline ) scene.remove( splineOutline );
 
+		if ( inpClosed.checked ) {
+
+			splineCurve = new THREE.ClosedSplineCurve3( splinePointsPositions );
+
+		} else {
+
+			splineCurve = new THREE.SplineCurve3( splinePointsPositions );
+
+		}
+
 		splineCurve.updateArcLengths();
 
 		var arcLen = splineCurve.getLength();
@@ -142,8 +149,6 @@
 		arcLen = Math.floor( arcLen / 8 );
 
 		var points = splineCurve.getPoints( arcLen );
-
-		inpPoints.value = splinePointsLength;
 
 		var geometry = new THREE.Geometry();
 
@@ -161,9 +166,11 @@
 
 	function exportSpline() {
 
-		var geometry = splineOutline.geometry;
+		var object = splineOutline;
 
-		var output = geometry.toJSON();
+
+		var output = object.toJSON();
+//		var output = geometry.toJSON();
 		output = JSON.stringify( output, null, '\t' );
 		output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
 
@@ -177,156 +184,4 @@
 
 	}
 
-
-	function load() {
-
-		splinePointsPositions = [
-			v(-213.12552068360054, -294.1922074745087, -0.03978996232257259),
-			v(29.99553601021495, -243.11318001675306, 280.78482599069616),
-			v(-97.75986506175894, -64.54552418022524, 55.64806371267258),
-			v(-314.408250336442, 235.23205516762346, -5.893017170859991),
-			v(22.034622881439077, 162.8965831284607, -345.10495452036184),
-			v(134.59056654199452, 382.5168668673815, -198.91479606872133),
-			v(477.5022172612489, -4.8651203633506555, -210.47236097401574),
-			v(449.0486673017501, 4.918562856246474, 52.560123928679985),
-			v(280.6397761972279, -290.27337790622795, 40.210017846524124),
-			v(163.10498799765227, -369.03871116931487, -173.83095096616034)
-		];
-
-		splinePointsLength = splinePointsPositions.length;
-
-	}
-
 	function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
-
-	var JA = {};
-		var intersected;
-
-	JA.DragObjects = function( objects ) {
-
-		me = this;
-
-		var mouse = new THREE.Vector2();
-
-		var offset = new THREE.Vector3();
-
-		var selected;
-
-		var geometry = new THREE.PlaneBufferGeometry( 1000, 1000 );
-		var material = new THREE.MeshBasicMaterial( );
-		plane = new THREE.Mesh( geometry, material );
-		plane.visible = false;
-		scene.add( plane );
-
-		renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
-		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
-		renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
-
-		function onDocumentMouseMove( event ) {
-
-			event.preventDefault();
-
-			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-			var vector = new THREE.Vector3( mouse.x, mouse.y, 0.5 )
-			vector.unproject( camera );
-
-			var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
-
-			if ( selected ) {
-
-				var intersects = raycaster.intersectObject( plane );
-
-				selected.position.copy( intersects[ 0 ].point.sub( offset ) );
-
-				return;
-
-			}
-
-			var intersects = raycaster.intersectObjects( splineObject.children );
-
-			if ( intersects.length > 0 ) {
-
-				if ( intersected != intersects[ 0 ].object ) {
-
-//					if ( intersected ) intersected.material.emissive.setHex( intersected.currentHex );
-
-					intersected = intersects[ 0 ].object;
-//					intersected.currentHex = intersected.material.emissive.getHex();
-//					intersected.material.emissive.setHex( 0xff0000 );
-
-					plane.position.copy( intersected.position );
-
-					plane.lookAt( camera.position );
-
-				}
-
-				document.body.style.cursor = 'pointer';
-
-			} else {
-
-//				if ( intersected ) intersected.material.emissive.setHex( intersected.currentHex );
-
-				intersected = null;
-
-				document.body.style.cursor = 'auto';
-
-			}
-
-		}
-
-		function onDocumentMouseDown( event ) {
-
-			event.preventDefault();
-
-			var vector = new THREE.Vector3( mouse.x, mouse.y, 0.5 )
-			vector.unproject( camera );
-
-			var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
-
-			var intersects = raycaster.intersectObjects( splineObject.children );
-
-			if ( intersects.length > 0 ) {
-
-				controls.enabled = false;
-
-				selected = intersects[ 0 ].object;
-
-				var intersects = raycaster.intersectObject( plane );
-
-				offset.copy( intersects[ 0 ].point ).sub( plane.position );
-
-				document.body.style.cursor = 'move';
-
-			}
-
-		}
-
-		function onDocumentMouseUp( event ) {
-
-			event.preventDefault();
-
-			controls.enabled = true;
-
-			if ( intersected ) {
-
-				plane.position.copy( intersected.position );
-
-				if ( me.onDragged ) {
-
-					me.onDragged();
-
-				}
-
-				selected = null;
-
-			}
-
-			document.body.style.cursor = 'auto';
-
-		}
-
-	}
-
-
