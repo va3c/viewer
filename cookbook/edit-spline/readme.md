@@ -1,15 +1,15 @@
-Spline Editor Read Me
+Edit Spline Read Me
 ===
-[Web page version]( http://va3c.github.io/viewer/cookbook/spline-editor/ ) - 
-[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/spline-editor/ )
+[Web page version]( http://va3c.github.io/viewer/cookbook/edit-spline/ ) - 
+[Source code version]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/edit-spline/ )
 
 
 ### Live Demo
 
-<iframe src="http://va3c.github.io/viewer/cookbook/spline-editor/latest/index.html" width=100% height=500px class='overview' >
+<iframe src="http://va3c.github.io/viewer/cookbook/edit-spline/latest/index.html" width=100% height=500px class='overview' >
 There is an `iframe` here. It is not visible when viewed on github.com. To view, please see 'Project Links' below.
 </iframe>
-_[Spline Editor R6]( http://va3c.github.io/viewer/cookbook/spline-editor/latest/index.html )_  
+_[Spline Editor R6]( http://va3c.github.io/viewer/cookbook/edit-spline/latest/index.html )_  
 
 
 The [Catmull Rom Spline](  http://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline ) passes through its control points.
@@ -70,6 +70,13 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 
 ## Change Log
+
+2014-12-26 ~ Theo
+
+* R7 ~ rename to edit spline - part of 'edit object' series
+* Add more name spacing
+* Update draggable objects
+
 
 2014-12-21 ~ Theo
 

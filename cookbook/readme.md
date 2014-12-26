@@ -26,13 +26,23 @@ the web or locally for easy viewing and collaboration in your browser - all usin
 
 Folders include:
 
+
+## Mesh Editor
+
+[Mesh Editor]( http://va3c.github.io/viewer/cookbook/edit-mesh/ )  
+[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/edit-mesh/ )  
+
+* Create, edit and export Three.js Plane Geometry Meshes
+* Added 2014-12-26
+
+
 ## Spline Editor
 
-
-[Spline Editor]( http://va3c.github.io/viewer/cookbook/spline-editor/ )  
-[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/spline-editor/ )  
+[Spline Editor]( http://va3c.github.io/viewer/cookbook/edit-spline/ )  
+[Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/edit-spline/ )  
 
 * Create, edit and export 3D Catmull Rom Splines
+* Added 2014-12-21
 
 
 ## JSON Reader
