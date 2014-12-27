@@ -71,6 +71,13 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 ## Change Log
 
+2014-12-27 ~ Theo
+
+* R8 ~ fully name-spaced
+* Adding Tooltips
+* removes last control point properly
+
+
 2014-12-26 ~ Theo
 
 * R7 ~ rename to edit spline - part of 'edit object' series
