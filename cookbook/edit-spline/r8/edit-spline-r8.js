@@ -1,11 +1,5 @@
 
 	var VA = VA || {};
-	var splinePointsLength;
-	var splinePointsContainer;
-	var splinePointsPositions;
-
-	var splineOutline;
-	var splineCurve;
 
 	VA.splineMakerRandomPoints = function( pointsCount ) {
 
@@ -39,11 +33,13 @@
 
 		VA.updateSplineOutline();
 
-	}
+	};
 
 	function points( delta ) {
 
 		VA.splinePointsLength += delta;
+
+		inpPoints.value = VA.splinePointsLength;
 
 		if ( VA.splinePointsLength < 4 ) {
 
@@ -77,7 +73,7 @@
 
 		VA.updateSplineOutline();
 
-	}
+	};
 
 	VA.addSplineObject = function( position ) {
 
@@ -121,7 +117,7 @@
 
 		return mesh;
 
-	}
+	};
 
 	VA.updateSplineOutline = function() {
 
@@ -157,13 +153,23 @@
 
 		scene.add( VA.splineOutline );
 
-	}
+	};
+
+	VA.splineDelete = function() {
+
+		if ( VA.splinePointsContainer ) { scene.remove( VA.splinePointsContainer ); }
+		if ( VA.splineOutline ) scene.remove( VA.splineOutline );
+
+	};
 
 	VA.exportSpline = function() {
 
-		var geometry = VA.splineOutline.geometry;
+		var container = new THREE.Object3D()
 
-		var output = geometry.toJSON();
+		container.add( VA.splinePointsContainer.clone() );
+		container.add( VA.splineOutline.clone() );
+
+		var output = container.toJSON();
 		output = JSON.stringify( output, null, '\t' );
 		output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
 
@@ -171,9 +177,99 @@
 
 		var a = document.createElement( 'a' );
 		a.href = window.URL.createObjectURL( blob );
-		a.download = 'spline-geometry.json';
+		a.download = 'spline-objects.json';
 		a.click();
 		delete a;
+
+	};
+
+	VA.importSpline = function( fileObject, parameters ) {
+
+		var file = fileObject.files[ 0 ];
+
+		var reader = new FileReader();
+
+		reader.onload = function ( event ) {
+
+			output = reader.result;
+
+			msg.innerHTML = 'name: ' + file.name + ' size: ' + file.size + 
+				' type: ' + file.type + ' modified: ' + file.lastModifiedDate +
+			'';
+
+			loadFileJSONObject( output, parameters, callback )
+
+		};
+
+		if ( reader.readAsBinaryString !== undefined ) {
+
+			reader.readAsBinaryString( file );
+
+		} else {
+
+			reader.readAsArrayBuffer( file );
+
+		}
+
+	};
+
+	callback = function( object ){
+
+		if ( VA.splinePointsContainer ) { scene.remove( VA.splinePointsContainer ); }
+		if ( VA.splineOutline ) scene.remove( VA.splineOutline );
+
+		VA.splinePointsContainer = object.children[ 0 ];
+
+		scene.add ( VA.splinePointsContainer );
+
+		VA.dragcontrols = new VA.DragObjects( VA.splinePointsContainer.children );
+
+		VA.splinePointsLength = VA.splinePointsContainer.children.length;
+
+		VA.splinePointsPositions = [];
+
+		for ( var i = 0; i < VA.splinePointsLength; i++ ) {
+
+//			VA.addSplineObject( VA.splinePointsPositions[ i ] );
+
+			VA.splinePointsPositions.push( VA.splinePointsContainer.children[ i ].position );
+
+		}
+
+		if ( inpClosed.checked ) {
+
+			VA.splineCurve = new THREE.ClosedSplineCurve3( VA.splinePointsPositions );
+
+		} else {
+
+			VA.splineCurve = new THREE.SplineCurve3( VA.splinePointsPositions );
+
+		}
+
+
+		VA.updateSplineOutline();
+
+//		VA.splineOutline = object.children[ 0 ];
+
+//		scene.add ( VA.splineOutline );
+
+		VA.dragcontrols.onDragged = VA.updateSplineOutline;
+
+	};
+
+	function loadFileJSONObject( contents, parameters, callback ) {
+
+		contents = JSON.parse( contents );
+
+		loader = new THREE.ObjectLoader();
+
+		contents = loader.parse( contents );
+
+console.log( 'found object', contents );
+
+//		scene.add( contents );
+
+		callback( contents, parameters );
 
 	}
 

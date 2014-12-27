@@ -75,8 +75,11 @@ This repository contains files that are at an early and volatile stage. Not all 
 
 * R8 ~ fully name-spaced
 * Adding Tooltips
-* removes last control point properly
-
+* Removes last control point properly
+* Add 'extend' checkbox - new points are projected out half the opposite distance between ultimate and penultimate point.
+* Add generate and delete spline buttons
+* Export now exports control points (boxes) plus line as a single object
+* Add import ans re-edit spline capability
 
 2014-12-26 ~ Theo
 

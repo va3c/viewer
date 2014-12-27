@@ -32,14 +32,14 @@
 				'<li>Control point entities highlight when you mouseover</li>' +
 				'<li>Update controls point positions in a fairly intuitive manner</li>' +
 				'<li>Increment and decrement the number of control points</li>' +
-				'<li>Toggle open and closed spline disply</li>' +
+				'<li>Toggle open and closed spline display</li>' +
 				'</li>Direct overhead light creating shadows helps locate control point objects</li>' + 
 				'<li>Export spline data to JSON file</li>' +
 			'</ul>' +
 
 			'<small>' +
-				'<a href="http://va3c.github.io/viewer/cookbook/edit/" target="_blank">Read Me ~</a> ' +
-				'<a href="https://github.com/va3c/viewer/tree/gh-pages/cookbook/edit-spline-edit/" target="_blank">Source Code</a> ~  ' +
+				'<a href="http://va3c.github.io/viewer/cookbook/edit-spline/" target="_blank">Read Me ~</a> ' +
+				'<a href="https://github.com/va3c/viewer/tree/gh-pages/cookbook/edit-spline/" target="_blank">Source Code</a> ~  ' +
 				'Credits: <a href="http://threejs.org" target="_blank">three.js</a> - ' +
 				'<a href="http://khronos.org/webgl/" target="_blank">webgl</a> - ' +
 				'<a href="http://va3c.github.io" target="_blank">vA3C</a><br>' +
@@ -73,8 +73,14 @@
 			'<button onclick=points(1); title="Add new point" > + </button> | ' +
 			'<button onclick=points(-1); title="Remove final point" > - </button> ' +
 			'<input type="checkbox" id=inpExtend onchange=points(0); title="New point projected from previous two points. Otherwise random" /> Extend ~ ' +
-			'<input type="checkbox" id=inpClosed onchange=points(0); /> Closed ~ ' +
-			'<input type="button" onclick=exportSpline(); value="Export Spline" />' +
+			'<input type="checkbox" id=inpClosed onchange=points(0); /> Closed<br>' +
+			'<p>' +
+				'<input type="button" onclick=VA.splineMakerRandomPoints(inpPoints.value); value="Generate" /> ' +
+				'<input type="button" onclick=VA.splineDelete(); value="Delete" /> ' +
+				'<input type="button" onclick=VA.exportSpline(); value="Export Spline" /> ' +
+//				'<input type="button" onclick=VA.importSpline(); value="Import Spline" /> ' +
+				'<input type=file size="50" onchange=VA.importSpline(this); >' +
+			'</p>' +
 			'<div id=msg></div>' +
 		'';
 
