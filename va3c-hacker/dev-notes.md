@@ -1,13 +1,35 @@
 Dev Notes
 ===
 
+2014-12-29 ~ Theo
+
+Started the Hacker Cookbook and moved three scripts into it:
+
+* Enable drag objects
+* Edit spline
+* Enable camera follow
+
+The idea is that each script:
+
+* may be loaded on demand from VA3C Hacker
+* has its own stand alone demo
+* may be loaded on demand by any other app from anywhere
+
+Started adding each of the scripts to the Hacker Readme - each has its own issues.
+
+
+2014-12-27 ~ Theo
+
+Edit Spline function progressing with delightful alacrity.
+ 
+
 2014-12-06 ~ Theo
 
 * Loading STL files well-streamlined
-* Exploring the issues of the iframe within an iframe. There are many
+* Exploring the issues of the iframe within an iframe. There are many.
 
 Seem mostly to be able to open HTML, JSON, OBJ and STL files w=either by URL or by content from GitHub, Hacker or Hackette.
-It took too long to get here. And there's more simplificaion to be done.
+It took too long to get here. And there's more simplification to be done.
    
 
 2014-12-05 ~ Theo

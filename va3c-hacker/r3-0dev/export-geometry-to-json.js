@@ -2,7 +2,7 @@
 
 	function exportGeometry() {
 
-		if ( !lastSelected ) {
+		if ( !VH.lastSelected ) {
 
 			alert( 'Nothing selected...' );
 
@@ -10,7 +10,7 @@
 
 		}
 
-		var geometry = lastSelected.geometry;
+		var geometry = VH.lastSelected.geometry;
 
 		var output = geometry.toJSON();
 		output = JSON.stringify( output, null, '\t' );

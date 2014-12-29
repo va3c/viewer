@@ -3,7 +3,10 @@ vA3C Hacker Road Map
 
 ## Core
 
+* 2014-12-27 ~ Clearer, more intuitive file and function naming
+ 
 * 2014-11-26 ~ Continue name spacing
+
 
 ## File Handling
 
@@ -27,7 +30,7 @@ vA3C Hacker Road Map
 
 ### Screen Grabber
 
-* 2014-11-23 ~ Scren Grabber - 'Picture taker' - open any file, compose the effect, save size-selected screen shot to file << 2014-11-26 ~ working ( with issues )
+* 2014-11-23 ~ Screen Grabber - 'Picture taker' - open any file, compose the effect, save size-selected screen shot to file << 2014-11-26 ~ working ( with issues )
 	* 2014-11-26 ~ << First pass complete
 	* 2014-11-26 ~ << adds 'preserveDrawingBuffer: true' to renderer using 'pre-processor
 	* 2014-12-09 ~ search and replace broken calls to three.min.js etc
@@ -37,9 +40,9 @@ vA3C Hacker Road Map
 
 * 2014-12-09 ~ Accept parameters instead of file name
 
-* 2014-12-09 ~ Scroll text to position indicated by a parametter
+* 2014-12-09 ~ Scroll text to position indicated by a parameter
 
-* 2014-12-09 ~ special parameters allow for pr-processin the file, regex operations or interpreting embedded code
+* 2014-12-09 ~ special parameters allow for pre-processing the file, regex operations or interpreting embedded code
 	* Based on idea that this is a xmlhttprequest operation, so we can do what we want with the data
 
 
@@ -52,6 +55,8 @@ vA3C Hacker Road Map
 
 ## Animating  / Feedback Monitoring / Runtime
 
+* 2014-12-27 ~ Camera follow spline
+
 * 2014-11-23 ~ RAF updates function that can be used to direct/trigger multiple update events << 2014-11-26 ~ first version in file modified monitor
 
 * 2014-11-23 ~ Monitor modifications to a file and display  << 2014-11-23 See 'Enable File Modified Monitor'
@@ -59,6 +64,7 @@ vA3C Hacker Road Map
 	* 2014-11-23 ~ Add ability to monitor JSON 3, STL and other file types
 	* 2014-11-23 ~ Add ability to monitor assemblies with multiple objects
 	* 2014-11-23 ~ Add ability to view revision changes - perhaps by showing previous revisions with increasing opacity
+
 
 ## Marketing
 
@@ -84,7 +90,10 @@ vA3C Hacker Road Map
 
 ## Editors / Tools
 
+* 2014-12-27 ~ NURBS editor
+
 * 2014-11-26 ~ working 3D spline editor
+	* 2014-12-27 ~ Looking good
 
 * 2014-11-23 ~ Select a controller
 
@@ -99,11 +108,12 @@ vA3C Hacker Road Map
 
 * 2014-11-26 ~ Start to add some character animations
 
+
 ### NASA STL Files
 
-* 2014-11-26 ~ Add all links to MD file
-* 2014-11-26 ~ Add links to NASA images
-* 2014-11-26 ~ Add links to  source NASA page for each file
+* 2014-11-26 ~ Add all links to MD files << 2014-12-27 ~ done
+* 2014-11-26 ~ Add links to NASA images << 2014-12-27 ~ done
+* 2014-11-26 ~ Add links to source NASA page for each file << 2014-12-27 ~ done
 * 2014-11-26 ~ Find away of assembling the several multi-part NASA files - will need multiple permalinks
 * 2014-11-26 ~ Build handsome GitHub presence and inform NASA/GitHub
 

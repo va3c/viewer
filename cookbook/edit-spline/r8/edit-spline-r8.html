@@ -65,9 +65,9 @@
 
 		info = document.body.appendChild( document.createElement( 'div' ) );
 		info.style.cssText = 'left: 20px; position: absolute; top: 0px; ';
-		info.innerHTML = '<h1><a href="" >' + document.title + '</a> ~ ' +
+		info.innerHTML = '<h1>' +
+				'<a href="" >' + document.title + '</a> ~ ' +
 				'<a id=aHelp href=# onclick=VA.toggleDialogs(VA.aboutDialog); style=text-decoration:none; >&#x24D8;</a>' +
-
 			'</h1>' +
 			'Number of control points: <input type="number" id="inpPoints"  min="4" max="1000" step="1" value="4" style="width:3em" /> ' +
 			'<button onclick=points(1); title="Add new point" > + </button> | ' +

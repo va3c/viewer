@@ -1,6 +1,44 @@
 Frequently Asked Questions
 ===
 
+## Overall Concept / Mission and Values
+
+* Everything FOSS
+	* Source and data hosted on free servers such as GitHub
+
+* User interface is a narrative
+	* Tells you stories about things and possibilities and issues
+	* Created using a Markdown and a text editor
+	* Displayed in vertical ribbons - same as fast-reading newspaper columns
+
+* View anything, discipline independent
+	* Maps, math equations, Revit drawings, 3D printer files etc. Anything goes
+
+* Coded for dummies
+	* Follows Mr.doobs' manifesto: 'to create a lightweight 3D library with a very low level of complexity — in other words, for dummies'
+	* If you know beginner JavaScript you should be able to understand most of the vA3C functions fairly quickly and easily
+	* Small files that are easy to copy into your own scripts
+
+* Cornucopia of content
+	* You can be a content DJ - remixing content from many free online services
+
+* Everything is load on demand
+	* Tiny core
+	* A theory: Large number of small files easier to manage than a few large files
+	* The idea is to build an app that is huge, does many things, covers all possibilities.
+	* Big apps have issues. They can take a long time to load, they are difficult to code, maintain and debug.
+	* An alternative is to have a tiny app that loads what it needs to load as and when it is needed.
+	* Unloading is less important. Very often an app is opened just for a particular task.
+	* In the event that multiple tasks that require lots pf resources in a session, the easy thing may be simply to reload the app. 
+	* An issue with this procedure with JavaScript being a dynamic language is that you may have issues with having to create callbacks to load modules in a specific order/
+	* Modules should be small and numerous rather than vice versa.
+	* Modules should callable and usable when called by a small simple standalone HTML cookbook or demo file.
+
+
+See also ReadMe to [vA3C Viewer]( https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5 "The old-school viewer ;-)" )
+
+## Technical Issues
+
 ### _Why are some objects appearing black even though their material has colors?_
 
 Objects appear black when they a have a Lambert or Phong material and there are no lights in the scene,
@@ -40,7 +78,7 @@ Because of cross-origin issues, there is usually not much possible interaction w
 
 _What files types are currently supported?_
 
-HTML, JSON, JS, OBJ, STL.
+HTML, JSON, JS, OBJ, STL
 
 _What are some of the issues?_
 The 'Choose file' option allows you to select files anywhere on your computer or available on your network.

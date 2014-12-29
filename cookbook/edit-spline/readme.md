@@ -20,13 +20,15 @@ Original concept created by [zz85]( https://github.com/zz85/ThreeLabs/blob/maste
 ### Mission  
 <!-- a statement of a rationale, applicable now as well as in the future -->
 
-* Create, edit and export 3D Catmull Rom Splines 
+* Create, edit and export and import 3D Catmull Rom Splines 
 	* Pan, rotate and zoom in real-time using your pointing device
 	* Control point entities highlight when you mouseover
 	* Update controls point positions in a fairly intuitive manner
 	* Increment and decrement the number of control points
+	* Select whether new points are placed randomly of as a projection of the two previous points
 	* Toggle open and closed spline display
 	* Export spline data to JSON file
+	* Import JSON spline data with renewed ability to re-edit spline
 	* Direct overhead light creating shadows helps locate control point objects
 
 ### Vision  
@@ -79,7 +81,7 @@ This repository contains files that are at an early and volatile stage. Not all 
 * Add 'extend' checkbox - new points are projected out half the opposite distance between ultimate and penultimate point.
 * Add generate and delete spline buttons
 * Export now exports control points (boxes) plus line as a single object
-* Add import ans re-edit spline capability
+* Add import and re-edit spline capability
 
 2014-12-26 ~ Theo
 

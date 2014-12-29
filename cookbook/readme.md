@@ -41,8 +41,8 @@ Folders include:
 [Spline Editor]( http://va3c.github.io/viewer/cookbook/edit-spline/ )  
 [Source code]( https://github.com/va3c/viewer/tree/gh-pages/cookbook/edit-spline/ )  
 
-* Create, edit and export 3D Catmull Rom Splines
-* Added 2014-12-21
+* Create, edit and export and import 3D Catmull Rom Splines
+* Updates 2014-12-27 / Added 2014-12-21
 
 
 ## JSON Reader

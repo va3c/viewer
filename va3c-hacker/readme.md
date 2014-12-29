@@ -43,23 +43,26 @@ Edit everything with the <a href="javascript:(function(){var script=document.cre
 Or with <a href="javascript:(function(){var s=document.createElement('script');s.src='http://callum.com/apps/amui/amui.js';document.body.appendChild(s);})();" "title=Hats off to Callum" >AMUI</a>. 
 Both are bookmarklets you may use on most any Three.js file.
 
+#### Utilities from the vA3C Hacker Cookbook
+
+[Add an editable spline?]( #dispatch.js#../../va3c-hacker-cookbook/edit-spline/index.html#noGround#noGrid#add=true )
+
+[Enable draggable objects?]( #read-markdown.js#../../va3c-hacker-cookbook/enable-drag-objects/readme.md )
+
 
 [Enable drag and drop for JSON files?]( #enable-drag-and-drop-json-files.js )
-
-[Enable draggable objects?]( #enable-draggable-objects.js#displayMenuLeft )
 
 [Enable file modified monitor?]( #enable-file-modified-monitor.js "Thanks to Ben Howe" )
 
 [Export scene to a Three.js JSON file?]( #export-scene-to-json.js )
 
-[Add an editable spline?]( #edit-spline.js#displayMenuLeft )
-
+### Various Adventures
 
 [Go on a short aeronautical and architectural adventure?]( #demo-aeronautical-architectural.js "Makes heavy use of resources." ) 
 
 [Play with our baby sister, vA3C Hackette?]( http://va3c.github.io/viewer/va3c-hackette/ )
 
-[Read the Read Me file?]( #read-markdown.js#../readme.md "" ) [Road map?]( #read-markdown.js#../road-map.md ) [FAQ?]( #read-markdown.js#../faq.md )
+[Read about the Road map?]( #read-markdown.js#../road-map.md ) [FAQ?]( #read-markdown.js#../faq.md )
 
 [Read the developers notes?]( #read-markdown.js#../dev-notes.md "Developer? ROFL!") [source]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker )
 
