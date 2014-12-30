@@ -1,0 +1,27 @@
+body{
+    margin: 0px;
+    overflow: hidden;
+    font-family: 'lucida grande', Sans-Serif;
+    font-size: 75%;
+}
+
+
+a:link {color: #787878;}
+a:visited {color:#787878;}
+a:hover {color: #a0a0a0;}
+
+.Legend{
+    position: fixed;
+    top: 0px;
+    left: 15px;
+    padding: 10px;
+}
+
+.LegendColor{
+    width: 40px;
+    height: 27px;
+}
+
+.LegendText{
+
+}
