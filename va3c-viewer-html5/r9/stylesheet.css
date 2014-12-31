@@ -10,18 +10,30 @@ a:link {color: #787878;}
 a:visited {color:#787878;}
 a:hover {color: #a0a0a0;}
 
-.Legend{
+
+.attributeList {
+    height: 1px;
+    width: 360px;
+    background-color: #fafafa;
+    font-size: 11px;
+    color: #555;
+    text-align: left;
     position: fixed;
-    top: 0px;
-    left: 15px;
-    padding: 10px;
+    top: 10px;
+    left: 10px;
+    z-index: 5;
+    padding: 5px 6px;
+    display:none;
 }
 
-.LegendColor{
-    width: 40px;
-    height: 27px;
+
+.attributeList h5 {
+    display: inline;
+    color : lightslategray;;
 }
 
-.LegendText{
-
+.attributeListHeader{
+    background-color: #e8e8e8;
+    font-size: 13px;
+    padding: 5px 2px;
 }

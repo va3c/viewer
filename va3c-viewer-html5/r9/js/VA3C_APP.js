@@ -5,6 +5,7 @@
 //base application object containing vA3C functions and properties
 var VA3C = {
     scene: {},          //the THREE.js scene object
+    elementList: [],    //an array of elements we use for selection and attribute display
     orbitControls: {},  //the THREE.js orbit controls object
     camera: {},         //the THREE.js camera object
     renderer: {},       //the THREE.js renderer object
@@ -53,6 +54,9 @@ VA3C.initViewer = function(viewerDiv, statsDiv){
         VA3C.orbitControls.object.updateProjectionMatrix();
     });
 
+    //call the attributes init function
+    VA3C.attributes.init();
+
     //call the render function - this starts the webgl render loop
     VA3C.render();
 };
@@ -66,6 +70,9 @@ VA3C.render = function(){
     requestAnimationFrame(VA3C.render); // same here - look into this warning
     VA3C.renderer.render(VA3C.scene, VA3C.orbitControls.object);
 };
+
+//attributes object.  Contains logic for element selection and attribute list population
+
 
 
 
@@ -128,26 +135,32 @@ VA3C.jsonLoader.makeFaceMaterialsWork = function(){
 };
 
 //function that loops over the geometry in the scene and makes sure everything
-//renders correctly
+//renders correctly and can be selected
 VA3C.jsonLoader.computeNormalsAndFaces = function(){
     for ( var i = 0, iLen = VA3C.scene.children.length, items; i < iLen; i++ ) {
         items = VA3C.scene.children;
         if ( items[i].hasOwnProperty("geometry") ) {
+            //three.js stuff
             items[i].geometry.mergeVertices();
             items[i].geometry.computeFaceNormals();
             items[i].geometry.computeVertexNormals();
             items[i].castShadow = true;
             items[i].receiveShadow = true;
+            //add element to our list of elements that can be selected
+            VA3C.elementList.push(items[i]);
+
         }
-        //not sure if we need this ... might be needed for revit exports?
-        /*if ( items[i].children.length > 0 ){
+        //populate elementList with elements that can be selected
+        if ( items[i].children.length > 0 ){
             var itemsChildren = items[i].children;
             for ( var k = 0, kLen = itemsChildren.length; k < kLen; k++ ) {
                 if ( itemsChildren[k].hasOwnProperty("geometry") ) {
                     //set properties here
+                    VA3C.elementList.push(itemsChildren[k]);
+
                 }
             }
-        }*/
+        }
     }
 };
 
