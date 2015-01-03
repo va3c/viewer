@@ -35,7 +35,8 @@ $(document).ready(function(){
 
 
     //load our sample JSON file - for development of the colored meshes from GH
-    $.getJSON("./js/va3c.json", function( data ){
+    $.getJSON("./js/rst_basic_sample_project.json", function( data ){
+    //$.getJSON("./js/va3c.json", function( data ){
         VA3C.jsonLoader.loadSceneFromJson(data);
     });
 

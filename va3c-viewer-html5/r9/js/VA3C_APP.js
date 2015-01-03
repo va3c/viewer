@@ -133,8 +133,15 @@ VA3C.jsonLoader.makeFaceMaterialsWork = function(){
 //function that loops over the geometry in the scene and makes sure everything
 //renders correctly and can be selected
 VA3C.jsonLoader.processSceneGeometry = function(){
+
+    //get all of the items in the scene
+    items = VA3C.scene.children;
+
+    //loop over all of the elements and process any geometry objects
     for ( var i = 0, iLen = VA3C.scene.children.length, items; i < iLen; i++ ) {
-        items = VA3C.scene.children;
+
+        //if this is a single mesh (like ones that come from grasshopper), process the geometry and add the
+        //element to the attributes elements list so selection works.
         if ( items[i].hasOwnProperty("geometry") ) {
             //three.js stuff
             items[i].geometry.mergeVertices();
@@ -146,16 +153,22 @@ VA3C.jsonLoader.processSceneGeometry = function(){
             VA3C.attributes.elementList.push(items[i]);
 
         }
-        //populate elementList with elements that can be selected
-        if ( items[i].children.length > 0 ){
+        //if this is an object that contains multiple meshes (like the objects that come from Revit), process the
+        //children meshes so they render correctly, and add the entire object to the attributes element list
+        else if ( items[i].children.length > 0 ){
+            //the children to loop over
             var itemsChildren = items[i].children;
             for ( var k = 0, kLen = itemsChildren.length; k < kLen; k++ ) {
                 if ( itemsChildren[k].hasOwnProperty("geometry") ) {
-                    //set properties here
+                    itemsChildren[k].geometry.mergeVertices();
+                    itemsChildren[k].geometry.computeFaceNormals();
+                    itemsChildren[k].geometry.computeVertexNormals();
+                    itemsChildren[k].castShadow = true;
+                    itemsChildren[k].receiveShadow = true;
                     VA3C.attributes.elementList.push(itemsChildren[k]);
-
                 }
             }
+
         }
     }
 };
@@ -267,9 +280,10 @@ VA3C.attributes.init = function(){
 //Constructor that creates an object to represent a selected element.
 //Used to store state of a previously selected element
 VA3C.attributes.SelectedElement = function(){
-    this.material = -1;
-    this.id = -1;
-    this.object = {};
+    this.materials = [];    //array of materials.  Holds one mat for each Mesh that the selected object contains
+    this.id = -1;           //the ID of the element.  We use this to test whether something was already selected on a click
+    this.object = {};       //the actual object that was selected.  This has been painted with our 'selected' material
+                            //and needs to be painted back with the materials in the materials array
 };
 
 //Mouse Click event handler for selection.  When a user clicks on the viewer, this gets called
@@ -302,26 +316,50 @@ VA3C.attributes.checkIfSelected = function( event ){
     //are there any intersections?
     if(intersects.length > 0){
 
-        //if the current selection wasn't already selected, paint the element and display it's attributes
-        if (intersects[0].object.material !== VA3C.attributes.clickedMaterial)
-        {
-            //reset material of previously selected element
-            if (VA3C.attributes.previousClickedElement.id!= -1) {
-                VA3C.attributes.paintElement(VA3C.attributes.previousClickedElement.object, VA3C.attributes.previousClickedElement.material);
+        //get the closest intesected object
+        var myIntersect = intersects[0].object;
+
+        //was this element already selected?  if so, do nothing.
+        if(myIntersect.id === VA3C.attributes.previousClickedElement.id) return;
+
+        //was another element already selected?
+        if(VA3C.attributes.previousClickedElement.id !== -1){
+            //restore previously selected object's state
+            VA3C.attributes.restorePreviouslySelectedObject();
+        }
+
+
+        //var to track whether the intersect is an object3d or a mesh
+        var isObject3D = false;
+
+        //did we intersect a mesh that belongs to an Object3D or a Geometry?  The former comes from Revit, the latter from GH
+        if(myIntersect.parent.type === "Object3D"){
+            isObject3D = true;
+        }
+
+
+        //store the selected object
+        VA3C.attributes.storeSelectedObject(myIntersect, isObject3D);
+
+        //paint the selected object[s] with the application's 'selected' material
+        if(isObject3D){
+            //loop over the children and paint each one
+            for(var i=0; i<myIntersect.parent.children.length; i++){
+                VA3C.attributes.paintElement(myIntersect.parent.children[i], VA3C.attributes.clickedMaterial);
             }
+        }
+        else{
+            //paint the mesh with the clicked material
+            VA3C.attributes.paintElement(myIntersect, VA3C.attributes.clickedMaterial);
+        }
 
-            //store the clicked object ID, color and the object itself
-            VA3C.attributes.previousClickedElement.id = intersects[0].object.id;
-            VA3C.attributes.previousClickedElement.material = intersects[0].object.material;
-            VA3C.attributes.previousClickedElement.object = intersects[0].object;
 
-
-            //paint current element with click-material
-            VA3C.attributes.paintElement(intersects[0].object, VA3C.attributes.clickedMaterial);
-
-            //populate the attribute list with the element's user data
-            VA3C.attributes.populateAttributeList(intersects[0].object.userData);
-
+        //populate the attribute list with the object's user data
+        if(isObject3D){
+            VA3C.attributes.populateAttributeList(myIntersect.parent.userData);
+        }
+        else{
+            VA3C.attributes.populateAttributeList(myIntersect.userData);
         }
     }
 
@@ -331,28 +369,85 @@ VA3C.attributes.checkIfSelected = function( event ){
         //if an item was already selected
         if (VA3C.attributes.previousClickedElement.id !== -1)
         {
-            VA3C.attributes.paintElement(VA3C.attributes.previousClickedElement.object, VA3C.attributes.previousClickedElement.material);
+            //restore the previously selected object
+            VA3C.attributes.restorePreviouslySelectedObject();
+
+            //hide the attributes
             VA3C.attributes.list.hide("slow");
-            VA3C.attributes.previousClickedElement.object = null;
-            VA3C.attributes.previousClickedElement.id = -1;
-            VA3C.attributes.previousClickedElement.material = -1;
         }
     }
+};
+
+//Function to restore the state of a previously selected object.
+VA3C.attributes.restorePreviouslySelectedObject = function(){
+
+    //apply the stored materials to the meshes in the object.
+
+    //are we working with an object3d?  if so we need to reset all of the children materials
+    if(VA3C.attributes.previousClickedElement.object.parent.type === "Object3D"){
+
+        //loop over the children and repaint each one
+        for(var i=0; i<VA3C.attributes.previousClickedElement.materials.length; i++){
+            VA3C.attributes.paintElement(
+                VA3C.attributes.previousClickedElement.object.children[i],
+                VA3C.attributes.previousClickedElement.materials[i]
+            );
+        }
+
+
+    }
+    else{ // we have a mesh
+
+        //paint the mesh with it's original material
+        VA3C.attributes.paintElement(
+            VA3C.attributes.previousClickedElement.object,
+            VA3C.attributes.previousClickedElement.materials[0]
+        );
+    }
+
+
+    //set id to -1 and clear the other vars so they can be populated during hte next selection
+    VA3C.attributes.previousClickedElement.id = -1;
+    VA3C.attributes.previousClickedElement.materials = [];
+    VA3C.attributes.previousClickedElement.object = {};
+
+};
+
+//Function to store a selected object in our attributes.PreviouslySelectedObject property.  Essentially a property setter
+//selected arg is the selected object
+//isObject3D arg is a bool describing whether  the selected object is of typeObject3D.  If so, we need to store it's children
+VA3C.attributes.storeSelectedObject = function( selected, isObject3D ){
+
+    if(isObject3D){
+        //store the ID of the parent object.
+        VA3C.attributes.previousClickedElement.id = selected.parent.id;
+
+        //store the material of each child
+        for(var i=0; i<selected.parent.children.length; i++){
+            VA3C.attributes.previousClickedElement.materials.push(selected.parent.children[i].material);
+        }
+
+        //store the entire parent object
+        VA3C.attributes.previousClickedElement.object = selected.parent;
+    }
+    else{
+        //store the ID of the parent object.
+        VA3C.attributes.previousClickedElement.id = selected.id;
+
+        //store the material of the selection
+        VA3C.attributes.previousClickedElement.materials.push(selected.material);
+
+        //store the entire object
+        VA3C.attributes.previousClickedElement.object = selected;
+    }
+
 };
 
 //function to paint an element with a material.  Called when an element is selected or de-selected
 VA3C.attributes.paintElement = function(elementToPaint, material){
 
-    //DID I SELECT A MESH OR OBJECT3D?
-    if (elementToPaint.hasOwnProperty("userData"))
-    {
-        //mesh has been selected
         elementToPaint.material = material;
-    }
-    else    //something else was selected that we dont care/ know about
-    {
-        console.log("Object3D has not been implemented for the viewer");
-    }
+
 };
 
 //function to populate the attribute list ( the user-facing html element ) with the selected element's attributes
