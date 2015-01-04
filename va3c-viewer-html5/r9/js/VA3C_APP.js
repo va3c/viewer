@@ -253,6 +253,36 @@ VA3C.lightingRig.createLights = function() {
     VA3C.scene.add( spotB );
     VA3C.lightingRig.spotLights.push( spotB );
 
+    //4 from the cardinal directions, at roughly 45deg
+    var spotC = new THREE.SpotLight( 0x666666 );
+    spotC.position.set(center.x + offset, center.y + offset, center.z);
+    spotC.target.position.set(center.x, center.y, center.z);
+    spotC.castShadow = false;
+    VA3C.scene.add( spotC );
+    VA3C.lightingRig.spotLights.push(spotC);
+
+    var spotD = new THREE.SpotLight( 0x666666 );
+    spotD.position.set(center.x, center.y + offset, center.z + offset);
+    spotD.target.position.set(center.x, center.y, center.z);
+    spotD.castShadow = false;
+    VA3C.scene.add( spotD );
+    VA3C.lightingRig.spotLights.push(spotD);
+
+    var spotE = new THREE.SpotLight( 0x666666 );
+    spotE.position.set(center.x - offset, center.y + offset, center.z);
+    spotE.target.position.set(center.x, center.y, center.z);
+    spotE.castShadow = false;
+    VA3C.scene.add( spotE );
+    VA3C.lightingRig.spotLights.push(spotE);
+
+    var spotF = new THREE.SpotLight( 0x666666 );
+    spotF.position.set(center.x, center.y + offset, center.z + offset);
+    spotF.target.position.set(center.x, center.y, center.z);
+    spotF.castShadow = false;
+    VA3C.scene.add( spotF );
+    VA3C.lightingRig.spotLights.push(spotF);
+
+
 
     //directional light - the sun
     var light = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -266,6 +296,38 @@ VA3C.lightingRig.createLights = function() {
 
 };
 
+//function that adjusts the spotlight color
+//this is a handler for a UI variable
+VA3C.lightingRig.setSpotlightsColor = function( col ){
+
+    //console.log(col);
+    for(var i in VA3C.lightingRig.spotLights){
+
+        //debug me first - should be something like this
+        VA3C.lightingRig.spotLights[i].color = new THREE.Color(col);
+    }
+};
+
+//function that adjusts the ambient light color
+//another handler for a UI element
+VA3C.lightingRig.setAmbientLightColor = function ( col ){
+    //console.log(col);
+
+    //remove the old ambient light
+    VA3C.scene.remove(VA3C.lightingRig.ambientLight);
+
+    //replace the ambient light with a new one, and add it to the scene
+    VA3C.lightingRig.ambientLight = new THREE.AmbientLight( new THREE.Color(col) );
+    VA3C.scene.add(VA3C.lightingRig.ambientLight);
+
+
+};
+
+//function that sets the position of the directional light (the sun)
+VA3C.lightingRig.setSunPosition = function(az, alt){
+
+};
+
 
 
 
@@ -276,6 +338,11 @@ VA3C.lightingRig.createLights = function() {
 //dat.gui Constructor object
 // an instance of this is class created to store UI variables and functions
 VA3C.UiConstructor = function(){
+
+    //OPEN FILE
+    this.openFile = function(){};
+
+    //VIEW AND SCENE VARIABLES
     //zoom extents
     this.zoomExtents = function(){
         //loop over the children of the THREE scene, merge them into a mesh,
@@ -306,9 +373,26 @@ VA3C.UiConstructor = function(){
         VA3C.camera.position.set(newPos.x, newPos.y, newPos.z);
     };
 
+    //zoom selected
+    this.zoomSelected = function(){};
+
     //top and bottom color
     this.topColor = "#B9C6D4";
     this.bottomColor = "#0D0D1B";
+
+
+    //LIGHTING VARIABLES
+
+    //spotlight color
+    this.spotlightsColor = '#666666';
+
+    //ambient light color
+    this.ambientLightColor = '#666666';
+
+    //sun azimuth and altitude
+    this.solarAzimuth = 180;
+    this.solarAltitude = 45;
+
 };
 
 //an object to store the live application variables and functions controlled by the UI
@@ -342,7 +426,7 @@ VA3C.attributes.init = function(){
     VA3C.attributes.projector = new THREE.Projector();
 
     //a material used to represent a clicked object
-    VA3C.attributes.clickedMaterial = new THREE.MeshPhongMaterial({ color : "rgb(255,0,255)", opacity : 1, side : 2 }); //red semi-transparent, double-sided
+    VA3C.attributes.clickedMaterial = new THREE.MeshBasicMaterial({ color : "rgb(255,0,255)", opacity : 1, side : 2 }); //red semi-transparent, double-sided
 
     //an object used to store the state of a selected element.
     VA3C.attributes.previousClickedElement = new VA3C.attributes.SelectedElement();
