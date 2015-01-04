@@ -5,6 +5,9 @@
 //base application object containing vA3C functions and properties
 var VA3C = {
     scene: {},          //the THREE.js scene object
+    jsonLoader: {},     //the object that will take care of loading a THREE.js scene from a json file
+    boundingSphere: {}, //a sphere that encompasses everything in the scene
+    lightingRig: {},    //a parent object to hold our lights.  We'll be setting properties with UI
     orbitControls: {},  //the THREE.js orbit controls object
     camera: {},         //the THREE.js camera object
     renderer: {},       //the THREE.js renderer object
@@ -24,7 +27,12 @@ VA3C.initViewer = function(viewerDiv, statsDiv){
 
     //set up the THREE.js div and renderer
     VA3C.container = viewerDiv;
-    VA3C.renderer = new THREE.WebGLRenderer( { alpha: true } );
+    VA3C.renderer = new THREE.WebGLRenderer(
+        {
+            alpha: true,
+            maxLights: 10
+        }
+    );
     VA3C.renderer.setClearColor(0x000000, 0.0);
     VA3C.renderer.setSize( window.innerWidth, window.innerHeight );
     VA3C.renderer.shadowMapEnabled = true;
@@ -76,11 +84,9 @@ VA3C.render = function(){
 //*********************
 //*** JSON Model Loader
 
-//the object that will take care of loading a THREE.js scene from a json file
-VA3C.jsonLoader = {};
 
 //a function to populate our scene object from a json file
-VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad, callback){
+VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
 
     //parse the JSON into a THREE scene
     var loader = new THREE.ObjectLoader();
@@ -90,7 +96,9 @@ VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad, callback){
     //call helper functions
     VA3C.jsonLoader.makeFaceMaterialsWork();
     VA3C.jsonLoader.processSceneGeometry();
-    VA3C.jsonLoader.createLights();
+    VA3C.jsonLoader.computeBoundingSphere();
+    //set up the lighting rig
+    VA3C.lightingRig.createLights();
     //call zoom extents
     VA3C.uiVariables.zoomExtents();
 
@@ -147,6 +155,7 @@ VA3C.jsonLoader.processSceneGeometry = function(){
             items[i].geometry.mergeVertices();
             items[i].geometry.computeFaceNormals();
             items[i].geometry.computeVertexNormals();
+            items[i].material.shading = THREE.SmoothShading;
             items[i].castShadow = true;
             items[i].receiveShadow = true;
             //add element to our list of elements that can be selected
@@ -154,7 +163,7 @@ VA3C.jsonLoader.processSceneGeometry = function(){
 
         }
         //if this is an object that contains multiple meshes (like the objects that come from Revit), process the
-        //children meshes so they render correctly, and add the entire object to the attributes element list
+        //children meshes so they render correctly, and add the child to the attributes.elementList
         else if ( items[i].children.length > 0 ){
             //the children to loop over
             var itemsChildren = items[i].children;
@@ -163,6 +172,7 @@ VA3C.jsonLoader.processSceneGeometry = function(){
                     itemsChildren[k].geometry.mergeVertices();
                     itemsChildren[k].geometry.computeFaceNormals();
                     itemsChildren[k].geometry.computeVertexNormals();
+                    itemsChildren[k].material.side = 2;
                     itemsChildren[k].castShadow = true;
                     itemsChildren[k].receiveShadow = true;
                     VA3C.attributes.elementList.push(itemsChildren[k]);
@@ -173,16 +183,87 @@ VA3C.jsonLoader.processSceneGeometry = function(){
     }
 };
 
-//function that creates lights in the scene
-VA3C.jsonLoader.createLights = function() {
-    // ambient light
-    VA3C.scene.add( new THREE.AmbientLight( 0x696969 ) );
+//function to compute the bounding sphere of the model
+//we use this for the zoomExtents function and in the createLights function below
+VA3C.jsonLoader.computeBoundingSphere = function(){
+    //loop over the children of the THREE scene, merge them into a mesh,
+    //and compute a bounding sphere for the scene
+    var geo = new THREE.Geometry();
+    VA3C.scene.traverse( function(child){
+        if(child instanceof THREE.Mesh){
+            geo.merge( child.geometry );
+        }
+    });
+    geo.computeBoundingSphere();
 
-    //directional light
+    //expand the scope of the bounding sphere
+    VA3C.boundingSphere = geo.boundingSphere;
+};
+
+
+
+
+//*********************
+//*********************
+//*** Lighting
+
+//ambient light for the scene
+VA3C.lightingRig.ambientLight = {};
+
+//a spotlight representing the sun
+VA3C.lightingRig.sunLight = {};
+
+//an array of directional lights to provide even coverage of the scene
+VA3C.lightingRig.spotLights = [];
+
+
+//function that creates lights in the scene
+VA3C.lightingRig.createLights = function() {
+
+    // create ambient light
+    VA3C.lightingRig.ambientLight = new THREE.AmbientLight( 0x696969 );
+    VA3C.scene.add( VA3C.lightingRig.ambientLight );
+
+
+    //using the bounding sphere calculated above, get a numeric value to position the lights away from the center
+    var offset = VA3C.boundingSphere.radius * 2;
+
+    //get the center of the bounding sphere.  we'll use this to center the rig
+    var center = VA3C.boundingSphere.center;
+
+    //create a hemisphere light?  nope. doesn't seem to work with models exported from revit.
+    //VA3C.scene.add( new THREE.HemisphereLight());
+
+
+    //create a series of spotlights
+
+    //directly above
+    var spotA = new THREE.SpotLight( 0x666666 );
+    spotA.position.set(center.x, center.y + offset, center.z);
+    spotA.target.position.set(center.x, center.y, center.z);
+    spotA.castShadow = false;
+    VA3C.scene.add( spotA );
+    VA3C.lightingRig.spotLights.push(spotA);
+
+    //directly below
+    var spotB = new THREE.SpotLight( 0x666666 );
+    spotB.position.set(center.x, center.y - offset, center.z);
+    spotB.target.position.set(center.x, center.y, center.z);
+    spotB.castShadow = false;
+    VA3C.scene.add( spotB );
+    VA3C.lightingRig.spotLights.push( spotB );
+
+
+    //directional light - the sun
     var light = new THREE.DirectionalLight( 0xffffff, 1 );
     light.position.set( 10000, 10000, 10000 );
+    light.target.position.set(center);
     light.castShadow = true;
+
+    //add the light to our scene and to our app object
+    VA3C.lightingRig.sunLight = light;
     VA3C.scene.add( light );
+
 };
 
 
