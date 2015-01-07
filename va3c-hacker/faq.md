@@ -11,16 +11,32 @@ Frequently Asked Questions
 	* Created using a Markdown and a text editor
 	* Displayed in vertical ribbons - same as fast-reading newspaper columns
 
-* View anything, discipline independent
-	* Maps, math equations, Revit drawings, 3D printer files etc. Anything goes
+* Cornucopia of content
+	* You can be a content DJ - remixing content from many free online services
+	* View anything, discipline independent
+		* Maps, math equations, Revit drawings, 3D printer files etc. Anything goes
 
 * Coded for dummies
 	* Follows Mr.doobs' manifesto: 'to create a lightweight 3D library with a very low level of complexity — in other words, for dummies'
 	* If you know beginner JavaScript you should be able to understand most of the vA3C functions fairly quickly and easily
+	* if/then, for loops and = are all you need to know
 	* Small files that are easy to copy into your own scripts
 
-* Cornucopia of content
-	* You can be a content DJ - remixing content from many free online services
+* Coded to help non-programmers do some programming
+	* if you need to worry about compiling, callbacks and consoles whatever then you are a programmer
+	* vA3C Hacker is about you enhancing your science, engineering and design with some aspects of coding
+ 
+* Very JavaScript-oriented
+	* If you like jQuery you might consider working with ThreeX
+	* If you like working with WordPress,
+	* If you like visual programming, please use Grasshopper
+	* If you like style sheets and HTML, have a look at Glam
+
+* Little emphasis on end-user user interface
+	* Past efforts made great effort to build interfaces for non-technical end-users
+	* Current efforts seek relations with other people's effort. See Three.js Inspector, AMUI, Three.js Editor
+	* May come back to this in the future
+	* Current efforts prioritize helping part-time developers/designers
 
 * Everything is load on demand
 	* Tiny core

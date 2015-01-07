@@ -11,6 +11,7 @@
 	var scene;
 	var camera;
 	var controls;
+var airDoodle;
 
 	VH.initHacker = function () {
 
@@ -82,7 +83,7 @@
 			menuRight.addEventListener( 'mousedown', VH.mouseMove, false );
 			menuRight.header = '<h1><a id=closerIcon href=JavaScript:VH.toggleMenu(menuRight); title="' + tooltip + '" >&#9776;</a><h1>' +
 				'<h1>' +
-					'<a href="" title="' + tooltip + '" >' + document.title + '</a> ' +
+					'<a href="" onmouseover=show(); onmouseout=hide(); title="' + tooltip + '" >' + document.title + '</a> ' +
 				'</h1>' +
 				'<hr>' +
 			'';
@@ -114,6 +115,33 @@
 
 	};
 
+
+	function show() {
+	
+		if ( !airDoodle ) { 
+
+			VH.dispatchFileByURL( ['','../../va3c-hacker-cookbook/enable-air-doodle/r1/enable-air-doodle.html','noGrid','noAxis','noGround' ]);
+
+			airDoodle = true;
+
+/*
+			airDoodle = document.body.appendChild( document.createElement( 'iframe' ) );
+			airDoodle.width = window.innerWidth;
+			airDoodle.height = window.innerHeight;
+			airDoodle.style.cssText = 'border-width: 0; position: absolute; z-index: -10; ';
+			airDoodle.src = '../../va3c-hacker-cookbook/enable-air-doodle/r1/enable-air-doodle.html';
+*/
+		}
+
+//		airDoodle.style.display = '';
+
+	}
+
+	function hide() {
+//		airDoodle.style.display = 'none';
+	}
+
+
 	VH.displayMarkdown = function( fname, panel ) {
 
 		var converter = new Showdown.converter();
@@ -127,6 +155,7 @@
 		panel.style.display = '';
 
 	};
+
  
 	VH.mouseUp = function() {
 
@@ -311,7 +340,18 @@
 
 		if ( ! scene ) { return; }
 
-		VH.cssBackround = VH.ifr.contentDocument.body.appendChild( document.createElement('style') );
+		if ( VH.ifr ) {
+
+			VH.cssBackround = VH.ifr.contentDocument.body.appendChild( document.createElement('style') );
+
+		} else {
+
+//			document.body.appendChild( document.createElement('style') );
+
+			return;
+
+		}
+
 		var col1 = "#" + Math.random().toString(16).slice(2, 8);
 		var col2 = "#" + Math.random().toString(16).slice(2, 8);
 		var col3 = "#" + Math.random().toString(16).slice(2, 8);
@@ -324,5 +364,7 @@
 			'background: -moz-radial-gradient(' + X + 'px ' + Y + 'px, farthest-corner, ' + col1 + ' 0%, ' + col2 + ' 50%, ' + col3 + ' 100%); ' +
 			'background: radial-gradient(' + X + 'px ' + Y + 'px, farthest-corner, ' + col1 + ' 0%, ' + col2 + ' 50%, ' + col3 + ' 100%); }' +
 		'';
+
+			airDoodle = true;
 
 	};

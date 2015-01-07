@@ -3,7 +3,7 @@
 
 
 
-	var VH = VH || {};
+//	var VH = VH || {};
 
 	VH.splineMakerRandomPoints = function( pointsCount ) {
 

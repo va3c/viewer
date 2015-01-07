@@ -2,7 +2,13 @@
 
 	function exportGeometry() {
 
-		if ( !VH.lastSelected ) {
+		if ( !VH.lastSelected && app.VH.lastSelected ) {
+
+			VH.lastSelected = app.VH.lastSelected;
+
+		}
+
+		if ( !VH.lastSelected && !app.VH.lastSelected ) {
 
 			alert( 'Nothing selected...' );
 

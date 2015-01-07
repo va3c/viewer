@@ -234,7 +234,7 @@
 
 	VH.dispatchFileByContents = function( contents, fileName, parameters, callbackFinal ) {
 
-// console.log( 'VH.dispatchFileByContents', contents );
+//console.log( 'VH.dispatchFileByContents', contents );
 //console.log( 'VH.dispatchFileByContents', fileName, parameters  );
 
 
@@ -328,7 +328,7 @@
 
 		} else {
 
-			alert( 'Not a file type, we can deal with yet...')
+			alert( 'Not a file type we can deal with yet...')
 
 		}
 
@@ -349,7 +349,9 @@
 
 	VH.updateSceneVariables = function() {
 
-		app = VH.ifr.contentWindow ;
+		if ( !VH.ifr ) { return; }
+
+		app = VH.ifr.contentWindow;
 		THREE = app.THREE;
 		renderer = app.renderer;
 		scene = app.scene;

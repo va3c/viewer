@@ -8,7 +8,7 @@ Select and open a file.
 
 Files with external texture bitmaps do not load the bitmaps - this is due to security considerations.
 
-Files are place randomly. Future revisions will provide you the ability to supply a full set of parameters prior to opening the file.
+Files are placed randomly. Future revisions will provide you the ability to supply a full set of parameters prior to opening the file.
 
 
 <!--

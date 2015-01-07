@@ -1,3 +1,4 @@
+	var texturePathPrefix;
 
 	VH.loadFileJSONbyURL = function( parameters, callback ) {
 

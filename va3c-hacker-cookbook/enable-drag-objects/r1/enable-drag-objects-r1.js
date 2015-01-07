@@ -174,7 +174,7 @@ console.log( 'child', child );
 
 		var dragcontrols = new VH.DragObjects( objectContainer.children );
 
-//		dragcontrols.onDragged = updateSplineOutline;
+//		dragcontrols.onDragged = callback;
 
 	}
 

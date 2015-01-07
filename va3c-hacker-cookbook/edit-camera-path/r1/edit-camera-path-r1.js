@@ -2,46 +2,54 @@
 	var segments = 200;
 	var radius = 0.1;
 	var radiusSegments = 3;
-	var follow = false;
 
-	var aircraft, cameraBot, tube;
-	var splineCamera, cameraHelper;
-	var clock = new THREE.Clock;
-	var delta = 0;
+	var cameraBot, tube, tubeMesh;
+	var actionCamera, splineCamera, cameraHelper;
 	var t = 0;
 
-	var b = '<br>';
-	var pointStart;
+	var follow = false;
+	var updates = true;
 
+	var startTime = performance.now();
 
-	function init2() {
+	function initCameraFollow() {
 
+		actionCamera = camera;
+
+		if ( cameraBot ) { scene.remove( cameraBot ); }
 		cameraBot = new THREE.Object3D();
 		scene.add( cameraBot );
 
+		if ( splineCamera ) { cameraBot.remove( splineCamera ); }
+
 		splineCamera = new THREE.PerspectiveCamera( 84, window.innerWidth / window.innerHeight, 0.01, 5000 );
 		cameraBot.add( splineCamera );
+
+		if ( cameraHelper ) { cameraBot.remove( cameraHelper ); }
+ 
 		cameraHelper = new THREE.CameraHelper( splineCamera );
 		cameraBot.add( cameraHelper );
-/*
-		camera = new THREE.PerspectiveCamera( 84, window.innerWidth / window.innerHeight, 0.01, 5000 );
-		cameraBot.add( camera );
-		cameraHelper = new THREE.CameraHelper( camera );
-		cameraBot.add( cameraHelper );
-*/
 
-
-
-		tube = new THREE.TubeGeometry( VH.splineCurve, segments, radius, radiusSegments );
-		material = new THREE.MeshNormalMaterial();
-		mesh = new THREE.Mesh( tube, material );
-		scene.add( mesh );
+		updateTube();
 
 		app.animate = animate;
+
 	}
 
 
+	function updateTube() {
+
+		if ( tubeMesh ) { scene.remove( tubeMesh ); }
+
+		tube = new THREE.TubeGeometry( VH.splineCurve, segments, radius, radiusSegments );
+		material = new THREE.MeshNormalMaterial();
+		tubeMesh = new THREE.Mesh( tube, material );
+		scene.add( tubeMesh );
+
+	}
+
 	function updatePosition() {
+
 		var binormal = new THREE.Vector3();
 		var normal = new THREE.Vector3();
 		t += 0.002;
@@ -81,20 +89,16 @@
 		aircraft.rotation.setFromRotationMatrix( aircraft.matrix, aircraft.rotation.order );
 */
 
-
-
 	}
 
 
-	function animate() {
+	function animate( timestamp ) {
 
 		controls.update();
-		renderer.render( scene, VH.follow === true ? splineCamera : camera );
-//		renderer.render( scene, camera );
-		delta += clock.getDelta();
-		if ( tube && delta > 0.025 ) {
+		renderer.render( scene, actionCamera );
+		if ( updates && tube && ( timestamp - startTime >  25 ) ) {
 			updatePosition();
-			delta = 0;
+			startTime = timestamp;
 		}
 		requestAnimationFrame( animate );
 	}

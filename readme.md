@@ -1,4 +1,4 @@
-vA3C Viewer
+vA3C Viewer / vA3C Hacker
 ===
 [Web page version]( http://va3c.github.io/viewer/readme-reader.html )
 [Source code version]( https://github.com/va3c/viewer/ )
@@ -25,11 +25,19 @@ Full Screen Live Demo (R1): [vA3C Viewer]( http://va3c.github.io/viewer/index.ht
 
 ## Post-Hackathon Wonderments
 
-### ibuilder/3D-Model-Viewer
+### vA3C Hacker
 
-Work in Progress: WordPress Plugin: 3D Model viewer based off of the va3c model viewer
+The disruptive spinoff...
 
-<https://github.com/ibuilder/3D-Model-Viewer>
+Live demo: <http://va3c.github.io/viewer/va3c-hacker/latest/>  
+Read Me: <http://va3c.github.io/viewer/va3c-hacker>  
+GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker>  
+
+
+* Narrative/Storyline-based user interface
+* Cornucopia of content
+* Designed to be easy for you to beg/borrw/steal
+* Everything load on demand
 
 
 ### vA3C Viewer HTML5
@@ -77,6 +85,13 @@ Files to help you get started with, for example, building apps that work with [O
 
 Read me: <http://va3c.github.io/viewer/cookbook/>  
 GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/cookbook> 
+
+### ibuilder/3D-Model-Viewer
+
+Work in Progress: WordPress Plugin: 3D Model viewer based off of the va3c model viewer
+
+<https://github.com/ibuilder/3D-Model-Viewer>
+
 
 ### Sample Files
 

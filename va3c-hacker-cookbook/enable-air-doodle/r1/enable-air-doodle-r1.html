@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>Pop Doodle</title>
+<meta charset=utf-8 />
+<meta name=author content='Theo Armour' />
+</head>
+<body>
+<script>
+
+	document.body.style.cssText = ' font: bold 12pt monospace; overflow: hidden; text-align: center;';
+
+	var info = document.body.appendChild( document.createElement( 'div' ) );
+	info.innerHTML = '<h1>' + document.title + '</h1>' +
+		'<div id=msg onmouseover=show(); onmouseout=hide();>this is it</div>';
+
+	var popDoodle;
+
+	function show() {
+	
+		if ( !popDoodle ) { 
+
+			popDoodle = document.body.appendChild( document.createElement( 'iframe' ) );
+
+			popDoodle.width = window.innerWidth;
+			popDoodle.height = window.innerHeight;
+			popDoodle.style.cssText = 'border-width: 0; position: absolute; z-index: -10; ';
+			popDoodle.src = './pop-doodle-test.html';
+
+		}
+
+		popDoodle.style.display = '';
+
+	}
+
+	function hide() {
+		popDoodle.style.display = 'none';
+	}
+
+</script>
+</body>
+</html>

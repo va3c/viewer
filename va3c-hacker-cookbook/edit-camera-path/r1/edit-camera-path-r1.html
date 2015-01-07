@@ -1,22 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang=en >
 <head>
-<title>Edit 3D Catmull-Rom Spline R8</title>
+<title>Edit Camera Path</title>
 <meta charset=utf-8 />
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 </head>
 <body>
+<script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
-<script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
-<script src=http://mrdoob.github.io/three.js/examples/js/exporters/OBJExporter.js ></script>
+
 <script src=http://va3c.github.io/viewer/va3c-hacker/r3-0dev/va3c-hacker-r3-0dev.js ></script>
 <script src=../../enable-drag-objects/r1/enable-drag-objects-r1.js ></script>
-<script src=edit-spline-r9.js ></script>
+<script src=../../edit-spline/r9/edit-spline-r9.js ></script>
+<script src=edit-camera-path-r1.js ></script>
 <script>
-// https://github.com/zz85/ThreeLabs/blob/master/spline3editor.html
 
-	var VH = VH || {};
+
+//	var VH = VH || {};
 
 	var stats, camera, scene, renderer;
 
@@ -105,6 +106,8 @@ console.log( 'Not in an iframe');
 			VH.dragcontrols = new VH.DragObjects( VH.splinePointsContainer.children );
 
 			VH.dragcontrols.onDragged = VH.updateSplineOutline;
+
+
 
 		} else {
 

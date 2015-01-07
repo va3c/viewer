@@ -1,15 +1,15 @@
 
 What would you like vA3C to do now?
 
-[Show the vA3C Hacker web page?]( http://va3c.github.io/viewer/va3c-hacker/latest/ "browse files with vA3C Hacker" ) <input value='You are here' style=width:6em;-webkit-appearance:none;background-color:silver;  />  
-[Show the GitHub source code?]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View or edit code with GitHub") <span style=display:none; >You are here</span>  
+[Show you the vA3C Hacker web page?]( http://va3c.github.io/viewer/va3c-hacker/latest/ "browse files with vA3C Hacker" ) <input value='You are here' style=width:6em;-webkit-appearance:none;background-color:silver;  />  
+[Show you the GitHub source code?]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View or edit code with GitHub") <span style=display:none; >You are here</span>  
 - Two ways to view the same read me file
 
 
 <span style=display:none; >
 2014-12-05 ~ Currently the following links do nothing when you are viewing this file on the GitHub source code page.
 This is because we are having an internal argument about keeping the link process as simple as possible.
-So for the moment, kindly explroe the possibilities using the [vA3V Hacker]( http://va3c.github.io/viewer/va3c-hacker/latest/ ) view.
+So for the moment, kindly explore the possibilities using the [vA3V Hacker]( http://va3c.github.io/viewer/va3c-hacker/latest/ ) view.
 </span>
 
 [Tell you the time?]( #demo-tell-you-the-time.js "listen carefully..." )
@@ -43,12 +43,21 @@ Edit everything with the <a href="javascript:(function(){var script=document.cre
 Or with <a href="javascript:(function(){var s=document.createElement('script');s.src='http://callum.com/apps/amui/amui.js';document.body.appendChild(s);})();" "title=Hats off to Callum" >AMUI</a>. 
 Both are bookmarklets you may use on most any Three.js file.
 
-#### Utilities from the vA3C Hacker Cookbook
+### Utilities from the vA3C Hacker Cookbook
 
-[Add an editable spline?]( #dispatch.js#../../va3c-hacker-cookbook/edit-spline/index.html#noGround#noGrid#add=true )
-
+<!--
 [Enable draggable objects?]( #read-markdown.js#../../va3c-hacker-cookbook/enable-drag-objects/readme.md )
+-->
 
+[Enable draggable objects?]( #../../va3c-hacker-cookbook/enable-drag-objects/enable-drag-objects-init.js )
+
+<!--
+[Add an editable spline?]( #dispatch.js#../../va3c-hacker-cookbook/edit-spline/index.html#noGround#noGrid#add=true )
+-->
+
+[Add an editable spline?]( #../../va3c-hacker-cookbook/edit-spline/edit-spline-init.js )
+
+[Add an editable camera path?]( #../../va3c-hacker-cookbook/edit-camera-path/edit-camera-path-init.js )
 
 [Enable drag and drop for JSON files?]( #enable-drag-and-drop-json-files.js )
 
@@ -57,6 +66,7 @@ Both are bookmarklets you may use on most any Three.js file.
 [Export scene to a Three.js JSON file?]( #export-scene-to-json.js )
 
 ### Various Adventures
+<small>Try some demos. Explore the possibilities.</small>
 
 [Go on a short aeronautical and architectural adventure?]( #demo-aeronautical-architectural.js "Makes heavy use of resources." ) 
 

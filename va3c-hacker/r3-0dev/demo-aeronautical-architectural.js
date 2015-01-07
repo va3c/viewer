@@ -224,7 +224,7 @@
 		text = 'Now we are adding Schroder House';
 		speak( text );
 
-		location.hash = '#dispatch.js#../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js#px=0#sx=5#sy=5#sz=5@#na=schroder#add=true';
+		location.hash = '#dispatch.js#../../../3d-warehouse-samples/schroder-house/untitled/schroder-house.js#textures=../../3d-warehouse-samples/schroder-house/untitled/#/px=0#sx=5#sy=5#sz=5@#na=schroder#add=true';
 
 		slide = slide9;
 
