@@ -1,102 +1,20 @@
-vA3C Viewer / vA3C Hacker
+vA3C Viewer
 ===
-[Web page version]( http://va3c.github.io/viewer/readme-reader.html )
-[Source code version]( https://github.com/va3c/viewer/ )
-
-_This read me provides an overview of the several vA3C Viewer projects._
-
-_Currently, most effort is being put on [vA3C Viewer HTML5]( ./va3c-viewer-html5/index.html )_
-
-## Veritable Hackathon Work Product
-
-Full Screen Live Demo (R1): [vA3C Viewer]( http://va3c.github.io/viewer/index.html )
-
-### Single File Viewers
-
-* Test scripts made during the Hackathon until the viewer supported permalinks
-
-<http://va3c.github.io/viewer/3dsmax1.html>  
-<http://va3c.github.io/viewer/grasshopper1.html>  
-<http://va3c.github.io/viewer/grasshopper2.html>  
-<http://va3c.github.io/viewer/revit1.html>  
-<http://va3c.github.io/viewer/revit2.html>  
+vA3C is an open source, 3D model viewer for AEC models that uses THREE.js to render 3D geometry in the browser. vA3C allows authors in the AEC industry to easily publish their 3D design work on the web, for free.
 
 
+There are two primary goals for vA3C.
 
-## Post-Hackathon Wonderments
+Goal #1: provide the AEC industry with an easy, free, and open source means of publishing 3D content on the web. The vA3C platform allows users to export .json files from common AEC authoring applications - using open source plugins developed by the vA3C team - that can be opened with the vA3C viewer. The viewer comes in two flavors. One is a full page web application served from github.io that can open .json files from a user’s machine (or various other web storage providers). The second flavor is an embeddable viewer that can be included in any html page, and open a hosted .json file. Both viewers will provide a minimal user interface to allow for easy model navigation and intuitive element investigation.
 
-### vA3C Hacker
-
-The disruptive spinoff...
-
-Live demo: <http://va3c.github.io/viewer/va3c-hacker/latest/>  
-Read Me: <http://va3c.github.io/viewer/va3c-hacker>  
-GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker>  
+Goal #2: build a general, extensible viewer app that can be forked to build more bespoke, use-case-specific applications. Besides it’s out of the box functionality as a model viewer, vA3C can be seen as a foundation project that is meant to be forked by power users to build other apps; the viewer can be easily customized, extended, hacked. vA3C should provide the lowest common denominator in terms of it’s UI and code base. It should have all of the features that all good AEC viewers should have, and ideally, nothing more. Which of course begs the question - what features should all AEC model viewers have? Opinions vary from camp to camp, and pinning down this specification is likely going to be one of the most challenging aspects of the project.
 
 
-* Narrative/Storyline-based user interface
-* Cornucopia of content
-* Designed to be easy for you to beg/borrw/steal
-* Everything load on demand
+So why are we building this? What’s the point?
 
+There is an incredible amount of knowledge built up in even the most typical [AEC] 3D models - geometrical and architectural relationships, BIM information, relationships between various building systems, etc. Compared to the abundance of this three-dimensionally-encoded knowledge that is being created continuously by the AEC industry, it remains relatively difficult for an author to share a thought in 3D with an audience of any size. It is easy to author 3D models, and difficult to publish them.
 
-### vA3C Viewer HTML5
-
-This version is built simply using Three.js and HTML5.
-
-The name 'vA3C Viewer HTML5' leaves open the possibility that there might be a 'vA3C Viewer Dat.gui' and other spin-off projects.
-
-Live demo: <http://va3c.github.io/viewer/va3c-viewer-html5/latest/>  
-Read Me: <http://va3c.github.io/viewer/va3c-viewer-html5/>  
-GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/va3c-viewer-html5>  
-
-Features include:
-
-* Mouse-over attribute display
-* Open files locally or by URL
-* Save current parameters to permalinks
-* Open 'bundles' of pre-selected files
-* Edit position, rotation and scale of models
-* Select trackball or first person cameras
-
-
-### vA3C Editor R1
-
-This version is forked from the [Three.js Editor]( http://threejs.org/editor/ )  
-
-Live demo: <http://va3c.github.io/viewer/va3c-editor/r1/va3c-editor-r1.html>  
-Read me: <http://va3c.github.io/viewer/va3c-editor/readme-reader.html>  
-GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/va3c-editor>  
-
-Features include:
-
-* Export by saving directly to file
-* Permalink support to open files. See [vA3C Samples]( http://va3c.github.io/viewer/va3c-editor/va3c-samples/ )
-* Toggle display of UI
-* Move meshes to new Object 3D a parent
-* Transparent theme
-* Support for Revit attributes in parent object
-* About box
-
-
-### vA3C Cookbook
-
-Files to help you get started with, for example, building apps that work with [Open Studio]( https://openstudio.nrel.gov/ )
-
-Read me: <http://va3c.github.io/viewer/cookbook/>  
-GitHub source: <https://github.com/va3c/viewer/tree/gh-pages/cookbook> 
-
-### ibuilder/3D-Model-Viewer
-
-Work in Progress: WordPress Plugin: 3D Model viewer based off of the va3c model viewer
-
-<https://github.com/ibuilder/3D-Model-Viewer>
-
-
-### Sample Files
-
-[3D Warehouse Samples]( ../3d-warehouse-samples/index.html )  
-[NASA Samples]( ../nasa-samples/index.html )  
+AEC wants to embrace 3D/4D in the browser, but everyone who wants to publish 3D content - designy architects, super fussy builders, stuffy old engineers, egomaniacal owners -- everyone - needs something a little different in terms of user interface, or they need a database on the back end, or whatever. As an industry, we need a free, open source solution that we can customize to suit all of our respective needs. vA3C aims to provide just that - a solid foundation that can be built upon by the other hackers in the industry - by developing an extensible, easy to use web viewer for AEC models.
 
 
 
