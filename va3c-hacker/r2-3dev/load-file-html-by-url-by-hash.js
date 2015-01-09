@@ -1,2 +1,0 @@
-
-	loadFileHTMLByURL( location.hash );

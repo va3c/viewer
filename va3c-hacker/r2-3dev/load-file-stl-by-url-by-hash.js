@@ -1,2 +1,0 @@
-
-	loadFileSTLByURL ( location.hash );
