@@ -84,6 +84,54 @@ VA3C.render = function(){
 //*********************
 //*** JSON Model Loader
 
+//a function to open a file from disk
+//found this method here: http://www.javascripture.com/FileReader
+VA3C.jsonLoader.openLocalFile = function(event){
+
+    //the input object
+    var input = event.target;
+
+    //a new filereader object and onload callback
+    var reader = new FileReader();
+    reader.onload = function(){
+
+        //data variable to populate
+        var data = null;
+
+        try { //get the json data
+            data = $.parseJSON(reader.result);
+        } catch (e) {
+            console.log("something went wrong while trying to parse the json data.");
+            console.log(e);
+            return;
+        }
+
+        try { //load the json data into the scene
+
+            if(data !== null){
+                VA3C.jsonLoader.loadSceneFromJson(data);
+            }
+
+
+        } catch (e) {
+            console.log("something went wrong while trying to load the json data.");
+            console.log(e);
+        }
+    };
+
+    //read the file as text - this will fire the onload function above when a user selects a file
+    reader.readAsText(input.files[0]);
+
+    //hide the input form
+    $("#OpenLocalFile").css("visibility","hidden");
+};
+
+
+VA3C.jsonLoader.hideOpenDialog = function(){
+    //hide the input form
+    $("#OpenLocalFile").css("visibility","hidden");
+};
+
 
 //a function to populate our scene object from a json file
 VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
@@ -340,7 +388,24 @@ VA3C.lightingRig.setSunPosition = function(az, alt){
 VA3C.UiConstructor = function(){
 
     //OPEN FILE
-    this.openFile = function(){};
+    this.openLocalFile = function(){
+
+        //show the openLocalFile Div
+        $("#OpenLocalFile").css("visibility","visible");
+
+        //this should show a form that lets a user open a file
+
+    };
+
+    this.openUrl = function(){
+
+        //show the openUrl Div
+
+        //get a handle on the json object
+
+        //call the jsonloader load scene from json function to replace the scene
+
+    };
 
     //VIEW AND SCENE VARIABLES
     //zoom extents

@@ -13,7 +13,8 @@ $(document).ready(function(){
 
     //add a file folder containing the file open button
     var fileFolder = VA3C.datGui.addFolder('File');
-    fileFolder.add(VA3C.uiVariables, 'openFile');
+    fileFolder.add(VA3C.uiVariables, 'openLocalFile');
+    fileFolder.add(VA3C.uiVariables, 'openUrl');
 
     //add a view folder
     var viewFolder = VA3C.datGui.addFolder('View and Scene');
@@ -57,6 +58,9 @@ $(document).ready(function(){
 
     //hide the dat.gui close controls button
     $(".close-button").css('visibility', 'hidden');
+
+    //make the file open divs draggable
+    $(".openFile").draggable( {containment: "parent"});
 
 
     //load our sample JSON file - for development of the colored meshes from GH

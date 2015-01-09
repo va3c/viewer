@@ -37,3 +37,29 @@ a:hover {color: #a0a0a0;}
     font-size: 13px;
     padding: 5px 2px;
 }
+
+.openFile{
+    padding: 10px;
+    background-color: #ffffff;
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -150px;
+    width: 300px;
+    height: 125px;
+    z-index: 101;
+    font-size: 100%;
+}
+
+.openFile h2 {
+    margin: 0px;
+    background-color: #e8e8e8;
+
+}
+
+.openButton{
+    margin: 25px;
+    justify-content: center;
+}
