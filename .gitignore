@@ -33,6 +33,12 @@ local.properties
 # PDT-specific
 .buildpath
 
+#################
+## Webstorm
+#################
+
+.idea/
+
 
 #################
 ## Visual Studio
