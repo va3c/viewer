@@ -122,8 +122,9 @@ VA3C.jsonLoader.openLocalFile = function(event){
     //read the file as text - this will fire the onload function above when a user selects a file
     reader.readAsText(input.files[0]);
 
-    //hide the input form
+    //hide the input form and blackout
     $("#OpenLocalFile").css("visibility","hidden");
+    //$(".blackout").hide();
 };
 
 //function to open a file from url
@@ -177,6 +178,9 @@ VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
     VA3C.lightingRig.createLights();
     //call zoom extents
     VA3C.uiVariables.zoomExtents();
+
+    //hide the blackout
+    $(".blackout").hide();
 
 };
 
@@ -420,6 +424,7 @@ VA3C.UiConstructor = function(){
 
         //show the openLocalFile Div
         $("#OpenLocalFile").css("visibility","visible");
+        $(".blackout").show();
 
         //this should show a form that lets a user open a file
 
