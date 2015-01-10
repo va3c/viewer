@@ -127,9 +127,24 @@ VA3C.jsonLoader.openLocalFile = function(event){
 };
 
 
+//function to open a file from url
+VA3C.jsonLoader.openUrl = function(url){
+
+    //hide the openUrl div
+    this.hideOpenDialog();
+
+    //try to parse the json and load the scene
+    $.getJSON(url, function( data){
+        //call our load scene function
+        VA3C.jsonLoader.loadSceneFromJson(data);
+    });
+
+};
+
+//function to hide the 'open file' dialogs.
 VA3C.jsonLoader.hideOpenDialog = function(){
     //hide the input form
-    $("#OpenLocalFile").css("visibility","hidden");
+    $(".openFile").css("visibility","hidden");
 };
 
 
@@ -400,10 +415,8 @@ VA3C.UiConstructor = function(){
     this.openUrl = function(){
 
         //show the openUrl Div
+        $("#OpenUrl").css("visibility","visible");
 
-        //get a handle on the json object
-
-        //call the jsonloader load scene from json function to replace the scene
 
     };
 

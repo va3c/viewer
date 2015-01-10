@@ -48,7 +48,7 @@ a:hover {color: #a0a0a0;}
     margin-top: -25px;
     margin-left: -150px;
     width: 300px;
-    height: 125px;
+    height: 100px;
     z-index: 101;
     font-size: 100%;
 }
@@ -62,4 +62,8 @@ a:hover {color: #a0a0a0;}
 .openButton{
     margin: 25px;
     justify-content: center;
+}
+
+.urlInput{
+    width: 100%;
 }
