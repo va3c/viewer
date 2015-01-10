@@ -525,9 +525,6 @@ VA3C.attributes.init = function(){
     //Get a handle on the attribute list div as a jquery object.
     VA3C.attributes.list = $('.attributeList');
 
-    //Set up the jquery UI interactions on the object.
-    //VA3C.attributes.list.draggable( {containment: "parent"});
-
     //set up mouse events - BH question - why do we need both?  Test me.
     document.getElementById('vA3C_output').addEventListener('click', VA3C.attributes.onMouseClick, false);
     //document.getElementById('vA3C_output').addEventListener('mousedown', VA3C.attributes.onMouseClick, false);
@@ -725,7 +722,12 @@ VA3C.attributes.populateAttributeList = function( jsonData ){
         if (jsonData.hasOwnProperty(key)) {
 
             //add the key value pair
-            VA3C.attributes.list.append('<div class="item">' + key + "  :  " + jsonData[key] + '</div>');
+            if (jsonData[key].substr(0,4) !== 'http') {
+                VA3C.attributes.list.append('<div class="item">' + key + "  :  " + jsonData[key] + '</div>');
+            } else {
+                var link = '<a href=' + jsonData[key] + ' target=_blank>' + jsonData[key] + '</a>';
+                VA3C.attributes.list.append('<div class="item">' + key + "  :  " + link + '</div>');
+            }
 
             //compute the length of the key value pair
             var len = (key + "  :  " + jsonData[key]).length;
