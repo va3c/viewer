@@ -23,7 +23,9 @@ a:hover {color: #a0a0a0;}
     left: 10px;
     z-index: 5;
     padding: 5px 6px;
-    display:none;
+    display: none;
+    overflow: auto;
+    opacity: 0.85;
 }
 
 
@@ -55,8 +57,6 @@ a:hover {color: #a0a0a0;}
 
 .openFile h2 {
     margin: 0px;
-    background-color: #e8e8e8;
-
 }
 
 .openButton{
@@ -66,4 +66,16 @@ a:hover {color: #a0a0a0;}
 
 .urlInput{
     width: 100%;
+}
+
+.blackout{
+
+}
+
+.loadingWheel{
+
+}
+
+.errorMessage{
+
 }

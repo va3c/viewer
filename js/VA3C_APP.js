@@ -132,8 +132,8 @@ VA3C.jsonLoader.openUrl = function(url){
     //hide the openUrl div
     this.hideOpenDialog();
 
-    //try to parse the json and load the scene
-    /*$.getJSON(url, function( data){
+    /*//try to parse the json and load the scene
+    $.getJSON(url, function( data){
         //call our load scene function
         VA3C.jsonLoader.loadSceneFromJson(data);
     });*/
@@ -143,7 +143,16 @@ VA3C.jsonLoader.openUrl = function(url){
     //giving up for now...
     //it is possible though
     //
-    //these guys do it:
+    //these guys do it: https://www.jsoneditoronline.org/
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(res) {
+            console.log(res);
+        }
+    });
+
 };
 
 //function to hide the 'open file' dialogs.
@@ -517,7 +526,7 @@ VA3C.attributes.init = function(){
     VA3C.attributes.list = $('.attributeList');
 
     //Set up the jquery UI interactions on the object.
-    VA3C.attributes.list.draggable( {containment: "parent"});
+    //VA3C.attributes.list.draggable( {containment: "parent"});
 
     //set up mouse events - BH question - why do we need both?  Test me.
     document.getElementById('vA3C_output').addEventListener('click', VA3C.attributes.onMouseClick, false);
@@ -711,15 +720,32 @@ VA3C.attributes.populateAttributeList = function( jsonData ){
 
     //loop through json object attributes and create a new line for each property
     var rowCounter = 1;
+    var longestString = 0;
     for (var key in jsonData) {
         if (jsonData.hasOwnProperty(key)) {
+
+            //add the key value pair
             VA3C.attributes.list.append('<div class="item">' + key + "  :  " + jsonData[key] + '</div>');
+
+            //compute the length of the key value pair
+            var len = (key + "  :  " + jsonData[key]).length;
+            if(len > longestString) longestString = len;
         }
+
+        //increment the counter
         rowCounter++;
     }
 
     //change height based on # rows
-    VA3C.attributes.list.height(rowCounter * 11 + 43);
+    VA3C.attributes.list.height(rowCounter * 12 + 43);
+
+    //set the width
+    if(longestString > 50){
+        VA3C.attributes.list.width(longestString * 5 + 43);
+    }
+    else{
+        VA3C.attributes.list.width(360);
+    }
 
     //Show the html element
     VA3C.attributes.list.show("slow");

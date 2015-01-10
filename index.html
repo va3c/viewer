@@ -11,7 +11,7 @@
     <script type="text/javascript" src="js/libs/OrbitControls.js"></script>
     <script type="text/javascript" src="js/libs/Projector.js"></script>
     <script type="text/javascript" src="js/libs/stats.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/libs/jquery-ui.js"></script>
 
 
     <!-- Application files -->
@@ -21,8 +21,6 @@
 <body>
 
 <div id="vA3C_output"></div>
-<div class="attributeList"></div>
-<div id="Stats_output"></div>
 <div id="OpenLocalFile" class="openFile">
     <h2>Open a local vA3C .json file</h2>
     <input type="file" onchange="VA3C.jsonLoader.openLocalFile(event)" class="openButton">
@@ -36,8 +34,12 @@
         <input type="button" value="Open" onclick="VA3C.jsonLoader.openUrl($('#urlInput').val());">
         <input type="button" value="Cancel" onclick="VA3C.jsonLoader.hideOpenDialog();">
     </form>
-
 </div>
+<div class="attributeList"></div>
+<div class="blackout"></div>
+<div class="loadingWheel"></div>
+<div class="errorMessage"></div>
+<div id="Stats_output"></div>
 
 
 <script type="text/javascript">

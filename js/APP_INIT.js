@@ -59,8 +59,15 @@ $(document).ready(function(){
     //hide the dat.gui close controls button
     $(".close-button").css('visibility', 'hidden');
 
+
+    //Jquery UI stuff - make divs draggable, resizable, etc.
+
     //make the file open divs draggable
     $(".openFile").draggable( {containment: "parent"});
+
+    //make the attributes div draggable and resizeable
+    $('.attributeList').draggable( {containment: "parent"});
+    //$('.attributeList').resizable();
 
 
     //load our sample JSON file - for development of the colored meshes from GH
