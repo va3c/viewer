@@ -14,7 +14,7 @@ $(document).ready(function(){
     //add a file folder containing the file open button
     var fileFolder = VA3C.datGui.addFolder('File');
     fileFolder.add(VA3C.uiVariables, 'openLocalFile');
-    fileFolder.add(VA3C.uiVariables, 'openUrl');
+    //fileFolder.add(VA3C.uiVariables, 'openUrl'); //not working yet - commenting out for now
 
     //add a view folder
     var viewFolder = VA3C.datGui.addFolder('View and Scene');

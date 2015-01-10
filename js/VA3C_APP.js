@@ -126,7 +126,6 @@ VA3C.jsonLoader.openLocalFile = function(event){
     $("#OpenLocalFile").css("visibility","hidden");
 };
 
-
 //function to open a file from url
 VA3C.jsonLoader.openUrl = function(url){
 
@@ -134,11 +133,17 @@ VA3C.jsonLoader.openUrl = function(url){
     this.hideOpenDialog();
 
     //try to parse the json and load the scene
-    $.getJSON(url, function( data){
+    /*$.getJSON(url, function( data){
         //call our load scene function
         VA3C.jsonLoader.loadSceneFromJson(data);
-    });
+    });*/
 
+    //yep that didn't work - No 'Access-Control-Allow-Origin error.
+    //this seemed like it might do the trick: http://www.html5rocks.com/en/tutorials/cors/   but did not
+    //giving up for now...
+    //it is possible though
+    //
+    //these guys do it:
 };
 
 //function to hide the 'open file' dialogs.
@@ -146,7 +151,6 @@ VA3C.jsonLoader.hideOpenDialog = function(){
     //hide the input form
     $(".openFile").css("visibility","hidden");
 };
-
 
 //a function to populate our scene object from a json file
 VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
