@@ -165,6 +165,11 @@ VA3C.jsonLoader.hideOpenDialog = function(){
 //a function to populate our scene object from a json file
 VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
 
+    //restore the initial state of the attributes object
+    if (VA3C.attributes.elementList.length > 0) {
+        VA3C.attributes.purge();
+    }
+
     //parse the JSON into a THREE scene
     var loader = new THREE.ObjectLoader();
     VA3C.scene = new THREE.Scene();
@@ -640,6 +645,9 @@ VA3C.attributes.checkIfSelected = function( event ){
 //Function to restore the state of a previously selected object.
 VA3C.attributes.restorePreviouslySelectedObject = function(){
 
+    //if nothing was selected, return
+    if(VA3C.attributes.previousClickedElement.id === -1) return;
+
     //apply the stored materials to the meshes in the object.
 
     //are we working with an object3d?  if so we need to reset all of the children materials
@@ -757,6 +765,12 @@ VA3C.attributes.populateAttributeList = function( jsonData ){
 
     //Show the html element
     VA3C.attributes.list.show("slow");
+};
+
+//function to purge local variables within this object.  When a user loads a new scene, we have to clear out the old stuff
+VA3C.attributes.purge = function(){
+    this.restorePreviouslySelectedObject();
+    this.elementList = [];
 };
 
 
