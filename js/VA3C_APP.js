@@ -124,7 +124,7 @@ VA3C.jsonLoader.openLocalFile = function(event){
 
     //hide the input form and blackout
     $("#OpenLocalFile").css("visibility","hidden");
-    //$(".blackout").hide();
+    $(".loading").show();
 };
 
 //function to open a file from url
@@ -181,6 +181,7 @@ VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
 
     //hide the blackout
     $(".blackout").hide();
+    $(".loading").hide();
 
 };
 
