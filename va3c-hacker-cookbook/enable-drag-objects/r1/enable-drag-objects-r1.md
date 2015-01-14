@@ -1,7 +1,7 @@
 [vA3C Hacker Cookbook]( ../../va3c-hacker-cookbook/index.html )<br>> [Enable Drag Objects]( ../../va3c-hacker-cookbook/enable-drag-objects/index.html )
 ===
 
-This utility enables the dragging of objects to update their positions in 3D. There are issues with some of the Revit models that have been scaled.
+This script enables the dragging of objects to update their positions in 3D. There are issues with some of the Revit models that have been scaled.
 
 <!--
 <input type=button onclick=VH.loadScript('../../va3c-hacker-cookbook/enable-drag-objects/r1/enable-drag-objects.js',VH.enableDragObjects); value="Enable Drag objects" />
@@ -19,6 +19,8 @@ After an object has been selected, it may be exported to a file.
 
 [Export object - geometry + material]( #export-object-to-json.js# )
 -->
+
+<a href="JavaScript:VH.displayMarkdown('readme.md',menuLeft);" >Read Me</a>
 
 <a href="JavaScript:VH.displayMarkdown('dev-notes.md',menuLeft);" >Dev Notes</a>
 

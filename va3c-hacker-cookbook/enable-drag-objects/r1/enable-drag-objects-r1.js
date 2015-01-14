@@ -146,6 +146,8 @@
 
 	}
 
+// Enable every mesh in a scene to become draggable
+
 	VH.enableDragObjects = function() {
 
 		objectContainer = new THREE.Object3D();
@@ -158,7 +160,7 @@
 
 			if ( child instanceof THREE.Mesh ) {
 
-console.log( 'child', child );
+//console.log( 'child', child );
 
 				objects.push( child );
 
