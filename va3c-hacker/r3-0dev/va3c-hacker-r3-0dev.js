@@ -11,7 +11,8 @@
 	var scene;
 	var camera;
 	var controls;
-var airDoodle;
+
+	var airDoodleVisible;
 
 	VH.initHacker = function () {
 
@@ -83,7 +84,7 @@ var airDoodle;
 			menuRight.addEventListener( 'mousedown', VH.mouseMove, false );
 			menuRight.header = '<h1><a id=closerIcon href=JavaScript:VH.toggleMenu(menuRight); title="' + tooltip + '" >&#9776;</a><h1>' +
 				'<h1>' +
-					'<a href="" onmouseover=show(); onmouseout=hide(); title="' + tooltip + '" >' + document.title + '</a> ' +
+					'<a href="" onmouseover=showDoodle(); onmouseout=hideDoodle(); title="' + tooltip + '" >' + document.title + '</a> ' +
 				'</h1>' +
 				'<hr>' +
 			'';
@@ -116,29 +117,24 @@ var airDoodle;
 	};
 
 
-	function show() {
+	function showDoodle() {
 	
-		if ( !airDoodle ) { 
+		if ( !airDoodleVisible ) { 
 
 			VH.dispatchFileByURL( ['','../../va3c-hacker-cookbook/enable-air-doodle/r1/enable-air-doodle.html','noGrid','noAxis','noGround' ]);
 
-			airDoodle = true;
+			airDoodleVisible = true;
 
-/*
-			airDoodle = document.body.appendChild( document.createElement( 'iframe' ) );
-			airDoodle.width = window.innerWidth;
-			airDoodle.height = window.innerHeight;
-			airDoodle.style.cssText = 'border-width: 0; position: absolute; z-index: -10; ';
-			airDoodle.src = '../../va3c-hacker-cookbook/enable-air-doodle/r1/enable-air-doodle.html';
-*/
 		}
-
-//		airDoodle.style.display = '';
 
 	}
 
-	function hide() {
-//		airDoodle.style.display = 'none';
+	function hideDoodle() {
+
+		VH.ifr.src = '';
+
+		airDoodleVisible = false;
+
 	}
 
 
@@ -205,7 +201,7 @@ var airDoodle;
 
 	VH.loadScript = function ( fileName, callback ) {
 
-		var callback = callback ? callback : function () {} ;
+		callback = callback ? callback : function () {} ;
 
 		var js = document.body.appendChild ( document.createElement( 'script' ) );
 

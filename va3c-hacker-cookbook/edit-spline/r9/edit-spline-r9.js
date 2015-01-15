@@ -2,10 +2,11 @@
 // Sources: http://jabtunes.com/labs/3d/spline3editor.html
 
 
-
-//	var VH = VH || {};
+	var VH = VH || {};
 
 	VH.splineMakerRandomPoints = function( pointsCount ) {
+
+		if ( !THREE ) { alert('Please first open a file...'); return; }
 
 		if ( VH.splinePointsContainer ) { scene.remove( VH.splinePointsContainer ); }
 

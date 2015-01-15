@@ -1,7 +1,7 @@
 [vA3C Hacker Cookbook]( ../../va3c-hacker-cookbook/index.html )<br>> [Edit Spline]( ../../va3c-hacker-cookbook/edit-spline/index.html )
 ===
 
-This utility enables the creation, editing and saving of splines in 3D.
+This utility enables the creation, opening, editing and saving of splines in 3D.
 
 
 <input type="button" onclick=VH.splineMakerRandomPoints(inpPoints.value); value="Generate new spline" /> 
@@ -19,4 +19,4 @@ Number of control points: <input type="number" id="inpPoints"  min="4" max="1000
 <input type=file size="40" onchange=VH.importSpline(this); >
 
 
-<a href="JavaScript:VH.displayMarkdown('./dev-notes.md',menuLeft);" >Dev Notes</a>
+<a href="JavaScript:VH.displayMarkdown('../dev-notes.md',menuLeft);" >Dev Notes</a>
