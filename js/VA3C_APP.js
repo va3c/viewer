@@ -494,7 +494,7 @@ VA3C.UiConstructor = function(){
         else{
             var geo = new THREE.Geometry();
             for(var i in sel.children){
-                geo.merge(sel.children[i]);
+                geo.merge(sel.children[i].geometry);
             }
             geo.computeBoundingSphere();
             bndSphere = geo.boundingSphere;
