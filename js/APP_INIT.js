@@ -16,16 +16,30 @@ $(document).ready(function(){
     fileFolder.add(VA3C.uiVariables, 'openLocalFile');
     //fileFolder.add(VA3C.uiVariables, 'openUrl'); //not working yet - commenting out for now
 
-    //add a view folder
-    var viewFolder = VA3C.datGui.addFolder('View and Scene');
-    //zoom extents and selected
-    viewFolder.add(VA3C.uiVariables, 'zoomExtents');
-    viewFolder.add(VA3C.uiVariables, 'zoomSelected');
-    //gradient background controls
-    viewFolder.addColor(VA3C.uiVariables, 'backgroundColor').onChange(function(e){
+
+    //add scene folder
+    var sceneFolder = VA3C.datGui.addFolder('Scene');
+    //background color control
+    sceneFolder.addColor(VA3C.uiVariables, 'backgroundColor').onChange(function(e){
         //set background color
         VA3C.renderer.setClearColor(e);
     });
+    //scene fog
+    //sceneFolder.add(VA3C.uiVariables, 'fog').onChange(function(e){
+    //        VA3C.lightingRig.setFog(e);
+    //    });
+
+
+    //add view folder
+    var viewFolder = VA3C.datGui.addFolder('View and Selection');
+    //zoom extents and selected
+    viewFolder.add(VA3C.uiVariables, 'zoomExtents');
+    viewFolder.add(VA3C.uiVariables, 'zoomSelected');
+    //change color of selected object's material
+    viewFolder.addColor(VA3C.uiVariables, 'selectedObjectColor').onChange(function(e){
+        VA3C.attributes.setSelectedObjectColor(e);
+    });
+
 
     //add a lighting folder
     var lightsFolder = VA3C.datGui.addFolder('Lighting');
@@ -49,7 +63,7 @@ $(document).ready(function(){
 
 
     //hide the dat.gui close controls button
-    $(".close-button").css('visibility', 'hidden');
+    //$(".close-button").css('visibility', 'hidden');
 
 
     //Jquery UI stuff - make divs draggable, resizable, etc.

@@ -24,6 +24,7 @@ VA3C.initViewer = function(viewerDiv, statsDiv){
 
     //empty scene
     VA3C.scene = new THREE.Scene();
+    //VA3C.scene.fog = new THREE.FogExp2(0x000000, 0.0025);
 
     //set up the THREE.js div and renderer
     VA3C.container = viewerDiv;
@@ -173,6 +174,7 @@ VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
     var loader = new THREE.ObjectLoader();
     VA3C.scene = new THREE.Scene();
     VA3C.scene = loader.parse(jsonToLoad);
+    //VA3C.scene.fog = new THREE.FogExp2(0x000000, 0.025);
 
     //call helper functions
     VA3C.jsonLoader.makeFaceMaterialsWork();
@@ -412,6 +414,23 @@ VA3C.lightingRig.setSunPosition = function(az, alt){
 
 };
 
+//function that sets the fog amount in the scene
+//doesn't seem like this hould live in the lighting rig ... if we get more scene variables we may need a sceneFunctions
+//object or something.
+VA3C.lightingRig.setFog = function( n ){
+
+    //if false, set fog to null and return
+    if(!n){
+        VA3C.scene.fog = null;
+    }
+
+    //if true, set up some fog in the scene using the backgound color and the bounding sphere's radius
+    else{
+        VA3C.scene.fog = new THREE.FogExp2(new THREE.Color(VA3C.uiVariables.backgroundColor), 0.00025);
+    }
+
+};
+
 
 
 
@@ -442,7 +461,17 @@ VA3C.UiConstructor = function(){
 
     };
 
-    //VIEW AND SCENE VARIABLES
+    //SCENE VARIABLES
+
+    //background color
+    this.backgroundColor = "#000000";
+
+    //fog
+    this.fog = true;
+
+
+    //VIEW AND SELECTION VARIABLES
+
     //zoom extents
     this.zoomExtents = function(){
         //loop over the children of the THREE scene, merge them into a mesh,
@@ -513,8 +542,8 @@ VA3C.UiConstructor = function(){
 
     };
 
-    //top and bottom color
-    this.backgroundColor = "#000000";
+    //selected object color
+    this.selectedObjectColor = "#FF00FF";
 
 
     //LIGHTING VARIABLES
@@ -805,6 +834,11 @@ VA3C.attributes.populateAttributeList = function( jsonData ){
 VA3C.attributes.purge = function(){
     this.restorePreviouslySelectedObject();
     this.elementList = [];
+};
+
+//function to handle changing the color of a selected element
+VA3C.attributes.setSelectedObjectColor = function(col){
+    VA3C.attributes.clickedMaterial.color = new THREE.Color(col);
 };
 
 
