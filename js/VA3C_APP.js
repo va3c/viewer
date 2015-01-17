@@ -29,11 +29,10 @@ VA3C.initViewer = function(viewerDiv, statsDiv){
     VA3C.container = viewerDiv;
     VA3C.renderer = new THREE.WebGLRenderer(
         {
-            alpha: true,
             maxLights: 10
         }
     );
-    VA3C.renderer.setClearColor(0x000000, 0.0);
+    VA3C.renderer.setClearColor(0x000000, 1.0);
     VA3C.renderer.setSize( window.innerWidth, window.innerHeight );
     VA3C.renderer.shadowMapEnabled = true;
     VA3C.container.append( VA3C.renderer.domElement );
@@ -241,7 +240,6 @@ VA3C.jsonLoader.processSceneGeometry = function(){
             items[i].geometry.mergeVertices();
             items[i].geometry.computeFaceNormals();
             items[i].geometry.computeVertexNormals();
-            items[i].material.shading = THREE.SmoothShading;
             items[i].castShadow = true;
             items[i].receiveShadow = true;
             //add element to our list of elements that can be selected
@@ -479,8 +477,7 @@ VA3C.UiConstructor = function(){
     this.zoomSelected = function(){};
 
     //top and bottom color
-    this.topColor = "#B9C6D4";
-    this.bottomColor = "#0D0D1B";
+    this.backgroundColor = "#000000";
 
 
     //LIGHTING VARIABLES

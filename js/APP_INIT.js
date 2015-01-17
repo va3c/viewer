@@ -22,13 +22,9 @@ $(document).ready(function(){
     viewFolder.add(VA3C.uiVariables, 'zoomExtents');
     viewFolder.add(VA3C.uiVariables, 'zoomSelected');
     //gradient background controls
-    viewFolder.addColor(VA3C.uiVariables, 'topColor').onChange(function(e){
-        var dummyString = "linear-gradient(" + e + " , " + VA3C.uiVariables.bottomColor +")";
-        $('body').css("background", dummyString);
-    });
-    viewFolder.addColor(VA3C.uiVariables, 'bottomColor').onChange(function(e){
-        var dummerString = "linear-gradient(" + VA3C.uiVariables.topColor  + " , " + e +")";
-        $('body').css( "background", dummerString);
+    viewFolder.addColor(VA3C.uiVariables, 'backgroundColor').onChange(function(e){
+        //set background color
+        VA3C.renderer.setClearColor(e);
     });
 
     //add a lighting folder
@@ -51,10 +47,6 @@ $(document).ready(function(){
     });
 
 
-
-    //set background colors on load
-    var bgStr = "linear-gradient(" + VA3C.uiVariables.topColor + " , " + VA3C.uiVariables.bottomColor +")";
-    $('body').css( "background", bgStr);
 
     //hide the dat.gui close controls button
     $(".close-button").css('visibility', 'hidden');
