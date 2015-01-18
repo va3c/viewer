@@ -404,9 +404,10 @@ VA3C.lightingRig.createLights = function() {
     light.shadowCameraLeft = offset * -1.2;
     light.distance = 0;
     light.intensity = 1;
-    light.shadowBias = 0.005;
+    light.shadowBias = 0.001;
     light.shadowMapHeight = 1000;
     light.shadowMapWidth = 1000;
+    light.shadowDarkness = 0.65;
     light.shadowCameraVisible = true;
 
     //add the light to our scene and to our app object
@@ -447,6 +448,18 @@ VA3C.lightingRig.setSunPosition = function(az, alt){
 
 };
 
+//function to turn the sun on and off
+VA3C.lightingRig.shadowsOnOff = function( shad ){
+    if(shad) {
+        VA3C.lightingRig.sunLight.castShadow = true;
+        VA3C.lightingRig.updateSceneMaterials();
+    }
+    else{
+        VA3C.lightingRig.sunLight.castShadow = false;
+        VA3C.lightingRig.updateSceneMaterials();
+    }
+};
+
 //function that sets the fog amount in the scene
 //doesn't seem like this should live in the lighting rig ... if we get more scene variables we may need a sceneFunctions
 //object or something.
@@ -462,6 +475,25 @@ VA3C.lightingRig.setFog = function( n ){
         VA3C.scene.fog = new THREE.FogExp2(new THREE.Color(VA3C.uiVariables.backgroundColor), 0.00025);
     }
 
+};
+
+
+//function to traverse materials in the scene when deep updates are needed - fog on off/ shadows on / off, etc
+VA3C.lightingRig.updateSceneMaterials = function(){
+    VA3C.scene.traverse( function(child){
+        if(child instanceof THREE.Mesh){
+            child.material.needsUpdate = true;
+        }
+        else if(child.type === 'Object3D' ){
+            try {
+                for (var i=0; i<child.children.length; i++) {
+                    for (var j=0; j<child.children[i].children.length; j++){
+                        child.children[i].children[j].material.needsUpdate = true;
+                    }
+                }
+            } catch (e) {}
+        }
+    });
 };
 
 
@@ -499,8 +531,13 @@ VA3C.UiConstructor = function(){
     //background color
     this.backgroundColor = "#000000";
 
+    //ambient light color
+    this.ambientLightColor = '#666666';
+
     //fog
     this.fog = true;
+
+
 
 
     //VIEW AND SELECTION VARIABLES
@@ -584,8 +621,8 @@ VA3C.UiConstructor = function(){
     //spotlight color
     this.spotlightsColor = '#666666';
 
-    //ambient light color
-    this.ambientLightColor = '#666666';
+    //sun light on / off
+    this.shadows = false;
 
     //sun azimuth and altitude
     this.solarAzimuth = 180;

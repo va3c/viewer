@@ -24,6 +24,9 @@ $(document).ready(function(){
         //set background color
         VA3C.renderer.setClearColor(e);
     });
+    sceneFolder.addColor(VA3C.uiVariables, 'ambientLightColor').onChange(function(e){
+        VA3C.lightingRig.setAmbientLightColor(e);
+    });
     //scene fog
     //sceneFolder.add(VA3C.uiVariables, 'fog').onChange(function(e){
     //        VA3C.lightingRig.setFog(e);
@@ -43,6 +46,13 @@ $(document).ready(function(){
 
     //add a lighting folder
     var lightsFolder = VA3C.datGui.addFolder('Lighting');
+    //light colors
+    lightsFolder.addColor(VA3C.uiVariables, 'spotlightsColor').onChange(function(e){
+        VA3C.lightingRig.setSpotlightsColor(e);
+    });
+    lightsFolder.add(VA3C.uiVariables, 'shadows').onChange(function(e){
+        VA3C.lightingRig.shadowsOnOff(e);
+    });
     //solar az and alt
     lightsFolder.add(VA3C.uiVariables, 'solarAzimuth')
         .min(0)
@@ -52,13 +62,7 @@ $(document).ready(function(){
         .min(0)
         .max(90)
         .step(0.1);
-    //light colors
-    lightsFolder.addColor(VA3C.uiVariables, 'ambientLightColor').onChange(function(e){
-        VA3C.lightingRig.setAmbientLightColor(e);
-    });
-    lightsFolder.addColor(VA3C.uiVariables, 'spotlightsColor').onChange(function(e){
-        VA3C.lightingRig.setSpotlightsColor(e);
-    });
+
 
 
 
