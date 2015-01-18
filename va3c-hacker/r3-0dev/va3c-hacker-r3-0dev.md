@@ -1,4 +1,6 @@
 
+<small style=color:red;>2015-01-17: Three.js R70 causing issues. Working hard to fix...</small>
+
 What would you like vA3C to do now?
 
 [Show you the vA3C Hacker web page?]( http://va3c.github.io/viewer/va3c-hacker/latest/ "browse files with vA3C Hacker" ) <input value='You are here' style=width:6em;-webkit-appearance:none;background-color:silver;  />  
