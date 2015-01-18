@@ -30,12 +30,15 @@ VA3C.initViewer = function(viewerDiv, statsDiv){
     VA3C.container = viewerDiv;
     VA3C.renderer = new THREE.WebGLRenderer(
         {
-            maxLights: 10
+            maxLights: 10,
+            antialias: true
         }
     );
     VA3C.renderer.setClearColor(0x000000, 1.0);
     VA3C.renderer.setSize( window.innerWidth, window.innerHeight );
     VA3C.renderer.shadowMapEnabled = true;
+    //VA3C.renderer.shadowMapSoft = true;
+    //VA3C.renderer.shadowMapType = THREE.PCFSoftShadowMap;
     VA3C.container.append( VA3C.renderer.domElement );
 
     //set up the stats window
@@ -44,7 +47,7 @@ VA3C.initViewer = function(viewerDiv, statsDiv){
     statsDiv.append( VA3C.stats.domElement );
 
     //set up the camera and orbit controls
-    VA3C.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000000 );
+    VA3C.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000000 );
     VA3C.camera.position.set( 1000, 1000, 1000 );
     VA3C.orbitControls = new THREE.OrbitControls( VA3C.camera, VA3C.renderer.domElement );
     VA3C.orbitControls.target.set( 0, 100, 0 );
@@ -251,6 +254,9 @@ VA3C.jsonLoader.processSceneGeometry = function(){
         //if this is an object that contains multiple meshes (like the objects that come from Revit), process the
         //children meshes so they render correctly, and add the child to the attributes.elementList
         else if ( items[i].children.length > 0 ){
+            //let the objects cast and receive shadows
+            items[i].castShadow = true;
+            items[i].receiveShadow = true;
             //the children to loop over
             var itemsChildren = items[i].children;
             for ( var k = 0, kLen = itemsChildren.length; k < kLen; k++ ) {
@@ -279,6 +285,22 @@ VA3C.jsonLoader.computeBoundingSphere = function(){
         if(child instanceof THREE.Mesh){
             geo.merge( child.geometry );
         }
+        else if(child.type === 'Object3D' ){
+            try {
+                for (var i=0; i<child.children.length; i++) {
+                    for (var j=0; j<child.children[i].children.length; j++){
+                        geo.merge(child.children[i].children[j].geometry);
+                    }
+                }
+            } catch (e) {}
+        }
+        /*if(child instanceof THREE.Object3D){
+            try {
+                for (i in child.children) {
+                    geo.merge(child.children[i]);
+                }
+            } catch (e) {}
+        }*/
     });
     geo.computeBoundingSphere();
 
@@ -369,12 +391,23 @@ VA3C.lightingRig.createLights = function() {
     VA3C.lightingRig.spotLights.push(spotF);
 
 
-
     //directional light - the sun
     var light = new THREE.DirectionalLight( 0xffffff, 1 );
-    light.position.set( 10000, 10000, 10000 );
-    light.target.position.set(center);
+    light.position.set( center.x + offset, center.y + offset, center.z + offset );
+    light.target.position.set(center.x, center.y, center.z);
     light.castShadow = true;
+    light.shadowCameraNear = 1;
+    light.shadowCameraFar = offset * 2.5;
+    light.shadowCameraTop = offset * 1.2;
+    light.shadowCameraRight = offset * 1.2;
+    light.shadowCameraBottom = offset * -1.2;
+    light.shadowCameraLeft = offset * -1.2;
+    light.distance = 0;
+    light.intensity = 1;
+    light.shadowBias = 0.005;
+    light.shadowMapHeight = 1000;
+    light.shadowMapWidth = 1000;
+    light.shadowCameraVisible = true;
 
     //add the light to our scene and to our app object
     VA3C.lightingRig.sunLight = light;
@@ -415,7 +448,7 @@ VA3C.lightingRig.setSunPosition = function(az, alt){
 };
 
 //function that sets the fog amount in the scene
-//doesn't seem like this hould live in the lighting rig ... if we get more scene variables we may need a sceneFunctions
+//doesn't seem like this should live in the lighting rig ... if we get more scene variables we may need a sceneFunctions
 //object or something.
 VA3C.lightingRig.setFog = function( n ){
 
