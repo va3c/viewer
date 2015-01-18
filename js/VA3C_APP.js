@@ -301,10 +301,10 @@ VA3C.jsonLoader.computeBoundingSphere = function(){
     VA3C.boundingSphere = geo.boundingSphere;
 
     //for debugging - show the sphere in the scene
-    var sphereGeo = new THREE.SphereGeometry(geo.boundingSphere.radius);
-    var sphereMesh = new THREE.Mesh(sphereGeo, new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true, opacity: 0.25}));
-    sphereMesh.position.set(geo.boundingSphere.center.x,geo.boundingSphere.center.y,geo.boundingSphere.center.z);
-    VA3C.scene.add(sphereMesh);
+    //var sphereGeo = new THREE.SphereGeometry(geo.boundingSphere.radius);
+    //var sphereMesh = new THREE.Mesh(sphereGeo, new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true, opacity: 0.85}));
+    //sphereMesh.position.set(geo.boundingSphere.center.x,geo.boundingSphere.center.y,geo.boundingSphere.center.z);
+    //VA3C.scene.add(sphereMesh);
 };
 
 
@@ -338,9 +338,6 @@ VA3C.lightingRig.createLights = function() {
     //get the center of the bounding sphere.  we'll use this to center the rig
     var center = VA3C.boundingSphere.center;
 
-    //create a hemisphere light?  nope. doesn't seem to work with models exported from revit.
-    //VA3C.scene.add( new THREE.HemisphereLight());
-
 
     //create a series of pointlights
 
@@ -351,43 +348,40 @@ VA3C.lightingRig.createLights = function() {
     VA3C.scene.add( pointA );
     VA3C.lightingRig.pointLights.push(pointA);
 
-    /*//directly below
-    var spotB = new THREE.SpotLight( 0x666666 );
-    spotB.position.set(center.x, center.y - offset, center.z);
-    spotB.target.position.set(center.x, center.y, center.z);
-    spotB.castShadow = false;
-    VA3C.scene.add( spotB );
-    VA3C.lightingRig.spotLights.push( spotB );
+    //directly below
+    var pointB = new THREE.PointLight( 0x666666, 0.66, 0 );
+    pointB.position.set(center.x, center.y - offset, center.z);
+    pointB.castShadow = false;
+    VA3C.scene.add( pointB );
+    VA3C.lightingRig.pointLights.push(pointB);
+
 
     //4 from the cardinal directions, at roughly 45deg
-    var spotC = new THREE.SpotLight( 0x666666 );
-    spotC.position.set(center.x + offset, center.y + offset, center.z);
-    spotC.target.position.set(center.x, center.y, center.z);
-    spotC.castShadow = false;
-    VA3C.scene.add( spotC );
-    VA3C.lightingRig.spotLights.push(spotC);
+    var pointC = new THREE.PointLight( 0x666666, 0.33, 0 );
+    pointC.position.set(center.x + offset, center.y , center.z);
+    pointC.castShadow = false;
+    VA3C.scene.add( pointC );
+    VA3C.lightingRig.pointLights.push( pointC );
 
-    var spotD = new THREE.SpotLight( 0x666666 );
-    spotD.position.set(center.x, center.y + offset, center.z + offset);
-    spotD.target.position.set(center.x, center.y, center.z);
-    spotD.castShadow = false;
-    VA3C.scene.add( spotD );
-    VA3C.lightingRig.spotLights.push(spotD);
+    var pointD = new THREE.PointLight( 0x666666, 0.33, 0 );
+    pointD.position.set(center.x, center.y , center.z + offset);
+    pointD.castShadow = false;
+    VA3C.scene.add( pointD );
+    VA3C.lightingRig.pointLights.push( pointD );
 
-    var spotE = new THREE.SpotLight( 0x666666 );
-    spotE.position.set(center.x - offset, center.y + offset, center.z);
-    spotE.target.position.set(center.x, center.y, center.z);
-    spotE.castShadow = false;
-    VA3C.scene.add( spotE );
-    VA3C.lightingRig.spotLights.push(spotE);
+    var pointE = new THREE.PointLight( 0x666666, 0.33, 0 );
+    pointE.position.set(center.x - offset, center.y , center.z);
+    pointE.castShadow = false;
+    VA3C.scene.add( pointE );
+    VA3C.lightingRig.pointLights.push( pointE );
 
-    var spotF = new THREE.SpotLight( 0x666666 );
-    spotF.position.set(center.x, center.y + offset, center.z + offset);
-    spotF.target.position.set(center.x, center.y, center.z);
-    spotF.castShadow = false;
-    VA3C.scene.add( spotF );
-    VA3C.lightingRig.spotLights.push(spotF);
-*/
+    var pointF = new THREE.PointLight( 0x666666, 0.33, 0 );
+    pointF.position.set(center.x, center.y , center.z - offset);
+    pointF.castShadow = false;
+    VA3C.scene.add( pointF );
+    VA3C.lightingRig.pointLights.push( pointF );
+
+
 
     //directional light - the sun
     var light = new THREE.DirectionalLight( 0xffffff, 1 );
