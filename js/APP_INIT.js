@@ -47,8 +47,8 @@ $(document).ready(function(){
     //add a lighting folder
     var lightsFolder = VA3C.datGui.addFolder('Lighting');
     //light colors
-    lightsFolder.addColor(VA3C.uiVariables, 'spotlightsColor').onChange(function(e){
-        VA3C.lightingRig.setSpotlightsColor(e);
+    lightsFolder.addColor(VA3C.uiVariables, 'pointLightsColor').onChange(function(e){
+        VA3C.lightingRig.setPointLightsColor(e);
     });
     lightsFolder.add(VA3C.uiVariables, 'shadows').onChange(function(e){
         VA3C.lightingRig.shadowsOnOff(e);

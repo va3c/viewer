@@ -294,18 +294,17 @@ VA3C.jsonLoader.computeBoundingSphere = function(){
                 }
             } catch (e) {}
         }
-        /*if(child instanceof THREE.Object3D){
-            try {
-                for (i in child.children) {
-                    geo.merge(child.children[i]);
-                }
-            } catch (e) {}
-        }*/
     });
     geo.computeBoundingSphere();
 
     //expand the scope of the bounding sphere
     VA3C.boundingSphere = geo.boundingSphere;
+
+    //for debugging - show the sphere in the scene
+    var sphereGeo = new THREE.SphereGeometry(geo.boundingSphere.radius);
+    var sphereMesh = new THREE.Mesh(sphereGeo, new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true, opacity: 0.25}));
+    sphereMesh.position.set(geo.boundingSphere.center.x,geo.boundingSphere.center.y,geo.boundingSphere.center.z);
+    VA3C.scene.add(sphereMesh);
 };
 
 
@@ -321,8 +320,8 @@ VA3C.lightingRig.ambientLight = {};
 //a spotlight representing the sun
 VA3C.lightingRig.sunLight = {};
 
-//an array of directional lights to provide even coverage of the scene
-VA3C.lightingRig.spotLights = [];
+//an array of point lights to provide even coverage of the scene
+VA3C.lightingRig.pointLights = [];
 
 
 //function that creates lights in the scene
@@ -343,17 +342,16 @@ VA3C.lightingRig.createLights = function() {
     //VA3C.scene.add( new THREE.HemisphereLight());
 
 
-    //create a series of spotlights
+    //create a series of pointlights
 
     //directly above
-    var spotA = new THREE.SpotLight( 0x666666 );
-    spotA.position.set(center.x, center.y + offset, center.z);
-    spotA.target.position.set(center.x, center.y, center.z);
-    spotA.castShadow = false;
-    VA3C.scene.add( spotA );
-    VA3C.lightingRig.spotLights.push(spotA);
+    var pointA = new THREE.PointLight( 0x666666, 1, 0 );
+    pointA.position.set(center.x, center.y + offset, center.z);
+    pointA.castShadow = false;
+    VA3C.scene.add( pointA );
+    VA3C.lightingRig.pointLights.push(pointA);
 
-    //directly below
+    /*//directly below
     var spotB = new THREE.SpotLight( 0x666666 );
     spotB.position.set(center.x, center.y - offset, center.z);
     spotB.target.position.set(center.x, center.y, center.z);
@@ -389,13 +387,13 @@ VA3C.lightingRig.createLights = function() {
     spotF.castShadow = false;
     VA3C.scene.add( spotF );
     VA3C.lightingRig.spotLights.push(spotF);
-
+*/
 
     //directional light - the sun
     var light = new THREE.DirectionalLight( 0xffffff, 1 );
     light.position.set( center.x + offset, center.y + offset, center.z + offset );
     light.target.position.set(center.x, center.y, center.z);
-    light.castShadow = true;
+    //light.castShadow = true;
     light.shadowCameraNear = 1;
     light.shadowCameraFar = offset * 2.5;
     light.shadowCameraTop = offset * 1.2;
@@ -403,12 +401,12 @@ VA3C.lightingRig.createLights = function() {
     light.shadowCameraBottom = offset * -1.2;
     light.shadowCameraLeft = offset * -1.2;
     light.distance = 0;
-    light.intensity = 1;
+    light.intensity = 0;
     light.shadowBias = 0.001;
     light.shadowMapHeight = 1000;
     light.shadowMapWidth = 1000;
     light.shadowDarkness = 0.65;
-    light.shadowCameraVisible = true;
+    //light.shadowCameraVisible = true;
 
     //add the light to our scene and to our app object
     VA3C.lightingRig.sunLight = light;
@@ -416,15 +414,13 @@ VA3C.lightingRig.createLights = function() {
 
 };
 
-//function that adjusts the spotlight color
+//function that adjusts the point lights' color
 //this is a handler for a UI variable
-VA3C.lightingRig.setSpotlightsColor = function( col ){
+VA3C.lightingRig.setPointLightsColor = function( col ){
 
-    //console.log(col);
-    for(var i in VA3C.lightingRig.spotLights){
+    for(var i in VA3C.lightingRig.pointLights){
 
-        //debug me first - should be something like this
-        VA3C.lightingRig.spotLights[i].color = new THREE.Color(col);
+        VA3C.lightingRig.pointLights[i].color = new THREE.Color(col);
     }
 };
 
@@ -452,10 +448,12 @@ VA3C.lightingRig.setSunPosition = function(az, alt){
 VA3C.lightingRig.shadowsOnOff = function( shad ){
     if(shad) {
         VA3C.lightingRig.sunLight.castShadow = true;
+        VA3C.lightingRig.sunLight.intensity = 1;
         VA3C.lightingRig.updateSceneMaterials();
     }
     else{
         VA3C.lightingRig.sunLight.castShadow = false;
+        VA3C.lightingRig.sunLight.intensity = 0;
         VA3C.lightingRig.updateSceneMaterials();
     }
 };
@@ -618,8 +616,8 @@ VA3C.UiConstructor = function(){
 
     //LIGHTING VARIABLES
 
-    //spotlight color
-    this.spotlightsColor = '#666666';
+    //point lights color
+    this.pointLightsColor = '#666666';
 
     //sun light on / off
     this.shadows = false;
