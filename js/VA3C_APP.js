@@ -615,6 +615,9 @@ VA3C.UiConstructor = function(){
     //selected object color
     this.selectedObjectColor = "#FF00FF";
 
+    //show stats?
+    this.showStats = false;
+
 
     //LIGHTING VARIABLES
 

@@ -42,6 +42,14 @@ $(document).ready(function(){
     viewFolder.addColor(VA3C.uiVariables, 'selectedObjectColor').onChange(function(e){
         VA3C.attributes.setSelectedObjectColor(e);
     });
+    viewFolder.add(VA3C.uiVariables, 'showStats').onChange(function(e){
+        if(e){
+            $('#Stats_output').show();
+        }
+        else{
+            $('#Stats_output').hide();
+        }
+    });
 
 
     //add a lighting folder
@@ -78,6 +86,9 @@ $(document).ready(function(){
     //make the attributes div draggable and resizeable
     $('.attributeList').draggable( {containment: "parent"});
     //$('.attributeList').resizable();
+
+    //hide the stats div - we'll turn it on / off with the UI
+    $('#Stats_output').hide();
 
 
     //load our sample JSON file - for development of the colored meshes from GH
