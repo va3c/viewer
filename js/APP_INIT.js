@@ -53,7 +53,7 @@ $(document).ready(function(){
     lightsFolder.add(VA3C.uiVariables, 'shadows').onChange(function(e){
         VA3C.lightingRig.shadowsOnOff(e);
     });
-    //solar az and alt
+    /*//solar az and alt
     lightsFolder.add(VA3C.uiVariables, 'solarAzimuth')
         .min(0)
         .max(359)
@@ -61,7 +61,7 @@ $(document).ready(function(){
     lightsFolder.add(VA3C.uiVariables, 'solarAltitude')
         .min(0)
         .max(90)
-        .step(0.1);
+        .step(0.1);*/
 
 
 

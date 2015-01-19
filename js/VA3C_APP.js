@@ -168,9 +168,12 @@ VA3C.jsonLoader.hideOpenDialog = function(){
 //a function to populate our scene object from a json file
 VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
 
-    //restore the initial state of the attributes object
+    //restore the initial state of the attributes and lighting objects
     if (VA3C.attributes.elementList.length > 0) {
         VA3C.attributes.purge();
+    }
+    if (VA3C.lightingRig.pointLights.length > 0) {
+        VA3C.lightingRig.purge();
     }
 
     //parse the JSON into a THREE scene
@@ -302,7 +305,7 @@ VA3C.jsonLoader.computeBoundingSphere = function(){
 
     //for debugging - show the sphere in the scene
     //var sphereGeo = new THREE.SphereGeometry(geo.boundingSphere.radius);
-    //var sphereMesh = new THREE.Mesh(sphereGeo, new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true, opacity: 0.85}));
+    //var sphereMesh = new THREE.Mesh(sphereGeo, new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true, opacity: 0.25}));
     //sphereMesh.position.set(geo.boundingSphere.center.x,geo.boundingSphere.center.y,geo.boundingSphere.center.z);
     //VA3C.scene.add(sphereMesh);
 };
@@ -397,8 +400,8 @@ VA3C.lightingRig.createLights = function() {
     light.distance = 0;
     light.intensity = 0;
     light.shadowBias = 0.001;
-    light.shadowMapHeight = 1000;
-    light.shadowMapWidth = 1000;
+    light.shadowMapHeight = window.innerHeight;
+    light.shadowMapWidth = window.innerWidth;
     light.shadowDarkness = 0.65;
     //light.shadowCameraVisible = true;
 
@@ -469,7 +472,6 @@ VA3C.lightingRig.setFog = function( n ){
 
 };
 
-
 //function to traverse materials in the scene when deep updates are needed - fog on off/ shadows on / off, etc
 VA3C.lightingRig.updateSceneMaterials = function(){
     VA3C.scene.traverse( function(child){
@@ -488,6 +490,12 @@ VA3C.lightingRig.updateSceneMaterials = function(){
     });
 };
 
+//function to purge lighting variables.  called when we load a new scene
+VA3C.lightingRig.purge = function(){
+    this.ambientLight = {};
+    this.sunLight = {};
+    this.pointLights = [];
+};
 
 
 
