@@ -70,6 +70,8 @@ Both are bookmarklets you may use on most any Three.js file.
 ### Various Adventures
 <small>Try some demos. Explore the possibilities.</small>
 
+[Browse the FGX Aircraft library]( #../content/fgx-aircraft/fgx-aircraft.js )
+
 [Go on a short aeronautical and architectural adventure?]( #demo-aeronautical-architectural.js "Makes heavy use of resources." ) 
 
 [Play with our baby sister, vA3C Hackette?]( http://va3c.github.io/viewer/va3c-hackette/ )

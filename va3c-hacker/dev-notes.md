@@ -1,6 +1,16 @@
 Dev Notes
 ===
 
+2015-01-18 ~ Theo
+
+Lots of interesting learning experiences today. Much do to lots of my apps crashing with Three.js R70
+
+The first thing is a simpler and easier way of creating and maintaining materials libraries.
+
+The other thing is that file-dispatch.js is far too complicated. So I explored i=using iframes and srcdoc to load JavaScript.
+All looks very promising. And can help with loading files synchronously.
+
+
 2014-12-29 ~ Theo
 
 Started the Hacker Cookbook and moved three scripts into it:

@@ -12,6 +12,7 @@
 	var camera;
 	var controls;
 
+	var airDoodleDisplay = true;
 	var airDoodleVisible;
 
 	VH.initHacker = function () {
@@ -84,10 +85,14 @@
 			menuRight.addEventListener( 'mousedown', VH.mouseMove, false );
 			menuRight.header = '<h1><a id=closerIcon href=JavaScript:VH.toggleMenu(menuRight); title="' + tooltip + '" >&#9776;</a><h1>' +
 				'<h1>' +
-					'<a href="" onmouseover=showDoodle(); onmouseout=hideDoodle(); title="' + tooltip + '" >' + document.title + '</a> ' +
+					'<a href="" title="' + tooltip + '" >' + document.title + '</a> ' +
 				'</h1>' +
 				'<hr>' +
 			'';
+			if ( airDoodleDisplay === true ) {
+				menuRight.addEventListener( 'onmouseover', showDoodle, false );
+				menuRight.addEventListener( 'onmouseout', hideDoodle, false );
+			}
 
 			menuLeft = container.appendChild( document.createElement( 'div' ) );
 			menuLeft.style.cssText = 'background-color: #ccc; display: none; left: 20px; max-height: ' + ( window.innerHeight - 120 ) + 'px ;' +
@@ -142,13 +147,21 @@
 
 		var converter = new Showdown.converter();
 
-		panel.innerHTML = panel.header + converter.makeHtml( VH.requestFile( fname ) );
+		VH.requestFile( fname, callback );
 
-		menuLeft.style.display = 'none';
+		function callback() {
 
-		if ( app && app.menuLeft ) app.menuLeft.style.display = 'none';
+			text = xmlHttp.responseText;
 
-		panel.style.display = '';
+			panel.innerHTML = panel.header + converter.makeHtml( text );
+
+			menuLeft.style.display = 'none';
+
+			if ( app && app.menuLeft ) app.menuLeft.style.display = 'none';
+
+			panel.style.display = '';
+
+		}
 
 	};
 
@@ -190,14 +203,24 @@
 
 	};
 
-	VH.requestFile = function( fileName ){
+var xmlHttp;
 
-		var xmlHttp = new XMLHttpRequest ();
-		xmlHttp.open( 'GET', fileName, false );
-		xmlHttp.send( null );
+	VH.requestFileCallback = function() {
+
 		return xmlHttp.responseText;
 
+	}
+	VH.requestFile = function( fileName, callback ){
+
+		xmlHttp = new XMLHttpRequest ();
+		xmlHttp.open( 'GET', fileName, true );
+		xmlHttp.onreadystatechange = callback;
+		xmlHttp.send( null );
+//		return xmlHttp.responseText;
+
 	};
+
+
 
 	VH.loadScript = function ( fileName, callback ) {
 
@@ -250,8 +273,8 @@
 
 		if ( parameters.indexOf( 'noAxis' ) === -1 ) {
 
-			var axis = new THREE.AxisHelper( 50 );
-			scene.add( axis );
+			var axisHelper = new THREE.AxisHelper( 5 );
+			scene.add( axisHelper );
 
 		}
 

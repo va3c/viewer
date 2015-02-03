@@ -1,4 +1,4 @@
-	var JAMA = {} || JAMA;
+	var JAMA = JAMA || {};
 
 	if ( window.location.origin.substr( 0, 7 ) !== 'http://' ) {
 		JAMA.texturePath = 'file:///C:/Users/Theo/Dropbox/Public/git-repos/va3c.github.io/viewer/va3c-viewer-html5/';
@@ -8,6 +8,8 @@
 
 
 	JAMA.addMaterialSelectTab = function() {
+
+//JAMA.initMaterials();
 
 		var tab = JA.menu.appendChild( document.createElement( 'div' ) );
 		tab.title = 'Choose from a number of materials to apply to the surface';
@@ -53,7 +55,13 @@
 	JAMA.updateMaterial = function( key ) {
 
 		chkMaterial.checked = false;
-		scene.select.material = JAMA.materials[ key ].set();
+
+		var mat = JAMA.materials[ key ].set;
+console.log( 'set', mat );
+		scene.select.material = new JAMA.materials[ key ].set();
+
+//		app.mesh.material = new JAMA.materials[ key ].set();
+//scene.select.material = new THREE.MeshBasicMaterial( { color: 0xff0000, shading: THREE.FlatShading, side: 2 });
 		divMsg3.innerHTML = 'Material: <b>' + JAMA.materials[ key ].title + '</b>';
 		scene.select.materialKey = key;
 

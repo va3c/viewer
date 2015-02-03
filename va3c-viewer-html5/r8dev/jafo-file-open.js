@@ -859,7 +859,9 @@ console.log( 'found a whoopsie');
 
 		if ( permalink.override ) {
 
-			obj.material = JAMA.materials[ permalink.mat ].set();
+console.log( 'p', permalink, JAMA.materials[ permalink.mat ] );
+
+//			obj.material = JAMA.materials[ permalink.mat ].set();
 
 		}
 

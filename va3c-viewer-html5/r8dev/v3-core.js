@@ -107,7 +107,10 @@
 		name = V3MH.files[ item ][ 1 ];
 		V3PL.buildPermalink( src, 1, name );
 
-		V3PL.permalinks[ 1 ].mat = 'PhongRandom';
+//		V3PL.permalinks[ 1 ].mat = 'PhongRandom';
+//		V3PL.permalinks[ 1 ].mat = 'PhongDefault';
+		V3PL.permalinks[ 1 ].mat = 'NormalSmooth';
+
 		V3PL.permalinks[ 1 ].override = true; // see JAFO.updateObject
 		JAFO.openPermalinks( V3PL.permalinks );
 	};

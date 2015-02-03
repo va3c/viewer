@@ -188,7 +188,17 @@
 
 		} else {
 
-			alert( 'Not a file type, we can deal with yet...')
+//			alert( 'Not a file type, we can deal with yet...');
+
+			script = document.body.appendChild( document.createElement( 'script' ) );
+
+			script.onload = function() {
+
+				VH.loadFileHTMLByURL( fileName, parameters, callbackloadFileHTMLByURL );
+
+			};
+
+			script.src = hackerPrefix + 'load-file-html.js';
 
 		}
 
@@ -328,7 +338,7 @@
 
 		} else {
 
-			alert( 'Not a file type we can deal with yet...')
+			alert( 'Not a file content type we can deal with yet...')
 
 		}
 
