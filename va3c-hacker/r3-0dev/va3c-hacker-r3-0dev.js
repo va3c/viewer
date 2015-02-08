@@ -151,7 +151,7 @@
 
 		function callback() {
 
-			text = xmlHttp.responseText;
+			text = VH.xmlHttp.responseText;
 
 			panel.innerHTML = panel.header + converter.makeHtml( text );
 
@@ -203,23 +203,21 @@
 
 	};
 
-var xmlHttp;
-
 	VH.requestFileCallback = function() {
 
-		return xmlHttp.responseText;
+		return VH.xmlHttp.responseText;
 
 	}
+
 	VH.requestFile = function( fileName, callback ){
 
-		xmlHttp = new XMLHttpRequest ();
-		xmlHttp.open( 'GET', fileName, true );
-		xmlHttp.onreadystatechange = callback;
-		xmlHttp.send( null );
+		VH.xmlHttp = new XMLHttpRequest ();
+		VH.xmlHttp.open( 'GET', fileName, true );
+		VH.xmlHttp.onreadystatechange = callback;
+		VH.xmlHttp.send( null );
 //		return xmlHttp.responseText;
 
 	};
-
 
 
 	VH.loadScript = function ( fileName, callback ) {
@@ -228,7 +226,7 @@ var xmlHttp;
 
 		var js = document.body.appendChild ( document.createElement( 'script' ) );
 
-		js.onload = callback();
+		js.onload = callback;
 
 		js.setAttribute ( 'src', fileName );
 

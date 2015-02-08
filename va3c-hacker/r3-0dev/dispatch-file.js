@@ -96,6 +96,13 @@
 
 //			}
 
+// MD
+
+		} else if ( fileType === '.md' ) {
+
+console.log( 'md' );
+
+			VH.loadScript( hackerPrefix + 'load-file-md.js', function() { VH.loadFileMD( fileName, parameters ); } );
 
 // OBJ
 
