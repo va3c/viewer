@@ -288,7 +288,7 @@ VA3C.jsonLoader.computeBoundingSphere = function(){
         if(child instanceof THREE.Mesh){
             geo.merge( child.geometry );
         }
-        else if(child.type === 'Object3D' ){
+        /*else if(child.type === 'Object3D' ){
             try {
                 for (var i=0; i<child.children.length; i++) {
                     for (var j=0; j<child.children[i].children.length; j++){
@@ -296,7 +296,7 @@ VA3C.jsonLoader.computeBoundingSphere = function(){
                     }
                 }
             } catch (e) {}
-        }
+        }*/
     });
     geo.computeBoundingSphere();
 
@@ -787,7 +787,7 @@ VA3C.attributes.restorePreviouslySelectedObject = function(){
     //apply the stored materials to the meshes in the object.
 
     //are we working with an object3d?  if so we need to reset all of the children materials
-    if(VA3C.attributes.previousClickedElement.object.parent.type === "Object3D"){
+    if(VA3C.attributes.previousClickedElement.object.type === "Object3D"){
 
         //loop over the children and repaint each one
         for(var i=0; i<VA3C.attributes.previousClickedElement.materials.length; i++){
