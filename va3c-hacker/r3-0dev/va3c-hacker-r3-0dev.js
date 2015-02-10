@@ -382,6 +382,6 @@
 			'background: radial-gradient(' + X + 'px ' + Y + 'px, farthest-corner, ' + col1 + ' 0%, ' + col2 + ' 50%, ' + col3 + ' 100%); }' +
 		'';
 
-			airDoodle = true;
+		//airDoodle = true;
 
 	};
