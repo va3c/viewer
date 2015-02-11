@@ -1,4 +1,4 @@
-[View Revit JSON 4 Files]( ./view-json-revit-r1.html )
+[View Revit JSON 4 Files R2]( ./view-json-revit-r1.html )
 ===
 
 Many thanks to Jeremy and Matt for these models converted from Revit to Three.js JSON 4.
@@ -11,11 +11,11 @@ Stay up to date on progress at Jeremy's web site:
 
 
 ![]( ./little_house.rvt-640x480.png )
-[[O]]( #dispatch.js#../../../RvtVa3c/models/little_house.rvt.js#py=-10#ry=3#sx=0.01#sy=0.01#sz=0.01#displayMenuLeft )
-[Little House]( #dispatch.js#../../../RvtVa3c/models/little_house.rvt.js#py=-10#ry=3#sx=0.01#sy=0.01#sz=0.01#add=true#displayMenuLeft )
+[[O]]( #../../../../RvtVa3c/models/little_house.rvt.js#py=-10#ry=3#sx=0.01#sy=0.01#sz=0.01#displayMenuLeft )
+[Little House]( #../../../../RvtVa3c/models/little_house.rvt.js#py=-10#ry=3#sx=0.01#sy=0.01#sz=0.01#add=true#displayMenuLeft )
 
-[[O]]( #dispatch.js#../../../RvtVa3c/models/Project1.rvt.js#px=-50#py=-10#ry=-1.5#sx=0.01#sy=0.01#sz=0.01displayMenuLeft )
-[Project 1]( #dispatch.js#../../../RvtVa3c/models/Project1.rvt.js#px=-50#py=-10#ry=-1.5#sx=0.01#sy=0.01#sz=0.01#add=true#displayMenuLeft )
+[[O]]( #dispatch.js#../../../../RvtVa3c/models/Project1.rvt.js#px=-50#py=-10#ry=-1.5#sx=0.01#sy=0.01#sz=0.01displayMenuLeft )
+[Project 1]( #dispatch.js#../../../../RvtVa3c/models/Project1.rvt.js#px=-50#py=-10#ry=-1.5#sx=0.01#sy=0.01#sz=0.01#add=true#displayMenuLeft )
 
 [[O]]( #dispatch.js#../../../RvtVa3c/models/Project2.rvt.js#px=120#py=-10#pz=120#ry=1.6#sx=0.01#sy=0.01#sz=0.01#displayMenuLeft )
 [Project 2]( #dispatch.js#../../../RvtVa3c/models/Project2.rvt.js#px=120#py=-10#pz=120#ry=1.6#sx=0.01#sy=0.01#sz=0.01#add=true#displayMenuLeft )

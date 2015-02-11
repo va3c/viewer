@@ -23,7 +23,7 @@ So for the moment, kindly explore the possibilities using the [vA3V Hacker]( htt
   &nbsp;  [Load a template with skybox of clouds?]( #dispatch.js#../templates/template-skybox.html#noMenuLeft )  
 [[Browse even more templates]( #read-markdown.js#browse-templates.md )]  
 
-[Browse some NASA STL files?]( #dispatch.js#../../../nasa-samples/browse-nasa-stl-models.html#add=true ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )  
+[Browse some NASA STL files?]( #dispatch.js#../../../nasa-samples/index.html#add=true ) [source]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples )  
 
 [Have a glimpse at Tony Parisi's new &lt;GLAM> declarative language examples?]( #read-markdown.js#browse-glam-models.md#displayInfo "make your style sheets 3D smarter" )  
 - load a new template after to continue
