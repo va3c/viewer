@@ -39,7 +39,9 @@ zoom box <input type=checkbox id=chkZoom checked />
 </details>
 
 <details open>
+
 <summary><h2>Grasshopper Files</h2></summary>
+
 [Hex_01.js]( #../../../../../json/Hex_01.js#sx=0.01#sy=0.01#sz=0.01# )  
 [MissSpacyEyes.json]( #../../../../../json/MissSpacyEyes.json#sx=0.01#sy=0.01#sz=0.01# )  
 [TTX.json]( #../../../../../json/TTX.json#sx=0.01#sy=0.01#sz=0.01# )  
@@ -49,6 +51,7 @@ zoom box <input type=checkbox id=chkZoom checked />
 
 <details open>
 <summary><h2>3DS Files</h2></summary>
+
 [test_3dsmax.js]( #../../../../../json/3dsmax/test_3dsmax.js#sx=0.01#sy=0.01#sz=0.01# )  
 [TransamericaPyramid2.js]( #../../../../../json/3dsmax/TransamericaPyramid2.js#sx=0.01#sy=0.01#sz=0.01# )  
 </details>
