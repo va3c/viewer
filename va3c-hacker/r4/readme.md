@@ -16,9 +16,13 @@ The menus are written in Markdown. Just like your Reddit posts.
 Instead of mysterious icons and incomprehensible widgets, you now have ridiculously informative narratives!
 
 
+<details open>
+<summary>
+[[O]]( http://va3c.github.io/viewer/va3c-hacker/content/revit/r2/view-hackathon-files.html "open in new tab" )
+[Revit JSON]( #../content/revit/r2/view-hackathon-files.html# )
+</summary>
 
-[Revit JSON]()
-
+</details>
 <details open>
 <summary>
 [[O]]( http://va3c.github.io/nasa-samples/index.html "open in new tab" )

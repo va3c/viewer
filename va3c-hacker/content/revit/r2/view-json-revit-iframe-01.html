@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>view-json-revit-iframe r2</title>
+<meta charset=utf-8 />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+</head>
+<body>
+<script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
+<script>
+
+	var defaults = '#../../../../../RvtVa3c/models/little_house.rvt.js#py=5#ry=3#sx=0.01#sy=0.01#sz=0.01#axis#gradient#grid#ground#';
+	var info, renderer, scene, camera, controls, stats, light;
+
+		var objects = [];
+
+	init();
+	animate();
+
+	function init() {
+		var geometry, material, mesh, helper;
+
+		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
+
+		info = document.body.appendChild( document.createElement( 'div' ) );
+		info.style.cssText = 'left: 0; margin: auto; position: absolute; right: 0; text-align: center; top: 0px; width: 30%;';
+		info.innerHTML = 
+			'<div id=header ></div>' +
+			'<div id=msg></div>' +
+		'';
+
+		stats = new Stats();
+		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
+		document.body.appendChild( stats.domElement );
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMapEnabled = true;
+		document.body.appendChild( renderer.domElement );
+
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
+		camera.position.set( 100, 10, 100 );
+		scene.add( camera ); // for light to follow
+
+// controls
+		controls = new THREE.OrbitControls( camera );
+		controls.minDistance = 10;
+		controls.maxDistance = 5000;
+		controls.target.set( 0, 20, 0 );
+// Lights
+		light = new THREE.AmbientLight( 0x888888 );
+		scene.add( light );
+
+		light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		light.position.set( -200, 200, 200 );
+
+		var d = 100;
+		light.shadowCameraLeft = -d;
+		light.shadowCameraRight = d;
+		light.shadowCameraTop = d;
+		light.shadowCameraBottom = -d;
+
+		light.shadowCameraNear = 200;
+		light.shadowCameraFar = 500;
+
+// can help stop appearance of gridlines in objects with opacity < 1
+		light.shadowBias = -0.0002; // default 0 ~ distance fron corners?
+		light.shadowDarkness = 0.3; // default 0.5
+		light.shadowMapWidth = 2048;  // default 512
+		light.shadowMapHeight = 2048;
+
+		light.castShadow = true;
+		light.shadowCameraVisible = true;
+		scene.add( light );
+
+		light = new THREE.PointLight( 0xffffff, 0.5 );
+		light.position = camera.position;
+		camera.add( light );
+
+		hashes = location.hash.split ( '#' );
+
+		if ( location.hash.length > 4 ) {
+
+			msg.innerHTML = hashes;
+
+			loadFile( location.hash );
+
+		} else {
+
+			msg.innerHTML = 'loading default ...' ;
+
+			if ( window.self === window.top ) {
+
+				header.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>';
+
+				msg.innerHTML += 'not in an iframe ';
+
+			} else {
+
+				msg.innerHTML += 'inside an iframe';
+
+			}
+
+			loadFile( defaults );
+
+		}
+
+	}
+
+	function loadFile( hash ) {
+// Still cannot trap the error if not JSON 4...
+
+		hashes = hash.split ( '#' );
+
+		ground = hashes.indexOf( 'ground' ) > -1 ? addGround() : '';
+
+		grid = hashes.indexOf( 'grid' ) > -1 ? addGrid() : '';
+
+		axis = hashes.indexOf( 'axis' ) > -1 ? addAxis() : '';
+
+		gradient = hashes.indexOf( 'gradient' ) > -1 ? addGradient() : '';
+
+		loader = new THREE.ObjectLoader();
+
+        loader.load( hashes[ 1 ], function( result ){
+
+			updateObjectGeometryByHashParameters ( result, hash );
+
+			result.traverse( function ( child ) {
+
+				if ( child instanceof THREE.Mesh ) {
+
+					child.castShadow = true;
+					child.receiveShadow = true;
+					objects.push( child );
+
+				}
+
+			} );
+
+			scene.add( result );
+
+			msg.innerHTML += '<h3>' + hashes[ 1 ].split('/').pop() + '</h3>';
+
+		}, onLoad, onError );
+
+		function onLoad( event ) {
+//console.log( 'yay' ); 
+		}
+
+		function onError( event ) {
+console.log( 'oops' );
+		}
+
+	}
+
+	function updateObjectGeometryByHashParameters ( object, hash ) {
+
+		parameters = hash.split ( '#' );
+
+		if ( parameters.indexOf( 'random' ) > -1 ) {
+
+			object.position.set ( 80 * Math.random() - 40, 50 * Math.random() + 25 , 80 * Math.random() - 40 );
+			object.rotation.set( Math.PI * Math.random(), Math.PI * Math.random(), 0 );
+
+		}
+
+		var parameter, value;
+
+		for ( var i = 0, len = parameters.length; i < len; i++) {
+
+			parameter = parameters[i].substr( 0, 2 );
+			value = parseFloat( parameters[i].substr( 3 ) );
+
+			if ( parameter === 'px' ) object.position.x = value;
+			if ( parameter === 'py' ) object.position.y = value;
+			if ( parameter === 'pz' ) object.position.z = value;
+
+			if ( parameter === 'rx' ) object.rotation.x = value;
+			if ( parameter === 'ry' ) object.rotation.y = value;
+			if ( parameter === 'rz' ) object.rotation.z = value;
+
+			if ( parameter === 'sx' ) object.scale.x = value;
+			if ( parameter === 'sy' ) object.scale.y = value;
+			if ( parameter === 'sz' ) object.scale.z = value;
+
+			if ( parameter === 'na' ) object.name = parameters[i].substr( 3 );
+
+		}
+
+//		object.castShadow = true;
+//		object.receiveShadow = true;
+
+	}
+
+	function addAxis() {
+
+			var axisHelper = new THREE.AxisHelper( 50 );
+			scene.add( axisHelper );
+
+		}
+
+	function addGradient () {
+
+		var cssBackround = document.body.appendChild( document.createElement('style') );
+
+		var col1 = "#" + Math.random().toString(16).slice(2, 8);
+		var col2 = "#" + Math.random().toString(16).slice(2, 8);
+		var col3 = "#" + Math.random().toString(16).slice(2, 8);
+		var X = ( Math.random() * window.innerWidth ).toFixed(0);
+		var Y = ( Math.random() * window.innerHeight ).toFixed(0);
+		var center =  20 + ( Math.random() * 60 ).toFixed(0);
+
+		cssBackround.innerText = 'body { ' +
+			'background: -webkit-radial-gradient(' + X + 'px ' + Y + 'px, farthest-corner, ' + col1 + ' 0%, ' + col2 + ' 50%, ' + col3 + ' 100%); ' +
+			'background: -moz-radial-gradient(' + X + 'px ' + Y + 'px, farthest-corner, ' + col1 + ' 0%, ' + col2 + ' 50%, ' + col3 + ' 100%); ' +
+			'background: radial-gradient(' + X + 'px ' + Y + 'px, farthest-corner, ' + col1 + ' 0%, ' + col2 + ' 50%, ' + col3 + ' 100%); }' +
+		'';
+	};
+
+	function addGrid() {
+
+			var helper = new THREE.GridHelper( 150, 10 );
+			scene.add( helper );
+
+	}
+
+	function addGround() {
+
+		var geometry = new THREE.BoxGeometry( 300, 2, 300 );
+		var material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random(),
+			shininess: 5
+		} );
+
+		var ground = new THREE.Mesh( geometry, material );
+		ground.position.set( 0, -1, 0 );
+		ground.castShadow = true;
+		ground.receiveShadow = true;
+		scene.add( ground );
+
+		var helper = new THREE.BoxHelper( ground );
+		helper.material.color.setRGB( 1, 0, 1 );
+		scene.add( helper );
+
+	}
+
+		var intersected;
+
+		var mouse = new THREE.Vector2();
+
+		var raycaster = new THREE.Raycaster();
+
+		renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+		function onDocumentMouseMove( event ) {
+
+			event.preventDefault();
+
+			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+			raycaster.setFromCamera( mouse, camera );
+
+			var intersects = raycaster.intersectObjects( objects );
+
+			if ( intersects.length > 0 ) {
+
+				if ( intersected != intersects[ 0 ].object ) {
+
+
+					if ( intersected ) { 
+
+						deHighlight( intersected );
+
+					}
+
+					intersected = intersects[ 0 ].object;
+
+					highlight( intersected );
+
+				}
+
+			} else {
+
+				if ( intersected ) { 
+
+					deHighlight( intersected );
+
+					intersected = null;
+
+				}
+
+			}
+
+		}
+
+	function highlight( mesh ) {
+
+		if ( mesh.material.emissive ) {
+
+			mesh.currentHex = mesh.material.emissive.getHex();
+			mesh.material.emissive.setHex( 0xff0000 );
+
+		} else if ( mesh.material.color ) {
+
+			mesh.currentHex = mesh.material.color.getHex();
+			mesh.material.color.setHex( 0xffff00 );
+
+		}
+
+//		mesh.currentHeight = mesh.scale.y;
+//		mesh.scale.y = 1.5 *  mesh.scale.y;
+
+		displayAttributes( mesh.parent.userData ) 
+
+	}
+
+	function deHighlight( mesh ) {
+
+		if ( mesh.material.emissive ) {
+
+			mesh.material.emissive.setHex( mesh.currentHex );
+
+		} else if ( mesh.material.color ) {
+
+			mesh.material.color.setHex( mesh.currentHex );
+
+		}
+
+//		mesh.scale.y = mesh.currentHeight;
+
+//console.log( 'dehighlight', intersected.name );
+
+	}
+
+	function displayAttributes( obj ) {
+
+		msg.innerHTML = '';
+
+		var arr = Object.keys( obj );
+
+		for ( var i = 0; i < arr.length; i++ ) {
+
+				if ( obj[ arr[ i ] ].indexOf( 'http' ) == 0 ) {
+
+					msg.innerHTML += '<a href="'+obj[arr[i]]+'">Click here</a><br>';
+
+				} else {
+
+					msg.innerHTML += arr[i] + ': ' + obj[ arr[i] ] + '<br>';
+
+				}
+
+		}
+
+	}
+
+	function animate( timestamp ) {
+		renderer.render( scene, camera );
+		controls.update();
+		stats.update();
+		requestAnimationFrame( animate );
+
+	}
+
+</script>
+</body>
+</html>

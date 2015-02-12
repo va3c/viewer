@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>View Hackathon Files R1</title>
+<meta charset=utf-8 />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+<meta name=author content='Theo Armour' />
+<link rel=stylesheet href=http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css />
+</head>
+<body>
+<script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
+<script>
+
+	var header, menu;
+
+	init();
+
+	function init() {
+
+		var txt = 'lorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?';
+
+		var css = document.body.appendChild( document.createElement('style') );
+		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
+			'h1 a, #bars { text-decoration: none; }' +
+			'h2 {display: inline; margin: 0; padding: 0;}' +
+			'#bars { color: #ccc; }' +
+		'';
+
+		header = document.body.appendChild( document.createElement( 'div' ) );
+		header.style.cssText = 'position: absolute; left: 350px; transition: left 1s; ';
+		header.innerHTML = '<h1>' +
+			'<a href=JavaScript:slideMenu(); id=bars ><i class="fa fa-bars"></a></i>'+
+		'</h1>';
+
+		menu =  header.appendChild( document.createElement( 'div' ) );
+		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; padding: 0 15px; overflow: auto; ' +
+			'position: absolute; left: -350px; top: 20px; width: 300px; ';
+
+		loadMarkdownInMenu( '../readme.md', menu );
+
+		loadHTMLInIframe( '#./view-hackathon-files-iframe.html#' );
+
+//		slideMenu();
+
+		window.addEventListener ( 'hashchange', onHashChange, false );
+
+	}
+
+	function slideMenu(){
+
+		header.style.left = header.style.left === '20px' ? '350px' : '20px';
+
+	}
+
+	function onHashChange() {
+
+		hashes = location.hash.split ( '#' );
+
+		if ( hashes.length < 1 ) { return; } 
+
+		var fileName = hashes[ 1 ].toLowerCase();
+
+		var fileType = (fileName.substr( fileName.lastIndexOf( '.' )).toLowerCase() );
+//console.log( 'hashchange', hashes, fileType );
+		if ( fileType === '.html' || fileType === '.htm' ) {
+
+			loadHTMLInIframe( location.hash );
+
+		} else if ( fileType === '.md' ) {
+
+			loadMarkdownInIframe( location.hash );
+
+		} else if ( fileType === '.json' || fileType === '.js' ) {
+
+			loadJSONInIframe( location.hash );
+
+		}
+
+	}
+
+	function loadJSONInIframe( hash, callback ) {
+
+		hashes = hash.split ( '#' );
+
+		if ( ifr ) {
+
+			loadThreeJSInIframe( hash, callback );
+
+		} else {
+
+			ifr.contentWindow.loadFileJSON( hash, callback );
+
+			history.pushState( '', document.title, window.location.pathname );
+
+		}
+
+		function callback() {
+
+console.log( 'loaded: ', hashes[ 1 ] );
+
+		}
+
+	}
+
+	function loadMarkdownInMenu( fileName, panel ) {
+
+		var converter = new Showdown.converter();
+
+		var xmlHttp = new XMLHttpRequest ();
+		xmlHttp.open( 'GET', fileName, true );
+		xmlHttp.onreadystatechange = callback;
+		xmlHttp.send( null );
+
+		function callback() {
+
+			text = xmlHttp.responseText;
+
+			panel.innerHTML = converter.makeHtml( text );
+
+		}
+
+	}
+
+	function loadMarkdownInIframe( hash, callback ) {
+
+		ifr = resetIframe( callback );
+
+		var srcdoc = 
+
+			"<div id=doc ><\/div>" +
+
+			"<script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ><\/script>" +
+
+			"<script>" +
+
+			"	doc.style.cssText = 'font: bold 12pt monospace; max-width: 900px';" +
+
+			"	var xmlHttp;" +
+
+			"	var converter = new Showdown.converter();" +
+
+			"	requestFile( '" + hash.substr( 1 ) + "' );" +
+
+			"	function callback() {" +
+
+			"		text = xmlHttp.responseText;" +
+			"		text = converter.makeHtml( text );" +
+			"		doc.innerHTML = text;" +
+
+			"	}" +
+
+			"	function requestFile( fileName ) {" +
+
+			"		xmlHttp = new XMLHttpRequest();" +
+			"		xmlHttp.open( 'GET', fileName, true );" +
+			"		xmlHttp.onreadystatechange = callback;" +
+			"		xmlHttp.send( null );" +
+
+			"	}" +
+
+			"<\/script>" +
+
+		"";
+
+		ifr.srcdoc = srcdoc;
+
+		slideMenu(); // to hide
+
+	};
+
+	function loadHTMLInIframe( hash, callback ) {
+
+		ifr = resetIframe( callback );
+
+		ifr.src = hash.substr( 1 );
+
+	}
+
+	function loadThreeJSInIframe( hash, callback ) {
+
+		ifr = resetIframe( callback );
+
+		ifr.src = 'view-json-revit-iframe.html' + hash;
+
+	}
+
+
+	function resetIframe( callback ) {
+
+		var iframes = document.getElementsByTagName( 'iframe' );
+
+		for ( var i = 0, len = iframes.length; i < len; i++ ) {
+
+			iframes[0].parentNode.removeChild( iframes[ 0 ] );
+
+		}
+
+		var ifr = document.body.appendChild( document.createElement( 'iframe' ) );
+		ifr.width = window.innerWidth;
+		ifr.height = window.innerHeight;
+		ifr.style.cssText = 'border-width: 0; position: absolute; z-index: -10';
+		ifr.onload = callback || function() {};
+
+		return ifr;
+
+	}
+
+</script>
+</body>
+</html>

@@ -10,7 +10,7 @@ Stay up to date on progress at Jeremy's web site:
 [read me]( #../../readme.md# )
 
 
-![]( ./little_house.rvt-640x480.png )
+![]( ../content/revit/little_house.rvt-640x480.png )
 [[O]]( #dispatch.js#../../../RvtVa3c/models/little_house.rvt.js#py=-10#ry=3#sx=0.01#sy=0.01#sz=0.01#displayMenuLeft )
 [Little House]( #dispatch.js#../../../RvtVa3c/models/little_house.rvt.js#py=-10#ry=3#sx=0.01#sy=0.01#sz=0.01#add=true#displayMenuLeft )
 
