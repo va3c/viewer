@@ -1,4 +1,4 @@
-[vA3C Hacker R4 ~ 2015-02-11]( ./va3c-hacker-r4.html "The big pivot release" )
+[vA3C Hacker R4 ~ 2015-02-12]( ./va3c-hacker-r4.html "The big pivot release" )
 ===
 
 Welcome to vA3C Hacker R4 - the big-pivot, mobile-enabled, very chatty yet very slim release.
