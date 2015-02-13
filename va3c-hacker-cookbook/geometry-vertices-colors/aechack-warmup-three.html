@@ -1,0 +1,229 @@
+﻿<!doctype html>
+<html lang=en>
+<head>
+<title>Warm-Up #3</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+</head>
+<body>
+<script src = http://mrdoob.github.com/three.js/examples/js/Detector.js ></script>
+<script src = http://mrdoob.github.com/three.js/build/three.min.js ></script>
+<script src = http://mrdoob.github.com/three.js/examples/js/controls/TrackballControls.js> </script>
+<script src = http://mrdoob.github.com/three.js/examples/js/libs/stats.min.js ></script>
+
+<script>
+	if ( ! Detector.webgl ) { Detector.addGetWebGLMessage(); }
+
+	var renderer, scene, camera, controls, stats;
+	var cube, plane, colors = [];
+	var group = new THREE.Object3D();
+	var info;
+
+	init();
+	animate();
+
+	function init() {
+		var css, light, geometry, material, mesh;
+	
+		css = document.body.appendChild( document.createElement('style') );
+		css.innerHTML = 'body {background-color: transparent; font: 600 12pt monospace; margin: 0; overflow: hidden; text-align: center; }' +
+			'a { color: #f00; text-decoration: none;}  ' +
+			'button, input[type=range] { -webkit-appearance: none; background-color: silver; height:20px; opacity: 0.5; width: 80px;}' +
+			'input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; background-color: #666; opacity: 0.5; width: 10px; height: 26px; }' ;
+
+		info = document.createElement( 'div' );
+		document.body.appendChild( info );
+		// info.style.cssText = 'margin 0 0 0 100px: auto; position: absolute; top: 0px; width: 100% ';
+		info.style.cssText = 'position: absolute; width: 100%; ';
+		info.innerHTML = info.txt = '<h1>Warm-Up #3 ~ Extruded Polyline with vertex shading</h1>' +
+			'x:<input type="range" id="spin" min="-50" max="50" onchange="group.position.x=this.value;" step="1" value="' + group.position.x + '" > ' +
+			'y:<input type="range" id="spin" min="-50" max="50" onchange="group.position.y=this.value;" step="1" value="' + group.position.y + '" > ' +
+			'z:<input type="range" id="spin" min="-50" max="50" onchange="group.position.z=this.value;" step="1" value="' + group.position.z + '" > ' +
+			'<button onclick="console.log( scene );" >test</button> ' +
+		'';
+
+		stats = new Stats();
+		stats.domElement.style.cssText = 'position: absolute; top: 0px; zIndex: 100; ';
+		document.body.appendChild( stats.domElement );
+		
+		scene = new THREE.Scene();
+		if ( ! Detector.webgl ) {
+			renderer = new THREE.CanvasRenderer( { antialias: true } );
+		} else {
+			renderer = new THREE.WebGLRenderer( { antialias: true } );
+		}
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setClearColor(0xffffff, 1);
+		renderer.shadowMapEnabled = true;
+		document.body.appendChild( renderer.domElement );
+		
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		camera.position.set( -100, 100, 100 );
+		controls = new THREE.TrackballControls( camera, renderer.domElement );
+
+		window.addEventListener( 'resize', onWindowResize, false );
+
+// Lights
+		light = new THREE.AmbientLight( 0xffffff );
+		light.color.setHSL( 0.1, 0.5, 0.5 );
+		scene.add( light );
+				
+		light = new THREE.DirectionalLight( 0xffffff, 0.75 );
+		light.position.set( 1, 1, 1 ).normalize();
+		light.castShadow = true;
+//		light.shadowCameraVisible = true;
+		scene.add( light );
+
+		light = new THREE.DirectionalLight( 0xffffff, 0.75 );
+		light.position.set( -1, 1, -1 ).normalize();
+		light.castShadow = true;
+//		light.shadowCameraVisible = true;
+		scene.add( light );
+
+ 		light = new THREE.DirectionalLight( 0xffffff, 1 );
+		light.position.set( 50, 200, 50 );
+		light.castShadow = true;
+		light.shadowMapWidth = light.shadowMapHeight = 1024;
+
+		var d = 55;
+		light.shadowCameraLeft = -d;
+		light.shadowCameraRight = d;
+		light.shadowCameraTop = d;
+		light.shadowCameraBottom = -d;
+
+		light.shadowCameraNear = 100;
+		light.shadowCameraFar = 300;
+//		light.shadowCameraVisible = true;
+		scene.add( light );		
+
+// Axes		
+        scene.add( new THREE.ArrowHelper( v(1, 0, 0), v(0, 0, 0), 100, 0xcc0000) );
+        scene.add( new THREE.ArrowHelper( v(0, 1, 0), v(0, 0, 0), 100, 0x00cc00) );
+        scene.add( new THREE.ArrowHelper( v(0, 0, 1), v(0, 0, 0), 100, 0x0000cc) );
+
+// Assets
+		material = new THREE.MeshBasicMaterial( {color: Math.random() * 0xffffff } );
+		geometry = new THREE.CubeGeometry( 100, 3, 100 );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, -3, 0 )
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+		geometry = new THREE.CubeGeometry( 30, 60, 30, 10, 20, 10 );
+		material = new THREE.MeshNormalMaterial();
+		material = new THREE.MeshPhongMaterial( { color: 0x888888, ambient: 0x888888, opacity: 0.8, specular: 0x888888, shininess: 100, side: THREE.FrontSide, transparent: false, wireframe: false } )
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, -60, 0 )
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		//group.add( mesh );
+		
+		shape = new THREE.Shape();
+		shape.fromPoints( [ v2(0, 0), v2(20, 30), v2(0, 80), v2(-20, 20), v2(-20, 0) ] );
+		
+		geometry = shape.extrude( { amount: 40, bevelEnabled: false, curveSegments: 10, steps: 10 } );
+		geometry.applyMatrix( new THREE.Matrix4().makeRotationX( -0.5 * Math.PI ) );
+		
+				var faceIndices = [ 'a', 'b', 'c', 'd' ];
+
+				var color, f, f2, f3, p, n, vertexIndex, radius = 100;;
+		
+				for ( var i = 0; i < geometry.faces.length; i ++ ) {
+
+					f  = geometry.faces[ i ];
+					//f2 = geometry2.faces[ i ];
+					//f3 = geometry3.faces[ i ];
+
+					n = ( f instanceof THREE.Face3 ) ? 3 : 4;
+
+					for( var j = 0; j < n; j++ ) {
+
+						vertexIndex = f[ faceIndices[ j ] ];
+
+						p = geometry.vertices[ vertexIndex ];
+
+						color = new THREE.Color( 0xffffff );
+						color.setHSL( ( p.y / radius + 1 ) / 2, 1.0, 0.5 );
+
+						f.vertexColors[ j ] = color;
+/*
+						color = new THREE.Color( 0xffffff );
+						color.setHSL( 0.0, ( p.y / radius + 1 ) / 2, 0.5 );
+
+						f2.vertexColors[ j ] = color;
+
+						color = new THREE.Color( 0xffffff );
+						color.setHSL( 0.125 * vertexIndex/geometry.vertices.length, 1.0, 0.5 );
+
+						f3.vertexColors[ j ] = color;
+*/
+					}
+
+				}
+
+
+
+		material = new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } ),
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, 0, 50 );
+		mesh.castShadow = true;
+		// mesh.receiveShadow = true;
+        group.add( mesh );	
+/*
+		geometry = new THREE.CubeGeometry( 10, 10, 10 );
+		colorful( colors, 100);
+		var texture = THREE.ImageUtils.loadTexture( "cel-shade-64.png" );
+		for ( var i = 0; i < 100; i++) {
+			material = [
+				new THREE.MeshPhongMaterial( { map: texture, side: THREE.DoubleSide, transparent: true } ),
+				new THREE.MeshPhongMaterial( { color: 0xffffff, ambient: 0x888888, opacity: 0.8, specular: 0x888888, shininess: 200, transparent: true } )
+			]
+			material[1].color.setHSL( colors[i], 0.7, 0.5 );
+			cube = THREE.SceneUtils.createMultiMaterialObject( geometry, material);
+			
+			// material = new THREE.MeshPhongMaterial( {  map: texture, opacity: 0.8, side: THREE.DoubleSide, transparent: true } );
+			// cube = new THREE.Mesh( geometry, material );
+			cube.position.set( 100 * Math.random() - 50, 100 * Math.random() - 50, 100 * Math.random() - 50 );
+			cube.rotation.set( Math.PI * Math.random(), Math.PI * Math.random(), Math.PI * Math.random() );
+			cube.receiveShadow = true;
+			cube.castShadow = true;
+			group.add( cube );
+			
+			// cube = cube.clone();			
+			// cube.material = new THREE.MeshPhongMaterial( {color: 0xfffff, ambient: 0x888888, opacity: 0.8, specular: 0x888888, shininess: 200, transparent: true} );
+			// cube.material.color.setHSL( colors[i], 0.7, 0.5 );
+			// group.add( cube );
+		}
+*/		
+		scene.add( group );
+	}
+
+	function animate() {
+		requestAnimationFrame( animate );
+		controls.update();
+		renderer.render( scene, camera );
+		stats.update();
+	}
+
+	function onWindowResize() {
+		windowHalfX = window.innerWidth / 2;
+		windowHalfY = window.innerHeight / 2;
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+	}
+	
+	function colorful( arr, count) {
+		var delta = 1.0 / count;
+		for (var i = 0; i < count; i++ ) {
+			arr.push( i *  delta );
+		}
+		return arr;
+	}	
+	
+	function v(x,y,z){ return new THREE.Vector3(x,y,z); } 
+	function v2( x, y ){ return new THREE.Vector2( x, y ); }
+</script>
+</body>
+</html>

@@ -1,9 +1,11 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>vA3C Hacker R4</title>
+<title>View Hackathon Files R1</title>
 <meta charset=utf-8 />
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+<meta name=author content='Theo Armour' />
+<link rel=stylesheet href=http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css />
 </head>
 <body>
 <script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
@@ -15,29 +17,30 @@
 
 	function init() {
 
-//		var txt = 'lorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?';
+		var txt = 'lorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?';
 
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
 			'h1 a, #bars { text-decoration: none; }' +
+			'h2 {display: inline; margin: 0; padding: 0;}' +
 			'#bars { color: #ccc; }' +
 		'';
 
 		header = document.body.appendChild( document.createElement( 'div' ) );
-		header.style.cssText = 'position: absolute; right: 20px; transition: right 1s; ';
+		header.style.cssText = 'position: absolute; left: 350px; transition: left 1s; ';
 		header.innerHTML = '<h1>' +
-			'<a href=JavaScript:slideMenu(); id=bars >&#9776;</a>'+
+			'<a href=JavaScript:slideMenu(); id=bars ><i class="fa fa-bars"></a></i>'+
 		'</h1>';
 
 		menu =  header.appendChild( document.createElement( 'div' ) );
 		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; padding: 0 15px; overflow: auto; ' +
-			'position: absolute; right: -350px;  top: 0; width: 300px; ';
+			'position: absolute; left: -350px; top: 20px; width: 300px; ';
 
-		loadMarkdownInMenu( '2015-02-12.md', menu );
+		loadMarkdownInMenu( 'readme.md', menu );
 
-		loadHTMLInIframe( '#../../../nasa-samples/index.html#' );
+		loadHTMLInIframe( '#vertex-colors-walt.html#' );
 
-		slideMenu();
+//		slideMenu();
 
 		window.addEventListener ( 'hashchange', onHashChange, false );
 
@@ -45,7 +48,7 @@
 
 	function slideMenu(){
 
-		header.style.right = header.style.right === '20px' ? '350px' : '20px';
+		header.style.left = header.style.left === '20px' ? '350px' : '20px';
 
 	}
 
@@ -77,9 +80,11 @@
 
 	function loadJSONInIframe( hash, callback ) {
 
-		hashes = hash.split ( '#' );
+		var hashes = hash.split ( '#' );
 
-		if ( ifr ) {
+		add = hashes.indexOf( 'add=true' ) === -1 ? false : true;
+
+		if ( !ifr || add === false ) {
 
 			loadThreeJSInIframe( hash, callback );
 
@@ -130,21 +135,13 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 			"<script>" +
 
-			"	doc.style.cssText = 'font: bold 12pt monospace; max-width: 900px';" +
+			"	doc.style.cssText = 'font: bold 12pt monospace; margin-left: 80px; max-width: 900px';" +
 
 			"	var xmlHttp;" +
 
 			"	var converter = new Showdown.converter();" +
 
 			"	requestFile( '" + hash.substr( 1 ) + "' );" +
-
-			"	function callback() {" +
-
-			"		text = xmlHttp.responseText;" +
-			"		text = converter.makeHtml( text );" +
-			"		doc.innerHTML = text;" +
-
-			"	}" +
 
 			"	function requestFile( fileName ) {" +
 
@@ -155,6 +152,14 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 			"	}" +
 
+			"	function callback() {" +
+
+			"		var text = xmlHttp.responseText;" +
+			"		text = converter.makeHtml( text );" +
+			"		doc.innerHTML = text;" +
+
+			"	}" +
+
 			"<\/script>" +
 
 		"";
@@ -162,6 +167,8 @@ console.log( 'loaded: ', hashes[ 1 ] );
 		ifr.srcdoc = srcdoc;
 
 		slideMenu(); // to hide
+
+		location.hash = '';
 
 	};
 
@@ -177,7 +184,7 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 		ifr = resetIframe( callback );
 
-		ifr.src = 'view-json-revit-iframe.html' + hash;  // !!
+		ifr.src = 'view-file-json4-revit-hackathon-by-url-iframe.html' + hash;
 
 	}
 
@@ -186,7 +193,7 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 		var iframes = document.getElementsByTagName( 'iframe' );
 
-		for ( var i = 0; i < iframes.length; i++ ) {
+		for ( var i = 0, len = iframes.length; i < len; i++ ) {
 
 			iframes[0].parentNode.removeChild( iframes[ 0 ] );
 

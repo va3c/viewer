@@ -3,7 +3,7 @@ Dev Notes
 
 2015-02-12 ~ Theo
 
-R4: All change. Big pivot.
+* R4: All change. Big pivot.
 
 
 
