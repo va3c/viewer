@@ -14,7 +14,7 @@ The current parameters enable you to set:
 * Add support for reading multiple permalinks at once
 * Set default insert position so as to create a pleasing landscape or layout
 * Add edit lights
-* Add calculate sun position
+* Add calculate sun position << Need Femi's help!
 * Add draggable objects
 * Add load a fresh model space with skybox
 * Add show progress of loading

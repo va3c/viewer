@@ -8,7 +8,7 @@ Any processing duties have been sent off to small standalone scripts - or 'hacke
 
 As that good chairperson once said: "Let a hundred hackettes bloom!" 
 
-The idea is that if you see something you like, all the source code that generated that thing is there for the taking with a single 'view source code'
+The idea is that if you see something you like, all the code that generates that thing is there for the taking with a single 'view source'.
 
 And the menus are written in [Markdown]( http://en.wikipedia.org/wiki/Markdown ). Just like your Reddit posts. 
 
@@ -22,7 +22,7 @@ All this, and the reasoning behind, will be described in more detail and more de
 
 <details>
 <summary>
-[[O]]( http://va3c.github.io/viewer/va3c-hacker/content/revit/r2/view-hackathon-files.html "open in new tab" )
+[[O]]( http://va3c.github.io/viewer/va3c-hacker-cookbook/view-file-json4-revit-hackathon-by-url/view-file-json4-revit-hackathon-by-url.html "open in new tab" )
 [NY AEC Hackathon Files]( #../content/revit/r2/view-hackathon-files.html# )
 </summary>
 We start back at the beginning - a viewer dedicated to the rather gnarly files created during the hackathon that launched this project.
