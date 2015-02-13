@@ -25,7 +25,7 @@ All this, and the reasoning behind, will be described in more detail and more de
 [[O]]( http://va3c.github.io/viewer/va3c-hacker-cookbook/view-file-json4-revit-hackathon-by-url/view-file-json4-revit-hackathon-by-url.html "open in new tab" )
 [NY AEC Hackathon Files]( #../../va3c-hacker-cookbook/view-file-json4-revit-hackathon-by-url/view-file-json4-revit-hackathon-by-url.html# )
 </summary>
-We start back at the beginning - a viewer dedicated to the rather gnarly files created during the hackathon that launched this project.
+We start back at the beginning - with a viewer dedicated to the rather gnarly files generated during the hackathon that launched this project.
 
 
 </details>
