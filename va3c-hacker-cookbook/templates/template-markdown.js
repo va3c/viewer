@@ -1,3 +1,5 @@
+[Markdown]( http://en.wikipedia.org/wiki/Markdown )
+[Daring Firball]( http://daringfireball.net/projects/markdown/ )
 
 <small>
 <u>[0]</u> = Open in new tab/window  
@@ -11,6 +13,15 @@ details details
 
 <style>#hh { color: #f00; display:inline; margin: 0; padding: 0; }</style>
 <style>img { width: 375px; } </style>
+
+
+[Developer Notes]( #dev-notes.md# )  
+[GitHub  web page]( http://va3c.github.io/viewer/va3c-hacker-cookbook/view-file-json4-revit-hackathon-by-url/ "view the files as apps." ) <input value="<< You are here" size=15 style="font:bold 11pt monospace;border-width:0;" >  
+[GitHub source code]( https://github.com/va3c/va3c.github.io/tree/master/nasa-samples "View files with GitHub" ) <scan style=display:none ><< You are here</scan>  
+[vA3C Hacker Home]( http://va3c.github.io/viewer/va3c-hacker/ )  
+[vA3C GitHub Home Page]( #../../../index.html# )   
+[vA3C Viewer R1]( #../../index.html# )  
+
 
 
 		loadMarkdownInMenu( 'readme.md', menu );

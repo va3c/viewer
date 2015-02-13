@@ -1,6 +1,12 @@
 Dev Notes
 ===
 
+2015-02-12 ~ Theo
+
+R4: All change. Big pivot.
+
+
+
 2015-01-18 ~ Theo
 
 Lots of interesting learning experiences today. Much do to lots of my apps crashing with Three.js R70

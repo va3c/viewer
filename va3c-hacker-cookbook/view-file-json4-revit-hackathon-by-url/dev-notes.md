@@ -4,7 +4,8 @@ view-file-json4-revit-hackathon-by-url
 If you look at the source code of readme.md you will see that there is full support for permalinks.
 The current parameters enable you to set:
 
-	* Set the position, rotation of scale for each file.
+	* Set the position, rotation of scale for each file or set them randomly
+	* Set whether to add to current model or start a new model
 	* Add axis, grid, ground plane & background gradient
 
 ### Road Map
