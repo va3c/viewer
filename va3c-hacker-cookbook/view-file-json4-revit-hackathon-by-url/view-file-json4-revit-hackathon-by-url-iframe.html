@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>view-json-revit-iframe r2</title>
+<title>view-file-json4-revit-hackathon-by-url-iframe</title>
 <meta charset=utf-8 />
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 </head>
@@ -11,7 +11,10 @@
 <script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
 <script>
 
-	var defaults = '#../../../../../RvtVa3c/models/little_house.rvt.js#py=5#ry=3#sx=0.01#sy=0.01#sz=0.01#axis#gradient#grid#ground#';
+//	var defaults = '#../../../json/Hex_01.js#sx=0.01#sy=0.01#sz=0.01#';
+//	var defaults = '#../../../json/TTX.json#sx=0.1#sy=0.1#sz=0.1#';
+//	var defaults = '#../../../json/Vase_01.js#sx=0.01#sy=0.01#sz=0.01#';
+	var defaults = '#../../../RvtVa3c/models/little_house.rvt.js#py=5#ry=3#sx=0.01#sy=0.01#sz=0.01#axis#gradient#grid#ground#';
 
 	var info, renderer, scene, camera, controls, stats, light;
 
@@ -57,7 +60,7 @@
 		scene = new THREE.Scene();
 
 		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
-		camera.position.set( 100, 10, 100 );
+		camera.position.set( 50, 100, 250 );
 		scene.add( camera ); // for light to follow
 
 // Controls
@@ -101,7 +104,7 @@
 
 			msg.innerHTML = hashes;
 
-			loadFile( location.hash );
+			loadFileJSON( location.hash );
 
 		} else {
 
@@ -117,7 +120,7 @@
 
 			}
 
-			loadFile( defaults );
+			loadFileJSON( defaults );
 
 		}
 
@@ -127,7 +130,7 @@
 
 	}
 
-	function loadFile( hash ) {
+	function loadFileJSON( hash ) {
 
 		hashes = hash.split ( '#' );
 
@@ -144,6 +147,8 @@
         loader.load( hashes[ 1 ], function( result ){
 
 			updateObjectGeometryByHashParameters ( result, hash );
+
+
 
 			result.traverse( function ( child ) {
 
@@ -297,14 +302,26 @@ console.log( 'oops' );
 					headsUp.style.top = -20 + 0.5 * window.innerHeight - mouse.y * 0.5 * window.innerHeight + 'px';
 					headsUp.style.display = '';
 
-					var obj = intersected.parent.userData;
+//					var obj;
 
-					if ( obj ) {
+					if ( intersected.userData.hasOwnProperty() ) {
+
+						obj = intersected.userData;
+
+					} else {
+
+						obj = intersected.parent.userData;
+
+					}
+
+					var arr = Object.keys( obj );
+
+					if ( arr.length > 0 ) {
 
 						var txt = '<h3>BIM Data</h3>';
 
-						var arr = Object.keys( obj );
-// console.log( arr );
+//						var arr = Object.keys( obj );
+
 						for ( var i = 0; i < arr.length; i++ ) {
 
 								if ( obj[ arr[ i ] ].indexOf( 'http' ) == 0 ) {
@@ -320,6 +337,10 @@ console.log( 'oops' );
 						}
 
 						headsUp.innerHTML = txt;
+
+					} else {
+
+						headsUp.innerHTML = '<h3>Mesh Data</h3>ID: ' + intersected.id + ' <br>Name: ' + intersected.name;
 
 					}
 

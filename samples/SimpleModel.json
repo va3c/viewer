@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "version": 4.3,
+    "type": "Object",
+    "generator": "OpenStudio"
+  },
+  "geometries": [
+    {
+      "uuid": "046dd561-c483-405c-8abc-90a03af882c4",
+      "type": "Geometry",
+      "data": {
+        "vertices": [ 0.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,0.0,0.0,0.0],
+        "normals": [ ],
+        "uvs": [ [ 5 ] ],
+        "faces": [8,0,1,2,0,2,3]
+      }
+    },
+    {
+      "uuid": "b96e404e-e412-4577-98f1-d1dc8357f5c2",
+      "type": "Geometry",
+      "data": {
+        "vertices": [0.0,0.0,3.0,0.0,10.0,3.0,0.0,10.0,0.0,0.0,0.0,0.0],
+        "normals": [ ],
+        "uvs": [ [ 5 ] ],
+        "faces": [24,0,1,2,0,2,3]
+      }
+    }],
+  "materials": [
+    {
+		"uuid": "07ac0467-6677-49dc-a660-a681d6e27e9f",
+		"type": "MeshNormalMaterial",
+		"opacity": 1,
+		"transparent": false,
+		"wireframe": false,
+		"side": 2
+    },
+    {
+		"uuid": "03888df6-52e0-4b7d-9af2-dbc3ceae2ce7",
+		"type": "MeshNormalMaterial",
+		"opacity": 1,
+		"transparent": false,
+		"wireframe": false,
+		"side": 2
+    }
+  ],
+  "object": {
+    "uuid": "4709d40f-c118-4229-9c4f-e09236a337e7",
+    "type": "Scene",
+    "matrix": [
+      1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    ],
+    "children": [
+      {
+        "uuid": "e0167dfb-6705-4b4e-aded-88489db8c060",
+        "name": "7b7fc964-222d-40dc-8679-02eb63c6fe91",
+        "type": "Mesh",
+        "geometry": "046dd561-c483-405c-8abc-90a03af882c4",
+        "material": "07ac0467-6677-49dc-a660-a681d6e27e9f",
+        "matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+        "userData": {
+        }
+      },
+      {
+        "uuid": "872ee526-a927-462a-bb71-5cf35d30318d",
+        "name": "5f04b516-e7ee-4491-80c9-df7068e18b5d",
+        "type": "Mesh",
+        "geometry": "b96e404e-e412-4577-98f1-d1dc8357f5c2",
+        "material": "03888df6-52e0-4b7d-9af2-dbc3ceae2ce7",
+        "matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+        "userData": {
+        }
+      }
+    ]
+  }
+}
