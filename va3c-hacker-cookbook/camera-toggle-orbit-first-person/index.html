@@ -1,11 +1,9 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>View Hackathon Files R1</title>
+<title>Camera Toggle Orbit/First Person Controls</title>
 <meta charset=utf-8 />
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
-<meta name=author content='Theo Armour' />
-<link rel=stylesheet href=http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css />
 </head>
 <body>
 <script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
@@ -16,8 +14,6 @@
 	init();
 
 	function init() {
-
-		var txt = 'lorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?';
 
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
@@ -36,9 +32,11 @@
 		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; padding: 0 15px; overflow: auto; ' +
 			'position: absolute; left: -350px; top: 20px; width: 300px; ';
 
-		loadMarkdownInMenu( 'readme.md', menu );
+		loadMarkdownInMenu( 'contents.md', menu );
 
-		loadHTMLInIframe( '#view-file-json4-revit-hackathon-by-url-iframe.html#' );
+//		loadMarkdownInIframe( '#readme.md#' );
+
+		loadHTMLInIframe( '#r1/camera-toggle-orbit-first-person.html#' );
 
 //		slideMenu();
 
@@ -179,15 +177,6 @@ console.log( 'loaded: ', hashes[ 1 ] );
 		ifr.src = hash.substr( 1 );
 
 	}
-
-	function loadThreeJSInIframe( hash, callback ) {
-
-		ifr = resetIframe( callback );
-
-		ifr.src = 'view-file-json4-revit-hackathon-by-url-iframe.html' + hash;
-
-	}
-
 
 	function resetIframe( callback ) {
 

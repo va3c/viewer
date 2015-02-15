@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>camera-toggle-orbit-first-person</title>
+<title>Camera Toggle Orbit/First Person Controls</title>
 <meta charset=utf-8 />
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 </head>
@@ -17,6 +17,7 @@
 <script>
 	var info, renderer, scene, camera, controls, stats, light;
 	var clock = new THREE.Clock();
+
 	var cubes = [];
 
 	init();
@@ -28,9 +29,9 @@
 		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
 		info = document.body.appendChild( document.createElement( 'div' ) );
-		info.style.cssText = 'left: 20px; position: absolute; top: 0px; width: 100% ';
+		info.style.cssText = 'left: 0; position: absolute; margin: auto; right: 0; max-width: 50% ';
 		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
-			'<a href="JavaScript:getTrackballController();" >Trackball Controller</a> - <a href="JavaScript:getFirstPersonController();" >Updated First Person Controller</a><br>' +
+			'<h2><a href="JavaScript:getTrackballController();" >Trackball Control</a> - <a href="JavaScript:getFirstPersonController();" >Updated First Person Control</a></h2>' +
 
 			'<div id=msg></div>' +
 		'';

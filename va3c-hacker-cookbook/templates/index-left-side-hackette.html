@@ -1,50 +1,58 @@
-[Markdown]( http://en.wikipedia.org/wiki/Markdown )
-[Daring Firball]( http://daringfireball.net/projects/markdown/ )
+<!doctype html>
+<html lang=en >
+<head>
+<title>View Hackathon Files R1</title>
+<meta charset=utf-8 />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+<meta name=author content='Theo Armour' />
+<link rel=stylesheet href=http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css />
+</head>
+<body>
+<script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
+<script>
 
-<small>
-<u>[0]</u> = Open in new tab/window  
-<u>links</u> = Open inside this viewer
-</small>
+	var header, menu;
 
-<details>
-<summary><h2></h2></summary>
+	init();
 
-</details>
+	function init() {
 
-<details>
-<summary><h2>About</h2></summary>
+		var txt = 'lorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?';
 
-Credits: [three.js]( http://threejs.org "Thank you, Mr.doob" ) ~ [webgl]( http://khronos.org/webgl/  "Thank you, Ken" ) ~ [GitHub]( http://GitHub.com )
+		var css = document.body.appendChild( document.createElement('style') );
+		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
+			'h1 a, #bars { text-decoration: none; }' +
+			'h2 {display: inline; margin: 0; padding: 0;}' +
+			'#bars { color: #ccc; }' +
+		'';
 
-copyright © 2015 vA3C authors ~ MIT license
+		header = document.body.appendChild( document.createElement( 'div' ) );
+		header.style.cssText = 'position: absolute; left: 350px; transition: left 1s; ';
+		header.innerHTML = '<h1>' +
+			'<a href=JavaScript:slideMenu(); id=bars ><i class="fa fa-bars"></a></i>'+
+		'</h1>';
 
-</details>
+		menu =  header.appendChild( document.createElement( 'div' ) );
+		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; padding: 0 15px; overflow: auto; ' +
+			'position: absolute; left: -350px; top: 20px; width: 300px; ';
 
-<style>#hh { color: #f00; display:inline; margin: 0; padding: 0; }</style>
-<style>img { width: 375px; } </style>
+		loadMarkdownInMenu( 'contents-left-side.md', menu );
 
+//		loadMarkdownInIframe( '#readme.md#' );
 
-[Developer Notes]( #dev-notes.md# )  
-[GitHub  web page]( http://va3c.github.io/viewer/va3c-hacker-cookbook/view-file-json4-revit-hackathon-by-url/ "view the files as apps." ) <input value="<< You are here" size=15 style="font:bold 11pt monospace;border-width:0;" >  
-[GitHub source code]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker-cookbook "View files with GitHub" ) <scan style=display:none ><< You are here</scan>  
-[vA3C Hacker Home]( http://va3c.github.io/viewer/va3c-hacker/ )  
-[vA3C GitHub Home Page]( #../../../index.html# )   
-[vA3C Viewer R1]( #../../index.html# )  
+		loadHTMLInIframe( '#template-threejs.html#' );
 
+//		slideMenu();
 
+		window.addEventListener ( 'hashchange', onHashChange, false );
 
-		loadMarkdownInMenu( 'readme.md', menu );
-
-		loadSTLInIframe( '#./stl/' + file[0] + '#axis#gradient#grid#ground#random#' );
-
+	}
 
 	function slideMenu(){
 
 		header.style.left = header.style.left === '20px' ? '350px' : '20px';
 
 	}
-
-
 
 	function onHashChange() {
 
@@ -71,8 +79,6 @@ copyright © 2015 vA3C authors ~ MIT license
 		}
 
 	}
-
-
 
 	function loadJSONInIframe( hash, callback ) {
 
@@ -119,19 +125,13 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 	}
 
-/*
-
-Using srcdoc means not having to create an extra file.
-
-Yes, quotes are cumbersome - but just for now. ECMA 6 - coming soon - requires quotes only at start and finish 
-
-*/
-
-	function loadMarkdownInIframe( hashes, callback ) {
+	function loadMarkdownInIframe( hash, callback ) {
 
 		ifr = resetIframe( callback );
 
-		var srcdoc =  "<div id=doc ><\/div>" +
+		var srcdoc = 
+
+			"<div id=doc ><\/div>" +
 
 			"<script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ><\/script>" +
 
@@ -143,7 +143,7 @@ Yes, quotes are cumbersome - but just for now. ECMA 6 - coming soon - requires q
 
 			"	var converter = new Showdown.converter();" +
 
-			"	requestFile( '" + hashes + "' );" +
+			"	requestFile( '" + hash.substr( 1 ) + "' );" +
 
 			"	function requestFile( fileName ) {" +
 
@@ -174,12 +174,28 @@ Yes, quotes are cumbersome - but just for now. ECMA 6 - coming soon - requires q
 
 	};
 
+	function loadHTMLInIframe( hash, callback ) {
+
+		ifr = resetIframe( callback );
+
+		ifr.src = hash.substr( 1 );
+
+	}
+
+	function loadThreeJSInIframe( hash, callback ) {
+
+		ifr = resetIframe( callback );
+
+		ifr.src = 'view-file-json4-revit-hackathon-by-url-iframe.html' + hash;
+
+	}
+
 
 	function resetIframe( callback ) {
 
 		var iframes = document.getElementsByTagName( 'iframe' );
 
-		for ( var i = 0; i < iframes.length; i++ ) {
+		for ( var i = 0, len = iframes.length; i < len; i++ ) {
 
 			iframes[0].parentNode.removeChild( iframes[ 0 ] );
 
@@ -194,3 +210,7 @@ Yes, quotes are cumbersome - but just for now. ECMA 6 - coming soon - requires q
 		return ifr;
 
 	}
+
+</script>
+</body>
+</html>

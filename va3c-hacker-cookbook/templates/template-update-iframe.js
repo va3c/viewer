@@ -112,6 +112,11 @@ Ground <input type=checkbox id=chkGround onchange=toggleGround(); />
 
 	}
 
+// @@@@@@@@@@@@@@@@@@@
+
+	var startTime = performance.now();
+	var delayTime = 2000;
+
 	function toggleRotate() {
 
 		rotate = document.getElementById( 'chkRotate' );
