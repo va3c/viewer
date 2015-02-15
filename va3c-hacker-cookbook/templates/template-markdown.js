@@ -7,8 +7,17 @@
 </small>
 
 <details>
-<summary><hh>summary</hh></summary>
-details details
+<summary><h2></h2></summary>
+
+</details>
+
+<details>
+<summary><h2>About</h2></summary>
+
+Credits: [Three.js]( http://threejs.org ) ~ [WebGL]( http://khronos.org/webgl/ ) ~ [GitHub]( http://GitHub.com 
+
+copyright © 2015 vA3C authors ~ MIT license
+
 </details>
 
 <style>#hh { color: #f00; display:inline; margin: 0; padding: 0; }</style>
@@ -27,8 +36,6 @@ details details
 		loadMarkdownInMenu( 'readme.md', menu );
 
 		loadSTLInIframe( '#./stl/' + file[0] + '#axis#gradient#grid#ground#random#' );
-
-
 
 
 	function slideMenu(){
@@ -166,3 +173,5 @@ Yes, quotes are cumbersome - but just for now. ECMA 6 - coming soon - requires q
 		location.hash = '';
 
 	};
+
+
