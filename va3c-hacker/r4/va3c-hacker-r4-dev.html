@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>Camera Toggle Orbit/First Person Controls</title>
+<title>vA3C Hacker R4</title>
 <meta charset=utf-8 />
-<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+<meta name='viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0' />
 </head>
 <body>
 <script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
@@ -15,30 +15,39 @@
 
 	function init() {
 
+//		var txt = 'lorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?';
+
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
 			'h1 a, #bars { text-decoration: none; }' +
-			'h2 {display: inline; margin: 0; padding: 0;}' +
+			'h3 { display: inline; margin: 0; }' +
 			'#bars { color: #ccc; }' +
 		'';
 
 		header = document.body.appendChild( document.createElement( 'div' ) );
-		header.style.cssText = 'position: absolute; left: 350px; transition: left 1s; ';
+		header.style.cssText = 'position: absolute; right: 20px; transition: right 1s; ';
 		header.innerHTML = '<h1>' +
-			'<a href=JavaScript:slideMenu(); id=bars ><i class="fa fa-bars"></a></i>'+
+			'<a href=JavaScript:slideMenu(); id=bars >&#9776;</a>'+
 		'</h1>';
 
 		menu =  header.appendChild( document.createElement( 'div' ) );
 		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; padding: 0 15px; overflow: auto; ' +
-			'position: absolute; left: -350px; top: 20px; width: 300px; ';
+			'position: absolute; right: -350px; top: 20px; width: 300px; ';
 
-		loadMarkdownInMenu( 'contents.md', menu );
 
-//		loadMarkdownInIframe( '#readme.md#' );
+		if ( location.hash ) 	{
 
-		loadHTMLInIframe( '#r1/camera-toggle-orbit-first-person.html#' );
+			onHashChange();
 
-//		slideMenu();
+		} else {
+
+			loadMarkdownInMenu( '2015-02-14.md', menu );
+
+			loadHTMLInIframe( '#../../va3c-hacker-cookbook/edit-geometry-vertices/r1/edit-geometry-vertices-r1-the-game.html#' );
+
+			slideMenu();
+			
+		}
 
 		window.addEventListener ( 'hashchange', onHashChange, false );
 
@@ -46,7 +55,7 @@
 
 	function slideMenu(){
 
-		header.style.left = header.style.left === '20px' ? '350px' : '20px';
+		header.style.right = header.style.right === '20px' ? '350px' : '20px';
 
 	}
 
@@ -54,11 +63,16 @@
 
 		hashes = location.hash.split ( '#' );
 
-		if ( hashes.length < 1 ) { return; } 
+		if ( hashes.length < 1 ) { return; }
 
 		var fileName = hashes[ 1 ].toLowerCase();
 
-		var fileType = (fileName.substr( fileName.lastIndexOf( '.' )).toLowerCase() );
+		if ( fileName === 'post' ) {
+
+			loadPost( hashes );
+		}
+
+		var fileType = (fileName.substr( fileName.lastIndexOf( '.' )) );
 
 		if ( fileType === '.html' || fileType === '.htm' ) {
 
@@ -68,37 +82,25 @@
 
 			loadMarkdownInIframe( location.hash );
 
-		} else if ( fileType === '.json' || fileType === '.js' ) {
-
-			loadJSONInIframe( location.hash );
-
 		}
 
 	}
 
-	function loadJSONInIframe( hash, callback ) {
+	function loadPost( hashes ) {
 
-		var hashes = hash.split ( '#' );
+		loadMarkdownInMenu( hashes[ 2 ], menu );
 
-		add = hashes.indexOf( 'add=true' ) === -1 ? false : true;
+		loadHTMLInIframe( '#' + hashes[ 3 ] + '#' );
 
-		if ( !ifr || add === false ) {
+//		slideMenu();
 
-			loadThreeJSInIframe( hash, callback );
+	}
 
-		} else {
+	function loadHTMLInIframe( hash, callback ) {
 
-			ifr.contentWindow.loadFileJSON( hash, callback );
+		ifr = resetIframe( callback );
 
-			history.pushState( '', document.title, window.location.pathname );
-
-		}
-
-		function callback() {
-
-console.log( 'loaded: ', hashes[ 1 ] );
-
-		}
+		ifr.src = hash.substr( 1 );
 
 	}
 
@@ -124,8 +126,10 @@ console.log( 'loaded: ', hashes[ 1 ] );
 	function loadMarkdownInIframe( hash, callback ) {
 
 		ifr = resetIframe( callback );
+		
+// Using srcdoc enables not having to create a separate file.
 
-		var srcdoc = 
+		var srcdoc =
 
 			"<div id=doc ><\/div>" +
 
@@ -164,25 +168,19 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 		ifr.srcdoc = srcdoc;
 
-		slideMenu(); // to hide
+		slideMenu(); // to hide it
 
-		location.hash = '';
+//		location.hash = '';
 
 	};
 
-	function loadHTMLInIframe( hash, callback ) {
 
-		ifr = resetIframe( callback );
-
-		ifr.src = hash.substr( 1 );
-
-	}
 
 	function resetIframe( callback ) {
 
 		var iframes = document.getElementsByTagName( 'iframe' );
 
-		for ( var i = 0, len = iframes.length; i < len; i++ ) {
+		for ( var i = 0; i < iframes.length; i++ ) {
 
 			iframes[0].parentNode.removeChild( iframes[ 0 ] );
 

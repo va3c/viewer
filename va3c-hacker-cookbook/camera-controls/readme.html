@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>View Read Me</title>
+<meta charset=utf-8 />
+</head>
+<body>
+<script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
+<script>
+// Let's a read me file written in MarkDown be viewable as HTML
+
+	doc = document.body.appendChild( document.createElement( 'div' ) );
+	doc.style.cssText = 'font: bold 12pt monospace; left: 0; margin: auto; max-width: 800px;' +
+		'position: absolute; right: 0; ' +
+	'';
+
+
+	var xmlHttp;
+
+	var converter = new Showdown.converter();
+
+	requestFile( 'readme.md' );
+
+	function requestFile( fileName ) {
+
+		xmlHttp = new XMLHttpRequest();
+		xmlHttp.open( 'GET', fileName, true );
+		xmlHttp.onreadystatechange = callback;
+		xmlHttp.send( null );
+
+	}
+
+	function callback() {
+
+		var text = xmlHttp.responseText;
+		text = converter.makeHtml( text );
+		doc.innerHTML = text;
+
+	}
+
+</script>
+</body>
+</html>

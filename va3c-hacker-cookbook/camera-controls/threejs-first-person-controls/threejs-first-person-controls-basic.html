@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>Three.js First Person Controls ~ Basic </title>
+<meta charset=utf-8 />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+</head>
+<body>
+<script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/TrackballControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/FirstPersonControls.js ></script>
+
+<script>
+	var info, renderer, scene, camera, controls, stats, light;
+	
+	var clock = new THREE.Clock();
+
+	init();
+	animate();
+
+	function init() {
+		var geometry, material, mesh, helper;
+
+		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
+
+		info = document.body.appendChild( document.createElement( 'div' ) );
+		info.style.cssText = 'left: 20px; max-width: 300px; position: absolute; ';
+		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
+
+			'<div id=msg></div>' +
+		'';
+
+		stats = new Stats();
+		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
+		document.body.appendChild( stats.domElement );
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+		document.body.appendChild( renderer.domElement );
+
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
+		camera.position.set( -200, 20, 0 );
+		scene.add( camera ); // for light to follow
+
+// Controls
+// default view is latitude and longitude = 0 or along x-axis in the positive direction
+
+		controls = new THREE.FirstPersonControls( camera, renderer.domElement );
+
+// Lights
+		light = new THREE.AmbientLight( 0x888888 );
+		scene.add( light );
+
+		light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		light.position.set( -200, 200, 200 );
+
+		var d = 100;
+		light.shadowCameraLeft = -d;
+		light.shadowCameraRight = d;
+		light.shadowCameraTop = d;
+		light.shadowCameraBottom = -d;
+
+		light.shadowCameraNear = 200;
+		light.shadowCameraFar = 500;
+
+// can help stop appearance of gridlines in objects with opacity < 1
+		light.shadowBias = -0.0002; // default 0 ~ distance fron corners?
+		light.shadowDarkness = 0.3; // default 0.5
+		light.shadowMapWidth = 2048;  // default 512
+		light.shadowMapHeight = 2048;
+
+		light.castShadow = true;
+		light.shadowCameraVisible = true;
+		scene.add( light );
+
+		light = new THREE.PointLight( 0xffffff, 0.5 );
+		light.position = camera.position;
+		camera.add( light );
+
+// Ground Plane
+		geometry = new THREE.BoxGeometry( 100, 5, 100 );
+
+		var material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random(),
+			shininess: 50,
+			side: THREE.DoubleSide
+		} );
+
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, -10, 0 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+		helper = new THREE.BoxHelper( mesh );
+		helper.material.color.setRGB( 1, 0, 1 );
+		scene.add( helper );
+
+		var axisHelper = new THREE.AxisHelper( 50 );
+		scene.add( axisHelper );
+		
+		var helper = new THREE.GridHelper( 50, 10 );
+		helper.position.set( 0, -7.5, 0 );
+		scene.add( helper );
+
+// Sphere
+		geometry = new THREE.SphereGeometry( 5, 50, 50 );
+		material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random(),
+			shininess: 50,
+			side: THREE.DoubleSide
+		} );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( -100, 10, 0 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+// Cubes
+		geometry = new THREE.BoxGeometry( 10, 10, 10 );
+		for (var i = 0; i < 50; i++) {
+			material = new THREE.MeshPhongMaterial( {
+				color: 0xffffff * Math.random(), 
+				ambient: 0xffffff * Math.random(),
+				opacity: Math.random(),
+				specular: 0xffffff * Math.random(),
+				shading: THREE.FlatShading,
+				shininess: 10,
+				transparent: true
+			} );
+
+			mesh = new THREE.Mesh( geometry, material );
+			mesh.position.set( 100 * Math.random() - 50, 100 * Math.random(), 100 * Math.random() - 50 );
+			mesh.rotation.set( 6.3 * Math.random(), 1.57 * Math.random(), 3.14 * Math.random() );
+			mesh.castShadow = true;
+			mesh.receiveShadow = true;
+			scene.add( mesh );
+
+			helper = new THREE.BoxHelper( mesh );
+			helper.material.color.setRGB( 1, 0, 0 );
+			scene.add( helper );
+
+		}
+
+	}
+
+
+	function getFirstPersonController() {
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		camera.position.set( -100, 20, 0 );
+
+//		camera.position.set( 8, 25, -8 );
+
+		fControls = new THREE.FirstPersonControls( camera, renderer.domElement );
+//		controls.target.set( 0, 100, 0 ); // not relevant
+
+		fControls.lookSpeedDefault = fControls.lookSpeed = 0.025; // 0.0125;
+
+		fControls.lookSpeedMin = 0.04;
+		fControls.lookSpeedMax = 0.09;
+
+		fControls.movementSpeedDefault = fControls.movementSpeed = 0.5;
+		fControls.movementSpeedMin = 0.05;
+		fControls.movementSpeedMax = 10;
+
+		fControls.heightSpeed = true;
+		fControls.heightCoef = 0.5;
+		fControls.heightMin = 1.0;
+		fControls.heightMax = 18.0;
+/*
+		fControls.noFly = false;
+		fControls.lookVertical = true;
+		fControls.constrainVertical = true;
+		fControls.verticalMin = 1.5;
+		fControls.verticalMax = 2.0;
+		this.autoSpeedFactor = 0.0;
+		fControls.lon = -40;
+*/
+controls = fControls;
+	}
+
+	function v( x, y, z ){ return new THREE.Vector3( x, y, z ); }
+
+	function animate( timestamp ) {
+		renderer.render( scene, camera );
+		var delta = clock.getDelta()
+		controls.update( delta );
+		stats.update();
+		requestAnimationFrame( animate );
+		
+/*
+		var tmp = ( controls.freeze ) ? 'class=red' : '';
+
+		info.innerHTML = info.txt +
+			'freeze: <scan ' + tmp + '>' + controls.freeze + '</scan> lookSpeed: ' + controls.lookSpeed.toFixed(3) +
+			' movementSpeed:  ' + controls.movementSpeed +
+			' mouseX: ' + controls.mouseX.toFixed() + ' mouseY: ' + controls.mouseY.toFixed() + '<br>' +
+			'camX: ' + camera.position.x.toFixed(1) + ' - camY: ' + camera.position.y.toFixed(1) + ' - camZ: ' + camera.position.z.toFixed(0) +
+			' - con.autoSpeedFactor: ' + controls.autoSpeedFactor.toFixed(3) + ' - con.actualMoveSpeed: ' + controls.actualMoveSpeed.toFixed(2) + '<br>' +
+			'';
+*/
+	}
+
+</script>
+</body>
+</html>

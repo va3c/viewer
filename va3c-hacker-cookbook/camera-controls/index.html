@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>View Hackathon Files R1</title>
+<title>Camera Toggle Orbit/First Person Controls</title>
 <meta charset=utf-8 />
-<meta name='viewport' content='width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0' />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 </head>
 <body>
 <script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
@@ -32,9 +32,11 @@
 		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; padding: 0 15px; overflow: auto; ' +
 			'position: absolute; left: -350px; top: 20px; width: 300px; ';
 
-		loadMarkdownInMenu( 'readme.md', menu );
+		loadMarkdownInMenu( 'contents.md', menu );
 
-		loadHTMLInIframe( '#view-file-json4-revit-hackathon-by-url-iframe.html#' );
+//		loadMarkdownInIframe( '#readme.md#' );
+
+		loadHTMLInIframe( '#r1/camera-toggle-orbit-first-person.html#' );
 
 //		slideMenu();
 
@@ -66,39 +68,17 @@
 
 			loadMarkdownInIframe( location.hash );
 
-		} else if ( fileType === '.json' || fileType === '.js' ) {
-
-			loadJSONInIframe( location.hash );
-
 		}
 
 	}
+	
+	function loadHTMLInIframe( hash, callback ) {
 
-	function loadJSONInIframe( hash, callback ) {
+		ifr = resetIframe( callback );
 
-		var hashes = hash.split ( '#' );
+		ifr.src = hash.substr( 1 );
 
-		add = hashes.indexOf( 'add=true' ) === -1 ? false : true;
-
-		if ( !ifr || add === false ) {
-
-			loadThreeJSInIframe( hash, callback );
-
-		} else {
-
-			ifr.contentWindow.loadFileJSON( hash, callback );
-
-			history.pushState( '', document.title, window.location.pathname );
-
-		}
-
-		function callback() {
-
-console.log( 'loaded: ', hashes[ 1 ] );
-
-		}
-
-	}
+	}	
 
 	function loadMarkdownInMenu( fileName, panel ) {
 
@@ -164,26 +144,7 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 		slideMenu(); // to hide
 
-		location.hash = '';
-
 	};
-
-	function loadHTMLInIframe( hash, callback ) {
-
-		ifr = resetIframe( callback );
-
-		ifr.src = hash.substr( 1 );
-
-	}
-
-	function loadThreeJSInIframe( hash, callback ) {
-
-		ifr = resetIframe( callback );
-
-		ifr.src = 'view-file-json4-revit-hackathon-by-url-iframe.html' + hash;
-
-	}
-
 
 	function resetIframe( callback ) {
 

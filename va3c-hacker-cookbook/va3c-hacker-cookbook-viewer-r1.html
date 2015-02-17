@@ -5,7 +5,6 @@
 <meta charset=utf-8 />
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 <meta name=author content='Theo Armour' />
-<link rel=stylesheet href=http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css />
 </head>
 <body>
 <script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
@@ -29,7 +28,7 @@
 		header = document.body.appendChild( document.createElement( 'div' ) );
 		header.style.cssText = 'position: absolute; right: 350px; transition: right 1s; ';
 		header.innerHTML = '<h1>' +
-			'<a href=JavaScript:slideMenu(); id=bars ><i class="fa fa-bars"></a></i>'+
+			'<a href=JavaScript:slideMenu(); id=bars >&#9776;</a>'+
 		'</h1>';
 
 		menu =  header.appendChild( document.createElement( 'div' ) );
@@ -70,39 +69,17 @@
 
 			loadMarkdownInIframe( location.hash );
 
-		} else if ( fileType === '.json' || fileType === '.js' ) {
-
-			loadJSONInIframe( location.hash );
-
 		}
 
 	}
+	
+	function loadHTMLInIframe( hash, callback ) {
 
-	function loadJSONInIframe( hash, callback ) {
+		ifr = resetIframe( callback );
 
-		var hashes = hash.split ( '#' );
+		ifr.src = hash.substr( 1 );
 
-		add = hashes.indexOf( 'add=true' ) === -1 ? false : true;
-
-		if ( !ifr || add === false ) {
-
-			loadThreeJSInIframe( hash, callback );
-
-		} else {
-
-			ifr.contentWindow.loadFileJSON( hash, callback );
-
-			history.pushState( '', document.title, window.location.pathname );
-
-		}
-
-		function callback() {
-
-console.log( 'loaded: ', hashes[ 1 ] );
-
-		}
-
-	}
+	}	
 
 	function loadMarkdownInMenu( fileName, panel ) {
 
@@ -168,26 +145,9 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 //		slideMenu(); // to hide
 
-		location.hash = '';
+//		location.hash = '';
 
 	};
-
-	function loadHTMLInIframe( hash, callback ) {
-
-		ifr = resetIframe( callback );
-
-		ifr.src = hash.substr( 1 );
-
-	}
-
-	function loadThreeJSInIframe( hash, callback ) {
-
-		ifr = resetIframe( callback );
-
-		ifr.src = 'view-file-json4-revit-hackathon-by-url-iframe.html' + hash;
-
-	}
-
 
 	function resetIframe( callback ) {
 

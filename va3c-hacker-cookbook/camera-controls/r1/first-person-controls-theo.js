@@ -288,8 +288,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 			var y = this.object.position.y = THREE.Math.clamp( this.object.position.y, this.heightMin, this.heightMax );
 
 // these should be variables...
-			this.object.position.x = THREE.Math.clamp( this.object.position.x, -10, 60 );
-			this.object.position.z = THREE.Math.clamp( this.object.position.z, -30, 20 );
+			this.object.position.x = THREE.Math.clamp( this.object.position.x, -200, 200 );
+			this.object.position.z = THREE.Math.clamp( this.object.position.z, -200, 200 );
 
 // this.autoSpeedFactor: the higher you are the faster you go
 			var heightDelta = y - this.heightMin;
@@ -297,8 +297,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 			this.autoSpeedFactor = delta * ( heightDelta * this.heightCoef );
 // console.log ( this.object.position.y, this.autoSpeedFactor   );
 
-		} else {
-
+		} else {  
 			this.autoSpeedFactor = 0.0;
 
 		}

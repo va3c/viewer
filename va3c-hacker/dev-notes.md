@@ -1,10 +1,15 @@
 Dev Notes
 ===
 
+2015-02-16 ~ Theo
+
+* Working on the second post
+* Big oops - set dev version as landing page fr a day or two. Sorry!
+
+
 2015-02-12 ~ Theo
 
 * R4: All change. Big pivot.
-
 
 
 2015-01-18 ~ Theo

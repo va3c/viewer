@@ -1,4 +1,6 @@
-[Cookbook]( ../index.html ) &raquo;<br>[Camera Toggle Orbit/First Person Controls]( index.html )
+<a href=../../va3c-hacker/index.html target="_top" >vA3C Hacker</a> &raquo;<br>
+<a href=../index.html# target="_top" >Hacker Cookbook</a> &raquo;<br>
+[Camera Controls]( index.html )
 ===
 
 <details open>
@@ -14,7 +16,10 @@ Three.js offers the First Person control. The control has issues and is not part
 
 This cookbook section covers a modified version of the Three.js First Person control, provides examples and supplies some instructions.
 
-[First Person Control Source Code]( https://github.com/va3c/viewer/blob/gh-pages/va3c-hacker-cookbook/camera-toggle-orbit-first-person/first-person-controls-theo.js )
+[Read Me]( #readme.html# )  
+[First Person Control Source Code]( https://github.com/va3c/viewer/blob/gh-pages/va3c-hacker-cookbook/camera-toggle-orbit-first-person/r1/first-person-controls-theo.js )
+ 
+ 
  
 </details>
 <details open>
