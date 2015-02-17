@@ -3,7 +3,8 @@ vA3C Hacker Cookbook Read Me
 
 Nothing here yet.
 
-See [GitHub source code]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View files with GitHub" ) or use 
+See <a href=https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker target=_top title="View files with GitHub" >
+GitHub source code</a> or use 
 [vA3C Hacker Cookbook](va3c-hacker-cookbook-viewer-r1.html) menu.
 
 
