@@ -1,22 +1,25 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>view-file-json4-revit-hackathon-by-url-iframe</title>
+<title>first-person-hackette-iframe</title>
 <meta charset=utf-8 />
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
 </head>
 <body>
 <script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/FirstPersonControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/FlyControls.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
-<script src=first-person-controls-theo.js></script>
+<script src=first-person-controls-hacker.js></script>
 <script>
+// setup for unusual NY AEC Hackathon JSON 4 files
 
 //	var defaults = '#../../../json/Hex_01.js#sx=0.01#sy=0.01#sz=0.01#';
 //	var defaults = '#../../../json/TTX.json#sx=0.1#sy=0.1#sz=0.1#';
 //	var defaults = '#../../../json/Vase_01.js#sx=0.01#sy=0.01#sz=0.01#';
-//	var defaults = '#../../../../RvtVa3c/models/little_house.rvt.js#py=5#ry=3#sx=0.01#sy=0.01#sz=0.01#axis#gradient#grid#ground#';
-	var defaults = '#../../../../RvtVa3c/models/rac_basic_sample_project.rvt.js#py=5#ry=3#sx=0.01#sy=0.01#sz=0.01#axis#gradient#';
+	var defaults = '#../../../../RvtVa3c/models/little_house.rvt.js#py=5#ry=3#sx=0.01#sy=0.01#sz=0.01#axis#gradient#grid#ground#';
+//	var defaults = '#../../../../RvtVa3c/models/rac_basic_sample_project.rvt.js#py=5#ry=3#sx=0.01#sy=0.01#sz=0.01#axis#gradient#';
 
 	var info, renderer, scene, camera, controls, stats, light;
 	
@@ -35,11 +38,10 @@
 
 		css = document.body.appendChild( document.createElement( 'style' ) );
 		css.innerHTML = 'body {font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
-			'h3 { margin: 0; padding: 0; }' +
 		'';
 
 		info = document.body.appendChild( document.createElement( 'div' ) );
-		info.style.cssText = 'left: 0; margin: auto; position: absolute; right: 0; text-align: center; top: 0px; width: 30%;';
+		info.style.cssText = 'left: 0; margin: auto; position: absolute; right: 0; text-align: center; width: 30%;';
 		info.innerHTML = 
 			'<div id=header ></div>' +
 			'<div id=msg></div>' +
@@ -55,7 +57,7 @@
 		clock = new THREE.Clock();
 		
 		stats = new Stats();
-		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
+		stats.domElement.style.cssText = 'position: absolute; right: 0; bottom: 0; z-index: 100; ';
 		document.body.appendChild( stats.domElement );
 
 		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
@@ -153,8 +155,6 @@
         loader.load( hashes[ 1 ], function( result ){
 
 			updateObjectGeometryByHashParameters ( result, hash );
-
-
 
 			result.traverse( function ( child ) {
 
@@ -308,7 +308,7 @@ console.log( 'oops' );
 					headsUp.style.top = -20 + 0.5 * window.innerHeight - mouse.y * 0.5 * window.innerHeight + 'px';
 					headsUp.style.display = '';
 
-//					var obj;
+					var obj;
 
 					if ( intersected.userData.hasOwnProperty() ) {
 
@@ -377,11 +377,22 @@ console.log( 'oops' );
 
 	}
 
-	function getFirstPersonControls() {
-
+	function selectOrbitControls() {
 
 		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
-		camera.position.set( -150, 20, 0 );
+		camera.position.set( 100, 100, 100 );
+		
+		controls = new THREE.OrbitControls( camera, renderer.domElement );
+		controls.target.set( new THREE.Vector3( 0, 20, 0 ) );
+		controls.reset();
+		
+	}
+
+	
+	function selectFirstPersonControls() {
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		camera.position.set( -10, 20, 0 );
 
 		controls = new THREE.FirstPersonControls( camera, renderer.domElement );
 		controls.lookSpeedDefault = controls.lookSpeed = 0.025; // 0.0125;
@@ -410,15 +421,51 @@ console.log( 'oops' );
 
 	}
 	
-	function animate( timestamp ) {
-		renderer.render( scene, camera );
-		controls.update();
-		stats.update();
-		requestAnimationFrame( animate );
+	function selectFlyControls() {
+console.log( 'fly' );	
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		camera.position.set( -100, 20, 0 );
+
+		controls = new THREE.FlyControls( camera, renderer.domElement );
+
+		controls.movementSpeed = 20; // 1
+		controls.rollSpeed = 0.1; // 0.005
+		
+	}
+	
+	function selectFirstPersonControlsHacker() {
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		camera.position.set( -10, 20, 0 );
+
+		controls = new THREE.FirstPersonControlsHacker( camera, renderer.domElement );
+		controls.lookSpeedDefault = controls.lookSpeed = 0.025; // 0.0125;
+
+		controls.lookSpeedMin = 0.04;
+		controls.lookSpeedMax = 0.12;
+
+		controls.movementSpeedDefault = controls.movementSpeed = 0.5;
+		controls.movementSpeedMin = 0.05;
+		controls.movementSpeedMax = 100;
+
+		controls.heightSpeed = true;
+		controls.heightCoef = 0.5;
+		controls.heightMin = 1.0;
+		controls.heightMax = 80.0;
+
+		controls.noFly = false;
+		controls.lookVertical = true;
+//		controls.constrainVertical = true;
+		controls.verticalMin = 1.5;
+		controls.verticalMax = 2.0;
+		controls.autoSpeedFactor = 0.0;
+		controls.lon = 0;
+	
+//		app.animate = animate;
 
 	}
 	
-	function animate( time ) {
+	function animate() {
 	
 		renderer.render( scene, camera );
 		delta = clock.getDelta();

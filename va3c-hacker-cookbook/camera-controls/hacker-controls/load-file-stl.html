@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>load-file-stl.html</title>
+<meta charset=utf-8 />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+</head>
+<body>
+<script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/FirstPersonControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/FlyControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/loaders/STLLoader.js ></script>
+<script src=first-person-controls-hacker.js ></script>
+<script>
+	var info, renderer, scene, camera, controls, stats, light;
+
+	var clock;
+		
+	init();
+	animate();
+
+	function init() {
+		var geometry, material, mesh, helper;
+
+		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
+
+		info = document.body.appendChild( document.createElement( 'div' ) );
+		info.style.cssText = 'left: 0; margin: auto; position: absolute; right: 0; text-align: center; width: 30%;';
+		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
+			'<div id=msg></div>';
+
+		stats = new Stats();
+		stats.domElement.style.cssText = 'position: absolute; right: 0; bottom: 0; z-index: 100; ';
+		document.body.appendChild( stats.domElement );
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+		document.body.appendChild( renderer.domElement );
+
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
+		camera.position.set( 500, 500, 500 );
+		scene.add( camera ); // for light to follow
+
+// controls
+		controls = new THREE.OrbitControls( camera );
+		controls.minDistance = 10;
+		controls.maxDistance = 1000;
+
+// Lights
+		light = new THREE.AmbientLight( 0xffffff );
+		scene.add( light );
+
+		light = new THREE.DirectionalLight( 0xffffff, 1 );
+		light.position.set( -200, 200, 200 );
+
+		var d = 150;
+		light.shadowCameraLeft = -d;
+		light.shadowCameraRight = d;
+		light.shadowCameraTop = d;
+		light.shadowCameraBottom = -d;
+
+		light.shadowCameraNear = 200;
+		light.shadowCameraFar = 500;
+
+// can help stop appearance of gridlines in objects with opacity < 1
+		light.shadowBias = -0.0002; // default 0 ~ distance fron corners?
+		light.shadowDarkness = 0.3; // default 0.5
+		light.shadowMapWidth = 2048;  // default 512
+		light.shadowMapHeight = 2048;
+
+		light.castShadow = true;
+//		light.shadowCameraVisible = true;
+		scene.add( light );
+
+		light = new THREE.PointLight( 0xffffff, 1 );
+		light.position = camera.position;
+		camera.add( light );
+
+// Ground Plane
+		geometry = new THREE.BoxGeometry( 200, 5, 200 );
+		var material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random(),
+			shininess: 200,
+			side: THREE.DoubleSide
+		} );
+
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, -10, 0 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+		helper = new THREE.BoxHelper( mesh );
+		helper.material.color.setRGB( 1, 0, 1 );
+		scene.add( helper );
+
+
+// Load STL file
+
+		clock = new THREE.Clock();	
+
+		hashes = location.hash.split ( '#' );
+		
+//		loadFileSTLByURL( ['','../../../samples/Stardust_35.stl', 60 ], callback );
+		
+		loadFileSTLByURL( hashes );
+
+	}
+
+	function loadFileSTLByURL( parameters, callback ) {
+
+		callback = callback ? callback : function () {} ;
+
+		fileName = parameters[ 1 ];
+
+		var loader = new THREE.STLLoader();
+
+		loader.load( fileName, function ( geometry ) {
+
+			geometry.computeFaceNormals();
+			geometry.computeVertexNormals();
+
+			if (geometry.hasColors) {
+
+				material = new THREE.MeshPhongMaterial({ opacity: geometry.alpha, vertexColors: THREE.VertexColors });
+
+			} else {
+
+				material = new THREE.MeshPhongMaterial( { ambient: 0x555555, color: 0xffffff * Math.random(), shading: THREE.SmoothShading, shininess: 200, specular: 0x111111 } );
+
+			}
+
+			mesh = new THREE.Mesh( geometry, material );
+			mesh.receiveShadow = true;
+			mesh.position.y = parameters[ 2 ] ;
+			
+			scene.add( mesh );
+			
+			mesh.castShadow = true;
+
+			callback( mesh, parameters );
+
+		} );
+
+	};
+	
+	function callback( mesh, parameters ) {
+
+	}
+
+	function selectOrbitControls() {
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		camera.position.set( 100, 100, 100 );
+		
+		controls = new THREE.OrbitControls( camera, renderer.domElement );
+		controls.target.set( new THREE.Vector3( 0, 20, 0 ) );
+		controls.reset();
+		
+	}
+
+	
+	function selectFirstPersonControls() {
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		camera.position.set( -10, 20, 0 );
+
+		controls = new THREE.FirstPersonControls( camera, renderer.domElement );
+		controls.lookSpeedDefault = controls.lookSpeed = 0.025; // 0.0125;
+
+		controls.lookSpeedMin = 0.04;
+		controls.lookSpeedMax = 0.12;
+
+		controls.movementSpeedDefault = controls.movementSpeed = 0.5;
+		controls.movementSpeedMin = 0.05;
+		controls.movementSpeedMax = 100;
+
+		controls.heightSpeed = true;
+		controls.heightCoef = 0.5;
+		controls.heightMin = 1.0;
+		controls.heightMax = 80.0;
+
+		controls.noFly = false;
+		controls.lookVertical = true;
+//		controls.constrainVertical = true;
+		controls.verticalMin = 1.5;
+		controls.verticalMax = 2.0;
+		controls.autoSpeedFactor = 0.0;
+		controls.lon = 0;
+	
+//		app.animate = animate;
+
+	}
+	
+	function selectFlyControls() {
+console.log( 'fly' );	
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		camera.position.set( -100, 20, 0 );
+
+		controls = new THREE.FlyControls( camera, renderer.domElement );
+
+		controls.movementSpeed = 20; // 1
+		controls.rollSpeed = 0.1; // 0.005
+		
+	}
+	
+	function selectFirstPersonControlsHacker() {
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+		camera.position.set( -10, 20, 0 );
+
+		controls = new THREE.FirstPersonControlsHacker( camera, renderer.domElement );
+		controls.lookSpeedDefault = controls.lookSpeed = 0.025; // 0.0125;
+
+		controls.lookSpeedMin = 0.04;
+		controls.lookSpeedMax = 0.12;
+
+		controls.movementSpeedDefault = controls.movementSpeed = 0.5;
+		controls.movementSpeedMin = 0.05;
+		controls.movementSpeedMax = 100;
+
+		controls.heightSpeed = true;
+		controls.heightCoef = 0.5;
+		controls.heightMin = 1.0;
+		controls.heightMax = 80.0;
+
+		controls.noFly = false;
+		controls.lookVertical = true;
+//		controls.constrainVertical = true;
+		controls.verticalMin = 1.5;
+		controls.verticalMax = 2.0;
+		controls.autoSpeedFactor = 0.0;
+		controls.lon = 0;
+	
+//		app.animate = animate;
+
+	}
+		
+	function animate( time ) {
+	
+		renderer.render( scene, camera );
+		delta = clock.getDelta();
+		controls.update( delta );
+		requestAnimationFrame( animate );
+
+	}
+
+</script>
+</body>
+</html>

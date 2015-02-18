@@ -1,14 +1,14 @@
 [Camera Controls Read Me]( readme.html )
 ===
 
-##  Source Code
+##  Camera Controls Source Code
 <a href=https://github.com/mrdoob/three.js/blob/master/examples/js/controls/FirstPersonControls.js target=_top >
 Three.js First Person Controls Source Code on GitHub</a>  
 
 <a href=https://github.com/mrdoob/three.js/blob/master/examples/js/controls/FlyControls.js target=_top >
 Three.js Fly Controls Source Code on GitHub</a>
 
-<a href=https://github.com/va3c/viewer/blob/gh-pages/va3c-hacker-cookbook/camera-controls/r1/first-person-controls-theo.js target=_top>
+<a href=https://github.com/va3c/viewer/blob/gh-pages/va3c-hacker-cookbook/camera-controls/r1/first-person-controls-hacker.js target=_top>
 Modified First Person Controls Source Code</a>  
 * vA3C Hacker CookBook example
 
@@ -16,7 +16,18 @@ Modified First Person Controls Source Code</a>
 
 ### Three.js First Person
 
-Keys you can use with First Person Controls
+[Three.JS First Person Controls Basic]( threejs-controls/threejs-first-person-controls-basic.html )  
+* Simple example of the Three.js First Person Controls
+
+[Three.JS First Person Controls Basic Update Status]( threejs-controls/threejs-first-person-controls-basic-update-status.html )   
+* Adds real-time status read out of all the settings
+
+[Three.JS First Person Controls Basic Update Status]( threejs-controls/threejs-first-person-controls-basic-update-status-settings.html )  
+* Adds function that sets the settings  
+* Modifies two settings  
+* Still not very useful
+
+Keys you can use with Three.js First Person Controls (copied from source code):
 
 	case 38: /*up*/
 	case 87: /*W*/ this.moveForward = true; break;
@@ -33,18 +44,12 @@ Keys you can use with First Person Controls
 	case 82: /*R*/ this.moveUp = true; break;
 	case 70: /*F*/ this.moveDown = true; break;
 
-[Three.JS First Person Controls Basic]( threejs-controls/threejs-first-person-controls-basic.html )  
-* Simple example of the Three.js First Person Controls
 
-[Three.JS First Person Controls Basic Update Status]( threejs-controls/threejs-first-person-controls-basic-update-status.html )   
-* Adds real-time status read out of all the settings
-
-[Three.JS First Person Controls Basic Update Status]( threejs-controls/threejs-first-person-controls-basic-update-status-settings.html )  
-* Adds function that sets the settings  
-* Modifies two settings  
-* Still not very useful
 
 ### Three.js Fly Controls
+
+[Three.JS Fly Controls Basic]( threejs-controls/threejs-fly-controls-basic.html )  
+* Simple example of the Three.js Fly Controls
 
 Keys you can use with Fly Controls
 
@@ -68,12 +73,11 @@ Keys you can use with Fly Controls
 	case 81: /*Q*/ this.moveState.rollLeft = 1; break;
 	case 69: /*E*/ this.moveState.rollRight = 1; break;
 			
-[Three.JS Fly Controls Basic]( threejs-controls/threejs-fly-controls-basic.html )  
-* Simple example of the Three.js First Person Controls
 
-### vA3C Hacker Modified First Person Controls
 
-The vA3C Hacker Cookbook modified First Person Control add a number of features
+## vA3C Hacker Modified First Person Controls
+
+The vA3C Hacker Cookbook modified First Person Controls add a number of features.
 
 You can freeze or stop all motion at any time by:
 
@@ -88,9 +92,29 @@ You can vary the speed with the mousewheel:
 Scrolling back slows movement. 
 * When no button are pressed, scrolling the mousewheel controls the lookaround or rotation speed
 
-Everything you can do with the buttons and wheel you cann do with the keyboard and _vice versa_.
+Everything you can do with the buttons and wheel you can do with the keyboard and _vice versa_.
 
-Keys you can use with modified First Person Controls include that standard keys
+In order use the modified file, simply add the modified first person control to your Three.js script 
+- as shown in the default script that runs to the right when land here.
+
+[Camera Toggle Orbit/First Person Controls Demo]( hacker-controls/camera-toggle-orbit-first-person.html )
+
+[Iframe loads Three.js files adds First Person]( hacker-controls/iframe-parent-first-person-control.html )  
+Pick an existing Three.js file you wish to view from the menu. The file - written with Orbit controls - is loaded in an iframe. 
+The camera controls are overridden and reset to the First Person Hacker controls.
+
+<a href=hacker-controls/camera-controls-hackette.html target=_top >Camera Controls Hackette</a>
+
+A Hackette-style menu system that allows you to load models from a variety of locations and select the camera controls you wish to enable.
+
+Camera controls include
+
+* Orbit controls
+* First Person Controls - Three.js version
+* Fly controls
+* First Person Hacker controls
+
+Keys you can use with modified First Person Controls include the standard keys:
 
 	case 38: /*up*/
 	case 87: /*W*/ this.moveForward = true; break;
@@ -122,11 +146,4 @@ Plus seven new keyboard commands
 	case 188: /*< or ,*/ this.lookSpeed = 0; this.lon -= 0.5; break;
 	case 190: /*> or .*/ this.lookSpeed = 0; this.lon += 0.5; break;
 
-In order use the modified file, simply add the modified first person control to your Three.js script.
 
-[Camera Toggle Orbit/First Person Controls Demo]( r1/camera-toggle-orbit-first-person.html )
-
-As shown in the default script that runs to the right when land here.
-
-
-[Iframe loads Three.js files adds First Person]( r1/iframe-parent-first-person-control.html )
