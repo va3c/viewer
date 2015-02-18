@@ -60,7 +60,7 @@ Here is a selection of Hacker Cookbook scripts and examples on the web to help y
 
 [Geometry, Vertices and Colors]( #../../va3c-hacker-cookbook/geometry-vertices-colors/index.html# )
 
-It was as part of a question by Ben as to the possibility of simulation data.
+It was as part of a question by Dan M as to the possibility of displaying simulation data.
 
 </details>
 <details>
