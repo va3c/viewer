@@ -1,6 +1,11 @@
 Dev Notes
 ===
 
+2015-02-18 ~ Theo
+
+* Second post ready to go
+* Camera controls examples too longer than wanted but ended up with many more examples the anticipated.
+
 2015-02-16 ~ Theo
 
 * Working on the second post

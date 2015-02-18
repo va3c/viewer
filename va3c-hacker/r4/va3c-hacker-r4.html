@@ -3,7 +3,7 @@
 <head>
 <title>vA3C Hacker R4</title>
 <meta charset=utf-8 />
-<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+<meta name='viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0' />
 </head>
 <body>
 <script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
@@ -20,7 +20,7 @@
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
 			'h1 a, #bars { text-decoration: none; }' +
-			'h2 { display: inline; margin: 0; }' +
+			'h3 { display: inline; margin: 0; }' +
 			'#bars { color: #ccc; }' +
 		'';
 
@@ -32,13 +32,22 @@
 
 		menu =  header.appendChild( document.createElement( 'div' ) );
 		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; padding: 0 15px; overflow: auto; ' +
-			'position: absolute; right: -350px;  top: 0; width: 300px; ';
+			'position: absolute; right: -350px; top: 20px; width: 300px; ';
 
-		loadMarkdownInMenu( '2015-02-12.md', menu );
 
-		loadHTMLInIframe( '#../../../nasa-samples/index.html#' );
+		if ( location.hash ) 	{
 
-		slideMenu();
+			onHashChange();
+
+		} else {
+
+			loadMarkdownInMenu( 'readme.md', menu );
+
+			loadHTMLInIframe( '#../../va3c-hacker-cookbook/edit-geometry-vertices/r1/edit-geometry-vertices-r1-the-game.html#' );
+
+			slideMenu();
+			
+		}
 
 		window.addEventListener ( 'hashchange', onHashChange, false );
 
@@ -54,11 +63,16 @@
 
 		hashes = location.hash.split ( '#' );
 
-		if ( hashes.length < 1 ) { return; } 
+		if ( hashes.length < 1 ) { return; }
 
 		var fileName = hashes[ 1 ].toLowerCase();
 
-		var fileType = (fileName.substr( fileName.lastIndexOf( '.' )).toLowerCase() );
+		if ( fileName === 'post' ) {
+
+			loadPost( hashes );
+		}
+
+		var fileType = (fileName.substr( fileName.lastIndexOf( '.' )) );
 
 		if ( fileType === '.html' || fileType === '.htm' ) {
 
@@ -68,35 +82,25 @@
 
 			loadMarkdownInIframe( location.hash );
 
-		} else if ( fileType === '.json' || fileType === '.js' ) {
-
-			loadJSONInIframe( location.hash );
-
 		}
 
 	}
 
-	function loadJSONInIframe( hash, callback ) {
+	function loadPost( hashes ) {
 
-		hashes = hash.split ( '#' );
+		loadMarkdownInMenu( hashes[ 2 ], menu );
 
-		if ( ifr ) {
+		loadHTMLInIframe( '#' + hashes[ 3 ] + '#' );
+		
+		header.style.right = '350px';
+		
+	}
 
-			loadThreeJSInIframe( hash, callback );
+	function loadHTMLInIframe( hash, callback ) {
 
-		} else {
+		ifr = resetIframe( callback );
 
-			ifr.contentWindow.loadFileJSON( hash, callback );
-
-			history.pushState( '', document.title, window.location.pathname );
-
-		}
-
-		function callback() {
-
-console.log( 'loaded: ', hashes[ 1 ] );
-
-		}
+		ifr.src = hash.substr( 1 );
 
 	}
 
@@ -122,8 +126,10 @@ console.log( 'loaded: ', hashes[ 1 ] );
 	function loadMarkdownInIframe( hash, callback ) {
 
 		ifr = resetIframe( callback );
+		
+// Using srcdoc enables not having to create a separate file.
 
-		var srcdoc = 
+		var srcdoc =
 
 			"<div id=doc ><\/div>" +
 
@@ -131,21 +137,13 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 			"<script>" +
 
-			"	doc.style.cssText = 'font: bold 12pt monospace; max-width: 900px';" +
+			"	doc.style.cssText = 'font: bold 12pt monospace; margin-left: 80px; max-width: 900px';" +
 
 			"	var xmlHttp;" +
 
 			"	var converter = new Showdown.converter();" +
 
 			"	requestFile( '" + hash.substr( 1 ) + "' );" +
-
-			"	function callback() {" +
-
-			"		text = xmlHttp.responseText;" +
-			"		text = converter.makeHtml( text );" +
-			"		doc.innerHTML = text;" +
-
-			"	}" +
 
 			"	function requestFile( fileName ) {" +
 
@@ -156,31 +154,26 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 			"	}" +
 
+			"	function callback() {" +
+
+			"		var text = xmlHttp.responseText;" +
+			"		text = converter.makeHtml( text );" +
+			"		doc.innerHTML = text;" +
+
+			"	}" +
+
 			"<\/script>" +
 
 		"";
 
 		ifr.srcdoc = srcdoc;
 
-		slideMenu(); // to hide
+		slideMenu(); // to hide it
+
+//		location.hash = '';
 
 	};
 
-	function loadHTMLInIframe( hash, callback ) {
-
-		ifr = resetIframe( callback );
-
-		ifr.src = hash.substr( 1 );
-
-	}
-
-	function loadThreeJSInIframe( hash, callback ) {
-
-		ifr = resetIframe( callback );
-
-		ifr.src = 'view-json-revit-iframe.html' + hash;  // !!
-
-	}
 
 
 	function resetIframe( callback ) {

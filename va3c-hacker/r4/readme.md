@@ -1,4 +1,4 @@
-<a href=va3c-hacker-r4-dev.html#post#2015-02-12.md#../../../nasa-samples/index.html# >previous</a> / 
+<a href=va3c-hacker-r4.html#post#2015-02-12.md#../../../nasa-samples/index.html# >previous</a> / 
 
 [vA3C Hacker R4 ~ #2 ~ 2015-02-14]( ./va3c-hacker-r4.html "The Annual Day of the San Francisco Pillow Fight Post" )
 ===
@@ -8,10 +8,11 @@ Here's the second post to vA3C Hacker. Cick 'previous' to see the first.
 
 Suggestions, comments and bug reposts to va3c@googlegroups.com
 
+
+[GitHub web page]( http://va3c.github.io/viewer/va3c-hacker/ "view the files as apps." ) <input value="<< You are here" size=15 style="font:bold 11pt monospace;border-width:0;" >  
+&raquo; [GitHub source code]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View files with GitHub" ) <scan style=display:none ><< You are here</scan>  
+[vA3C Hacker Cookbook](  ../../va3c-hacker-cookbook/va3c-hacker-cookbook-viewer-r1.html )  
 [Developer Notes]( #../dev-notes.md# )  
-[GitHub  web page]( http://va3c.github.io/viewer/va3c-hacker/ "view the files as apps." ) <input value="<< You are here" size=15 style="font:bold 11pt monospace;border-width:0;" >  
-[GitHub source code]( https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker "View files with GitHub" ) <scan style=display:none ><< You are here</scan>  
-[vA3C Hacker Cookbook](  ../../va3c-hacker-cookbook/va3c-hacker-cookbook-viewer-r1.html )
 
 </details>
 <details open>
