@@ -1,6 +1,8 @@
 vA3C Hacker Road Map
 ===
 
+The following was for Hacker R3 and prior. Much of it no longer makes sense after the R4 pivot...
+
 ## Core
 
 * 2014-12-27 ~ Clearer, more intuitive file and function naming

@@ -3,12 +3,18 @@
 
 This utility helps you create and edit a 3D spline that can be used as a camera path to 'fly' around 3D models.
 
-Select a file that requires a camera path:
+1 - Select a file that requires a camera path:
 
 <input type=file onchange=VH.getFile(this); >  
-Samples: [drag objects]( #dispatch.js#../../cookbook/samples/drag-objects.html# ) [wave sphere]( #dispatch.js#../../cookbook/samples/wave-sphere.html# )
+
+or
+
+<input type=button onclick=VH.dispatchFileByURL(['','../../cookbook/samples/drag-objects.html','noGrid','noAxis','noGround']); value="Load the draggable objects demo" />
+<input type=button onclick=VH.dispatchFileByURL(['','../../cookbook/samples/wave-sphere.html','noGrid','noAxis','noGround']); value="Load the wave sphere demo" />
 
 <hr>
+2 - Generate a spline:
+
 Spline <input type="button" onclick=VH.splineMakerRandomPoints(inpPoints.value); value="Generate" /> 
 <input type="button" onclick=VH.splineDelete(); value="Delete" /> 
 
@@ -23,6 +29,7 @@ Number of control points: <input type="number" id="inpPoints"  min="4" max="1000
 Import <input type=file onchange="VH.importSpline(this);" />
 
 <hr>
+3 - Click 'Update path' then click 'Follow'
 
 <input type="checkbox" onchange=actionCamera=actionCamera===camera?splineCamera:camera; /> Follow 
 <input type="checkbox" onchange=updates=updates===true?false:true; checked /> Updates<br>

@@ -1,6 +1,10 @@
 Dev Notes
 ===
 
+2015-02-19 ~ Theo
+
+* Working on capture screen and save
+
 2015-02-18 ~ Theo
 
 * Second post ready to go
