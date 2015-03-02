@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>Template Lights Shadow</title>
+<meta charset=utf-8 >
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
+</head>
+<body>
+<script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
+<script>
+	var info, renderer, scene, camera, controls, stats, light;
+
+	init();
+	animate();
+
+	function init() {
+		var geometry, material, mesh;
+
+		document.body.style.cssText = 'margin: 0; overflow: hidden' ;
+
+		stats = new Stats();
+		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
+		document.body.appendChild( stats.domElement );
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+		document.body.appendChild( renderer.domElement );
+
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
+		camera.position.set( 200, 200, 200 );
+		scene.add( camera ); // for light to follow
+
+// controls
+		controls = new THREE.OrbitControls( camera );
+		controls.minDistance = 10;
+		controls.maxDistance = 1000;
+
+// Lights
+		light = new THREE.AmbientLight( 0xffffff );
+		scene.add( light );
+
+		light = new THREE.DirectionalLight( 0xffffff, 1 );
+		light.position.set( -200, 200, 200 );
+
+		var d = 200;
+		light.shadowCameraLeft = -d;
+		light.shadowCameraRight = d;
+		light.shadowCameraTop = d;
+		light.shadowCameraBottom = -d;
+
+		light.shadowCameraNear = 100;
+		light.shadowCameraFar = 500;
+
+// can help stop appearance of gridlines in objects with opacity < 1
+		light.shadowBias = -0.002; // default 0 ~ distance from corners?
+		light.shadowDarkness = 0.3; // default 0.5
+
+		light.shadowMapWidth = 2048;  // default 512
+		light.shadowMapHeight = 2048;
+
+		light.castShadow = true;
+//		light.shadowCameraVisible = true;
+		scene.add( light );
+
+		light = new THREE.PointLight( 0xffffff, 1 );  // color intensity distance 0 = infinity
+		light.position = camera.position;
+		camera.add( light );
+
+/*
+// Ground Plane
+		geometry = new THREE.BoxGeometry( 200, 5, 200 );
+
+//		var material.color = 0x202099; 
+//		var material = new THREE.MeshNormalMaterial();
+		var material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random(),
+			shininess: 50,
+			side: THREE.DoubleSide
+		} );
+
+
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, -2.5, 0 );
+//		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+		scene.add( new THREE.BoxHelper( mesh ) );
+*/
+
+//		parent.callbackIframe();
+
+	}
+
+	function animate() {
+
+		renderer.render( scene, camera );
+		controls.update();
+		stats.update();
+		requestAnimationFrame( animate );
+
+	}
+
+</script>
+</body>
+</html>

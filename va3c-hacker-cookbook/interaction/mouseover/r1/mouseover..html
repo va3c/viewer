@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>Template Three.js</title>
+<title>Mouseover</title>
 <meta charset=utf-8 />
 <meta name=viewport content='width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0' />
 </head>
@@ -11,26 +11,34 @@
 <script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
 <script>
 	var info, renderer, scene, camera, controls, stats, light;
-	var geometry, material, mesh, helper;
 
+	var raycaster;
+	var mouse;
+	var intersected;
 	var cubes = [];
 
 	init();
 	animate();
 
 	function init() {
+		var geometry, material, mesh, helper;
 
-		var css = document.head.appendChild( document.createElement('style') );
-		css.innerHTML ='body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' ;
+		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
 
 		info = document.body.appendChild( document.createElement( 'div' ) );
-		info.style.cssText = 'left: 0; margin: auto; max-width: 300px; position: absolute; right: 0;';
+		info.style.cssText = 'left: 20px; position: absolute; top: 0px; width: 100% ';
 		info.innerHTML = '<a href="" ><h1>' + document.title + '</h1></a>' +
 			'<div id=msg></div>' +
 		'';
 
+// Heads Up
+		headsUp = document.body.appendChild( document.createElement( 'div' ) );
+		headsUp.style.cssText = 'background-color: #ddd; border-radius: 8px; padding: 0 5px 10px 5px; opacity: 0.85; ' +
+			'position: absolute; left: 50px; text-align: left; ';
+
+
 		stats = new Stats();
-		stats.domElement.style.cssText = 'position: absolute; right: 0; bottom: 0; z-index: 100; ';
+		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
 		document.body.appendChild( stats.domElement );
 
 		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
@@ -82,6 +90,9 @@
 
 // Ground Plane
 		geometry = new THREE.BoxGeometry( 100, 5, 100 );
+
+//		var material.color = 0x202099; 
+//		var material = new THREE.MeshNormalMaterial();
 		var material = new THREE.MeshPhongMaterial( {
 			color: 0xffffff * Math.random(), 
 			ambient: 0xffffff * Math.random(),
@@ -115,7 +126,18 @@
 			color: 0xffffff * Math.random(), 
 			ambient: 0xffffff * Math.random(),
 			specular: 0xffffff * Math.random(),
-			shininess: 0.1
+			shininess: 50,
+			side: THREE.DoubleSide
+		} );
+//		material = new THREE.MeshBasicMaterial( { color: 0x888888, opacity: 0.7, side: THREE.DoubleSide, transparent: true });
+//		material = new THREE.MeshLambertMaterial( { ambient: 0xffffff, color: 0xffffff * Math.random() } );
+//		material = new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.FlatShading } )
+		material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random(),
+//			shading: THREE.FlatShading,
+			shininess: 0.001
 		} );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( -100, 10, 0 );
@@ -150,14 +172,81 @@
 
 		}
 
+		raycaster = new THREE.Raycaster();
+		mouse = new THREE.Vector2();
+// Events
+		renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
 	}
+
+	function onDocumentMouseMove( event ) {
+
+		event.preventDefault();
+
+		mouse.x = ( event.clientX / renderer.domElement.width ) * 2 - 1;
+		mouse.y = - ( event.clientY / renderer.domElement.height ) * 2 + 1;
+
+		raycaster.setFromCamera( mouse, camera );
+
+		var intersects = raycaster.intersectObjects( cubes );
+
+		if ( intersects.length > 0 ) {
+
+			if ( intersected != intersects[ 0 ].object ) {
+
+				if ( intersected && intersected.material.emissive ) {
+
+					intersected.currentHex = intersected.material.emissive.getHex();
+
+				}
+
+				intersected = intersects[ 0 ].object;
+				intersected.material.emissive.setHex( 0xff0000 );
+
+				headsUp.style.left = 10 + 0.5 * window.innerWidth + mouse.x * 0.5 * window.innerWidth + 'px';
+				headsUp.style.top = -10 + 0.5 * window.innerHeight - mouse.y * 0.5 * window.innerHeight + 'px';
+				headsUp.style.display = '';
+				var txt = '<h1 style="margin:0;" >cube id:' + intersected.id + '</h1>' +
+				'';
+				headsUp.innerHTML = txt;
+
+			}
+
+			document.body.style.cursor = 'pointer';
+
+
+		} else {
+
+			if ( intersected && intersected.material.emissive ) {
+
+				intersected.material.emissive.setHex( intersected.currentHex );
+
+			}
+
+			intersected = null;
+
+			document.body.style.cursor = 'auto';
+
+		}
+
+	}
+
+
+	function onDocumentMouseDown( event ) {
+
+		headsUp.style.display = 'none';
+
+	}
+
+
 
 	function animate( timestamp ) {
 
-		requestAnimationFrame( animate );
 		renderer.render( scene, camera );
 		controls.update();
 		stats.update();
+		requestAnimationFrame( animate );
 
 	}
 

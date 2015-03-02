@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>Camera Toggle Orbit/First Person Controls</title>
+<title>index-left-side-hackette</title>
 <meta charset=utf-8 />
 <meta name=viewport content='width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0' />
 </head>
@@ -15,30 +15,31 @@
 
 	function init() {
 
-
+		var txt = 'lorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?';
 
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
+			'h1 { margin: 0; }' +
 			'h1 a, #bars { text-decoration: none; }' +
-			'h2 {display: inline; margin: 0; padding: 0;}' +
+			'h2 { background-color: #f8f8f8; padding: 0 5px; }' +
+			'h2.close::before { content: "► "; }' +
+			'h2.open::before { content: "▼ "; }' +
 			'#bars { color: #ccc; }' +
 		'';
 
 		header = document.body.appendChild( document.createElement( 'div' ) );
-		header.style.cssText = 'position: absolute; left: 350px; transition: left 1s; ';
-		header.innerHTML = '<h1>' +
-			'<a href=JavaScript:slideMenu(); id=bars >&#9776;</a>'+
-		'</h1>';
+		header.style.cssText = 'position: absolute; left: 350px; top: 20px; transition: left 1s; ';
+		header.innerHTML = '<h1><a href=JavaScript:slideMenu(); id=bars >&#9776;</a></h1>';
 
 		menu =  header.appendChild( document.createElement( 'div' ) );
-		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; padding: 0 15px; overflow: auto; ' +
-			'position: absolute; left: -350px; top: 20px; width: 300px; ';
+		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; left: -350px; opacity: 0.85; overflow: auto; ' +
+			'padding: 0 15px; position: absolute; top: 0px; width: 300px; ';
 
-		loadMarkdownInMenu( 'contents.md', menu );
+		loadMarkdownInMenu( 'contents-left-side.md', menu );
 
 //		loadMarkdownInIframe( '#readme.md#' );
 
-		loadHTMLInIframe( '#hacker-controls/camera-toggle-orbit-first-person.html#' );
+		loadHTMLInIframe( '#../template-threejs.html#' );
 
 //		slideMenu();
 
@@ -97,6 +98,65 @@
 
 			panel.innerHTML = converter.makeHtml( text );
 
+			items = document.body.getElementsByTagName( 'h2' );
+
+			for ( var i = 0; i < items.length; i++ ) {
+
+				items[ i ].id = 't' + i;
+
+				if ( items[ i ].innerHTML.indexOf( '(open)' ) === -1 ) {
+
+					items[ i ].className += ' close';
+					item = items[ i ].nextElementSibling;
+
+					while ( item && item.tagName !== 'H2' ) {
+
+						item.style.display = 'none';
+						item = item.nextElementSibling;
+
+					} 
+
+				} else {
+
+					items[ i ].className += ' open';
+					items[ i ].innerHTML = items[ i ].innerHTML.replace( '(open)','' );
+
+
+				}
+
+				items[ i ].onclick = function() { toggle( this ); };
+
+			}
+
+		}
+
+	}
+
+	function toggle( element ) {
+
+		element = document.getElementById( element.id );
+		content = element.nextElementSibling;
+
+		if ( content.style.display === '' ) {
+
+			while ( content && content.tagName !== 'H2' ) {
+				content.style.display = 'none';
+				content = content.nextElementSibling;
+			}
+
+			element.className = 'toggle close';
+
+		} else {
+
+			while ( content && content.tagName !== 'H2' ) {
+
+				content.style.display = '';
+				content = content.nextElementSibling;
+
+			}
+
+			element.className = 'toggle open';
+
 		}
 
 	}
@@ -146,19 +206,9 @@
 
 		slideMenu(); // to hide
 
-
+//		location.hash = '';
 
 	};
-
-
-
-
-
-
-
-
-
-
 
 	function resetIframe( callback ) {
 

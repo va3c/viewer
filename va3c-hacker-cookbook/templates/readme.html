@@ -9,15 +9,14 @@
 <script>
 // Let's a read me file written in MarkDown be viewable as HTML
 
+	var xmlHttp;
+
+	var converter = new Showdown.converter();
+
 	doc = document.body.appendChild( document.createElement( 'div' ) );
 	doc.style.cssText = 'font: bold 12pt monospace; left: 0; margin: auto; max-width: 800px;' +
 		'position: absolute; right: 0; ' +
 	'';
-
-
-	var xmlHttp;
-
-	var converter = new Showdown.converter();
 
 	requestFile( 'readme.md' );
 

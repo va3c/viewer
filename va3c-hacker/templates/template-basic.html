@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>Template - Basic</title>
+<meta charset=utf-8 />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+</head>
+<body>
+<script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
+<script>
+
+	var renderer, scene, camera, controls, light, gridHelper;
+
+	init();
+	animate();
+
+	function init() {
+
+		document.body.style.cssText = 'margin: 0; overflow: hidden' ;
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+		camera.position.set( 100, 100, 100 );
+
+		controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+		scene.add( camera );
+
+		light = new THREE.AmbientLight( 0xffffff );
+		scene.add( light );
+
+		light = new THREE.DirectionalLight( 0xffffff, 1 );
+		light.position.set( -100, 100, 100 );
+		scene.add( light );
+
+		light = new THREE.PointLight( 0xffffff, 1 );
+		light.position = camera.position;
+		camera.add( light );
+
+		gridHelper = new THREE.GridHelper( 50, 10 );
+		scene.add( gridHelper );
+
+	}
+
+	function animate() {
+
+		requestAnimationFrame( animate );
+		renderer.render( scene, camera );
+		controls.update();
+
+	}
+
+</script>
+</body>
+</html>

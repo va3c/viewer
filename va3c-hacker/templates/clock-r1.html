@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>Clock R1</title>
+<meta charset=utf-8 />
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
+</head>
+<body>
+<script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
+<script>
+	var info, renderer, scene, camera, controls, stats, light;
+
+	var cubes = [];
+
+	var time = new Date();
+
+	init();
+	animate();
+
+	function init() {
+		var geometry, material, mesh, helper;
+
+		document.body.style.cssText = 'font: 600 12pt monospace; margin: 0; overflow: hidden' ;
+
+		info = document.body.appendChild( document.createElement( 'div' ) );
+		info.style.cssText = 'left: 20px; position: absolute; top: 0px; width: 100% ';
+		info.innerHTML = 
+// '<a href="" ><h1>' + document.title + '</h1></a>' +
+			'<div id=msg></div>'
+		'';
+
+		stats = new Stats();
+		stats.domElement.style.cssText = 'position: absolute; right: 0; top: 0; z-index: 100; ';
+		document.body.appendChild( stats.domElement );
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMapEnabled = true;
+
+		document.body.appendChild( renderer.domElement );
+
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
+		camera.position.set( 100, 100, 100 );
+		scene.add( camera ); // for light to follow
+
+// controls
+		controls = new THREE.OrbitControls( camera );
+		controls.minDistance = 10;
+		controls.maxDistance = 1000;
+
+// Lights
+		light = new THREE.AmbientLight( 0x888888 );
+		scene.add( light );
+
+		light = new THREE.DirectionalLight( 0x888888, 0.75 );
+		light.position.set( -200, 200, 200 );
+
+		var d = 100;
+		light.shadowCameraLeft = -d;
+		light.shadowCameraRight = d;
+		light.shadowCameraTop = d;
+		light.shadowCameraBottom = -d;
+
+		light.shadowCameraNear = 200;
+		light.shadowCameraFar = 500;
+
+// can help stop appearance of gridlines in objects with opacity < 1
+		light.shadowBias = -0.0002; // default 0 ~ distance fron corners?
+		light.shadowDarkness = 0.3; // default 0.5
+		light.shadowMapWidth = 2048;  // default 512
+		light.shadowMapHeight = 2048;
+
+		light.castShadow = true;
+		light.shadowCameraVisible = true;
+		scene.add( light );
+
+		light = new THREE.PointLight( 0x888888, 0.75);
+		light.position = camera.position;
+		camera.add( light );
+
+// Ground Plane
+		geometry = new THREE.BoxGeometry( 100, 2, 100 );
+
+//		var material.color = 0x202099; 
+//		var material = new THREE.MeshNormalMaterial();
+		var material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random(),
+			shininess: 50,
+			side: THREE.DoubleSide
+		} );
+
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, -1, 0 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+		helper = new THREE.BoxHelper( mesh );
+		helper.material.color.setRGB( 1, 0, 1 );
+		scene.add( helper );
+
+		mesh = new THREE.GridHelper( 50, 10 );
+		scene.add( mesh );
+
+		var axis = new THREE.AxisHelper( 50 );
+		scene.add( axis );
+
+// Perisphere
+		geometry = new THREE.SphereGeometry( 25, 50, 25, 0, Math.PI * 2, 5.25  );
+		material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xaaaaaa * Math.random()
+//			shading: THREE.FlatShading,
+//			shininess: 0.001
+		} );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( -100, 10, 0 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+// Trylon
+		geometry = new THREE.CylinderGeometry( 0, 8, 80, 3 );
+		material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random()
+//			shading: THREE.FlatShading,
+//			shininess: 0.001
+		} );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( -70, 40, 40 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+
+
+		buildClock();
+
+	}
+
+	function buildClock() {
+		geometry = new THREE.CylinderGeometry( 50, 50, 10, 50 );
+		material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random()
+//			shading: THREE.FlatShading,
+//			shininess: 0.001
+		} );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, 10, 0 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+// Dial
+		geometry = new THREE.BoxGeometry( 2, 1, 10  );
+		var angle = Math.PI / 6;
+		for (var i = 0; i < 12; i++) {
+			material = new THREE.MeshPhongMaterial( {
+				color: 0xffffff * Math.random(), 
+				ambient: 0xffffff * Math.random(),
+				opacity: Math.random(),
+				specular: 0xffffff * Math.random(),
+				shading: THREE.FlatShading,
+				shininess: 10,
+				transparent: true
+			} );
+
+			mesh = new THREE.Mesh( geometry, material );
+			mesh.position.set( 40 * Math.cos( angle * i ), 16, 40 * Math.sin( angle * i ) );
+			mesh.rotation.y = ( Math.PI / 2 ) - angle * i;
+			mesh.castShadow = true;
+			mesh.receiveShadow = true;
+			scene.add( mesh );
+			cubes.push( mesh );
+
+			helper = new THREE.BoxHelper( mesh );
+			helper.material.color.setRGB( 1, 0, 0 );
+			scene.add( helper );
+
+		}
+
+// Seconds
+		geometry = new THREE.BoxGeometry( 2, 1, 40  );
+		material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			opacity: Math.random(),
+			specular: 0xffffff * Math.random(),
+			shading: THREE.FlatShading,
+			shininess: 10,
+			transparent: true
+		} );
+
+		handSeconds = new THREE.Mesh( geometry, material );
+		handSeconds.castShadow = true;
+		handSeconds.receiveShadow = true;
+		scene.add( handSeconds );
+
+// Minutes
+		geometry = new THREE.BoxGeometry( 2, 1, 30  );
+		material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			opacity: Math.random(),
+			specular: 0xffffff * Math.random(),
+			shading: THREE.FlatShading,
+			shininess: 10,
+			transparent: true
+		} );
+
+		handMinutes = new THREE.Mesh( geometry, material );
+		handMinutes.castShadow = true;
+		handMinutes.receiveShadow = true;
+		scene.add( handMinutes );
+
+
+// Hours
+		geometry = new THREE.BoxGeometry( 2, 1, 20  );
+		material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(), 
+			ambient: 0xffffff * Math.random(),
+			opacity: Math.random(),
+			specular: 0xffffff * Math.random(),
+//			shading: THREE.FlatShading,
+			shininess: 10,
+			transparent: true
+		} );
+
+		handHours = new THREE.Mesh( geometry, material );
+		handHours.castShadow = true;
+		handHours.receiveShadow = true;
+		scene.add( handHours );
+
+	}
+	function updateHands() {
+
+		var time = new Date();
+		angle = time.getSeconds() * Math.PI / 30;
+		handSeconds.position.set( -25 * Math.cos( angle ), 19, -25 * Math.sin( angle ) );
+		handSeconds.rotation.y = ( Math.PI / 2 ) - angle;
+
+		minutes = time.getMinutes();
+		angle = minutes * Math.PI / 30;
+		handMinutes.position.set( -25 * Math.cos( angle ), 18, -25 * Math.sin( angle ) );
+		handMinutes.rotation.y = ( Math.PI / 2 ) + Math.PI - angle;
+
+		angle = time.getHours() * Math.PI / 6 + minutes * Math.PI / ( 60 * 6 );
+		handHours.position.set( -15 * Math.cos( angle), 17, -15 * Math.sin( angle ) );
+		handHours.rotation.y =  ( Math.PI / 2 ) + Math.PI - angle;
+
+	}
+
+	function animate( timestamp ) {
+		updateHands();
+		renderer.render( scene, camera );
+		controls.update();
+		stats.update();
+		requestAnimationFrame( animate );
+
+	}
+
+</script>
+</body>
+</html>

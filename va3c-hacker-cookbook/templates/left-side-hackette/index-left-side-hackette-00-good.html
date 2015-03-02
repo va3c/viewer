@@ -1,11 +1,9 @@
 <!doctype html>
 <html lang=en >
 <head>
-<title>View Hackathon Files R1</title>
+<title>index-left-side-hackette</title>
 <meta charset=utf-8 />
-<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 />
-<meta name=author content='Theo Armour' />
-<link rel=stylesheet href=http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css />
+<meta name=viewport content='width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0' />
 </head>
 <body>
 <script src=http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js ></script>
@@ -21,26 +19,27 @@
 
 		var css = document.body.appendChild( document.createElement('style') );
 		css.innerHTML = 'body { font: 600 12pt monospace; margin: 0; overflow: hidden; }' +
+			'h1 { margin: 0; }' +
 			'h1 a, #bars { text-decoration: none; }' +
-			'h2 {display: inline; margin: 0; padding: 0;}' +
+			'h2 { background-color: #f8f8f8; padding: 0 5px; }' +
+			'h2.close::before { content: "► "; }' +
+			'h2.open::before { content: "▼ "; }' +
 			'#bars { color: #ccc; }' +
 		'';
 
 		header = document.body.appendChild( document.createElement( 'div' ) );
-		header.style.cssText = 'position: absolute; left: 350px; transition: left 1s; ';
-		header.innerHTML = '<h1>' +
-			'<a href=JavaScript:slideMenu(); id=bars ><i class="fa fa-bars"></a></i>'+
-		'</h1>';
+		header.style.cssText = 'position: absolute; left: 350px; top: 20px; transition: left 1s; ';
+		header.innerHTML = '<h1><a href=JavaScript:slideMenu(); id=bars >&#9776;</a></h1>';
 
 		menu =  header.appendChild( document.createElement( 'div' ) );
-		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; padding: 0 15px; overflow: auto; ' +
-			'position: absolute; left: -350px; top: 20px; width: 300px; ';
+		menu.style.cssText = 'background-color: #eee; height: ' + ( 0.95 * window.innerHeight ) + 'px; left: -350px; opacity: 0.85; overflow: auto; ' +
+			'padding: 0 15px; position: absolute; top: 0px; width: 300px; ';
 
 		loadMarkdownInMenu( 'contents-left-side.md', menu );
 
 //		loadMarkdownInIframe( '#readme.md#' );
 
-		loadHTMLInIframe( '#template-threejs.html#' );
+		loadHTMLInIframe( '#../template-threejs.html#' );
 
 //		slideMenu();
 
@@ -72,37 +71,15 @@
 
 			loadMarkdownInIframe( location.hash );
 
-		} else if ( fileType === '.json' || fileType === '.js' ) {
-
-			loadJSONInIframe( location.hash );
-
 		}
 
 	}
 
-	function loadJSONInIframe( hash, callback ) {
+	function loadHTMLInIframe( hash, callback ) {
 
-		var hashes = hash.split ( '#' );
+		ifr = resetIframe( callback );
 
-		add = hashes.indexOf( 'add=true' ) === -1 ? false : true;
-
-		if ( !ifr || add === false ) {
-
-			loadThreeJSInIframe( hash, callback );
-
-		} else {
-
-			ifr.contentWindow.loadFileJSON( hash, callback );
-
-			history.pushState( '', document.title, window.location.pathname );
-
-		}
-
-		function callback() {
-
-console.log( 'loaded: ', hashes[ 1 ] );
-
-		}
+		ifr.src = hash.substr( 1 );
 
 	}
 
@@ -120,6 +97,45 @@ console.log( 'loaded: ', hashes[ 1 ] );
 			text = xmlHttp.responseText;
 
 			panel.innerHTML = converter.makeHtml( text );
+
+			items = document.body.getElementsByTagName( 'h2' );
+
+			for ( var i = 0; i < items.length; i++ ) {
+
+				items[ i ].id = 't' + i;
+
+				if ( items[ i ].innerHTML.indexOf( '(open)' ) === -1 ) {
+					items[ i ].className += ' close';
+					items[ i ].nextElementSibling.style.display = 'none';
+
+				} else {
+
+					items[ i ].innerHTML = items[ i ].innerHTML.replace( '(open)','' );
+					items[ i ].className += ' open';
+
+				}
+
+				items[ i ].onclick = function() { toggle( this ); };
+
+			}
+
+		}
+
+	}
+
+	function toggle( element ) {
+
+		content = document.getElementById( element.id );
+
+		if ( content.nextElementSibling.style.display === '' ) {
+
+			content.nextElementSibling.style.display = 'none';
+			element.className = 'toggle close';
+
+		} else {
+
+			content.nextElementSibling.style.display = '';
+			element.className = 'toggle open';
 
 		}
 
@@ -170,26 +186,9 @@ console.log( 'loaded: ', hashes[ 1 ] );
 
 		slideMenu(); // to hide
 
-		location.hash = '';
+//		location.hash = '';
 
 	};
-
-	function loadHTMLInIframe( hash, callback ) {
-
-		ifr = resetIframe( callback );
-
-		ifr.src = hash.substr( 1 );
-
-	}
-
-	function loadThreeJSInIframe( hash, callback ) {
-
-		ifr = resetIframe( callback );
-
-		ifr.src = 'view-file-json4-revit-hackathon-by-url-iframe.html' + hash;
-
-	}
-
 
 	function resetIframe( callback ) {
 
