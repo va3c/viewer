@@ -8,7 +8,7 @@ GitHub source code</a>
 or use [vA3C Hacker Cookbook](va3c-hacker-cookbook-viewer-r1.html) menu.
 
 [GitHub web page]( http://va3c.github.io/viewer/va3c-hacker-cookbook/ "view the files as apps." ) <input value="<< You are here" size=15 style="font:bold 11pt monospace;border-width:0;" >  
-&raquo; <a href=https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker-cookbook/ target=_top title="View files with GitHub" > <scan style=display:none ><< You are here</scan>  
+&raquo; <a href=https://github.com/va3c/viewer/tree/gh-pages/va3c-hacker-cookbook/ target=_top title="View files with GitHub" >GitHub source code</a> <scan style=display:none ><< You are here</scan>  
 
 
 ### Issues

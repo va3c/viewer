@@ -11,6 +11,7 @@
 [Enable Rotate Camera After Delay]( #enable-rotate-camera-after-delay/enable-rotate-camera-after-delay.html# )  
 [Export Screen Grab]( export-screen-grab/r2/export-screen-grab.js )  
 [Geometry Vertices Colors]( #geometry-vertices-colors/index.html# )  
+[Geometry Shapes Extrusions]( #geometry-shapes/r1/geometry-shapes-extrusions.html# )  
 [Load File STL]()  
 [open-json4-file-by-file-dialog]()  
 [Templates]()  

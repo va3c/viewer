@@ -35,18 +35,18 @@
 			'position: absolute; right: -350px; top: 20px; width: 300px; ';
 
 
-		if ( location.hash ) 	{
+		if ( location.hash ) {
 
 			onHashChange();
 
 		} else {
 
-			loadMarkdownInMenu( 'readme.md', menu );
+			loadMarkdownInMenu( 'menu-contents.md', menu );
 
-			loadHTMLInIframe( '#../../va3c-hacker-cookbook/edit-geometry-vertices/r1/edit-geometry-vertices-r1-the-game.html#' );
+			loadHTMLInIframe( '#../../va3c-hacker-cookbook/geometry-shapes/r1/geometry-shapes-extrusions.html#' );
 
 			slideMenu();
-			
+
 		}
 
 		window.addEventListener ( 'hashchange', onHashChange, false );
@@ -91,9 +91,9 @@
 		loadMarkdownInMenu( hashes[ 2 ], menu );
 
 		loadHTMLInIframe( '#' + hashes[ 3 ] + '#' );
-		
+
 		header.style.right = '350px';
-		
+
 	}
 
 	function loadHTMLInIframe( hash, callback ) {
@@ -126,7 +126,7 @@
 	function loadMarkdownInIframe( hash, callback ) {
 
 		ifr = resetIframe( callback );
-		
+
 // Using srcdoc enables not having to create a separate file.
 
 		var srcdoc =
