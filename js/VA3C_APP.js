@@ -166,7 +166,7 @@ VA3C.jsonLoader.hideOpenDialog = function(){
 };
 
 //a function to populate our scene object from a json file
-VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
+VA3C.jsonLoader.loadSceneFromJson = function (jsonToLoad) {
 
     //restore the initial state of the attributes and lighting objects
     if (VA3C.attributes.elementList.length > 0) {
@@ -190,6 +190,23 @@ VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
     VA3C.lightingRig.createLights();
 
     VA3C.uiVariables.getViews();
+
+
+        if (VA3C.attributes.viewList.length > 0) {
+            var fol =VA3C.datGui.__folders;
+            
+            var f = fol.View_and_Selection;
+                
+                    f.add(VA3C.uiVariables, 'view', ['cameraTest', 'camera2']).onFinishChange(function (e) {
+                        VA3C.uiVariables.resetView();
+                    });
+                
+            
+        
+                    
+               
+}
+
 
     //call zoom extents
     VA3C.uiVariables.zoomExtents();
@@ -543,7 +560,7 @@ VA3C.UiConstructor = function () {
     //fog
     this.fog = true;
 
-    this.camera = "cameraTest";
+    this.view = "cameraTest";
 
 
 
@@ -581,7 +598,6 @@ VA3C.UiConstructor = function () {
     };
 
     this.getViews = function () {
-
         if (VA3C.scene.userData.length > 0) {
             for (var k = 0, kLen = VA3C.scene.userData.length; k < kLen; k++) {
                 var itemView = VA3C.scene.userData[k];
@@ -591,30 +607,27 @@ VA3C.UiConstructor = function () {
     };
 
     this.resetView = function () {
-
         var vector = new THREE.Vector3(0, 0, 1);
         var up = vector.applyQuaternion(VA3C.orbitControls.object.quaternion);
 
         //get the current camera by name
-
-        var cam;
+        var view;
         for (var i = 0; i < VA3C.attributes.viewList.length; i++) {
-            var c = VA3C.attributes.viewList[i];
-            if (c.name == this.camera) {
-                cam = c;
+            var v = VA3C.attributes.viewList[i];
+            if (v.name == this,view) {
+                view = v;
                 break;
             }
         }
 
-        if (cam) {
+        if (view) {
             //get the eyePos from the current camera
-            //multiply by 500 the vector from Revit  (-x,z,y)
-            //var eyePos = new THREE.Vector3(-353000, 48000, 103000.10);
-            var eyePos = new THREE.Vector3(-cam.eye.X, cam.eye.Z, cam.eye.Y);
+            //change vector from Revit  (-x,z,y)
+            var eyePos = new THREE.Vector3(-view.eye.X, view.eye.Z, view.eye.Y);
 
             //get the targetPos from the current camera
             //change direction of vector from revit (-x,-z,-y)
-            var dir = new THREE.Vector3(- cam.target.X, -cam.target.Z, -cam.target.Y);
+            var dir = new THREE.Vector3(-view.target.X, -view.target.Z, -view.target.Y);
 
             VA3C.orbitControls.target.set(dir.x, dir.y, dir.z);
             VA3C.orbitControls.object.position.set(eyePos.x, eyePos.y, eyePos.z);
@@ -955,9 +968,24 @@ VA3C.attributes.populateAttributeList = function( jsonData ){
         };
 
 //function to purge local variables within this object.  When a user loads a new scene, we have to clear out the old stuff
-VA3C.attributes.purge = function(){
+VA3C.attributes.purge = function () {
     this.restorePreviouslySelectedObject();
     this.elementList = [];
+    this.viewList = [];
+
+    var folder =VA3C.datGui.__folders.View_and_Selection;
+
+        for (var i = 0; i < folder.__controllers.length; i++) {
+            if (folder.__controllers[i].property == "view") {
+                
+                try{
+                    folder.__controllers[i].remove();
+                folder.remove(folder.__controllers[i]);
+                }
+                catch(err){}
+                break;
+}
+    }
 };
 
 //function to handle changing the color of a selected element

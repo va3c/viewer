@@ -35,7 +35,7 @@ $(document).ready(function(){
     
 
     //add view folder
-    var viewFolder = VA3C.datGui.addFolder('View and Selection');
+    var viewFolder = VA3C.datGui.addFolder('View_and_Selection');
     //zoom extents and selected
     viewFolder.add(VA3C.uiVariables, 'zoomExtents');
     viewFolder.add(VA3C.uiVariables, 'zoomSelected');
@@ -52,9 +52,7 @@ $(document).ready(function(){
         }
     });
 
-    viewFolder.add(VA3C.uiVariables, 'camera', ['cameraTest','camera2']).onFinishChange(function (e) {
-        VA3C.uiVariables.resetView()
-    });
+    
 
     //add a lighting folder
     var lightsFolder = VA3C.datGui.addFolder('Lighting');
@@ -99,8 +97,7 @@ $(document).ready(function(){
     //$.getJSON("./js/rvtenergy.json", function( data ){
     $.getJSON("./js/va3c.json", function( data ){
         VA3C.jsonLoader.loadSceneFromJson(data);
-        VA3C.getViews(data);
-        
+
     });
 
 });
