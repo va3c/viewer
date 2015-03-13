@@ -21,11 +21,11 @@ var VA3C = {
 
 //function that sets up the initial THREE.js scene, renderer, camera, orbit controls, etc.
 VA3C.initViewer = function(viewerDiv, statsDiv){
-
+    
     //empty scene
     VA3C.scene = new THREE.Scene();
     //VA3C.scene.fog = new THREE.FogExp2(0x000000, 0.0025);
-
+    
     //set up the THREE.js div and renderer
     VA3C.container = viewerDiv;
     VA3C.renderer = new THREE.WebGLRenderer(
@@ -188,6 +188,9 @@ VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
     VA3C.jsonLoader.computeBoundingSphere();
     //set up the lighting rig
     VA3C.lightingRig.createLights();
+
+    VA3C.uiVariables.getViews();
+
     //call zoom extents
     VA3C.uiVariables.zoomExtents();
 
@@ -196,6 +199,11 @@ VA3C.jsonLoader.loadSceneFromJson = function(jsonToLoad){
     $(".loading").hide();
 
 };
+
+
+
+
+
 
 //call this function to set a geometry's face material index to the same index as the face number
 //this lets meshfacematerials work - the json loader only gets us part of the way there (I think we are missing something when we create mesh faces...)
@@ -254,8 +262,8 @@ VA3C.jsonLoader.processSceneGeometry = function(){
             VA3C.attributes.elementList.push(items[i]);
 
         }
-        //if this is an object that contains multiple meshes (like the objects that come from Revit), process the
-        //children meshes so they render correctly, and add the child to the attributes.elementList
+            //if this is an object that contains multiple meshes (like the objects that come from Revit), process the
+            //children meshes so they render correctly, and add the child to the attributes.elementList
         else if ( items[i].children.length > 0 ){
             //let the objects cast and receive shadows
             items[i].castShadow = true;
@@ -273,7 +281,6 @@ VA3C.jsonLoader.processSceneGeometry = function(){
                     VA3C.attributes.elementList.push(itemsChildren[k]);
                 }
             }
-
         }
     }
 };
@@ -465,7 +472,7 @@ VA3C.lightingRig.setFog = function( n ){
         VA3C.scene.fog = null;
     }
 
-    //if true, set up some fog in the scene using the backgound color and the bounding sphere's radius
+        //if true, set up some fog in the scene using the backgound color and the bounding sphere's radius
     else{
         VA3C.scene.fog = new THREE.FogExp2(new THREE.Color(VA3C.uiVariables.backgroundColor), 0.00025);
     }
@@ -498,30 +505,29 @@ VA3C.lightingRig.purge = function(){
 };
 
 
-
 //*********************
 //*********************
 //*** User Interface.
 
 //dat.gui Constructor object
 // an instance of this is class created to store UI variables and functions
-VA3C.UiConstructor = function(){
+VA3C.UiConstructor = function () {
 
     //OPEN FILE
-    this.openLocalFile = function(){
+    this.openLocalFile = function () {
 
         //show the openLocalFile Div
-        $("#OpenLocalFile").css("visibility","visible");
+        $("#OpenLocalFile").css("visibility", "visible");
         $(".blackout").show();
 
         //this should show a form that lets a user open a file
 
     };
 
-    this.openUrl = function(){
+    this.openUrl = function () {
 
         //show the openUrl Div
-        $("#OpenUrl").css("visibility","visible");
+        $("#OpenUrl").css("visibility", "visible");
 
 
     };
@@ -537,19 +543,20 @@ VA3C.UiConstructor = function(){
     //fog
     this.fog = true;
 
+    this.camera = "cameraTest";
 
 
 
     //VIEW AND SELECTION VARIABLES
 
     //zoom extents
-    this.zoomExtents = function(){
+    this.zoomExtents = function () {
         //loop over the children of the THREE scene, merge them into a mesh,
         //and compute a bounding sphere for the scene
         var geo = new THREE.Geometry();
-        VA3C.scene.traverse( function(child){
-            if(child instanceof THREE.Mesh){
-                geo.merge( child.geometry );
+        VA3C.scene.traverse(function (child) {
+            if (child instanceof THREE.Mesh) {
+                geo.merge(child.geometry);
             }
         });
         geo.computeBoundingSphere();
@@ -564,7 +571,7 @@ VA3C.UiConstructor = function(){
         //and the one we use in platypus
         var r = geo.boundingSphere.radius;
         var offset = r / Math.tan(Math.PI / 180.0 * VA3C.orbitControls.object.fov * 0.5);
-        var vector = new THREE.Vector3(0,0,1);
+        var vector = new THREE.Vector3(0, 0, 1);
         var dir = vector.applyQuaternion(VA3C.orbitControls.object.quaternion);
         var newPos = new THREE.Vector3();
         dir.multiplyScalar(offset * 1.25);
@@ -573,44 +580,85 @@ VA3C.UiConstructor = function(){
         VA3C.orbitControls.target = new THREE.Vector3(geo.boundingSphere.center.x, geo.boundingSphere.center.y, geo.boundingSphere.center.z);
     };
 
+    this.getViews = function () {
+
+        if (VA3C.scene.userData.length > 0) {
+            for (var k = 0, kLen = VA3C.scene.userData.length; k < kLen; k++) {
+                var itemView = VA3C.scene.userData[k];
+                VA3C.attributes.viewList.push(itemView);
+            }
+        }
+    };
+
+    this.resetView = function () {
+
+        var vector = new THREE.Vector3(0, 0, 1);
+        var up = vector.applyQuaternion(VA3C.orbitControls.object.quaternion);
+
+        //get the current camera by name
+
+        var cam;
+        for (var i = 0; i < VA3C.attributes.viewList.length; i++) {
+            var c = VA3C.attributes.viewList[i];
+            if (c.name == this.camera) {
+                cam = c;
+                break;
+            }
+        }
+
+        if (cam) {
+            //get the eyePos from the current camera
+            //multiply by 500 the vector from Revit  (-x,z,y)
+            //var eyePos = new THREE.Vector3(-353000, 48000, 103000.10);
+            var eyePos = new THREE.Vector3(-cam.eye.X, cam.eye.Z, cam.eye.Y);
+
+            //get the targetPos from the current camera
+            //change direction of vector from revit (-x,-z,-y)
+            var dir = new THREE.Vector3(- cam.target.X, -cam.target.Z, -cam.target.Y);
+
+            VA3C.orbitControls.target.set(dir.x, dir.y, dir.z);
+            VA3C.orbitControls.object.position.set(eyePos.x, eyePos.y, eyePos.z);
+        }
+};
+
     //zoom selected
-    this.zoomSelected = function(){
+    this.zoomSelected = function () {
 
         //return if no selection
         if(VA3C.attributes.previousClickedElement.id === -1) return;
 
         //get selected item and it's bounding sphere
-        var bndSphere;
-        var sel = VA3C.attributes.previousClickedElement.object;
+            var bndSphere;
+            var sel = VA3C.attributes.previousClickedElement.object;
 
         //if the object is a mesh, grab the sphere
-        if(sel.hasOwnProperty('geometry')){
+        if(sel.hasOwnProperty('geometry')) {
             //sel.computeBoundingSphere();
             bndSphere = sel.geometry.boundingSphere;
         }
 
-        //if the object is object3d, merge all of it's geometries and compute the sphere of the merge
-        else{
-            var geo = new THREE.Geometry();
-            for(var i in sel.children){
-                geo.merge(sel.children[i].geometry);
+            //if the object is object3d, merge all of it's geometries and compute the sphere of the merge
+        else {
+        var geo = new THREE.Geometry();
+        for(var i in sel.children) {
+            geo.merge(sel.children[i].geometry);
             }
-            geo.computeBoundingSphere();
-            bndSphere = geo.boundingSphere;
-        }
+        geo.computeBoundingSphere();
+        bndSphere = geo.boundingSphere;
+    }
 
         //get the radius of the sphere and use it to compute an offset.  This is a mashup of theo's method and ours from platypus
-        var r = bndSphere.radius;
-        var offset = r / Math.tan(Math.PI / 180.0 * VA3C.orbitControls.object.fov * 0.5);
-        var vector = new THREE.Vector3(0,0,1);
-        var dir = vector.applyQuaternion(VA3C.orbitControls.object.quaternion);
-        var newPos = new THREE.Vector3();
+    var r = bndSphere.radius;
+    var offset = r / Math.tan(Math.PI / 180.0 * VA3C.orbitControls.object.fov * 0.5);
+    var vector = new THREE.Vector3(0, 0, 1);
+    var dir = vector.applyQuaternion(VA3C.orbitControls.object.quaternion);
+    var newPos = new THREE.Vector3();
         dir.multiplyScalar(offset * 1.1);
         newPos.addVectors(bndSphere.center, dir);
         VA3C.orbitControls.object.position.set(newPos.x, newPos.y, newPos.z);
         VA3C.orbitControls.target = new THREE.Vector3(bndSphere.center.x, bndSphere.center.y, bndSphere.center.z);
 
-    };
+};
 
     //selected object color
     this.selectedObjectColor = "#FF00FF";
@@ -622,14 +670,14 @@ VA3C.UiConstructor = function(){
     //LIGHTING VARIABLES
 
     //point lights color
-    this.pointLightsColor = '#666666';
+        this.pointLightsColor = '#666666';
 
     //sun light on / off
-    this.shadows = false;
+        this.shadows = false;
 
     //sun azimuth and altitude
     this.solarAzimuth = 180;
-    this.solarAltitude = 45;
+        this.solarAltitude = 45;
 
 };
 
@@ -653,140 +701,143 @@ VA3C.attributes  = {};
 //element list.  This gets populated after a json file is loaded, and is used to check for intersections
 VA3C.attributes.elementList = [];
 
+//element list.  This gets populated after a json file is loaded, and is used to check for intersections
+VA3C.attributes.viewList = [];
+
 //initialize attribtes function.  Call this once when initializing VA3C to set up all of the
 //event handlers and application logic.
 VA3C.attributes.init = function(){
 
-    //attribute properties used throughout attribute / selection code
+//attribute properties used throughout attribute / selection code
 
 
     //the three projector object used for turning a mouse click into a selection
     VA3C.attributes.projector = new THREE.Projector();
 
-    //a material used to represent a clicked object
+        //a material used to represent a clicked object
     VA3C.attributes.clickedMaterial = new THREE.MeshBasicMaterial({ color : "rgb(255,0,255)", opacity : 1, side : 2 }); //red semi-transparent, double-sided
 
     //an object used to store the state of a selected element.
     VA3C.attributes.previousClickedElement = new VA3C.attributes.SelectedElement();
 
-    //Get a handle on the attribute list div as a jquery object.
-    VA3C.attributes.list = $('.attributeList');
+        //Get a handle on the attribute list div as a jquery object.
+        VA3C.attributes.list = $('.attributeList');
 
-    //set up mouse events - BH question - why do we need both?  Test me.
-    document.getElementById('vA3C_output').addEventListener('click', VA3C.attributes.onMouseClick, false);
-    //document.getElementById('vA3C_output').addEventListener('mousedown', VA3C.attributes.onMouseClick, false);
-};
+        //set up mouse events - BH question - why do we need both?  Test me.
+        document.getElementById('vA3C_output').addEventListener('click', VA3C.attributes.onMouseClick, false);
+        //document.getElementById('vA3C_output').addEventListener('mousedown', VA3C.attributes.onMouseClick, false);
+    };
 
-//Constructor that creates an object to represent a selected element.
+        //Constructor that creates an object to represent a selected element.
 //Used to store state of a previously selected element
 VA3C.attributes.SelectedElement = function(){
     this.materials = [];    //array of materials.  Holds one mat for each Mesh that the selected object contains
     this.id = -1;           //the ID of the element.  We use this to test whether something was already selected on a click
     this.object = {};       //the actual object that was selected.  This has been painted with our 'selected' material
-                            //and needs to be painted back with the materials in the materials array
-};
+        //and needs to be painted back with the materials in the materials array
+    };
 
-//Mouse Click event handler for selection.  When a user clicks on the viewer, this gets called
+        //Mouse Click event handler for selection.  When a user clicks on the viewer, this gets called
 VA3C.attributes.onMouseClick = function( event ){
 
-    //prevent the default event from triggering ... BH question - what is that event?  Test me.
-    event.preventDefault();
+//prevent the default event from triggering ... BH question - what is that event?  Test me.
+event.preventDefault();
 
     //call our checkIfSelected function
-    VA3C.attributes.checkIfSelected(event);
+VA3C.attributes.checkIfSelected(event);
 };
 
-//Function that checks whether the click should select an element, de-select an element, or do nothing.
+    //Function that checks whether the click should select an element, de-select an element, or do nothing.
 //This is called on a mouse click from the handler function directly above
 VA3C.attributes.checkIfSelected = function( event ){
 
-    //get a vector representing the mouse position in 3D
+//get a vector representing the mouse position in 3D
     //NEW - from here: https://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects/23492823#23492823
     var mouse3D = new THREE.Vector3( ( (event.clientX -7) / window.innerWidth ) * 2 - 1, -( (event.clientY - 7)/ window.innerHeight ) * 2 + 1,  0.5 );    //OFFSET THE MOUSE CURSOR BY -7PX!!!!
     mouse3D.unproject(VA3C.camera);
     mouse3D.sub( VA3C.camera.position );
     mouse3D.normalize();
 
-    //Get a list of objects that intersect with the selection vector.  We'll take the first one (the closest)
-    //the VA3C element list is populated in the VA3C.jsonLoader.processSceneGeometry function
-    //which is called every time a scene is loaded
+        //Get a list of objects that intersect with the selection vector.  We'll take the first one (the closest)
+        //the VA3C element list is populated in the VA3C.jsonLoader.processSceneGeometry function
+        //which is called every time a scene is loaded
     var raycaster = new THREE.Raycaster( VA3C.camera.position, mouse3D );
     var intersects = raycaster.intersectObjects( VA3C.attributes.elementList );
 
-    //are there any intersections?
+        //are there any intersections?
     if(intersects.length > 0){
 
         //get the closest intesected object
         var myIntersect = intersects[0].object;
 
-        //was this element already selected?  if so, do nothing.
-        if(myIntersect.id === VA3C.attributes.previousClickedElement.id) return;
+            //was this element already selected?  if so, do nothing.
+            if(myIntersect.id === VA3C.attributes.previousClickedElement.id) return;
 
-        //was another element already selected?
-        if(VA3C.attributes.previousClickedElement.id !== -1){
+            //was another element already selected?
+            if(VA3C.attributes.previousClickedElement.id !== -1){
             //restore previously selected object's state
             VA3C.attributes.restorePreviouslySelectedObject();
-        }
+            }
 
 
-        //var to track whether the intersect is an object3d or a mesh
-        var isObject3D = false;
+                //var to track whether the intersect is an object3d or a mesh
+                var isObject3D = false;
 
-        //did we intersect a mesh that belongs to an Object3D or a Geometry?  The former comes from Revit, the latter from GH
+            //did we intersect a mesh that belongs to an Object3D or a Geometry?  The former comes from Revit, the latter from GH
         if(myIntersect.parent.type === "Object3D"){
             isObject3D = true;
         }
 
 
-        //store the selected object
-        VA3C.attributes.storeSelectedObject(myIntersect, isObject3D);
+            //store the selected object
+            VA3C.attributes.storeSelectedObject(myIntersect, isObject3D);
 
-        //paint the selected object[s] with the application's 'selected' material
-        if(isObject3D){
+            //paint the selected object[s] with the application's 'selected' material
+            if(isObject3D){
             //loop over the children and paint each one
             for(var i=0; i<myIntersect.parent.children.length; i++){
                 VA3C.attributes.paintElement(myIntersect.parent.children[i], VA3C.attributes.clickedMaterial);
-            }
+                }
         }
         else{
             //paint the mesh with the clicked material
             VA3C.attributes.paintElement(myIntersect, VA3C.attributes.clickedMaterial);
-        }
+            }
 
 
-        //populate the attribute list with the object's user data
-        if(isObject3D){
+                //populate the attribute list with the object's user data
+                if(isObject3D){
             VA3C.attributes.populateAttributeList(myIntersect.parent.userData);
         }
         else{
             VA3C.attributes.populateAttributeList(myIntersect.userData);
+            }
         }
-    }
 
-    //no selection.  Repaint previously selected item if required
-    else{
+            //no selection.  Repaint previously selected item if required
+            else{
 
-        //if an item was already selected
+            //if an item was already selected
         if (VA3C.attributes.previousClickedElement.id !== -1)
         {
             //restore the previously selected object
             VA3C.attributes.restorePreviouslySelectedObject();
 
-            //hide the attributes
+                //hide the attributes
             VA3C.attributes.list.hide("slow");
-        }
-    }
-};
+            }
+            }
+            };
 
-//Function to restore the state of a previously selected object.
-VA3C.attributes.restorePreviouslySelectedObject = function(){
+                //Function to restore the state of a previously selected object.
+                VA3C.attributes.restorePreviouslySelectedObject = function(){
 
-    //if nothing was selected, return
+//if nothing was selected, return
     if(VA3C.attributes.previousClickedElement.id === -1) return;
 
-    //apply the stored materials to the meshes in the object.
+        //apply the stored materials to the meshes in the object.
 
-    //are we working with an object3d?  if so we need to reset all of the children materials
+        //are we working with an object3d?  if so we need to reset all of the children materials
     if(VA3C.attributes.previousClickedElement.object.type === "Object3D"){
 
         //loop over the children and repaint each one
@@ -795,18 +846,18 @@ VA3C.attributes.restorePreviouslySelectedObject = function(){
                 VA3C.attributes.previousClickedElement.object.children[i],
                 VA3C.attributes.previousClickedElement.materials[i]
             );
-        }
+                }
 
 
-    }
-    else{ // we have a mesh
+                }
+                else{ // we have a mesh
 
         //paint the mesh with it's original material
         VA3C.attributes.paintElement(
             VA3C.attributes.previousClickedElement.object,
             VA3C.attributes.previousClickedElement.materials[0]
         );
-    }
+            }
 
 
     //set id to -1 and clear the other vars so they can be populated during hte next selection
@@ -814,7 +865,7 @@ VA3C.attributes.restorePreviouslySelectedObject = function(){
     VA3C.attributes.previousClickedElement.materials = [];
     VA3C.attributes.previousClickedElement.object = {};
 
-};
+    };
 
 //Function to store a selected object in our attributes.PreviouslySelectedObject property.  Essentially a property setter
 //selected arg is the selected object
@@ -822,31 +873,31 @@ VA3C.attributes.restorePreviouslySelectedObject = function(){
 VA3C.attributes.storeSelectedObject = function( selected, isObject3D ){
 
     if(isObject3D){
-        //store the ID of the parent object.
-        VA3C.attributes.previousClickedElement.id = selected.parent.id;
+//store the ID of the parent object.
+VA3C.attributes.previousClickedElement.id = selected.parent.id;
 
-        //store the material of each child
+    //store the material of each child
         for(var i=0; i<selected.parent.children.length; i++){
-            VA3C.attributes.previousClickedElement.materials.push(selected.parent.children[i].material);
-        }
+    VA3C.attributes.previousClickedElement.materials.push(selected.parent.children[i].material);
+    }
 
         //store the entire parent object
         VA3C.attributes.previousClickedElement.object = selected.parent;
-    }
-    else{
-        //store the ID of the parent object.
-        VA3C.attributes.previousClickedElement.id = selected.id;
+}
+else{
+    //store the ID of the parent object.
+    VA3C.attributes.previousClickedElement.id = selected.id;
 
-        //store the material of the selection
-        VA3C.attributes.previousClickedElement.materials.push(selected.material);
+    //store the material of the selection
+VA3C.attributes.previousClickedElement.materials.push(selected.material);
 
-        //store the entire object
+    //store the entire object
         VA3C.attributes.previousClickedElement.object = selected;
-    }
+        }
 
-};
+        };
 
-//function to paint an element with a material.  Called when an element is selected or de-selected
+    //function to paint an element with a material.  Called when an element is selected or de-selected
 VA3C.attributes.paintElement = function(elementToPaint, material){
 
         elementToPaint.material = material;
@@ -856,31 +907,31 @@ VA3C.attributes.paintElement = function(elementToPaint, material){
 //function to populate the attribute list ( the user-facing html element ) with the selected element's attributes
 VA3C.attributes.populateAttributeList = function( jsonData ){
 
-    //empty the contents of the html element
+//empty the contents of the html element
     VA3C.attributes.list.empty();
 
     //create a header
     VA3C.attributes.list.append('<div class="attributeListHeader">Element Attributes</div>');
 
-    //add an empty item for some breathing room
-    VA3C.attributes.list.append('<div class="item">-------</div>');
+        //add an empty item for some breathing room
+        VA3C.attributes.list.append('<div class="item">-------</div>');
 
-    //loop through json object attributes and create a new line for each property
-    var rowCounter = 1;
+        //loop through json object attributes and create a new line for each property
+        var rowCounter = 1;
     var longestString = 0;
     for (var key in jsonData) {
         if (jsonData.hasOwnProperty(key)) {
 
-            //add the key value pair
+        //add the key value pair
             if (jsonData[key].substr(0,4) !== 'http') {
                 VA3C.attributes.list.append('<div class="item">' + key + "  :  " + jsonData[key] + '</div>');
-            } else {
+                } else {
                 var link = '<a href=' + jsonData[key] + ' target=_blank>' + jsonData[key] + '</a>';
                 VA3C.attributes.list.append('<div class="item">' + key + "  :  " + link + '</div>');
-            }
+                }
 
-            //compute the length of the key value pair
-            var len = (key + "  :  " + jsonData[key]).length;
+                    //compute the length of the key value pair
+                    var len = (key + "  :  " + jsonData[key]).length;
             if(len > longestString) longestString = len;
         }
 
@@ -888,10 +939,10 @@ VA3C.attributes.populateAttributeList = function( jsonData ){
         rowCounter++;
     }
 
-    //change height based on # rows
+        //change height based on # rows
     VA3C.attributes.list.height(rowCounter * 12 + 43);
 
-    //set the width
+        //set the width
     if(longestString > 50){
         VA3C.attributes.list.width(longestString * 5 + 43);
     }
@@ -901,7 +952,7 @@ VA3C.attributes.populateAttributeList = function( jsonData ){
 
     //Show the html element
     VA3C.attributes.list.show("slow");
-};
+        };
 
 //function to purge local variables within this object.  When a user loads a new scene, we have to clear out the old stuff
 VA3C.attributes.purge = function(){
@@ -912,7 +963,7 @@ VA3C.attributes.purge = function(){
 //function to handle changing the color of a selected element
 VA3C.attributes.setSelectedObjectColor = function(col){
     VA3C.attributes.clickedMaterial.color = new THREE.Color(col);
-};
+    };
 
 
 

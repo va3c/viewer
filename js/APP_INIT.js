@@ -15,7 +15,7 @@ $(document).ready(function(){
     var fileFolder = VA3C.datGui.addFolder('File');
     fileFolder.add(VA3C.uiVariables, 'openLocalFile');
     //fileFolder.add(VA3C.uiVariables, 'openUrl'); //not working yet - commenting out for now
-
+    
 
     //add scene folder
     var sceneFolder = VA3C.datGui.addFolder('Scene');
@@ -31,7 +31,8 @@ $(document).ready(function(){
     //sceneFolder.add(VA3C.uiVariables, 'fog').onChange(function(e){
     //        VA3C.lightingRig.setFog(e);
     //    });
-
+    
+    
 
     //add view folder
     var viewFolder = VA3C.datGui.addFolder('View and Selection');
@@ -51,6 +52,9 @@ $(document).ready(function(){
         }
     });
 
+    viewFolder.add(VA3C.uiVariables, 'camera', ['cameraTest','camera2']).onFinishChange(function (e) {
+        VA3C.uiVariables.resetView()
+    });
 
     //add a lighting folder
     var lightsFolder = VA3C.datGui.addFolder('Lighting');
@@ -95,6 +99,8 @@ $(document).ready(function(){
     //$.getJSON("./js/rvtenergy.json", function( data ){
     $.getJSON("./js/va3c.json", function( data ){
         VA3C.jsonLoader.loadSceneFromJson(data);
+        VA3C.getViews(data);
+        
     });
 
 });
