@@ -191,20 +191,13 @@ VA3C.jsonLoader.loadSceneFromJson = function (jsonToLoad) {
 
     VA3C.uiVariables.getViews();
 
+    if (VA3C.attributes.viewList.length > 0) {
+        var fol =VA3C.datGui.__folders;
+        var f = fol.View_and_Selection;
+        f.add(VA3C.uiVariables, 'view', ['cameraTest', 'camera2']).onFinishChange(function (e) {
+             VA3C.uiVariables.resetView();
+            });
 
-        if (VA3C.attributes.viewList.length > 0) {
-            var fol =VA3C.datGui.__folders;
-            
-            var f = fol.View_and_Selection;
-                
-                    f.add(VA3C.uiVariables, 'view', ['cameraTest', 'camera2']).onFinishChange(function (e) {
-                        VA3C.uiVariables.resetView();
-                    });
-                
-            
-        
-                    
-               
 }
 
 
@@ -614,7 +607,7 @@ VA3C.UiConstructor = function () {
         var view;
         for (var i = 0; i < VA3C.attributes.viewList.length; i++) {
             var v = VA3C.attributes.viewList[i];
-            if (v.name == this,view) {
+            if (v.name == this.view) {
                 view = v;
                 break;
             }
