@@ -189,20 +189,26 @@ VA3C.jsonLoader.loadSceneFromJson = function (jsonToLoad) {
     //set up the lighting rig
     VA3C.lightingRig.createLights();
 
+    //get the views saved in the JSON file
     VA3C.uiVariables.getViews();
 
+    //if there are saved views, get their names and create an option controller
     if (VA3C.attributes.viewList.length > 0) {
-        var fol =VA3C.datGui.__folders;
-        var f = fol.View_and_Selection;
-        f.add(VA3C.uiVariables, 'view', ['cameraTest', 'camera2']).onFinishChange(function (e) {
-             VA3C.uiVariables.resetView();
-            });
+        viewStrings = [];
+        for (var i = 0; i < VA3C.attributes.viewList.length; i++) {
+            viewStrings.push(VA3C.attributes.viewList[i].name);
+        }
 
+        VA3C.uiVariables.setView();
+
+        var f = VA3C.datGui.__folders.View_and_Selection;
+        //f.add(VA3C.uiVariables, 'view', ['cameraTest', 'camera2']).onFinishChange(function (e) {
+        f.add(VA3C.uiVariables, 'view', viewStrings).onFinishChange(function (e) {
+             VA3C.uiVariables.resetView();
+        });
 }
 
-
-    //call zoom extents
-    VA3C.uiVariables.zoomExtents();
+    VA3C.uiVariables.resetView();
 
     //hide the blackout
     $(".blackout").hide();
@@ -553,9 +559,7 @@ VA3C.UiConstructor = function () {
     //fog
     this.fog = true;
 
-    this.view = "cameraTest";
-
-
+    this.view = "v";
 
     //VIEW AND SELECTION VARIABLES
 
@@ -596,6 +600,12 @@ VA3C.UiConstructor = function () {
                 var itemView = VA3C.scene.userData[k];
                 VA3C.attributes.viewList.push(itemView);
             }
+        }
+    };
+
+    this.setView = function () {
+        if (VA3C.attributes.viewList.length > 0) {
+            this.view = VA3C.attributes.viewList[0].name;
         }
     };
 
@@ -968,16 +978,11 @@ VA3C.attributes.purge = function () {
 
     var folder =VA3C.datGui.__folders.View_and_Selection;
 
-        for (var i = 0; i < folder.__controllers.length; i++) {
-            if (folder.__controllers[i].property == "view") {
-                
-                try{
-                    folder.__controllers[i].remove();
-                folder.remove(folder.__controllers[i]);
-                }
-                catch(err){}
-                break;
-}
+    for (var i = 0; i < folder.__controllers.length; i++) {
+        if (folder.__controllers[i].property == "view") {
+           folder.__controllers[i].remove();
+           break;
+        }
     }
 };
 
