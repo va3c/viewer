@@ -199,16 +199,20 @@ VA3C.jsonLoader.loadSceneFromJson = function (jsonToLoad) {
             viewStrings.push(VA3C.attributes.viewList[i].name);
         }
 
-        VA3C.uiVariables.setView();
+        viewStrings.sort();
+        VA3C.uiVariables.setView(viewStrings[0]);
 
         var f = VA3C.datGui.__folders.View_and_Selection;
         //f.add(VA3C.uiVariables, 'view', ['cameraTest', 'camera2']).onFinishChange(function (e) {
         f.add(VA3C.uiVariables, 'view', viewStrings).onFinishChange(function (e) {
              VA3C.uiVariables.resetView();
         });
+        VA3C.uiVariables.resetView();
 }
 
-    VA3C.uiVariables.resetView();
+    else {
+        VA3C.uiVariables.zoomExtents();
+    }
 
     //hide the blackout
     $(".blackout").hide();
@@ -603,9 +607,9 @@ VA3C.UiConstructor = function () {
         }
     };
 
-    this.setView = function () {
+    this.setView = function (firstView) {
         if (VA3C.attributes.viewList.length > 0) {
-            this.view = VA3C.attributes.viewList[0].name;
+            this.view = firstView;
         }
     };
 
