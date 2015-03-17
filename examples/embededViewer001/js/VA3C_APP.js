@@ -34,20 +34,18 @@ VA3C.initViewer = function(viewerDiv, statsDiv){
             antialias: true
         }
     );
-    VA3C.renderer.setClearColor(0x000000, 1.0);
-    VA3C.renderer.setSize( window.innerWidth, window.innerHeight );
+    VA3C.renderer.setClearColor(0xFFFFFF, 1.0);
+    VA3C.renderer.setSize( viewerDiv.innerWidth(), viewerDiv.innerHeight() );
     VA3C.renderer.shadowMapEnabled = true;
-    //VA3C.renderer.shadowMapSoft = true;
-    //VA3C.renderer.shadowMapType = THREE.PCFSoftShadowMap;
     VA3C.container.append( VA3C.renderer.domElement );
 
-    //set up the stats window
-    VA3C.stats = new Stats();
-    VA3C.stats.domElement.style.cssText = 'bottom: 0px; opacity: 0.5; position: absolute; right: 15px; ';
-    statsDiv.append( VA3C.stats.domElement );
+    //set up the stats control.  This should be appended to the lower left hand corner of the
+    //VA3C.stats = new Stats();
+    //VA3C.stats.domElement.style.cssText = 'bottom: 0px; opacity: 0.5; position: absolute; right: 15px; ';
+    //statsDiv.append( VA3C.stats.domElement );
 
     //set up the camera and orbit controls
-    VA3C.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000000 );
+    VA3C.camera = new THREE.PerspectiveCamera( 45, viewerDiv.innerWidth() / viewerDiv.innerHeight(), 1, 1000000 );
     VA3C.camera.position.set( 1000, 1000, 1000 );
     VA3C.orbitControls = new THREE.OrbitControls( VA3C.camera, VA3C.renderer.domElement );
     VA3C.orbitControls.target.set( 0, 100, 0 );
@@ -55,17 +53,17 @@ VA3C.initViewer = function(viewerDiv, statsDiv){
     //a clock.  the camera uses this
     VA3C.clock = new THREE.Clock();
 
-    //respond to resize
-    window.addEventListener('resize', function() {
-        var WIDTH = window.innerWidth,
-            HEIGHT = window.innerHeight;
-        VA3C.renderer.setSize(WIDTH, HEIGHT);
-        VA3C.orbitControls.object.aspect = WIDTH / HEIGHT;
-        VA3C.orbitControls.object.updateProjectionMatrix();
-    });
+//    //respond to resize
+//    window.addEventListener('resize', function() {
+//        var WIDTH = window.innerWidth,
+//            HEIGHT = window.innerHeight;
+//        VA3C.renderer.setSize(WIDTH, HEIGHT);
+//        VA3C.orbitControls.object.aspect = WIDTH / HEIGHT;
+//        VA3C.orbitControls.object.updateProjectionMatrix();
+//    });
 
     //call the attributes init function
-    VA3C.attributes.init();
+    //VA3C.attributes.init();
 
     //call the render function - this starts the webgl render loop
     VA3C.render();
@@ -73,7 +71,7 @@ VA3C.initViewer = function(viewerDiv, statsDiv){
 
 //function that starts the THREE.js renderer
 VA3C.render = function(){
-    VA3C.stats.update();
+    //VA3C.stats.update();
     var delta = VA3C.clock.getDelta();
     VA3C.orbitControls.update(delta); //getting a warning here - look into it
 
