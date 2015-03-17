@@ -243,9 +243,14 @@ VA3C.jsonLoader.loadSceneFromJson = function (jsonToLoad) {
 
                 for (var i = 0; i < VA3C.attributes.elementList.length; i++) {
                     var element = VA3C.attributes.elementList[i];
+                    var val = element.userData.layer[0].Value;
                     if (element.userData.layer[0].Value == layerName) {
-                        if (VA3C.attributes.elementList[i].material.opacity == 0.0) VA3C.attributes.elementList[i].material.opacity = 1.0;
-                        else VA3C.attributes.elementList[i].material.opacity = 0.0;
+                        //if (VA3C.attributes.elementList[i].material.opacity == 0.0) VA3C.attributes.elementList[i].material.opacity = 1.0;
+                        //else VA3C.attributes.elementList[i].material.opacity = 0.0;
+
+                        if (element.visible == true) element.visible = false;
+                        else element.visible = true;
+
                     }
                 }
 
@@ -325,8 +330,8 @@ VA3C.jsonLoader.processSceneGeometry = function () {
             items[i].castShadow = true;
             items[i].receiveShadow = true;
             //add element to our list of elements that can be selected
-            items[i].material.transparent = true;
-            items[i].material.opacity = 1.0;
+            //items[i].material.transparent = true;
+            //items[i].material.opacity = 1.0;
             VA3C.attributes.elementList.push(items[i]);
             
 
@@ -347,8 +352,8 @@ VA3C.jsonLoader.processSceneGeometry = function () {
                     itemsChildren[k].material.side = 2;
                     itemsChildren[k].castShadow = true;
                     itemsChildren[k].receiveShadow = true;
-                    itemsChildren[k].material.transparent = true;
-                    itemsChildren[k].material.opacity = 1.0;
+                    //itemsChildren[k].material.transparent = true;
+                    //itemsChildren[k].material.opacity = 1.0;
                     VA3C.attributes.elementList.push(itemsChildren[k]);
                    
                 }
