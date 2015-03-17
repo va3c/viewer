@@ -243,8 +243,8 @@ VA3C.jsonLoader.loadSceneFromJson = function (jsonToLoad) {
 
                 for (var i = 0; i < VA3C.attributes.elementList.length; i++) {
                     var element = VA3C.attributes.elementList[i];
-                    var val = element.userData.layer[0].Value;
-                    if (element.userData.layer[0].Value == layerName) {
+                    var val = element.userData.layer[0].name;
+                    if (element.userData.layer[0].name == layerName) {
                         //if (VA3C.attributes.elementList[i].material.opacity == 0.0) VA3C.attributes.elementList[i].material.opacity = 1.0;
                         //else VA3C.attributes.elementList[i].material.opacity = 0.0;
 
