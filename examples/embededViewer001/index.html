@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>vA3C Embed Example 001</title>
+    <!-- local refs to libs for development.  We should pull them from their respective servers in production -->
+    <link rel='stylesheet' type='text/css' href='css/960.css'>
+    <link rel='stylesheet' type='text/css' href='css/vA3C.css'/>
+    <script type="text/javascript" src="js/libs/jquery-1.9.0.js"></script>
+    <script type="text/javascript" src="js/libs/dat.gui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/datgui_styleOverride.css">
+    <script type="text/javascript" src="js/libs/three.js"></script>
+    <script type="text/javascript" src="js/libs/OrbitControls.js"></script>
+    <script type="text/javascript" src="js/libs/Projector.js"></script>
+    <script type="text/javascript" src="js/libs/stats.js"></script>
+    <script type="text/javascript" src="js/libs/jquery-ui.js"></script>
+
+
+    <!-- Application files -->
+    <script type="text/javascript" src="js/VA3C_APP.js"></script>
+    <script type="text/javascript" src="js/APP_INIT.js"></script>
+</head>
+<body>
+
+<div class="container_12">
+    <div class="grid_12">
+        <h1>vA3C Embed Example 001</h1>
+        <p>In this example we'll load a single model in a dedicated div, and provide a minimal dat.gui interface.  This example should demonstrate how to embed a 3D model viewer in another web page that has it's own formatting.</p>
+    </div>
+    <div class="clear"></div>
+    <div class="grid_12" id="vA3C_viewer">embed viewer here!</div>
+    <div class="clear"></div>
+    <div class="grid_4">
+        <h2>Free and Open Source</h2>
+        <p>Yeah, so as you are probably already aware, vA3C is a free and open source 3D model viewer that runs in the browser and can render files that were exported from Revit or Grasshopper using the vA3C exporters for those platforms.</p>
+    </div>
+    <div class="grid_4">
+        <h2>Totally hackable</h2>
+        <p>Not much of a hack in this example, but because the code is open it's totally up to you in terms of customization.  Want to pull attributes from a database when an element is selected?  Go for it!</p>
+    </div>
+    <div class="grid_4">
+        <h2>Embeddable</h2>
+        <p>As this example shows, it's relatively straightforward to embed a custom viewer in any webpage.  Just reference the required javascript and css files in your head tag and... (finish this thought once it's fully baked).</p>
+    </div>
+</div>
+
+
+
+</body>
+</html>
