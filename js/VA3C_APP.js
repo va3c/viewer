@@ -133,9 +133,9 @@ VA3C.jsonLoader.openLocalFile = function (event) {
 VA3C.jsonLoader.clearFile = function (event) {
     //the input object
     var input = event.target;
- input.value = "";
+    input.value = "";
 
-}
+};
 
 //function to open a file from url
 VA3C.jsonLoader.openUrl = function (url) {
