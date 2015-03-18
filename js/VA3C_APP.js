@@ -130,6 +130,13 @@ VA3C.jsonLoader.openLocalFile = function (event) {
     $(".loading").show();
 };
 
+VA3C.jsonLoader.clearFile = function (event) {
+    //the input object
+    var input = event.target;
+ input.value = "";
+
+}
+
 //function to open a file from url
 VA3C.jsonLoader.openUrl = function (url) {
 
@@ -176,6 +183,8 @@ VA3C.jsonLoader.loadSceneFromJson = function (jsonToLoad) {
         VA3C.lightingRig.purge();
     }
 
+    VA3C.folderPurge();
+
     //parse the JSON into a THREE scene
     var loader = new THREE.ObjectLoader();
     VA3C.scene = new THREE.Scene();
@@ -217,52 +226,46 @@ VA3C.jsonLoader.loadSceneFromJson = function (jsonToLoad) {
     //get the views saved in the JSON file
     VA3C.uiVariables.getLayers();
 
-    //if there are saved views, get their names and create an option controller
+    //if there are saved layers, create a checkbox for each of them
     if (VA3C.attributes.layerList.length > 0) {
         layerStrings = [];
         for (var i = 0; i < VA3C.attributes.layerList.length; i++) {
             layerStrings.push(VA3C.attributes.layerList[i].name);
         }
-
+        //sort layers by name
         layerStrings.sort();
         try {
             var layerFolder = VA3C.datGui.addFolder('Layers');
         }
         catch (err) {
+            //the layer folder already exists
             var layerFolder = VA3C.datGui.__folders.Layers;
         }
         for (var i = 0; i < layerStrings.length; i++) {
-            
+
+            //create an layer object that has a boolean property with its name
             var layer = {};
-            //create a checkbox
             layer[layerStrings[i]] = true;
-            
-            layerFolder.add(layer, layerStrings[i]).onChange(function (event) {
 
-                var layerName = this.domElement.parentElement.firstChild.innerText;
+            //add a checkbox per layer
+            layerFolder.add(layer, layerStrings[i]).onChange(function (e) {
 
-                for (var i = 0; i < VA3C.attributes.elementList.length; i++) {
-                    var element = VA3C.attributes.elementList[i];
-                    var val = element.userData.layer[0].name;
-                    if (element.userData.layer[0].name == layerName) {
-                        //if (VA3C.attributes.elementList[i].material.opacity == 0.0) VA3C.attributes.elementList[i].material.opacity = 1.0;
-                        //else VA3C.attributes.elementList[i].material.opacity = 0.0;
+            // get the name of the controller that fired the event -- there must be a different way of doing this...
+            var layerName = this.domElement.parentElement.firstChild.innerText;
 
-                        if (element.visible == true) element.visible = false;
-                        else element.visible = true;
-
+            for (var i = 0; i < VA3C.attributes.elementList.length; i++) {
+                var element = VA3C.attributes.elementList[i];
+                if (element.userData.layer == layerName) {
+                     //if unchecked, make it invisible
+                     if (element.visible == true) element.visible = false;
+                     //otherwise, show it
+                     else element.visible = true;
                     }
                 }
-
-
-
             });
         }
-
-
-
     }
-    //});
+
 
     //hide the blackout
     $(".blackout").hide();
@@ -333,7 +336,7 @@ VA3C.jsonLoader.processSceneGeometry = function () {
             //items[i].material.transparent = true;
             //items[i].material.opacity = 1.0;
             VA3C.attributes.elementList.push(items[i]);
-            
+
 
         }
             //if this is an object that contains multiple meshes (like the objects that come from Revit), process the
@@ -355,7 +358,7 @@ VA3C.jsonLoader.processSceneGeometry = function () {
                     //itemsChildren[k].material.transparent = true;
                     //itemsChildren[k].material.opacity = 1.0;
                     VA3C.attributes.elementList.push(itemsChildren[k]);
-                   
+
                 }
             }
         }
@@ -599,6 +602,15 @@ VA3C.UiConstructor = function () {
 
         //this should show a form that lets a user open a file
 
+        $(document).keyup(function (e) {
+            //if the escape key  is pressed
+            if (e.keyCode == 27)
+            {
+                $("#OpenLocalFile").css("visibility", "hidden");
+                $(".blackout").hide();
+            }
+        });
+
     };
 
     this.openUrl = function () {
@@ -625,7 +637,7 @@ VA3C.UiConstructor = function () {
     this.layers = "layers";
 
     //VIEW AND SELECTION VARIABLES
-
+    
     //zoom extents
     this.zoomExtents = function () {
         //loop over the children of the THREE scene, merge them into a mesh,
@@ -660,6 +672,13 @@ VA3C.UiConstructor = function () {
     this.getViews = function () {
         try {
             if (VA3C.scene.userData.views.length > 0) {
+                //create a default view
+                var defView = {}
+                defView.name = "DefaultView";
+                //defView.eye =new THREE.Vector3(-1000, 1000, 1000);
+                //defView.target = new THREE.Vector3(0, -100, 0);
+                VA3C.attributes.viewList.push(defView);
+                //add the views in the json file
                 for (var k = 0, kLen = VA3C.scene.userData.views.length; k < kLen; k++) {
                     var itemView = VA3C.scene.userData.views[k];
                     VA3C.attributes.viewList.push(itemView);
@@ -692,14 +711,25 @@ VA3C.UiConstructor = function () {
         if (view) {
             //get the eyePos from the current camera
             //change vector from Revit  (-x,z,y)
-            var eyePos = new THREE.Vector3(-view.eye.X, view.eye.Z, view.eye.Y);
+            if (view.name !="DefaultView") {
+                var eyePos = new THREE.Vector3(-view.eye.X, view.eye.Z, view.eye.Y);
 
-            //get the targetPos from the current camera
-            //change direction of vector from revit (-x,-z,-y)
-            var dir = new THREE.Vector3(-view.target.X, -view.target.Z, -view.target.Y);
+                //get the targetPos from the current camera
+                //change direction of vector from revit (-x,-z,-y)
+                var dir = new THREE.Vector3(-view.target.X, -view.target.Z, -view.target.Y);
 
-            VA3C.orbitControls.target.set(dir.x, dir.y, dir.z);
-            VA3C.orbitControls.object.position.set(eyePos.x, eyePos.y, eyePos.z);
+                VA3C.orbitControls.target.set(dir.x, dir.y, dir.z);
+                VA3C.orbitControls.object.position.set(eyePos.x, eyePos.y, eyePos.z);
+            }
+
+            else {
+                VA3C.camera.position.set(1000, 1000, 1000);
+                VA3C.orbitControls = new THREE.OrbitControls(VA3C.camera, VA3C.renderer.domElement);
+                VA3C.orbitControls.target.set(0, 100, 0);
+
+                this.zoomExtents();
+               
+            }
         }
     };
 
@@ -1057,9 +1087,11 @@ VA3C.attributes.populateAttributeList = function (jsonData) {
 VA3C.attributes.purge = function () {
     this.restorePreviouslySelectedObject();
     this.elementList = [];
-    this.viewList = [];
-    this.layerList = [];
+    if(this.viewList.length>0) this.viewList = [];
+    if (this.layerList.length > 0) this.layerList = [];
+};
 
+VA3C.folderPurge = function () {
     var viewFolder = VA3C.datGui.__folders.View_and_Selection;
 
     for (var i = 0; i < viewFolder.__controllers.length; i++) {
@@ -1068,8 +1100,6 @@ VA3C.attributes.purge = function () {
             break;
         }
     }
-
-
     try {
         var layerFolder = VA3C.datGui.__folders.Layers;
         var layerCount = layerFolder.__controllers.length;
@@ -1077,14 +1107,13 @@ VA3C.attributes.purge = function () {
             layerFolder.__controllers[0].remove();
         }
 
+        //remove the Layers folder -- this is not working
         VA3C.datGui.removeFolder('Layers');
+        
     }
 
     catch (err) { }
-
-
-
-};
+}
 
 //function to handle changing the color of a selected element
 VA3C.attributes.setSelectedObjectColor = function (col) {
