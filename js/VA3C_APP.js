@@ -227,7 +227,7 @@ VA3C.jsonLoader.loadSceneFromJson = function (jsonToLoad) {
     VA3C.uiVariables.getLayers();
 
     //if there are saved layers, create a checkbox for each of them
-    if (VA3C.attributes.layerList.length > 0) {
+    if ((VA3C.attributes.layerList.length == 1 && VA3C.attributes.layerList[0].name!="Default") || VA3C.attributes.layerList.length>1){
         layerStrings = [];
         for (var i = 0; i < VA3C.attributes.layerList.length; i++) {
             layerStrings.push(VA3C.attributes.layerList[i].name);
@@ -1091,7 +1091,9 @@ VA3C.attributes.purge = function () {
     if (this.layerList.length > 0) this.layerList = [];
 };
 
+//function to purge the layer and view folders and controllers
 VA3C.folderPurge = function () {
+    //purge view controller
     var viewFolder = VA3C.datGui.__folders.View_and_Selection;
 
     for (var i = 0; i < viewFolder.__controllers.length; i++) {
@@ -1100,6 +1102,7 @@ VA3C.folderPurge = function () {
             break;
         }
     }
+    //purge layer folder
     try {
         var layerFolder = VA3C.datGui.__folders.Layers;
         var layerCount = layerFolder.__controllers.length;
