@@ -813,6 +813,130 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
     VA3C.datGui = {};
 
 
+    //this is the method that is called to initialize the dat.GUI user interface.
+    VA3C.userInterface = function(){
+
+        //append a child div to our parent and use the child to host the dat.GUI contoller
+        VA3C.viewerDiv.append("<div class=vA3C_uiTarget></div>");
+
+        //function to position the target div relative to the parent
+        var positionGuiDiv = function(){
+            //set the position of the UI relative to the viwer div
+            var targetDiv = $('.vA3C_uiTarget');
+
+            //get upper right coordinates of the viewer div - we'll use these for positioning
+            var x = VA3C.viewerDiv.position().left + VA3C.viewerDiv.width();
+            var y = VA3C.viewerDiv.position().top;
+
+            //set the position
+            targetDiv.css('left', (x - 300).toString() + "px");
+            targetDiv.css('top',  y.toString() + "px");
+        }
+        positionGuiDiv();
+
+        //respond to resize of Parent div
+        VA3C.viewerDiv.resize(function () {
+            positionGuiDiv();
+        });
+
+        //initialize the Dat.GUI object, and bind it to our target div
+        VA3C.uiVariables = new VA3C.UiConstructor();
+        VA3C.datGui = new dat.GUI({ autoPlace: false });
+        VA3C.datGui.width = 300;
+        $('.vA3C_uiTarget').append(VA3C.datGui.domElement);
+
+        //add a file folder containing the file open button
+        var fileFolder = VA3C.datGui.addFolder('File');
+        fileFolder.add(VA3C.uiVariables, 'openLocalFile');
+        //fileFolder.add(VA3C.uiVariables, 'openUrl'); //not working yet - commenting out for now
+
+
+        //add scene folder
+        var sceneFolder = VA3C.datGui.addFolder('Scene');
+        //background color control
+        sceneFolder.addColor(VA3C.uiVariables, 'backgroundColor').onChange(function(e){
+            //set background color
+            VA3C.renderer.setClearColor(e);
+        });
+        sceneFolder.addColor(VA3C.uiVariables, 'ambientLightColor').onChange(function(e){
+            VA3C.lightingRig.setAmbientLightColor(e);
+        });
+        //scene fog
+        //sceneFolder.add(VA3C.uiVariables, 'fog').onChange(function(e){
+        //        VA3C.lightingRig.setFog(e);
+        //    });
+
+
+
+        //add view folder
+        var viewFolder = VA3C.datGui.addFolder('View_and_Selection');
+        //zoom extents and selected
+        viewFolder.add(VA3C.uiVariables, 'zoomExtents');
+        viewFolder.add(VA3C.uiVariables, 'zoomSelected');
+        //change color of selected object's material
+        viewFolder.addColor(VA3C.uiVariables, 'selectedObjectColor').onChange(function(e){
+            VA3C.attributes.setSelectedObjectColor(e);
+        });
+        viewFolder.add(VA3C.uiVariables, 'showStats').onChange(function(e){
+            if(e){
+                $('#Stats_output').show();
+            }
+            else{
+                $('#Stats_output').hide();
+            }
+        });
+
+
+
+        //add a lighting folder
+        var lightsFolder = VA3C.datGui.addFolder('Lighting');
+        //light colors
+        lightsFolder.addColor(VA3C.uiVariables, 'pointLightsColor').onChange(function(e){
+            VA3C.lightingRig.setPointLightsColor(e);
+        });
+        lightsFolder.add(VA3C.uiVariables, 'shadows').onChange(function(e){
+            VA3C.lightingRig.shadowsOnOff(e);
+        });
+        /*//solar az and alt
+         lightsFolder.add(VA3C.uiVariables, 'solarAzimuth')
+         .min(0)
+         .max(359)
+         .step(1);
+         lightsFolder.add(VA3C.uiVariables, 'solarAltitude')
+         .min(0)
+         .max(90)
+         .step(0.1);*/
+
+
+
+
+        //hide the dat.gui close controls button
+        //$(".close-button").css('visibility', 'hidden');
+
+
+        //Jquery UI stuff - make divs draggable, resizable, etc.
+
+        //make the file open divs draggable
+        $(".vA3C_openFile").draggable( {containment: "parent"});
+
+        //make the attributes div draggable and resizeable
+        $('.vA3C_attributeList').draggable( {containment: "parent"});
+        //$('.attributeList').resizable();
+
+        //hide the stats div - we'll turn it on / off with the UI
+        $('#Stats_output').hide();
+
+
+        //load our sample JSON file - for development of the colored meshes from GH
+        //$.getJSON("./js/rvtenergy.json", function( data ){
+        $.getJSON("./js/va3c.json", function( data ){
+            VA3C.jsonLoader.loadSceneFromJson(data);
+
+        });
+
+    };
+
+
 
 
     //*********************
@@ -879,7 +1003,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
         //get a vector representing the mouse position in 3D
         //NEW - from here: https://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects/23492823#23492823
-        var mouse3D = new THREE.Vector3(((event.clientX - 7) / VA3C.viewerDiv.width()) * 2 - 1, -((event.clientY - 7) / VA3C.viewerDiv.height()) * 2 + 1, 0.5);    //OFFSET THE MOUSE CURSOR BY -7PX!!!!
+        var mouse3D = new THREE.Vector3(((event.clientX) / VA3C.viewerDiv.width()) * 2 - 1, -((event.clientY) / VA3C.viewerDiv.height()) * 2 + 1, 0.5);    //OFFSET THE MOUSE CURSOR BY -7PX!!!!
         mouse3D.unproject(VA3C.camera);
         mouse3D.sub(VA3C.camera.position);
         mouse3D.normalize();
@@ -1128,100 +1252,6 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
     //this is the code that used to live in APP_INIT
     //set up and initialize dat.gui controls
     VA3C.initViewer(divToBind,statsDiv);
-
-
-    VA3C.uiVariables = new VA3C.UiConstructor();
-    VA3C.datGui = new dat.GUI();
-    VA3C.datGui.width = 300;
-
-    //add a file folder containing the file open button
-    var fileFolder = VA3C.datGui.addFolder('File');
-    fileFolder.add(VA3C.uiVariables, 'openLocalFile');
-    //fileFolder.add(VA3C.uiVariables, 'openUrl'); //not working yet - commenting out for now
-
-
-    //add scene folder
-    var sceneFolder = VA3C.datGui.addFolder('Scene');
-    //background color control
-    sceneFolder.addColor(VA3C.uiVariables, 'backgroundColor').onChange(function(e){
-        //set background color
-        VA3C.renderer.setClearColor(e);
-    });
-    sceneFolder.addColor(VA3C.uiVariables, 'ambientLightColor').onChange(function(e){
-        VA3C.lightingRig.setAmbientLightColor(e);
-    });
-    //scene fog
-    //sceneFolder.add(VA3C.uiVariables, 'fog').onChange(function(e){
-    //        VA3C.lightingRig.setFog(e);
-    //    });
-
-
-
-    //add view folder
-    var viewFolder = VA3C.datGui.addFolder('View_and_Selection');
-    //zoom extents and selected
-    viewFolder.add(VA3C.uiVariables, 'zoomExtents');
-    viewFolder.add(VA3C.uiVariables, 'zoomSelected');
-    //change color of selected object's material
-    viewFolder.addColor(VA3C.uiVariables, 'selectedObjectColor').onChange(function(e){
-        VA3C.attributes.setSelectedObjectColor(e);
-    });
-    viewFolder.add(VA3C.uiVariables, 'showStats').onChange(function(e){
-        if(e){
-            $('#Stats_output').show();
-        }
-        else{
-            $('#Stats_output').hide();
-        }
-    });
-
-
-
-    //add a lighting folder
-    var lightsFolder = VA3C.datGui.addFolder('Lighting');
-    //light colors
-    lightsFolder.addColor(VA3C.uiVariables, 'pointLightsColor').onChange(function(e){
-        VA3C.lightingRig.setPointLightsColor(e);
-    });
-    lightsFolder.add(VA3C.uiVariables, 'shadows').onChange(function(e){
-        VA3C.lightingRig.shadowsOnOff(e);
-    });
-    /*//solar az and alt
-     lightsFolder.add(VA3C.uiVariables, 'solarAzimuth')
-     .min(0)
-     .max(359)
-     .step(1);
-     lightsFolder.add(VA3C.uiVariables, 'solarAltitude')
-     .min(0)
-     .max(90)
-     .step(0.1);*/
-
-
-
-
-    //hide the dat.gui close controls button
-    //$(".close-button").css('visibility', 'hidden');
-
-
-    //Jquery UI stuff - make divs draggable, resizable, etc.
-
-    //make the file open divs draggable
-    $(".vA3C_openFile").draggable( {containment: "parent"});
-
-    //make the attributes div draggable and resizeable
-    $('.vA3C_attributeList').draggable( {containment: "parent"});
-    //$('.attributeList').resizable();
-
-    //hide the stats div - we'll turn it on / off with the UI
-    $('#Stats_output').hide();
-
-
-    //load our sample JSON file - for development of the colored meshes from GH
-    //$.getJSON("./js/rvtenergy.json", function( data ){
-    $.getJSON("./js/va3c.json", function( data ){
-        VA3C.jsonLoader.loadSceneFromJson(data);
-
-    });
 
 };
 

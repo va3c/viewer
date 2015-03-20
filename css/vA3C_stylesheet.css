@@ -89,3 +89,9 @@ a:hover {color: #a0a0a0;}
 .vA3C_errorMessage{
 
 }
+
+.vA3C_uiTarget{
+    position: fixed;
+    width: 300px;
+    z-index: 10;
+}
