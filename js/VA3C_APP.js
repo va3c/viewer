@@ -627,6 +627,108 @@ var VA3C_CONSTRUCTOR = function(divToBind){
         this.pointLights = [];
     };
 
+    //**********************TOP LEVEL METHOD!!!**********************************
+    //call this method to enable the Scene UI
+    VA3C.sceneUI = function(){
+        //add scene folder
+        var sceneFolder = VA3C.datGui.addFolder('Scene');
+        VA3C.UIfolders.Scene = sceneFolder;
+        //background color control
+        sceneFolder.addColor(VA3C.uiVariables, 'backgroundColor').onChange(function(e){
+            //set background color
+            VA3C.renderer.setClearColor(e);
+        });
+        //scene fog
+        //sceneFolder.add(VA3C.uiVariables, 'fog').onChange(function(e){
+        //        VA3C.lightingRig.setFog(e);
+        //    });
+
+        //append a new div to the parent to use for stats visualization
+        VA3C.viewerDiv.append("<div id='vA3C_stats' style= 'position: fixed;'></div>");
+
+        //set up the stats window
+        VA3C.stats = new Stats();
+        VA3C.stats.domElement.style.cssText = 'opacity: 0.5; position: fixed; ';
+        $('#vA3C_stats').append(VA3C.stats.domElement);
+
+        //position the stats relative to the parent
+        var positionStats = function(){
+            //set the position of the UI relative to the viewer div
+            var targetDiv = $('#vA3C_stats');
+
+            //get lower right coordinates of the viewer div - we'll use these for positioning
+            var x = VA3C.viewerDiv.position().left + VA3C.viewerDiv.width();
+            var y = VA3C.viewerDiv.position().top + VA3C.viewerDiv.height();
+
+            //set the position
+            targetDiv.css('left', (x - 77).toString() + "px");
+            targetDiv.css('top',  (y - 48).toString() + "px");
+        };
+        positionStats();
+
+        //hide the stats the first time through.
+        $('#vA3C_stats').hide();
+
+
+        //respond to resize
+        VA3C.viewerDiv.resize(function () {
+            positionStats();
+        });
+
+        //create the controller in the UI
+        VA3C.UIfolders.Scene.add(VA3C.uiVariables, 'showStats').onChange(function(e){
+            if(e){
+                $('#vA3C_stats').show();
+            }
+            else{
+                $('#vA3C_stats').hide();
+            }
+        });
+    };
+
+    //**********************TOP LEVEL METHOD!!!**********************************
+    //call this method to enable the Lighting UI
+    VA3C.lightingUI = function(){
+        //add a lighting folder
+        var lightsFolder = VA3C.datGui.addFolder('Lighting');
+        VA3C.UIfolders.Lighting = lightsFolder;
+        //light colors
+        lightsFolder.addColor(VA3C.uiVariables, 'ambientLightColor').onChange(function(e){
+            VA3C.lightingRig.setAmbientLightColor(e);
+        });
+        lightsFolder.addColor(VA3C.uiVariables, 'pointLightsColor').onChange(function(e){
+            VA3C.lightingRig.setPointLightsColor(e);
+        });
+        lightsFolder.add(VA3C.uiVariables, 'shadows').onChange(function(e){
+            VA3C.lightingRig.shadowsOnOff(e);
+        });
+        /*//solar az and alt
+         lightsFolder.add(VA3C.uiVariables, 'solarAzimuth')
+         .min(0)
+         .max(359)
+         .step(1);
+         lightsFolder.add(VA3C.uiVariables, 'solarAltitude')
+         .min(0)
+         .max(90)
+         .step(0.1);*/
+    };
+
+    //**********************TOP LEVEL METHOD!!!**********************************
+    //call this method to enable view and selection UI
+    VA3C.viewAndSelectionUI = function(){
+        //add view folder
+        var viewFolder = VA3C.datGui.addFolder('View_and_Selection');
+        VA3C.UIfolders.View_and_Selection = viewFolder;
+        //zoom extents and selected
+        viewFolder.add(VA3C.uiVariables, 'zoomExtents');
+        viewFolder.add(VA3C.uiVariables, 'zoomSelected');
+        //change color of selected object's material
+        viewFolder.addColor(VA3C.uiVariables, 'selectedObjectColor').onChange(function(e){
+            VA3C.attributes.setSelectedObjectColor(e);
+        });
+    };
+
+
 
     //*********************
     //*********************
@@ -890,140 +992,16 @@ var VA3C_CONSTRUCTOR = function(divToBind){
 
 
 
-
-        //add a file folder containing the file open button
-        var fileFolder = VA3C.datGui.addFolder('File');
-        VA3C.UIfolders.File = fileFolder;
-        fileFolder.add(VA3C.uiVariables, 'openLocalFile');
-        //fileFolder.add(VA3C.uiVariables, 'openUrl'); //not working yet - commenting out for now
-
-
-
-        //add scene folder
-        var sceneFolder = VA3C.datGui.addFolder('Scene');
-        VA3C.UIfolders.Scene = sceneFolder;
-        //background color control
-        sceneFolder.addColor(VA3C.uiVariables, 'backgroundColor').onChange(function(e){
-            //set background color
-            VA3C.renderer.setClearColor(e);
-        });
-        sceneFolder.addColor(VA3C.uiVariables, 'ambientLightColor').onChange(function(e){
-            VA3C.lightingRig.setAmbientLightColor(e);
-        });
-        //scene fog
-        //sceneFolder.add(VA3C.uiVariables, 'fog').onChange(function(e){
-        //        VA3C.lightingRig.setFog(e);
-        //    });
-
-
-
-        //add view folder
-        var viewFolder = VA3C.datGui.addFolder('View_and_Selection');
-        VA3C.UIfolders.View_and_Selection = viewFolder;
-        //zoom extents and selected
-        viewFolder.add(VA3C.uiVariables, 'zoomExtents');
-        viewFolder.add(VA3C.uiVariables, 'zoomSelected');
-        //change color of selected object's material
-        viewFolder.addColor(VA3C.uiVariables, 'selectedObjectColor').onChange(function(e){
-            VA3C.attributes.setSelectedObjectColor(e);
-        });
-
-
-
-        //add a lighting folder
-        var lightsFolder = VA3C.datGui.addFolder('Lighting');
-        VA3C.UIfolders.Lighting = lightsFolder;
-        //light colors
-        lightsFolder.addColor(VA3C.uiVariables, 'pointLightsColor').onChange(function(e){
-            VA3C.lightingRig.setPointLightsColor(e);
-        });
-        lightsFolder.add(VA3C.uiVariables, 'shadows').onChange(function(e){
-            VA3C.lightingRig.shadowsOnOff(e);
-        });
-        /*//solar az and alt
-         lightsFolder.add(VA3C.uiVariables, 'solarAzimuth')
-         .min(0)
-         .max(359)
-         .step(1);
-         lightsFolder.add(VA3C.uiVariables, 'solarAltitude')
-         .min(0)
-         .max(90)
-         .step(0.1);*/
-
-
-
-
         //hide the dat.gui close controls button
         //$(".close-button").css('visibility', 'hidden');
 
 
         //Jquery UI stuff - make divs draggable, resizable, etc.
 
-        //make the file open divs draggable
-        $(".vA3C_openFile").draggable( {containment: "parent"});
-
         //make the attributes div draggable and resizeable
         $('.vA3C_attributeList').draggable( {containment: "parent"});
         //$('.attributeList').resizable();
 
-        //hide the stats div - we'll turn it on / off with the UI
-        $('#Stats_output').hide();
-
-
-        //load our sample JSON file - for development of the colored meshes from GH
-        //$.getJSON("./js/rvtenergy.json", function( data ){
-        $.getJSON("./js/va3c.json", function( data ){
-            VA3C.jsonLoader.loadSceneFromJson(data);
-
-        });
-
-    };
-
-    //**********************TOP LEVEL METHOD!!!**********************************
-    //call this method to enable the stats UI.
-    VA3C.statsUI = function(){
-
-        //append a new div to the parent to use for stats visualization
-        VA3C.viewerDiv.append("<div id='vA3C_stats' style= 'position: fixed;'></div>");
-
-        //set up the stats window
-        VA3C.stats = new Stats();
-        VA3C.stats.domElement.style.cssText = 'opacity: 0.5; position: fixed; ';
-        $('#vA3C_stats').append(VA3C.stats.domElement);
-
-        //position the stats relative to the parent
-        var positionStats = function(){
-            //set the position of the UI relative to the viewer div
-            var targetDiv = $('#vA3C_stats');
-
-            //get lower right coordinates of the viewer div - we'll use these for positioning
-            var x = VA3C.viewerDiv.position().left + VA3C.viewerDiv.width();
-            var y = VA3C.viewerDiv.position().top + VA3C.viewerDiv.height();
-
-            //set the position
-            targetDiv.css('left', (x - 77).toString() + "px");
-            targetDiv.css('top',  (y - 48).toString() + "px");
-        };
-        positionStats();
-
-        //hide the stats the first time through.
-        $('#vA3C_stats').hide();
-
-
-        //respond to resize
-        VA3C.viewerDiv.resize(function () {
-            positionStats();
-        });
-
-        //create the controller in the UI
-        VA3C.UIfolders.Scene.add(VA3C.uiVariables, 'showStats').onChange(function(e){
-            if(e){
-                $('#vA3C_stats').show();
-            }
-            else{
-                $('#vA3C_stats').hide();
-            }
-        });
     };
 
     //**********************TOP LEVEL METHOD!!!**********************************
@@ -1057,6 +1035,15 @@ var VA3C_CONSTRUCTOR = function(divToBind){
         VA3C.viewerDiv.resize(function () {
             setFileOpen();
         });
+
+        //add a file folder containing the file open button
+        var fileFolder = VA3C.datGui.addFolder('File');
+        VA3C.UIfolders.File = fileFolder;
+        fileFolder.add(VA3C.uiVariables, 'openLocalFile');
+        //fileFolder.add(VA3C.uiVariables, 'openUrl'); //not working yet - commenting out for now
+
+        //make the file open divs draggable
+        $(".vA3C_openFile").draggable( {containment: "parent"});
     };
 
 
