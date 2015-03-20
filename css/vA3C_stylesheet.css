@@ -45,9 +45,7 @@ a:hover {color: #a0a0a0;}
     background-color: #ffffff;
     visibility: hidden;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -25px;
+    margin-top: -50px;
     margin-left: -150px;
     width: 300px;
     height: 100px;

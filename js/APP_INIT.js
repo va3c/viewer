@@ -12,8 +12,8 @@ $(document).ready(function(){
     myVA3C = new VA3C_CONSTRUCTOR($("#vA3C_output"),$("#Stats_output"));
     myVA3C.userInterface();
     myVA3C.statsUI();
+    myVA3C.openLocalFiles();
 
-//    v.openFiles();
 //    v.selection();
 //    v.views();
 //    v.layers();

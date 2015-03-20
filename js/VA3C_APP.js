@@ -16,7 +16,7 @@ var VA3C_CONSTRUCTOR = function(divToBind){
     VA3C.camera = {};         //the THREE.js camera object
     VA3C.renderer = {};       //the THREE.js renderer object
     VA3C.clock = {};          //the THREE.js clock
-    VA3C.stats;          //the Stats object
+    VA3C.stats;               //the Stats object
 
 
     //*********************
@@ -1028,7 +1028,36 @@ var VA3C_CONSTRUCTOR = function(divToBind){
 
     //**********************TOP LEVEL METHOD!!!**********************************
     //call this method to enable the file open UI.
+    VA3C.openLocalFiles = function(){
 
+        //append the file open interface to our parent div --- couldn't get this to work!  it has something to do with appending the file input with jquery...
+        //VA3C.viewerDiv.append("<div id='OpenLocalFile' class='vA3C_openFile'><h2>Open a local vA3C .json file</h2><input type='file' onclick='myVA3C.jsonLoader.clearFile(event);' onchange='myVA3C.jsonLoader.openLocalFile(event);' class='vA3C_openButton'></div>");
+        //VA3C.viewerDiv.append("<div id='OpenLocalFile' class='vA3C_openFile'><h2>Open a local vA3C .json file</h2><input type='file' class='vA3C_openButton'></div>");
+        //$('.vA3C_openButton').click(function(event){
+            //VA3C.jsonLoader.openLocalFile(event);
+        //});
+
+        //function to position the loading div
+        var setFileOpen = function(){
+
+            //set the position of the UI relative to the viewer div
+            var targetDiv = $('.vA3C_openFile');
+
+            //get upper left coordinates of the viewer div - we'll use these for positioning
+            var x = (VA3C.viewerDiv.position().left + VA3C.viewerDiv.width()) / 2;
+            var y = (VA3C.viewerDiv.position().top + VA3C.viewerDiv.height()) / 2;
+
+            //set the position and size
+            targetDiv.css('left', x.toString() + "px");
+            targetDiv.css('top',  y.toString() + "px");
+        };
+        //call this the first time through
+        setFileOpen();
+        //respond to resize of the parent div
+        VA3C.viewerDiv.resize(function () {
+            setFileOpen();
+        });
+    };
 
 
     //*********************
