@@ -23,7 +23,7 @@
 <div id="vA3C_output"></div>
 <div id="OpenLocalFile" class="openFile">
     <h2>Open a local vA3C .json file</h2>
-    <input type="file" onclick="VA3C.jsonLoader.clearFile(event)" onchange="VA3C.jsonLoader.openLocalFile(event)" class="openButton">
+    <input type="file" onclick="myVA3C.jsonLoader.clearFile(event)" onchange="myVA3C.jsonLoader.openLocalFile(event)" class="openButton">
 </div>
 <div id="OpenUrl" class="openFile">
     <h2>Open a hosted vA3C .json file</h2>
@@ -31,8 +31,8 @@
         <label for="urlInput" >Paste a url here and press Open</label>
         <input type="url" id="urlInput" class="urlInput">
         <br>
-        <input type="button" value="Open" onclick="VA3C.jsonLoader.openUrl($('#urlInput').val());">
-        <input type="button" value="Cancel" onclick="VA3C.jsonLoader.hideOpenDialog();">
+        <input type="button" value="Open" onclick="myVA3C.jsonLoader.openUrl($('#urlInput').val());">
+        <input type="button" value="Cancel" onclick="myVA3C.jsonLoader.hideOpenDialog();">
     </form>
 </div>
 <div class="attributeList"></div>
@@ -42,11 +42,6 @@
 </div>
 <div class="errorMessage"></div>
 <div id="Stats_output"></div>
-
-
-<script type="text/javascript">
-    VA3C.initViewer($("#vA3C_output"),$("#Stats_output"));
-</script>
 
 </body>
 </html>
