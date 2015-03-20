@@ -24,7 +24,56 @@ var VA3C_CONSTRUCTOR = function(divToBind){
     //*** THREE.js setup
 
     //function that sets up the initial THREE.js scene, renderer, camera, orbit controls, etc.
+    //also creates loading and blackout divs which are shown/hidden as json files are loaded
     VA3C.initViewer = function (viewerDiv) {
+
+        //append the blackout div and let it respond to the parent div resizing
+        VA3C.viewerDiv.append("<div class='vA3C_blackout'></div>");
+        //function to position and size the blackout div
+        var setBlackout = function(){
+            //set the position of the UI relative to the viewer div
+            var targetDiv = $('.vA3C_blackout');
+
+            //get upper left coordinates of the viewer div - we'll use these for positioning
+            var x = VA3C.viewerDiv.position().left;
+            var y = VA3C.viewerDiv.position().top;
+
+            //set the position and size
+            targetDiv.css('left', x.toString() + "px");
+            targetDiv.css('top',  y.toString() + "px");
+            targetDiv.css('width', VA3C.viewerDiv.width().toString() + "px");
+            targetDiv.css('height', VA3C.viewerDiv.height().toString() + "px");
+        };
+        //call this the first time through
+        setBlackout();
+        //respond to resize of the parent div
+        VA3C.viewerDiv.resize(function () {
+            setBlackout();
+        });
+
+
+        //append the loading div and let it respond to the parent div resizing
+        VA3C.viewerDiv.append("<div class='vA3C_loading'><h1>Loading vA3C JSON file...</h1></div>");
+        //function to position the loading div
+        var setLoading = function(){
+
+            //set the position of the UI relative to the viewer div
+            var targetDiv = $('.vA3C_loading');
+
+            //get upper left coordinates of the viewer div - we'll use these for positioning
+            var x = (VA3C.viewerDiv.position().left + VA3C.viewerDiv.width()) / 2;
+            var y = (VA3C.viewerDiv.position().top + VA3C.viewerDiv.height()) / 2;
+
+            //set the position and size
+            targetDiv.css('left', x.toString() + "px");
+            targetDiv.css('top',  y.toString() + "px");
+        };
+        //call this the first time through
+        setLoading();
+        //respond to resize of the parent div
+        VA3C.viewerDiv.resize(function () {
+            setLoading();
+        });
 
         //empty scene
         VA3C.scene = new THREE.Scene();
@@ -128,7 +177,7 @@ var VA3C_CONSTRUCTOR = function(divToBind){
 
         //hide the input form and blackout
         $("#OpenLocalFile").css("visibility", "hidden");
-        $(".loading").show();
+        $(".vA3C_loading").show();
     };
 
     VA3C.jsonLoader.clearFile = function (event) {
@@ -976,6 +1025,9 @@ var VA3C_CONSTRUCTOR = function(divToBind){
             }
         });
     };
+
+    //**********************TOP LEVEL METHOD!!!**********************************
+    //call this method to enable the file open UI.
 
 
 
