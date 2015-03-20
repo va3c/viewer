@@ -858,7 +858,7 @@ VA3C.attributes.populateAttributeList = function( jsonData ){
     VA3C.attributes.list.empty();
 
     //create a header
-    VA3C.attributes.list.append('<div class="attributeListHeader">Element Attributes</div>');
+    VA3C.attributes.list.append('<div class="vA3C_attributeListHeader">Element Attributes</div>');
 
     //add an empty item for some breathing room
     VA3C.attributes.list.append('<div class="item">-------</div>');

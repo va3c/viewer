@@ -11,7 +11,7 @@ a:visited {color:#787878;}
 a:hover {color: #a0a0a0;}
 
 
-.attributeList {
+.vA3C_attributeList {
     height: 1px;
     width: 360px;
     background-color: #fafafa;
@@ -29,18 +29,18 @@ a:hover {color: #a0a0a0;}
 }
 
 
-.attributeList h5 {
+.vA3C_attributeList h5 {
     display: inline;
     color : lightslategray;;
 }
 
-.attributeListHeader{
+.vA3C_attributeListHeader{
     background-color: #e8e8e8;
     font-size: 13px;
     padding: 5px 2px;
 }
 
-.openFile{
+.vA3C_openFile{
     padding: 10px;
     background-color: #ffffff;
     visibility: hidden;
@@ -55,20 +55,16 @@ a:hover {color: #a0a0a0;}
     font-size: 100%;
 }
 
-.openFile h2 {
+.vA3C_openFile h2 {
     margin: 0px;
 }
 
-.openButton{
+.vA3C_openButton{
     margin: 25px;
     justify-content: center;
 }
 
-.urlInput{
-    width: 100%;
-}
-
-.blackout{
+.vA3C_blackout{
     position: fixed;
     top: 0;
     left: 0;
@@ -80,7 +76,7 @@ a:hover {color: #a0a0a0;}
     z-index: 1000;
 }
 
-.loading{
+.vA3C_loading{
     position: fixed;
     top: 50%;
     left: 50%;
@@ -90,6 +86,6 @@ a:hover {color: #a0a0a0;}
     color: #ffffff;
 }
 
-.errorMessage{
+.vA3C_errorMessage{
 
 }

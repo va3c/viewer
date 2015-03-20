@@ -6,7 +6,7 @@
 var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
     var VA3C = this;        //a local app object we can work with inside of the constructor to avoid 'this' confusion.
-
+    VA3C.viewerDiv = divToBind;  //a reference to the div for use throughout the app
 
     VA3C.scene = {};          //the THREE.js scene object
     VA3C.jsonLoader = {};     //the object that will take care of loading a THREE.js scene from a json file
@@ -39,7 +39,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
             }
         );
         VA3C.renderer.setClearColor(0x000000, 1.0);
-        VA3C.renderer.setSize(window.innerWidth, window.innerHeight);
+        VA3C.renderer.setSize(viewerDiv.innerWidth(), viewerDiv.innerHeight());
         VA3C.renderer.shadowMapEnabled = true;
         //VA3C.renderer.shadowMapSoft = true;
         //VA3C.renderer.shadowMapType = THREE.PCFSoftShadowMap;
@@ -51,7 +51,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
         statsDiv.append(VA3C.stats.domElement);
 
         //set up the camera and orbit controls
-        VA3C.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000000);
+        VA3C.camera = new THREE.PerspectiveCamera(45, viewerDiv.innerWidth() / viewerDiv.innerHeight(), 1, 1000000);
         VA3C.camera.position.set(1000, 1000, 1000);
         VA3C.orbitControls = new THREE.OrbitControls(VA3C.camera, VA3C.renderer.domElement);
         VA3C.orbitControls.target.set(0, 100, 0);
@@ -60,9 +60,9 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
         VA3C.clock = new THREE.Clock();
 
         //respond to resize
-        window.addEventListener('resize', function () {
-            var WIDTH = window.innerWidth,
-                HEIGHT = window.innerHeight;
+        viewerDiv.resize(function () {
+            var WIDTH = viewerDiv.innerWidth(),
+                HEIGHT = viewerDiv.innerHeight();
             VA3C.renderer.setSize(WIDTH, HEIGHT);
             VA3C.orbitControls.object.aspect = WIDTH / HEIGHT;
             VA3C.orbitControls.object.updateProjectionMatrix();
@@ -173,7 +173,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
     //function to hide the 'open file' dialogs.
     VA3C.jsonLoader.hideOpenDialog = function () {
         //hide the input form
-        $(".openFile").css("visibility", "hidden");
+        $(".vA3C_openFile").css("visibility", "hidden");
     };
 
     //a function to populate our scene object from a json file
@@ -272,8 +272,8 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
 
         //hide the blackout
-        $(".blackout").hide();
-        $(".loading").hide();
+        $(".vA3C_blackout").hide();
+        $(".vA3C_loading").hide();
 
     };
 
@@ -491,8 +491,8 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
         light.distance = 0;
         light.intensity = 0;
         light.shadowBias = 0.001;
-        light.shadowMapHeight = window.innerHeight;
-        light.shadowMapWidth = window.innerWidth;
+        light.shadowMapHeight = VA3C.viewerDiv.innerHeight();
+        light.shadowMapWidth = VA3C.viewerDiv.innerWidth();
         light.shadowDarkness = 0.65;
         //light.shadowCameraVisible = true;
 
@@ -602,7 +602,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
             //show the openLocalFile Div
             $("#OpenLocalFile").css("visibility", "visible");
-            $(".blackout").show();
+            $(".vA3C_blackout").show();
 
             //this should show a form that lets a user open a file
 
@@ -611,17 +611,9 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
                 if (e.keyCode == 27)
                 {
                     $("#OpenLocalFile").css("visibility", "hidden");
-                    $(".blackout").hide();
+                    $(".vA3C_blackout").hide();
                 }
             });
-
-        };
-
-        this.openUrl = function () {
-
-            //show the openUrl Div
-            $("#OpenUrl").css("visibility", "visible");
-
 
         };
 
@@ -855,7 +847,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
         VA3C.attributes.previousClickedElement = new VA3C.attributes.SelectedElement();
 
         //Get a handle on the attribute list div as a jquery object.
-        VA3C.attributes.list = $('.attributeList');
+        VA3C.attributes.list = $('.vA3C_attributeList');
 
         //set up mouse events - BH question - why do we need both?  Test me.
         document.getElementById('vA3C_output').addEventListener('click', VA3C.attributes.onMouseClick, false);
@@ -887,7 +879,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
         //get a vector representing the mouse position in 3D
         //NEW - from here: https://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects/23492823#23492823
-        var mouse3D = new THREE.Vector3(((event.clientX - 7) / window.innerWidth) * 2 - 1, -((event.clientY - 7) / window.innerHeight) * 2 + 1, 0.5);    //OFFSET THE MOUSE CURSOR BY -7PX!!!!
+        var mouse3D = new THREE.Vector3(((event.clientX - 7) / VA3C.viewerDiv.width()) * 2 - 1, -((event.clientY - 7) / VA3C.viewerDiv.height()) * 2 + 1, 0.5);    //OFFSET THE MOUSE CURSOR BY -7PX!!!!
         mouse3D.unproject(VA3C.camera);
         mouse3D.sub(VA3C.camera.position);
         mouse3D.normalize();
@@ -1044,7 +1036,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
         VA3C.attributes.list.empty();
 
         //create a header
-        VA3C.attributes.list.append('<div class="attributeListHeader">Element Attributes</div>');
+        VA3C.attributes.list.append('<div class="vA3C_attributeListHeader">Element Attributes</div>');
 
         //add an empty item for some breathing room
         VA3C.attributes.list.append('<div class="item">-------</div>');
@@ -1214,10 +1206,10 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
     //Jquery UI stuff - make divs draggable, resizable, etc.
 
     //make the file open divs draggable
-    $(".openFile").draggable( {containment: "parent"});
+    $(".vA3C_openFile").draggable( {containment: "parent"});
 
     //make the attributes div draggable and resizeable
-    $('.attributeList').draggable( {containment: "parent"});
+    $('.vA3C_attributeList').draggable( {containment: "parent"});
     //$('.attributeList').resizable();
 
     //hide the stats div - we'll turn it on / off with the UI
