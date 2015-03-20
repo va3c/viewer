@@ -3,7 +3,7 @@
  */
 
 //base application object containing vA3C functions and properties
-var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
+var VA3C_CONSTRUCTOR = function(divToBind){
 
     var VA3C = this;        //a local app object we can work with inside of the constructor to avoid 'this' confusion.
     VA3C.viewerDiv = divToBind;  //a reference to the div for use throughout the app
@@ -16,7 +16,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
     VA3C.camera = {};         //the THREE.js camera object
     VA3C.renderer = {};       //the THREE.js renderer object
     VA3C.clock = {};          //the THREE.js clock
-    VA3C.stats = {};          //the Stats object
+    VA3C.stats;          //the Stats object
 
 
     //*********************
@@ -24,7 +24,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
     //*** THREE.js setup
 
     //function that sets up the initial THREE.js scene, renderer, camera, orbit controls, etc.
-    VA3C.initViewer = function (viewerDiv, statsDiv) {
+    VA3C.initViewer = function (viewerDiv) {
 
         //empty scene
         VA3C.scene = new THREE.Scene();
@@ -44,11 +44,6 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
         //VA3C.renderer.shadowMapSoft = true;
         //VA3C.renderer.shadowMapType = THREE.PCFSoftShadowMap;
         VA3C.container.append(VA3C.renderer.domElement);
-
-        //set up the stats window
-        VA3C.stats = new Stats();
-        VA3C.stats.domElement.style.cssText = 'bottom: 0px; opacity: 0.5; position: absolute; right: 15px; ';
-        statsDiv.append(VA3C.stats.domElement);
 
         //set up the camera and orbit controls
         VA3C.camera = new THREE.PerspectiveCamera(45, viewerDiv.innerWidth() / viewerDiv.innerHeight(), 1, 1000000);
@@ -77,7 +72,9 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
     //function that starts the THREE.js renderer
     VA3C.render = function () {
-        VA3C.stats.update();
+        if (VA3C.stats !== undefined) {
+            VA3C.stats.update();
+        }
         var delta = VA3C.clock.getDelta();
         VA3C.orbitControls.update(delta); //getting a warning here - look into it
 
@@ -277,11 +274,6 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
     };
 
-
-
-
-
-
     //call this function to set a geometry's face material index to the same index as the face number
     //this lets meshfacematerials work - the json loader only gets us part of the way there (I think we are missing something when we create mesh faces...)
     VA3C.jsonLoader.makeFaceMaterialsWork = function () {
@@ -315,7 +307,6 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
             }
         }
     };
-
 
     //function that loops over the geometry in the scene and makes sure everything
     //renders correctly and can be selected
@@ -416,7 +407,6 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
     //an array of point lights to provide even coverage of the scene
     VA3C.lightingRig.pointLights = [];
-
 
     //function that creates lights in the scene
     VA3C.lightingRig.createLights = function () {
@@ -812,7 +802,11 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
     //this is the actual dat.gui object.  We'll add folders and UI objects in the APP_INIT document.ready function
     VA3C.datGui = {};
 
+    //an object to hold all of our GUI folders, which will be keyed by name.  We need these from other places in the app
+    //now that we are dynamically adding and subtracting UI elements.
+    VA3C.UIfolders = {};
 
+    //**********************TOP LEVEL METHOD!!!**********************************
     //this is the method that is called to initialize the dat.GUI user interface.
     VA3C.userInterface = function(){
 
@@ -845,14 +839,20 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
         VA3C.datGui.width = 300;
         $('.vA3C_uiTarget').append(VA3C.datGui.domElement);
 
+
+
+
         //add a file folder containing the file open button
         var fileFolder = VA3C.datGui.addFolder('File');
+        VA3C.UIfolders.File = fileFolder;
         fileFolder.add(VA3C.uiVariables, 'openLocalFile');
         //fileFolder.add(VA3C.uiVariables, 'openUrl'); //not working yet - commenting out for now
 
 
+
         //add scene folder
         var sceneFolder = VA3C.datGui.addFolder('Scene');
+        VA3C.UIfolders.Scene = sceneFolder;
         //background color control
         sceneFolder.addColor(VA3C.uiVariables, 'backgroundColor').onChange(function(e){
             //set background color
@@ -870,6 +870,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
         //add view folder
         var viewFolder = VA3C.datGui.addFolder('View_and_Selection');
+        VA3C.UIfolders.View_and_Selection = viewFolder;
         //zoom extents and selected
         viewFolder.add(VA3C.uiVariables, 'zoomExtents');
         viewFolder.add(VA3C.uiVariables, 'zoomSelected');
@@ -877,19 +878,12 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
         viewFolder.addColor(VA3C.uiVariables, 'selectedObjectColor').onChange(function(e){
             VA3C.attributes.setSelectedObjectColor(e);
         });
-        viewFolder.add(VA3C.uiVariables, 'showStats').onChange(function(e){
-            if(e){
-                $('#Stats_output').show();
-            }
-            else{
-                $('#Stats_output').hide();
-            }
-        });
 
 
 
         //add a lighting folder
         var lightsFolder = VA3C.datGui.addFolder('Lighting');
+        VA3C.UIfolders.Lighting = lightsFolder;
         //light colors
         lightsFolder.addColor(VA3C.uiVariables, 'pointLightsColor').onChange(function(e){
             VA3C.lightingRig.setPointLightsColor(e);
@@ -936,6 +930,52 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
 
     };
 
+    //**********************TOP LEVEL METHOD!!!**********************************
+    //call this method to enable the stats UI.
+    VA3C.statsUI = function(){
+
+        //append a new div to the parent to use for stats visualization
+        VA3C.viewerDiv.append("<div id='vA3C_stats' style= 'position: fixed;'></div>");
+
+        //set up the stats window
+        VA3C.stats = new Stats();
+        VA3C.stats.domElement.style.cssText = 'opacity: 0.5; position: fixed; ';
+        $('#vA3C_stats').append(VA3C.stats.domElement);
+
+        //position the stats relative to the parent
+        var positionStats = function(){
+            //set the position of the UI relative to the viewer div
+            var targetDiv = $('#vA3C_stats');
+
+            //get lower right coordinates of the viewer div - we'll use these for positioning
+            var x = VA3C.viewerDiv.position().left + VA3C.viewerDiv.width();
+            var y = VA3C.viewerDiv.position().top + VA3C.viewerDiv.height();
+
+            //set the position
+            targetDiv.css('left', (x - 77).toString() + "px");
+            targetDiv.css('top',  (y - 48).toString() + "px");
+        };
+        positionStats();
+
+        //hide the stats the first time through.
+        $('#vA3C_stats').hide();
+
+
+        //respond to resize
+        VA3C.viewerDiv.resize(function () {
+            positionStats();
+        });
+
+        //create the controller in the UI
+        VA3C.UIfolders.Scene.add(VA3C.uiVariables, 'showStats').onChange(function(e){
+            if(e){
+                $('#vA3C_stats').show();
+            }
+            else{
+                $('#vA3C_stats').hide();
+            }
+        });
+    };
 
 
 
@@ -1251,7 +1291,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, statsDiv){
     //now all functions have been initialized.  start everything up.
     //this is the code that used to live in APP_INIT
     //set up and initialize dat.gui controls
-    VA3C.initViewer(divToBind,statsDiv);
+    VA3C.initViewer(divToBind);
 
 };
 
