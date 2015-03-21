@@ -7,27 +7,20 @@ var myVA3C;
 
 $(document).ready(function(){
 
+    //load our sample JSON file from disk
+    $.getJSON("./js/va3c2.json", function( data ){
 
-    //after the EMBED refactoring effort, the entry point for a viewer should look like this:
-    myVA3C = new VA3C_CONSTRUCTOR($("#vA3C_output"),$("#Stats_output"));
-    myVA3C.userInterface();
-    myVA3C.openLocalFiles();
-    myVA3C.sceneUI();
-    myVA3C.lightingUI();
-    myVA3C.viewAndSelectionUI();
+        //once loaded, initialize a VA3C viewer by passing in the div to bind to, the json data, and a callback function
+        //where we can enable application functionality in nice clean chunks
+        myVA3C = new VA3C_CONSTRUCTOR($("#vA3C_output"), data, function(app){
 
-
-    //load our sample JSON file - for development of the colored meshes from GH
-    //$.getJSON("./js/rvtenergy.json", function( data ){
-    $.getJSON("./js/va3c.json", function( data ){
-        myVA3C.jsonLoader.loadSceneFromJson(data);
+            //call the UI / functionality modules
+            app.userInterface();
+            app.openLocalFiles();
+            app.sceneUI();
+            app.lightingUI();
+            app.viewAndSelectionUI();
+            app.viewsUI();
+        });
     });
-
-
-
-
-
-
-
-
 });
