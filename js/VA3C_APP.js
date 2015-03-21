@@ -10,13 +10,13 @@ var VA3C_CONSTRUCTOR = function(divToBind){
 
     VA3C.scene = {};          //the THREE.js scene object
     VA3C.jsonLoader = {};     //the object that will take care of loading a THREE.js scene from a json file
-    VA3C.boundingSphere = {}; //a sphere that encompasses everything in the scene
+    VA3C.boundingSphere = undefined;      //a sphere that encompasses everything in the scene
     VA3C.lightingRig = {};    //a parent object to hold our lights.  We'll be setting properties with UI
     VA3C.orbitControls = {};  //the THREE.js orbit controls object
     VA3C.camera = {};         //the THREE.js camera object
     VA3C.renderer = {};       //the THREE.js renderer object
     VA3C.clock = {};          //the THREE.js clock
-    VA3C.stats;               //the Stats object
+    VA3C.stats = undefined;               //the Stats object
 
 
     //*********************
@@ -419,15 +419,6 @@ var VA3C_CONSTRUCTOR = function(divToBind){
             if (child instanceof THREE.Mesh) {
                 geo.merge(child.geometry);
             }
-            /*else if(child.type === 'Object3D' ){
-                try {
-                    for (var i=0; i<child.children.length; i++) {
-                        for (var j=0; j<child.children[i].children.length; j++){
-                            geo.merge(child.children[i].children[j].geometry);
-                        }
-                    }
-                } catch (e) {}
-            }*/
         });
         geo.computeBoundingSphere();
 
@@ -439,6 +430,24 @@ var VA3C_CONSTRUCTOR = function(divToBind){
         //var sphereMesh = new THREE.Mesh(sphereGeo, new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true, opacity: 0.25}));
         //sphereMesh.position.set(geo.boundingSphere.center.x,geo.boundingSphere.center.y,geo.boundingSphere.center.z);
         //VA3C.scene.add(sphereMesh);
+    };
+
+    //zoom extents function.  we call this when we load a file (and from the UI), so it shouldn't be in the UI constructor
+    VA3C.zoomExtents = function(){
+
+        if(VA3C.boundingSphere === undefined) VA3C.computeBoundingSphere();
+
+        //get the radius of the sphere and use it to compute an offset.  This is a mashup of theo's method
+        //and the one we use in platypus
+        var r = VA3C.boundingSphere.radius;
+        var offset = r / Math.tan(Math.PI / 180.0 * VA3C.orbitControls.object.fov * 0.5);
+        var vector = new THREE.Vector3(0, 0, 1);
+        var dir = vector.applyQuaternion(VA3C.orbitControls.object.quaternion);
+        var newPos = new THREE.Vector3();
+        dir.multiplyScalar(offset * 1.25);
+        newPos.addVectors(VA3C.boundingSphere.center, dir);
+        VA3C.orbitControls.object.position.set(newPos.x, newPos.y, newPos.z);
+        VA3C.orbitControls.target = new THREE.Vector3(VA3C.boundingSphere.center.x, VA3C.boundingSphere.center.y, VA3C.boundingSphere.center.z);
     };
 
 
@@ -777,33 +786,7 @@ var VA3C_CONSTRUCTOR = function(divToBind){
 
         //zoom extents
         this.zoomExtents = function () {
-            //loop over the children of the THREE scene, merge them into a mesh,
-            //and compute a bounding sphere for the scene
-            var geo = new THREE.Geometry();
-            VA3C.scene.traverse(function (child) {
-                if (child instanceof THREE.Mesh) {
-                    geo.merge(child.geometry);
-                }
-            });
-            geo.computeBoundingSphere();
-
-            //point the camera at the center of the sphere
-            var c = geo.boundingSphere.center;
-            VA3C.orbitControls.target.set(c.x, c.y, c.z);
-
-            //set the camera position - we essentially want to zoom the camera in / out from it's current position
-
-            //get the radius of the sphere and use it to compute an offset.  This is a mashup of theo's method
-            //and the one we use in platypus
-            var r = geo.boundingSphere.radius;
-            var offset = r / Math.tan(Math.PI / 180.0 * VA3C.orbitControls.object.fov * 0.5);
-            var vector = new THREE.Vector3(0, 0, 1);
-            var dir = vector.applyQuaternion(VA3C.orbitControls.object.quaternion);
-            var newPos = new THREE.Vector3();
-            dir.multiplyScalar(offset * 1.25);
-            newPos.addVectors(c, dir);
-            VA3C.orbitControls.object.position.set(newPos.x, newPos.y, newPos.z);
-            VA3C.orbitControls.target = new THREE.Vector3(geo.boundingSphere.center.x, geo.boundingSphere.center.y, geo.boundingSphere.center.z);
+            VA3C.zoomExtents();
         };
 
         this.getViews = function () {
