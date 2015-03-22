@@ -138,7 +138,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
     VA3C.userInterface = function(){
 
         //append a child div to our parent and use the child to host the dat.GUI contoller
-        VA3C.viewerDiv.append("<div class=vA3C_uiTarget></div>");
+        $('body').append("<div class=vA3C_uiTarget></div>");
 
         //function to position the target div relative to the parent
         var positionGuiDiv = function(){
@@ -944,6 +944,9 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
     //element list.  This gets populated after a json file is loaded, and is used to check for intersections
     VA3C.attributes.elementList = [];
 
+    //attributes list div - the div that we populate with attributes when an item is selected
+    VA3C.attributes.attributeListDiv = {};
+
     //initialize attribtes function.  Call this once when initializing VA3C to set up all of the
     //event handlers and application logic.
     VA3C.attributes.init = function () {
@@ -960,12 +963,33 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
         //an object used to store the state of a selected element.
         VA3C.attributes.previousClickedElement = new VA3C.attributes.SelectedElement();
 
-        //Get a handle on the attribute list div as a jquery object.
-        VA3C.attributes.list = $('.vA3C_attributeList');
+        //Append a div to the parent for us to populate with attributes.  handle any jquery.ui initialization here too
+        VA3C.viewerDiv.append("<div class='vA3C_attributeList'></div>");
+        //function to position and size the blackout div
+        var setAttributeList = function(){
+            //set the position of the UI relative to the viewer div
+            var targetDiv = $('.vA3C_attributeList');
 
-        //set up mouse events - BH question - why do we need both?  Test me.
-        document.getElementById('vA3C_output').addEventListener('click', VA3C.attributes.onMouseClick, false);
-        //document.getElementById('vA3C_output').addEventListener('mousedown', VA3C.attributes.onMouseClick, false);
+            //get upper left coordinates of the viewer div - we'll use these for positioning
+            var x = VA3C.viewerDiv.position().left;
+            var y = VA3C.viewerDiv.position().top;
+
+            //set the position and size
+            targetDiv.css('left', x.toString() + "px");
+            targetDiv.css('top',  y.toString() + "px");
+            targetDiv.css('width', VA3C.viewerDiv.width().toString() + "px");
+            targetDiv.css('height', VA3C.viewerDiv.height().toString() + "px");
+        };
+        //call this the first time through
+        setAttributeList();
+
+        //set our local variable to the div we just created
+        VA3C.attributes.attributeListDiv = $('.vA3C_attributeList');
+        //make the attributes div draggable and resizeable
+        VA3C.attributes.attributeListDiv.draggable( {containment: "parent"});
+
+        //set up mouse event
+        VA3C.viewerDiv.click(VA3C.attributes.onMouseClick);
     };
 
     //Constructor that creates an object to represent a selected element.
@@ -981,7 +1005,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
     VA3C.attributes.onMouseClick = function (event) {
 
         //prevent the default event from triggering ... BH question - what is that event?  Test me.
-        event.preventDefault();
+        //event.preventDefault();
 
         //call our checkIfSelected function
         VA3C.attributes.checkIfSelected(event);
@@ -1063,7 +1087,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
                 VA3C.attributes.restorePreviouslySelectedObject();
 
                 //hide the attributes
-                VA3C.attributes.list.hide("slow");
+                VA3C.attributes.attributeListDiv.hide("slow");
             }
         }
     };
@@ -1147,13 +1171,13 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
     VA3C.attributes.populateAttributeList = function (jsonData) {
 
         //empty the contents of the html element
-        VA3C.attributes.list.empty();
+        VA3C.attributes.attributeListDiv.empty();
 
         //create a header
-        VA3C.attributes.list.append('<div class="vA3C_attributeListHeader">Element Attributes</div>');
+        VA3C.attributes.attributeListDiv.append('<div class="vA3C_attributeListHeader">Element Attributes</div>');
 
         //add an empty item for some breathing room
-        VA3C.attributes.list.append('<div class="item">-------</div>');
+        VA3C.attributes.attributeListDiv.append('<div class="item">-------</div>');
 
         //loop through json object attributes and create a new line for each property
         var rowCounter = 1;
@@ -1163,10 +1187,10 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
 
                 //add the key value pair
                 if (jsonData[key].substr(0, 4) !== 'http') {
-                    VA3C.attributes.list.append('<div class="item">' + key + "  :  " + jsonData[key] + '</div>');
+                    VA3C.attributes.attributeListDiv.append('<div class="item">' + key + "  :  " + jsonData[key] + '</div>');
                 } else {
                     var link = '<a href=' + jsonData[key] + ' target=_blank>' + jsonData[key] + '</a>';
-                    VA3C.attributes.list.append('<div class="item">' + key + "  :  " + link + '</div>');
+                    VA3C.attributes.attributeListDiv.append('<div class="item">' + key + "  :  " + link + '</div>');
                 }
 
                 //compute the length of the key value pair
@@ -1179,18 +1203,18 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
         }
 
         //change height based on # rows
-        VA3C.attributes.list.height(rowCounter * 12 + 43);
+        VA3C.attributes.attributeListDiv.height(rowCounter * 12 + 43);
 
         //set the width
         if (longestString > 50) {
-            VA3C.attributes.list.width(longestString * 5 + 43);
+            VA3C.attributes.attributeListDiv.width(longestString * 5 + 43);
         }
         else {
-            VA3C.attributes.list.width(360);
+            VA3C.attributes.attributeListDiv.width(360);
         }
 
         //Show the html element
-        VA3C.attributes.list.show("slow");
+        VA3C.attributes.attributeListDiv.show("slow");
     };
 
     //function to handle changing the color of a selected element
