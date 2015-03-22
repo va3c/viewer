@@ -21,6 +21,7 @@ $(document).ready(function(){
             app.lightingUI();
             app.viewAndSelectionUI();
             app.viewsUI();
+            app.layersUI();
         });
     });
 });

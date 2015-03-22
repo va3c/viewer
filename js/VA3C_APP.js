@@ -329,11 +329,23 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
     //**********************TOP LEVEL METHOD!!!**********************************
     //call this method to enable the view dropdown UI
     VA3C.viewsUI = function(){
+        VA3C.views.viewsEnabled = true;
         if(VA3C.views.viewList.length !== 0){
             VA3C.views.purge();
         }
         VA3C.views.getViews();
         VA3C.views.CreateViewUI();
+    };
+
+    //**********************TOP LEVEL METHOD!!!**********************************
+    //call this method to enable the view dropdown UI
+    VA3C.layersUI = function(){
+        VA3C.layers.layersEnabled = true;
+        if(VA3C.layers.layerList.length !== 0){
+            VA3C.layers.purge();
+        }
+        VA3C.layers.getLayers();
+        VA3C.layers.CreateLayerUI();
     };
 
 
@@ -441,8 +453,9 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
         if(VA3C.views.viewList.length > 0){
             VA3C.views.purge();
         }
-
-        VA3C.folderPurge();
+        if(VA3C.layers.layerList.length > 0){
+            VA3C.layers.purge();
+        }
 
         //parse the JSON into a THREE scene
         var loader = new THREE.ObjectLoader();
@@ -459,51 +472,16 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
         //set up the lighting rig
         VA3C.lightingRig.createLights();//note - i think we should check to see if there is an active lighting UI and use those colors to init lights if so...
 
-
-
-        //get the views saved in the JSON file
-        //VA3C.uiVariables.getLayers();
-
-        //if there are saved layers, create a checkbox for each of them
-        if ((VA3C.attributes.layerList.length == 1 && VA3C.attributes.layerList[0].name!="Default") || VA3C.attributes.layerList.length>1){
-            layerStrings = [];
-            for (var i = 0; i < VA3C.attributes.layerList.length; i++) {
-                layerStrings.push(VA3C.attributes.layerList[i].name);
-            }
-            //sort layers by name
-            layerStrings.sort();
-            try {
-                var layerFolder = VA3C.datGui.addFolder('Layers');
-            }
-            catch (err) {
-                //the layer folder already exists
-                var layerFolder = VA3C.datGui.__folders.Layers;
-            }
-            for (var i = 0; i < layerStrings.length; i++) {
-
-                //create an layer object that has a boolean property with its name
-                var layer = {};
-                layer[layerStrings[i]] = true;
-
-                //add a checkbox per layer
-                layerFolder.add(layer, layerStrings[i]).onChange(function (e) {
-
-                // get the name of the controller that fired the event -- there must be a different way of doing this...
-                var layerName = this.domElement.parentElement.firstChild.innerText;
-
-                for (var i = 0; i < VA3C.attributes.elementList.length; i++) {
-                    var element = VA3C.attributes.elementList[i];
-                    if (element.userData.layer == layerName) {
-                         //if unchecked, make it invisible
-                         if (element.visible == true) element.visible = false;
-                         //otherwise, show it
-                         else element.visible = true;
-                        }
-                    }
-                });
-            }
+        //if those chunks have been enabled by the outside caller, call getViews and getLayers on the scene.
+        if(VA3C.views.viewsEnabled){
+            //TO DO --- if a view with the same name as the open view exists in the incoming file, set that view
+            VA3C.views.getViews();
+            VA3C.views.CreateViewUI();
         }
-
+        if(VA3C.layers.layersEnabled){
+            VA3C.layers.getLayers();
+            VA3C.layers.CreateLayerUI();
+        }
 
         //hide the blackout
         $(".vA3C_blackout").hide();
@@ -918,18 +896,6 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
 
         };
 
-        this.getLayers = function () {
-            try {
-                if (VA3C.scene.userData.layers.length > 0) {
-                    for (var k = 0, kLen = VA3C.scene.userData.layers.length; k < kLen; k++) {
-                        var itemLayer = VA3C.scene.userData.layers[k];
-                        VA3C.attributes.layerList.push(itemLayer);
-                    }
-                }
-            }
-            catch (err) { }
-        };
-
 
 
 
@@ -977,11 +943,6 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
 
     //element list.  This gets populated after a json file is loaded, and is used to check for intersections
     VA3C.attributes.elementList = [];
-
-
-    VA3C.attributes.viewList = [];
-
-    VA3C.attributes.layerList = [];
 
     //initialize attribtes function.  Call this once when initializing VA3C to set up all of the
     //event handlers and application logic.
@@ -1232,48 +1193,16 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
         VA3C.attributes.list.show("slow");
     };
 
-    //function to purge local variables within this object.  When a user loads a new scene, we have to clear out the old stuff
-    VA3C.attributes.purge = function () {
-        this.restorePreviouslySelectedObject();
-        this.elementList = [];
-
-        if (this.layerList.length > 0) this.layerList = [];
-    };
-
-    //function to purge the layer and view folders and controllers
-    VA3C.folderPurge = function () {
-        try { //purge view controller
-            var viewFolder = VA3C.datGui.__folders.View_and_Selection;
-
-            for (var i = 0; i < viewFolder.__controllers.length; i++) {
-                if (viewFolder.__controllers[i].property == "view") {
-                    viewFolder.__controllers[i].remove();
-                    break;
-                }
-            }
-        } catch (e) {
-        }
-        //purge layer folder
-        try {
-            var layerFolder = VA3C.datGui.__folders.Layers;
-            var layerCount = layerFolder.__controllers.length;
-            for (var i = 0; i < layerCount; i++) {
-                layerFolder.__controllers[0].remove();
-            }
-
-            //remove the Layers folder -- this is not working
-            VA3C.datGui.removeFolder('Layers');
-
-        }
-
-        catch (err) { }
-    }
-
     //function to handle changing the color of a selected element
     VA3C.attributes.setSelectedObjectColor = function (col) {
         VA3C.attributes.clickedMaterial.color = new THREE.Color(col);
     };
 
+    //function to purge local variables within this object.  When a user loads a new scene, we have to clear out the old stuff
+    VA3C.attributes.purge = function () {
+        this.restorePreviouslySelectedObject();
+        this.elementList = [];
+    };
 
 
     //*********************
@@ -1283,6 +1212,9 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
 
     //the active array of views
     VA3C.views.viewList = [];
+
+    //a bool to track whether or not views have been enabled by the user
+    VA3C.viewsEnabled = false;
 
     //function to get views from the active scene and populate our list of views
     VA3C.views.getViews = function () {
@@ -1383,7 +1315,20 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
 
     //function to purge the list of views
     VA3C.views.purge = function(){
+        //reset the list
         if(this.viewList.length>0) this.viewList = [];
+
+        try { //purge view controller
+            var viewFolder = VA3C.datGui.__folders.View_and_Selection;
+
+            for (var i = 0; i < viewFolder.__controllers.length; i++) {
+                if (viewFolder.__controllers[i].property == "view") {
+                    viewFolder.__controllers[i].remove();
+                    break;
+                }
+            }
+        } catch (e) {
+        }
     };
 
 
@@ -1398,13 +1343,85 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
     //the active array of layers
     VA3C.layers.layerList = [];
 
-    //function to get layers from the active scene and populate our list
-    VA3C.layers.getViews = function(){
+    //a bool to track whether or not layers have been enabled by the user
+    VA3C.layersEnabled = false;
 
+    //function to get layers from the active scene and populate our list
+    VA3C.layers.getLayers = function(){
+        try {
+            if (VA3C.scene.userData.layers.length > 0) {
+                for (var k = 0, kLen = VA3C.scene.userData.layers.length; k < kLen; k++) {
+                    var itemLayer = VA3C.scene.userData.layers[k];
+                    VA3C.layers.layerList.push(itemLayer);
+                }
+            }
+        }
+        catch (err) { }
     };
 
     //function to create the user interface for view selection
+    VA3C.layers.CreateLayerUI = function(){
+        //if there are saved layers, create a checkbox for each of them
+        if ((VA3C.layers.layerList.length == 1 && VA3C.layers.layerList[0].name!="Default") || VA3C.layers.layerList.length>1){
+            layerStrings = [];
+            for (var i = 0; i < VA3C.layers.layerList.length; i++) {
+                layerStrings.push(VA3C.layers.layerList[i].name);
+            }
+            //sort layers by name
+            layerStrings.sort();
+            try {
+                var layerFolder = VA3C.datGui.addFolder('Layers');
+            }
+            catch (err) {
+                //the layer folder already exists
+                var layerFolder = VA3C.datGui.__folders.Layers;
+            }
+            for (var i = 0; i < layerStrings.length; i++) {
 
+                //create an layer object that has a boolean property with its name
+                var layer = {};
+                layer[layerStrings[i]] = true;
+
+                //add a checkbox per layer
+                layerFolder.add(layer, layerStrings[i]).onChange(function (e) {
+
+                    // get the name of the controller that fired the event -- there must be a different way of doing this...
+                    var layerName = this.domElement.parentElement.firstChild.innerText;
+
+                    for (var i = 0; i < VA3C.attributes.elementList.length; i++) {
+                        var element = VA3C.attributes.elementList[i];
+                        if (element.userData.layer == layerName) {
+                            //if unchecked, make it invisible
+                            if (element.visible == true) element.visible = false;
+                            //otherwise, show it
+                            else element.visible = true;
+                        }
+                    }
+                });
+            }
+        }
+    };
+
+    //function to purge the list of views
+    VA3C.layers.purge = function(){
+        //reset our list
+        if(this.layerList.length>0) this.layerList = [];
+
+        //purge layer folder
+        try {
+            var layerFolder = VA3C.datGui.__folders.Layers;
+            var layerCount = layerFolder.__controllers.length;
+            for (var i = 0; i < layerCount; i++) {
+                layerFolder.__controllers[0].remove();
+            }
+
+            //remove the Layers folder -- this is not working
+            VA3C.datGui.removeFolder('Layers');
+
+        }
+
+        catch (err) { }
+    };
 
 
 
