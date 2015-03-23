@@ -623,6 +623,13 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
         VA3C.orbitControls.target = new THREE.Vector3(VA3C.boundingSphere.center.x, VA3C.boundingSphere.center.y, VA3C.boundingSphere.center.z);
     };
 
+    //set background color function.  we need this at the top level so a user can set the color of her (embedded) viewer without
+    //editing our library or using our UI.
+    VA3C.setBackgroundColor = function(hexColor){
+        VA3C.renderer.setClearColor(hexColor);
+    };
+
+
 
 
 

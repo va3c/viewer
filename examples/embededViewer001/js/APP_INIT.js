@@ -16,7 +16,7 @@ $(document).ready(function(){
         myVA3C = new VA3C_CONSTRUCTOR($("#vA3C_output"), data, function(app){
 
             //call the UI / functionality modules
-
+            app.setBackgroundColor(0xFFFFFF);
             //app.userInterface();
             //app.openLocalFiles();
             //app.sceneUI();
