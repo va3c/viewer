@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>vA3C Embed Example 005</title>
+
+    <!-- Various libraries that vA3C depends upon.  All of these are stored in the /js/libs directory in this site -->
+    <script type="text/javascript" src="js/libs/jquery-1.9.0.js"></script>
+    <script type="text/javascript" src="js/libs/dat.gui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/datgui_styleOverride.css">
+    <script type="text/javascript" src="js/libs/three.js"></script>
+    <script type="text/javascript" src="js/libs/OrbitControls.js"></script>
+    <script type="text/javascript" src="js/libs/Projector.js"></script>
+    <script type="text/javascript" src="js/libs/stats.js"></script>
+    <script type="text/javascript" src="js/libs/jquery-ui.js"></script>
+
+
+    <!-- Application files -->
+    <link rel='stylesheet' type='text/css' href='css/960.css'>  <!-- grid layouts -->
+    <link rel='stylesheet' type='text/css' href='https://rawgit.com/tt-acm/vA3C_viewer/gh-pages/css/vA3C_stylesheet.css'/>  <!-- the vA3C stylesheet -->
+    <script type="text/javascript" src="https://rawgit.com/tt-acm/vA3C_viewer/gh-pages/js/VA3C_APP.js"></script>  <!-- the vA3C library -->
+    <script type="text/javascript" src="js/APP_INIT.js"></script>  <!-- the file that starts our app - contains the jquery.ready() function. -->
+</head>
+<body>
+
+<div class="container_12">
+    <div class="grid_12">
+        <h1>vA3C Embed Example 5 --- View and Selection</h1>
+        <p>In this example we'll load a single model in a dedicated div, and provide UI to control views in the model (load pre-set views from the json file, zoom extents, zoom selected), as well as element selection and attribute display.
+
+            THERE ARE BUGS!  The views in this file are no good - create a fresh one from GH.  Also fix the element selection ... I thought this was working already!  Damn.
+        </p>
+    </div>
+    <div class="clear"></div>
+    <div class="grid_12" id="vA3C_output" style="height: 600px"></div>
+    <div class="clear"></div>
+    <div class="grid_4">
+        <h2>Free and Open Source</h2>
+        <p>Yeah, so as you are probably already aware, vA3C is a free and open source 3D model viewer that runs in the browser and can render files that were exported from Revit or Grasshopper using the vA3C exporters for those platforms.</p>
+    </div>
+    <div class="grid_4">
+        <h2>Totally hackable</h2>
+        <p>Not much of a hack in this example, but because the code is open it's totally up to you in terms of customization.  Want to pull attributes from a database when an element is selected?  Go for it!</p>
+    </div>
+    <div class="grid_4">
+        <h2>Embeddable</h2>
+        <p>As this example shows, it's relatively straightforward to embed a custom viewer in any webpage.  Just reference the required javascript and css files in your head tag, block out a div and pass it to our VA3C_CONSTRUCTOR function along with your json data.</p>
+    </div>
+</div>
+
+
+
+</body>
+</html>
