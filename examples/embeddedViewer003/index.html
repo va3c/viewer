@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>vA3C Embed Example 001</title>
+    <title>vA3C Example 003</title>
 
     <!-- Various libraries that vA3C depends upon.  All of these are stored in the /js/libs directory in this site -->
     <script type="text/javascript" src="js/libs/jquery-1.9.0.js"></script>
@@ -24,8 +24,8 @@
 
 <div class="container_12">
     <div class="grid_12">
-        <h1>vA3C Embed Example 1 --- No User Interface</h1>
-        <p>In this example we'll load a single model in a dedicated div, and strip away all vA3C UI.  This example should demonstrate how to embed a 3D model viewer in another web page that has it's own formatting.</p>
+        <h1>vA3C Embed Example 3 --- Scene and Lighting</h1>
+        <p>In this example we'll load a single model in a dedicated div, and provide a user interface to control the Three.js scene's variables including background color, stats visualization, ambient light color, point lights color, and an early implementation of shadows (needs work!).</p>
     </div>
     <div class="clear"></div>
     <div class="grid_12" id="vA3C_output" style="height: 600px"></div>
@@ -40,7 +40,7 @@
     </div>
     <div class="grid_4">
         <h2>Embeddable</h2>
-        <p>As this example shows, it's relatively straightforward to embed a custom viewer in any webpage.  Just reference the required javascript and css files in your head tag, block out a div and pass it to our VA3C_CONSTRUCTOR function along with your json data.</p>
+        <p>As this example shows, it's relatively straightforward to embed a custom viewer in any webpage.  And once it's in there, it's easy to add or remove chunks of application functionality.  Check out the innermost callback function in the APP_INIT.js file to see how this works.</p>
     </div>
 </div>
 
