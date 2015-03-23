@@ -8,7 +8,7 @@ var myVA3C;
 $(document).ready(function(){
 
     //load our sample JSON file from disk
-    $.getJSON("./js/va3c2.json", function( data ){
+    $.getJSON("./js/va3c.json", function( data ){
 
         //once loaded, initialize a VA3C viewer by passing in the div to bind to, the json data, and a callback function
         //where we can enable application functionality in nice clean chunks
