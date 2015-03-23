@@ -1321,23 +1321,19 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
         //if we found a view, activate it.  otherwise, set the camera to our default view
         if (view) {
             //get the eyePos from the current camera
-            //change vector from Revit  (-x,z,y)
             if (view.name !="DefaultView") {
-                var eyePos = new THREE.Vector3(-view.eye.X, view.eye.Z, view.eye.Y);
+                var eyePos = new THREE.Vector3(view.eye.X, view.eye.Y, view.eye.Z);
 
                 //get the targetPos from the current camera
-                //change direction of vector from revit (-x,-z,-y)
-                var dir = new THREE.Vector3(-view.target.X, -view.target.Z, -view.target.Y);
+                var dir = new THREE.Vector3(view.target.X, view.target.Y, view.target.Z);
 
-                VA3C.orbitControls.target.set(dir.x, dir.y, dir.z);
+                VA3C.orbitControls.target = dir;
                 VA3C.orbitControls.object.position.set(eyePos.x, eyePos.y, eyePos.z);
             }
 
             else {
-                VA3C.camera.position.set(1000, 1000, 1000);
-                VA3C.orbitControls = new THREE.OrbitControls(VA3C.camera, VA3C.renderer.domElement);
-                VA3C.orbitControls.target.set(0, 100, 0);
-
+                VA3C.orbitControls.target = new THREE.Vector3(0, 0, 0);
+                VA3C.orbitControls.object.position.set(1000, 1000, 1000);
                 VA3C.zoomExtents();
 
             }
