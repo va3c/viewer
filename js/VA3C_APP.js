@@ -112,6 +112,13 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
             VA3C.orbitControls.object.updateProjectionMatrix();
         });
 
+        //respond to window resize.  when the window resizes, sometimes it moves our parent div ... and all of our
+        //children need to be repositioned (maybe I'm just horrible with CSS?).  On a resize, trigger the resize
+        //event on our parent DIV, which should reposition all of the children.
+        window.addEventListener('resize', function () {
+           VA3C.viewerDiv.resize();
+        });
+
         //call the render function - this starts the webgl render loop
         VA3C.render();
     };
@@ -1017,7 +1024,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
 
         //get a vector representing the mouse position in 3D
         //NEW - from here: https://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects/23492823#23492823
-        var mouse3D = new THREE.Vector3(((event.clientX) / VA3C.viewerDiv.width()) * 2 - 1, -((event.clientY) / VA3C.viewerDiv.height()) * 2 + 1, 0.5);    //OFFSET THE MOUSE CURSOR BY -7PX!!!!
+        var mouse3D = new THREE.Vector3(((event.clientX) / window.innerWidth) * 2 - 1, -((event.clientY) / window.innerHeight) * 2 + 1, 0.5);    //OFFSET THE MOUSE CURSOR BY -7PX!!!!
         mouse3D.unproject(VA3C.camera);
         mouse3D.sub(VA3C.camera.position);
         mouse3D.normalize();
