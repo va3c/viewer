@@ -1019,7 +1019,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
     VA3C.attributes.onMouseClick = function (event) {
 
         //prevent the default event from triggering ... BH question - what is that event?  Test me.
-        //event.preventDefault();
+        event.preventDefault();
 
         //call our checkIfSelected function
         VA3C.attributes.checkIfSelected(event);
@@ -1029,9 +1029,24 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
     //This is called on a mouse click from the handler function directly above
     VA3C.attributes.checkIfSelected = function (event) {
 
+        //get the canvas where three.js is running - it will be one of the children of our parent div
+        var children = VA3C.viewerDiv.children();
+        var canvas = {};
+        for(var i=0; i<children.length; i++){
+            if(children[i].tagName === "CANVAS"){
+                //once we've found the element, wrap it in a jQuery object so we can call .position() and such.
+                canvas = jQuery(children[i]);
+                break;
+            }
+        }
+
+        //get X and Y offset values for our div.  We do this every time in case the viewer is moving around
+        var offsetX = canvas.position().left;
+        var offsetY = canvas.position().top;
+
         //get a vector representing the mouse position in 3D
         //NEW - from here: https://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects/23492823#23492823
-        var mouse3D = new THREE.Vector3(((event.clientX) / window.innerWidth) * 2 - 1, -((event.clientY) / window.innerHeight) * 2 + 1, 0.5);    //OFFSET THE MOUSE CURSOR BY -7PX!!!!
+        var mouse3D = new THREE.Vector3(((event.clientX - offsetX) / canvas.width())* 2 - 1, -((event.clientY - offsetY) / canvas.height()) * 2 + 1, 0.5);    //OFFSET THE MOUSE CURSOR BY -7PX!!!!
         mouse3D.unproject(VA3C.camera);
         mouse3D.sub(VA3C.camera.position);
         mouse3D.normalize();
