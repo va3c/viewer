@@ -35,8 +35,9 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
             var targetDiv = $('.vA3C_blackout');
 
             //get upper left coordinates of the viewer div - we'll use these for positioning
-            var x = VA3C.viewerDiv.position().left;
-            var y = VA3C.viewerDiv.position().top;
+            var win = $(window);
+            var x = VA3C.viewerDiv.offset().left - win.scrollLeft();
+            var y = VA3C.viewerDiv.offset().top - win.scrollTop();
 
             //set the position and size
             targetDiv.css('left', x.toString() + "px");
@@ -61,8 +62,9 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
             var targetDiv = $('.vA3C_loading');
 
             //get upper left coordinates of the viewer div - we'll use these for positioning
-            var x = (VA3C.viewerDiv.position().left + VA3C.viewerDiv.width()) / 2;
-            var y = (VA3C.viewerDiv.position().top + VA3C.viewerDiv.height()) / 2;
+            var win = $(window);
+            var x = (VA3C.viewerDiv.offset().left - win.scrollLeft()) / 2;
+            var y = (VA3C.viewerDiv.offset().top - win.scrollTop()) / 2;
 
             //set the position and size
             targetDiv.css('left', x.toString() + "px");
@@ -112,12 +114,16 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
             VA3C.orbitControls.object.updateProjectionMatrix();
         });
 
-        //respond to window resize.  when the window resizes, sometimes it moves our parent div ... and all of our
+        //respond to window resize and scrolling.  when the window resizes, sometimes it moves our parent div ... and all of our
         //children need to be repositioned (maybe I'm just horrible with CSS?).  On a resize, trigger the resize
         //event on our parent DIV, which should reposition all of the children.
         window.addEventListener('resize', function () {
            VA3C.viewerDiv.resize();
         });
+        window.addEventListener('scroll', function(){
+            VA3C.viewerDiv.resize();
+        });
+
 
         //call the render function - this starts the webgl render loop
         VA3C.render();
@@ -153,8 +159,9 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
             var targetDiv = $('.vA3C_uiTarget');
 
             //get upper right coordinates of the viewer div - we'll use these for positioning
-            var x = VA3C.viewerDiv.position().left + VA3C.viewerDiv.width();
-            var y = VA3C.viewerDiv.position().top;
+            var win = $(window);
+            var x = (VA3C.viewerDiv.offset().left - win.scrollLeft()) + VA3C.viewerDiv.width();
+            var y = VA3C.viewerDiv.offset().top - win.scrollTop();
 
             //set the position
             targetDiv.css('left', (x - 300).toString() + "px");
@@ -259,8 +266,10 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
             var targetDiv = $('#vA3C_stats');
 
             //get lower right coordinates of the viewer div - we'll use these for positioning
-            var x = VA3C.viewerDiv.position().left + VA3C.viewerDiv.width();
-            var y = VA3C.viewerDiv.position().top + VA3C.viewerDiv.height();
+            //get upper left coordinates of the viewer div - we'll use these for positioning
+            var win = $(window);
+            var x = (VA3C.viewerDiv.offset().left - win.scrollLeft()) + VA3C.viewerDiv.width();
+            var y = (VA3C.viewerDiv.offset().top - win.scrollTop()) + VA3C.viewerDiv.height();
 
             //set the position
             targetDiv.css('left', (x - 77).toString() + "px");
@@ -990,17 +999,21 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
             var targetDiv = $('.vA3C_attributeList');
 
             //get upper left coordinates of the viewer div - we'll use these for positioning
-            var x = VA3C.viewerDiv.position().left;
-            var y = VA3C.viewerDiv.position().top;
+            var win = $(window);
+            var x = VA3C.viewerDiv.offset().left - win.scrollLeft();
+            var y = VA3C.viewerDiv.offset().top - win.scrollTop();
 
             //set the position and size
             targetDiv.css('left', x.toString() + "px");
             targetDiv.css('top',  y.toString() + "px");
-            targetDiv.css('width', VA3C.viewerDiv.width().toString() + "px");
-            targetDiv.css('height', VA3C.viewerDiv.height().toString() + "px");
         };
         //call this the first time through
         setAttributeList();
+
+        //respond to resize of Parent div
+        VA3C.viewerDiv.resize(function () {
+            setAttributeList();
+        });
 
         //set our local variable to the div we just created
         VA3C.attributes.attributeListDiv = $('.vA3C_attributeList');
@@ -1046,8 +1059,10 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
         }
 
         //get X and Y offset values for our div.  We do this every time in case the viewer is moving around
-        var offsetX = canvas.position().left;
-        var offsetY = canvas.position().top;
+        var win = $(window);
+        var offsetX = canvas.offset().left - win.scrollLeft();
+        var offsetY = canvas.offset().top - win.scrollTop();
+
 
         //get a vector representing the mouse position in 3D
         //NEW - from here: https://stackoverflow.com/questions/11036106/three-js-projector-and-ray-objects/23492823#23492823
