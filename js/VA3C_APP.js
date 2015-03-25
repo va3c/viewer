@@ -629,6 +629,11 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
         VA3C.renderer.setClearColor(hexColor);
     };
 
+    //Top level function to open a json file - As requested by Mostapha.  Essentially a wrapper for VA3C.jsonLoader.loadSceneFromJson
+    VA3C.loadNewModel = function(jsonData){
+        VA3C.jsonLoader.loadSceneFromJson(jsonData);
+    };
+
 
 
 
