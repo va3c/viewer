@@ -1420,7 +1420,7 @@ var VA3C_CONSTRUCTOR = function(divToBind, jsonFileData, callback){
                 layerFolder.add(layer, layerStrings[i]).onChange(function (e) {
 
                     // get the name of the controller that fired the event -- there must be a different way of doing this...
-                    var layerName = this.domElement.parentElement.firstChild.innerText;
+                    var layerName = this.domElement.parentElement.firstChild.innerHTML;
 
                     for (var i = 0; i < VA3C.attributes.elementList.length; i++) {
                         var element = VA3C.attributes.elementList[i];
