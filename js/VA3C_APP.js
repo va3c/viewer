@@ -1081,49 +1081,72 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
         if (intersects.length > 0) {
 
             //get the closest intesected object
-            var myIntersect = intersects[0].object;
+            var myIntersect;
+            var i = 0;
 
-            //was this element already selected?  if so, do nothing.
-            if (myIntersect.id === VA3C.attributes.previousClickedElement.id) return;
-
-            //was another element already selected?
-            if (VA3C.attributes.previousClickedElement.id !== -1) {
-                //restore previously selected object's state
-                VA3C.attributes.restorePreviouslySelectedObject();
+            while (i < intersects.length) {
+                myIntersect = intersects[i].object;
+                i++;
+                //get the first object that is visible
+                if (myIntersect.visible == true) break;
             }
 
+            // was this element hidden by clicking on its layer checkbox?
+            if (myIntersect.visible == true) {
+                //was this element already selected?  if so, do nothing.
+                if (myIntersect.id === VA3C.attributes.previousClickedElement.id) return;
 
-            //var to track whether the intersect is an object3d or a mesh
-            var isObject3D = false;
-
-            //did we intersect a mesh that belongs to an Object3D or a Geometry?  The former comes from Revit, the latter from GH
-            if (myIntersect.parent.type === "Object3D") {
-                isObject3D = true;
-            }
+                //was another element already selected?
+                if (VA3C.attributes.previousClickedElement.id !== -1) {
+                    //restore previously selected object's state
+                    VA3C.attributes.restorePreviouslySelectedObject();
+                }
 
 
-            //store the selected object
-            VA3C.attributes.storeSelectedObject(myIntersect, isObject3D);
+                //var to track whether the intersect is an object3d or a mesh
+                var isObject3D = false;
 
-            //paint the selected object[s] with the application's 'selected' material
-            if (isObject3D) {
-                //loop over the children and paint each one
-                for (var i = 0; i < myIntersect.parent.children.length; i++) {
-                    VA3C.attributes.paintElement(myIntersect.parent.children[i], VA3C.attributes.clickedMaterial);
+                //did we intersect a mesh that belongs to an Object3D or a Geometry?  The former comes from Revit, the latter from GH
+                if (myIntersect.parent.type === "Object3D") {
+                    isObject3D = true;
+                }
+
+
+                //store the selected object
+                VA3C.attributes.storeSelectedObject(myIntersect, isObject3D);
+
+                //paint the selected object[s] with the application's 'selected' material
+                if (isObject3D) {
+                    //loop over the children and paint each one
+                    for (var i = 0; i < myIntersect.parent.children.length; i++) {
+                        VA3C.attributes.paintElement(myIntersect.parent.children[i], VA3C.attributes.clickedMaterial);
+                    }
+                }
+
+                else {
+                    //paint the mesh with the clicked material
+                    VA3C.attributes.paintElement(myIntersect, VA3C.attributes.clickedMaterial);
+                }
+
+
+                //populate the attribute list with the object's user data
+                if (isObject3D) {
+                    VA3C.attributes.populateAttributeList(myIntersect.parent.userData);
+                }
+                else {
+                    VA3C.attributes.populateAttributeList(myIntersect.userData);
                 }
             }
-            else {
-                //paint the mesh with the clicked material
-                VA3C.attributes.paintElement(myIntersect, VA3C.attributes.clickedMaterial);
-            }
 
-
-            //populate the attribute list with the object's user data
-            if (isObject3D) {
-                VA3C.attributes.populateAttributeList(myIntersect.parent.userData);
-            }
             else {
-                VA3C.attributes.populateAttributeList(myIntersect.userData);
+                //if an item was already selected
+                if (VA3C.attributes.previousClickedElement.id !== -1) {
+                    //restore the previously selected object
+                    VA3C.attributes.restorePreviouslySelectedObject();
+
+                    //hide the attributes
+                    VA3C.attributes.attributeListDiv.hide("slow");
+                }
             }
         }
 
@@ -1423,14 +1446,14 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
                 if (VA3C.scene.name.indexOf("BIM") != -1) {
 
                     var lay = VA3C.scene.userData.layers.split(',');
-                    VA3C.attributes.layerList = lay;
+                    VA3C.layers.layerList = lay;
 
                 }
                     //for Grasshopper files
                 else {
                     for (var k = 0, kLen = VA3C.scene.userData.layers.length; k < kLen; k++) {
                         var itemLayer = VA3C.scene.userData.layers[k];
-                        VA3C.attributes.layerList.push(itemLayer);
+                        VA3C.layers.layerList.push(itemLayer);
                     }
                 }
             }
@@ -1445,10 +1468,10 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
             layerStrings = [];
             for (var i = 0; i < VA3C.layers.layerList.length; i++) {
                 //for Grasshopper files, this will return the name of the layer
-                var lName = VA3C.attributes.layerList[i].name;
+                var lName = VA3C.layers.layerList[i].name;
                 // for Revit files, this will be undefined. We need to grab the object itself
                 if (lName == null) {
-                    lName = VA3C.attributes.layerList[i];
+                    lName = VA3C.layers.layerList[i];
                 }
                 if (lName != "Cameras") layerStrings.push(lName);
             }
@@ -1498,7 +1521,7 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
         }
     };
 
-    //function to purge the list of views
+    //function to purge the list of layers
     VA3C.layers.purge = function () {
         //reset our list
         if (this.layerList.length > 0) this.layerList = [];
