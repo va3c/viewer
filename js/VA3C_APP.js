@@ -352,6 +352,7 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
         }
         VA3C.views.getViews();
         VA3C.views.CreateViewUI();
+
     };
 
     //**********************TOP LEVEL METHOD!!!**********************************
@@ -485,6 +486,7 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
         VA3C.jsonLoader.processSceneGeometry();
         VA3C.jsonLoader.computeBoundingSphere();
         VA3C.zoomExtents();
+        VA3C.views.storeDefaultView();
 
         //set up the lighting rig
         VA3C.lightingRig.createLights();//note - i think we should check to see if there is an active lighting UI and use those colors to init lights if so...
@@ -1317,15 +1319,35 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
         try {
             if (VA3C.scene.userData.views.length > 0) {
                 //create a default view
-                var defView = {};
-                defView.name = "DefaultView";
-                //defView.eye =new THREE.Vector3(-1000, 1000, 1000);
-                //defView.target = new THREE.Vector3(0, -100, 0);
-                VA3C.views.viewList.push(defView);
+
+                VA3C.views.defaultView.name = "DefaultView";
+                VA3C.views.viewList.push(VA3C.views.defaultView);
+
                 //add the views in the json file
-                for (var k = 0, kLen = VA3C.scene.userData.views.length; k < kLen; k++) {
-                    var itemView = VA3C.scene.userData.views[k];
-                    VA3C.views.viewList.push(itemView);
+                //if the project was exported from Revit, there is only one view
+                if (VA3C.scene.name.indexOf("BIM") != -1) {
+
+                    var v = VA3C.scene.userData.views.split(",");
+                    var revitView = {}
+                    revitView.name = "RevitView";
+                    revitView.eye = {};
+                    revitView.eye.X = v[0] * 1000;
+                    revitView.eye.Y = v[1] * 1000;
+                    revitView.eye.Z = v[2] * 1000;
+                    revitView.target = {};
+                    revitView.target.X = v[3];
+                    revitView.target.Y = v[4];
+                    revitView.target.Z = v[5];
+                    VA3C.views.viewList.push(revitView);
+                }
+
+                    //for Grasshopper files
+                else {
+
+                    for (var k = 0, kLen = VA3C.scene.userData.views.length; k < kLen; k++) {
+                        var itemView = VA3C.scene.userData.views[k];
+                        VA3C.views.viewList.push(itemView);
+                    }
                 }
             }
         }
@@ -1355,9 +1377,6 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
             VA3C.UIfolders.View_and_Selection.add(VA3C.uiVariables, 'view', viewStrings).onFinishChange(function (e) {
                 VA3C.views.resetView();
             });
-
-            //call reset view the first time through the loop
-            this.resetView();
         }
     };
 
@@ -1383,25 +1402,18 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
             }
         }
 
-        //if we found a view, activate it.  otherwise, set the camera to our default view
+        //if we found a view, activate it
         if (view) {
-            //get the eyePos from the current camera
-            if (view.name != "DefaultView") {
-                var eyePos = new THREE.Vector3(view.eye.X, view.eye.Y, view.eye.Z);
+            //get the eyePos from the current view
+            var eyePos = new THREE.Vector3(-view.eye.X, view.eye.Z, view.eye.Y);
 
-                //get the targetPos from the current camera
-                var dir = new THREE.Vector3(view.target.X, view.target.Y, view.target.Z);
+            //get the targetPos from the current view
+            //var dir = new THREE.Vector3(-view.target.X, view.target.Z, view.target.Y);
+            var dir = new THREE.Vector3(-view.target.X, -view.target.Z, -view.target.Y);
 
-                VA3C.orbitControls.target = dir;
-                VA3C.orbitControls.object.position.set(eyePos.x, eyePos.y, eyePos.z);
-            }
+            VA3C.orbitControls.target.set(dir.x, dir.y, dir.z);
+            VA3C.orbitControls.object.position.set(eyePos.x, eyePos.y, eyePos.z);
 
-            else {
-                VA3C.orbitControls.target = new THREE.Vector3(0, 0, 0);
-                VA3C.orbitControls.object.position.set(1000, 1000, 1000);
-                VA3C.zoomExtents();
-
-            }
         }
     };
 
@@ -1422,8 +1434,19 @@ var VA3C_CONSTRUCTOR = function (divToBind, jsonFileData, callback) {
         } catch (e) {
         }
     };
+    VA3C.views.defaultView = {};
 
+    VA3C.views.storeDefaultView = function () {
+        VA3C.views.defaultView.eye = {};
+        VA3C.views.defaultView.target = {};
+        VA3C.views.defaultView.eye.X = -VA3C.orbitControls.object.position.x;
+        VA3C.views.defaultView.eye.Y = VA3C.orbitControls.object.position.z;
+        VA3C.views.defaultView.eye.Z = VA3C.orbitControls.object.position.y;
+        VA3C.views.defaultView.target.X = -VA3C.orbitControls.target.x;
+        VA3C.views.defaultView.target.Y = VA3C.orbitControls.target.z;
+        VA3C.views.defaultView.target.Z = VA3C.orbitControls.target.y;
 
+    };
 
 
 
