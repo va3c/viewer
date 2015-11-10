@@ -44,7 +44,7 @@
 		light = new THREE.AmbientLight( 0xffffff );
 		scene.add( light );
 
-		light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		light = new THREE.DirectionalLight( 0xffffff, 1 );
 		light.position.set( 0, 200, 0 );
 
 		var d = 50;
@@ -66,7 +66,7 @@
 //		light.shadowCameraVisible = true;
 		scene.add( light );
 
-		light = new THREE.PointLight( 0xffffff, 0.5 );
+		light = new THREE.PointLight( 0xffffff, 1 );
 		light.position = camera.position;
 		camera.add( light );
 

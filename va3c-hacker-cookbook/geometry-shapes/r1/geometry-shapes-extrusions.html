@@ -107,10 +107,26 @@
 
 
 		shape = new THREE.Shape();
-		shape.fromPoints( [ v2( 0, 20 ), v2( 10, 60 ), v2( 40, 50 ), v2( 40, 20 ) ] );
+		shape.fromPoints( [ v2( 0, 20 ), v2( 10, 60 ), v2( 40, 50 ), v2( 70, 30 ) ] );
 		geometry = shape.extrude( { amount: 10, bevelEnabled: false} );
 
 		gruntWork( geometry, 0, 1 );
+
+// added
+		shape = new THREE.Shape();
+		shape.fromPoints( [ v2( 0, 30 ), v2( 10, 100 ), v2( 80, 100 ), v2( 80, 20 ) ] );
+
+		var holePath = new THREE.Path();
+		holePath.fromPoints( [ v2( 40, 40 ), v2( 50, 40 ), v2( 50, 50 ), v2( 40, 50 ) ] );
+		shape.holes.push( holePath );
+
+		var holePath = new THREE.Path();
+		holePath.fromPoints( [ v2( 20, 40 ), v2( 30, 40 ), v2( 30, 50 ), v2( 20, 50 ) ] );
+		shape.holes.push( holePath );
+
+		geometry = shape.extrude( { amount: 10, bevelEnabled: false} );
+
+		gruntWork( geometry, -1, 1 );
 
 
 		shape = new THREE.Shape( [ v2( 0, 10), v2( 0, 50), v2( 30, 60), v2( 40, 10) ] );
@@ -134,6 +150,8 @@
 //		shape.moveTo( 50, 80 );
 		shape.absarc( 10, 50, 20, 0, Math.PI * 2, false );
 
+
+// hole vertices must be in counterclockwise order
 		var holePath = new THREE.Path();
 //		holePath.moveTo( 20, 20 );
 		holePath.absarc( 10, 50, 10, 0, Math.PI * 2, true );

@@ -6,8 +6,14 @@
 <meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
 </head>
 <body>
+<!--
 <script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
 <script src=http://mrdoob.github.io/three.js/examples/js/controls/TrackballControls.js ></script>
+-->
+
+<script src=http://rawgit.com/mrdoob/three.js/r70/build/three.min.js ></script>
+<script src=http://rawgit.com/mrdoob/three.js/r70/examples/js/controls/TrackballControls.js ></script>
+
 <script>
 	var renderer, scene, camera, controls, light;
 	var geometry, material, mesh;
@@ -49,7 +55,7 @@
 // So put something in,, but make it nearly invisible
 // todo: test also with mesh.visible = false
 		geometry = new THREE.BoxGeometry( 10, 10, 10 );
-		material = new THREE.MeshLambertMaterial( { ambient: 0x333333, color: 0x888888, opacity: 0.000001, transparent: true } );
+		material = new THREE.MeshLambertMaterial( { color: 0x888888, opacity: 0.000001, transparent: true } );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.name = 'basic template mesh';
 		mesh.visible = false;

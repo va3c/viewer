@@ -1,6 +1,12 @@
 Dev Notes
 ===
 
+2015-03-05 ~ Theo
+
+* Geometry Shapes added
+* Hacker R4 #3 published
+* See also much work on vA3C Projects
+
 2015-02-19 ~ Theo
 
 * Working on capture screen and save

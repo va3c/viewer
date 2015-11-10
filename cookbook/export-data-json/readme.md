@@ -13,8 +13,29 @@ _[Test Threejs in an Iframe]( http://va3c.github.io/viewer/cookbook/json-reader/
 -->
 
 
-### Creating Data in Three.js and Exporting it in JSON Format
+_**Important** Most of the following demos use THREE.GeometryExporter.js. This file is no longer included in recent builds of Three.js, 
+therefore the demos are broken. Please investigate:_
 
+		var geometry = object.geometry;
+
+		if ( geometry === undefined ) {
+
+			alert( 'The selected object doesn\'t have geometry.' );
+			return;
+
+		}
+
+		var output = geometry.toJSON();
+		output = JSON.stringify( output, null, '\t' );
+		output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
+
+		exportString( output, 'geometry.json' );
+
+_For more details see <http://mrdoob.github.io/three.js/editor/>_
+
+
+
+### Creating Data in Three.js and Exporting it in JSON Format
 
 A useful starting point to observing how Three.js creates data and then exports this data to a JSON file.
 

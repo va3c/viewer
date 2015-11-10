@@ -24,7 +24,7 @@ And yet they are under utilized - maybe just because there are not enough clear 
 
 The [vA3C Hacker Cookbook]( http://va3c.github.io/viewer/va3c-hacker-cookbook/va3c-hacker-cookbook-viewer-r1.html ) Geometry Shapes section begins to provide some simple code examples for creating Three.js Shapes.
 
-[Geometry Shapes Extrusions]( ./r1/geometry-shape-extrusions.html ) 
+[Geometry Shapes Extrusions]( http://va3c.github.io/viewer/va3c-hacker-cookbook/geometry-shapes/r1/geometry-shapes-extrusions.html ) 
 
 </details>
 <details>
@@ -36,7 +36,7 @@ The first vA3C Project is a effort to read and display [Open Studio]( https://ww
 
 _OpenStudio is a cross-platform (Windows, Mac, and Linux) collection of software tools to support whole building energy modeling using EnergyPlus and advanced daylight analysis using Radiance. OpenStudio is an open source project to facilitate community development, extension, and private sector adoption. OpenStudio includes graphical interfaces along with a Software Development Kit (SDK)._
 
-[vA3C Projects web page]( http://va3c.github.io/projects/ )
+[vA3C Projects web page]( http://va3c.github.io/projects/ )  
 [vA3C Projects source code]( https://github.com/va3c/projects/ )
 </details>
 <details>

@@ -10,10 +10,6 @@ Ground <input type=checkbox id=chkGround onchange=toggleGround(); />
 </details>
 
 
-//@@@@@@@@@@@@@@@@2
-
-
-
 	function toggleAxis( length ) {
 
 		var length = length ? length : 50;

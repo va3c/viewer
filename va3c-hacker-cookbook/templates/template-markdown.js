@@ -16,7 +16,7 @@
 
 Credits: [three.js]( http://threejs.org "Thank you, Mr.doob" ) ~ [webgl]( http://khronos.org/webgl/  "Thank you, Ken" ) ~ [GitHub]( http://GitHub.com )
 
-copyright © 2015 vA3C authors ~ MIT license
+copyright © 2015 XXX authors ~ MIT license
 
 </details>
 
