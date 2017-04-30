@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang=en >
+<head>
+<title>enable drag objects r1.html</title>
+<meta charset=utf-8 >
+<meta name=viewport content=width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0 >
+</head>
+<body>
+<script src=https://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=https://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
+
+<script src=enable-drag-objects-r2.js ></script>
+
+<script>
+// A simple script to demo enable draggable objects
+
+	var VH = VH || {};
+	var objects = [];
+
+	var stats, camera, controls, scene, renderer;
+
+	init();
+	animate();
+
+	function init() {
+
+		var light, geometry, material, mesh;
+
+		var css, menu;
+
+		css = document.head.appendChild( document.createElement( 'style' ) );
+		css.innerHTML =
+
+			'body { font: 12pt monospace; margin: 0; overflow: hidden; }' +
+			'a {text-decoration: none; }' +
+			'button { background-color: #eee; border: 2px #eee solid; color: #888; }' +
+			'h2 { margin: 0 }' +
+
+		'';
+
+		menu = document.body.appendChild( document.createElement( 'div' ) );
+		menu.style.cssText = 'margin: 0 20px; position: absolute; ';
+		menu.innerHTML =
+
+			'<h2>' +
+				'<a href="" >' + document.title + '</a> ' +
+				'<a href=http://jaanga.github.io/ >&#x24D8;</a>' +
+			'</h2>' +
+
+			'<p><input type=checkbox onchange=mesh.material.wireframe=!mesh.material.wireframe; > Wireframe</p>' +
+			'<p><input type=checkbox onchange=axisHelper.visible=!axisHelper.visible; checked > Axes</p>' +
+			'<p><input type=checkbox onchange=gridHelper.visible=!gridHelper.visible; checked > Grid</p>' +
+			'<p><input type=checkbox onchange=controls.autoRotate=!controls.autoRotate; > Auto-Rotate</p>' +
+
+			'<p><button onclick=toggleBackgroundGradient(); >toggleBackgroundGradient</button></p>' +
+
+			'<div id=info ></div>' +
+
+		'';
+
+
+
+		camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 5000 );
+		camera.position.set( 100, 100, 100 );
+
+		controls = new THREE.OrbitControls( camera );
+
+		scene = new THREE.Scene();
+
+// Lights
+		var size = size ? size : 100;
+//		var lightAmbient, lightDirectional, lightPoint;
+
+
+		lightAmbient = new THREE.AmbientLight( 0x444444 );
+		scene.add( lightAmbient );
+
+
+		lightDirectional = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		lightDirectional.position.set( 0, size, 0 );
+		lightDirectional.shadow.camera.scale.set( 13, 15, 0.5 );
+
+/*
+
+// helps stop appearance of grid lines in objects
+		lightDirectional.shadow.bias = -0.001; // default 0 ~ distance from corners?
+*/
+
+		lightDirectional.shadow.mapSize.width = 2048;  // default 512
+		lightDirectional.shadow.mapSize.height = 2048;
+
+		lightDirectional.castShadow = true;
+		scene.add( lightDirectional );
+
+		scene.add( new THREE.CameraHelper( lightDirectional.shadow.camera ) );
+
+		lightPoint = new THREE.PointLight( 0xffffff, 0.95 );
+		camera.add( lightPoint );
+		lightPoint.position = new THREE.Vector3( 0, 0, 1 );
+		scene.add( camera );
+
+// Ground Plane
+		geometry = new THREE.BoxGeometry( 100, 5, 100 );
+
+//		var material.color = 0x202099;
+//		var material = new THREE.MeshNormalMaterial();
+		var material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff * Math.random(),
+//			ambient: 0xffffff * Math.random(),
+			specular: 0xffffff * Math.random(),
+			shininess: 50,
+			side: THREE.DoubleSide
+		} );
+
+
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, -2.5, 0 );
+//		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add( mesh );
+
+		scene.add( new THREE.BoxHelper( mesh ) );
+
+// Boxes to be dragged
+		geometry = new THREE.BoxGeometry( 1, 1, 1 );
+
+		for ( var i = 0; i < 20; i ++ ) {
+
+			mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
+
+			mesh.material.ambient = mesh.material.color;
+
+			mesh.position.x = Math.random() * 100 - 50;
+			mesh.position.y = Math.random() * 60;
+			mesh.position.z = Math.random() * 80 - 40;
+
+			mesh.rotation.x = Math.random() * 2 * Math.PI;
+			mesh.rotation.y = Math.random() * 2 * Math.PI;
+			mesh.rotation.z = Math.random() * 2 * Math.PI;
+
+			mesh.scale.x = Math.random() * 10;
+			mesh.scale.y = Math.random() * 10;
+			mesh.scale.z = Math.random() * 10 ;
+
+			mesh.castShadow = true;
+			mesh.receiveShadow = true;
+
+			scene.add( mesh );
+
+			objects.push( mesh );
+
+		}
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xf0f0f0 } );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMap.enabled = true;
+		document.body.appendChild( renderer.domElement );
+
+		VH.dragcontrols = new VH.DragObjects( objects );
+
+//		VH.dragcontrols.onDragged = function() { console.log( 'ID', VH.selected.id ); }
+
+	}
+
+	function animate() {
+
+		renderer.render( scene, camera );
+		controls.update();
+		requestAnimationFrame( animate );
+
+	}
+
+</script>
+</body>
+</html>

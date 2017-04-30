@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Edit 3D Catmull-Rom Spline R8</title>
+<meta charset=utf-8 />
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
+<script src=http://mrdoob.github.io/three.js/build/three.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/controls/OrbitControls.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/libs/stats.min.js ></script>
+<script src=http://mrdoob.github.io/three.js/examples/js/exporters/OBJExporter.js ></script>
+
+<script src=http://va3c.github.io/viewer/va3c-hacker/r3-0dev/va3c-hacker-r3-0dev.js ></script>
+<script src=../../enable-drag-objects/r1/enable-drag-objects-r1.js ></script>
+<script src=edit-spline-r10.js ></script>
+<script>
+// https://github.com/zz85/ThreeLabs/blob/master/spline3editor.html
+
+	var VH = VH || {};
+
+	var stats, camera, scene, renderer;
+
+	init();
+	animate();
+
+	function init() {
+
+		var info, light, geometry, material, mesh, helper, axis;
+
+		document.body.style.cssText = 'margin: 0; overflow: hidden;' ;
+
+		renderer = new THREE.WebGLRenderer( { alpha: 1, antialias: true, clearColor: 0xffffff }  );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMap.enabled = true;
+		document.body.appendChild( renderer.domElement );
+
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 5000 );
+		camera.position.set( 100, 100, 100 );
+		scene.add( camera ); // for light to follow
+
+// controls
+		controls = new THREE.OrbitControls( camera );
+		controls.minDistance = 10;
+		controls.maxDistance = 1000;
+
+// Lights
+		var size = size ? size : 100;
+//		var lightAmbient, lightDirectional, lightPoint;
+
+
+		lightAmbient = new THREE.AmbientLight( 0x444444 );
+		scene.add( lightAmbient );
+
+
+		lightDirectional = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		lightDirectional.position.set( 0, size, 0 );
+		lightDirectional.shadow.camera.scale.set( 13, 15, 0.5 );
+
+/*
+		var d = size;
+		lightDirectional.shadow.camera.left = -d;
+		lightDirectional.shadow.camera.right = d;
+		lightDirectional.shadow.camera.top = d;
+		lightDirectional.shadow.camera.bottom = -d;
+
+		lightDirectional.shadow.camera.near = 0;
+		lightDirectional.shadow.camera.far = 3 * size;
+
+// helps stop appearance of grid lines in objects
+		lightDirectional.shadow.bias = -0.001; // default 0 ~ distance from corners?
+*/
+
+		lightDirectional.shadow.mapSize.width = 2048;  // default 512
+		lightDirectional.shadow.mapSize.height = 2048;
+
+		lightDirectional.castShadow = true;
+		scene.add( lightDirectional );
+
+		scene.add( new THREE.CameraHelper( lightDirectional.shadow.camera ) );
+
+		lightPoint = new THREE.PointLight( 0xffffff, 0.95 );
+		camera.add( lightPoint );
+		lightPoint.position = new THREE.Vector3( 0, 0, 1 );
+		scene.add( camera );
+
+
+		geometry = new THREE.BoxGeometry( 100, 2, 100 );
+		material = new THREE.MeshLambertMaterial( {
+			color: 0xffffff * Math.random()
+		} );
+
+		mesh = new THREE.Mesh( geometry, material );
+
+		mesh.position.y = -51;
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		scene.add(mesh);
+
+		helper = new THREE.GridHelper( 50, 10 );
+		helper.position.y = -50;
+		scene.add( helper );
+
+		axis = new THREE.AxisHelper( 50 );
+		scene.add( axis );
+
+
+		if ( window.self === window.top ) {
+
+console.log( 'Not in an iframe');
+
+			VH.splineMakerRandomPoints( 4 );
+
+			VH.dragcontrols = new VH.DragObjects( VH.splinePointsContainer.children );
+
+			VH.dragcontrols.onDragged = VH.updateSplineOutline;
+
+		} else {
+
+console.log( 'Inside an iframe' );
+
+//			VH.splineMakerRandomPoints( parent.inpPoints.value );
+
+//			VH.dragcontrols = new VH.DragObjects( VH.splinePointsContainer.children );
+
+//			VH.dragcontrols.onDragged = VH.updateSplineOutline;
+
+		}
+
+	}
+
+	function animate() {
+
+		renderer.render( scene, camera );
+		controls.update();
+		requestAnimationFrame( animate );
+
+	}
+
+</script>
+</body>
+</html>
